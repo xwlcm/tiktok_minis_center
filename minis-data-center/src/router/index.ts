@@ -219,6 +219,12 @@ const router = createRouter({
           component: () => import('@/views/system/data-init.vue'),
           meta: { title: '数据初始化' },
         },
+        {
+          path: 'system/modules',
+          name: 'SystemModules',
+          component: () => import('@/views/system/modules/index.vue'),
+          meta: { title: '模块管理' },
+        },
 
         {
           path: 'ad/drama-roi',
