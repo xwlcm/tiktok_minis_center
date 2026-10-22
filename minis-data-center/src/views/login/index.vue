@@ -41,11 +41,12 @@
               v-model="formData.username"
               type="text"
               class="lf__input"
+              placeholder=" "
               autocomplete="username"
               @focus="onFocus('username')"
               @blur="onBlur('username')"
               @input="hasError = false"
-              @animationstart="onAutofill('username')"
+              @animationstart="onAutofill('username', $event)"
             />
           </div>
           <div class="lf__line" ></div>
@@ -67,11 +68,12 @@
               v-model="formData.password"
               :type="showPwd ? 'text' : 'password'"
               class="lf__input"
+              placeholder=" "
               autocomplete="current-password"
               @focus="onFocus('password')"
               @blur="onBlur('password')"
               @input="hasError = false"
-              @animationstart="onAutofill('password')"
+              @animationstart="onAutofill('password', $event)"
             />
             <button type="button" class="lf__eye" :aria-label="showPwd ? '隐藏密码' : '显示密码'" @click="showPwd = !showPwd">
               <!-- eye open -->
@@ -92,8 +94,8 @@
         <transition name="err">
           <div v-if="errorMsg" class="lf__error" role="alert" aria-live="polite">
             <svg viewBox="0 0 16 16" fill="none">
-              <circle cx="8" cy="8" r="7" stroke="#E0486D" stroke-width="1.2"/>
-              <path d="M8 5v4M8 11v.5" stroke="#E0486D" stroke-width="1.4" stroke-linecap="round"/>
+              <circle cx="8" cy="8" r="7" stroke="#4c9de4" stroke-width="1.2"/>
+              <path d="M8 5v4M8 11v.5" stroke="#4c9de4" stroke-width="1.4" stroke-linecap="round"/>
             </svg>
             {{ errorMsg }}
           </div>
@@ -164,7 +166,12 @@ function sanitizeRedirectPath(value: unknown): string {
 function onFocus(field: 'username' | 'password') { focus[field] = true }
 function onBlur(field: 'username' | 'password') { focus[field] = false }
 
-function onAutofill(field: 'username' | 'password') {
+function onAutofill(field: 'username' | 'password', event?: AnimationEvent) {
+  // 动画名区分浏览器自动填充的开始与取消
+  if (event && event.animationName === 'onAutoFillCancel') {
+    autofilled[field] = false
+    return
+  }
   autofilled[field] = true
   const el = field === 'username' ? usernameInput.value : passwordInput.value
   if (el && !formData[field]) {
@@ -279,7 +286,7 @@ const mouse = { x: -999, y: -999 }
 
 interface P { x: number; y: number; vx: number; vy: number; r: number; a: number; c: string }
 
-const COLS = ['#E0486D', '#5CBDC5', '#5CBDC5', '#4A90D9', '#ffffff']
+const COLS = ['#4c9de4', '#4c9de4', '#4c9de4', '#4A90D9', '#6FB6F2']
 const N = 200
 const LINK = 130
 
@@ -394,7 +401,7 @@ onUnmounted(() => {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #040508;
+  background: #f1f6fd;
   overflow: hidden;
   font-family: var(--mc-font-family);
 }
@@ -405,8 +412,8 @@ onUnmounted(() => {
   z-index: 0;
   pointer-events: none;
   background:
-    linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,0.018) 1px, transparent 1px);
+    linear-gradient(rgba(22, 41, 63, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(22, 41, 63, 0.06) 1px, transparent 1px);
   background-size: 44px 44px;
   mask-image: radial-gradient(circle at 50% 46%, #000 0%, transparent 72%);
   opacity: 0.55;
@@ -430,12 +437,12 @@ onUnmounted(() => {
 }
 .lw__glow--red {
   width: 500px; height: 500px;
-  background: rgba(224, 72, 109, 0.12);
+  background: rgba(76, 157, 228, 0.12);
   top: -100px; left: -100px;
 }
 .lw__glow--cyan {
   width: 500px; height: 500px;
-  background: rgba(92, 189, 197, 0.10);
+  background: rgba(76, 157, 228, 0.10);
   bottom: -100px; right: -100px;
 }
 
@@ -445,19 +452,19 @@ onUnmounted(() => {
   left: 32px;
   z-index: 1;
   padding: 10px 12px;
-  border: 1px solid rgba(255,255,255,0.08);
+  border: 1px solid rgba(31, 80, 132, 0.14);
   border-radius: 12px;
-  background: rgba(255,255,255,0.035);
+  background: rgba(76, 157, 228, 0.04);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  box-shadow: 0 18px 48px rgba(0,0,0,0.28);
+  box-shadow: 0 18px 48px rgba(23, 54, 92, 0.182);
   animation: logoEnter 0.55s 0.04s ease both;
 }
 .lw__brand-mark :deep(.app-logo__name) {
-  color: rgba(255,255,255,0.94);
+  color: rgba(22, 41, 63, 0.92);
 }
 .lw__brand-mark :deep(.app-logo__sub) {
-  color: rgba(255,255,255,0.42);
+  color: rgba(22, 41, 63, 0.57);
   letter-spacing: 1px;
 }
 
@@ -471,14 +478,14 @@ onUnmounted(() => {
   z-index: 1;
   width: 400px;
   padding: 44px 40px 36px;
-  background: rgba(255,255,255,0.03);
-  border: 1px solid rgba(255,255,255,0.07);
+  background: rgba(76, 157, 228, 0.04);
+  border: 1px solid rgba(31, 80, 132, 0.13);
   border-radius: 16px;
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
   box-shadow:
-    0 0 0 1px rgba(224, 72, 109,0.06),
-    0 32px 80px rgba(0,0,0,0.6);
+    0 0 0 1px rgba(76, 157, 228, 0.06),
+    0 32px 80px rgba(23, 54, 92, 0.18);
   transform: perspective(900px) rotateX(var(--tilt-x)) rotateY(var(--tilt-y)) translateY(0);
   transform-style: preserve-3d;
   transition: transform 0.18s ease, border-color 0.25s ease, box-shadow 0.25s ease;
@@ -490,7 +497,7 @@ onUnmounted(() => {
   inset: 0;
   border-radius: inherit;
   pointer-events: none;
-  background: radial-gradient(circle at var(--spot-x) var(--spot-y), rgba(255,255,255,0.14), transparent 38%);
+  background: radial-gradient(circle at var(--spot-x) var(--spot-y), rgba(76, 157, 228, 0.15), transparent 38%);
   opacity: 0;
   transition: opacity 0.2s ease;
 }
@@ -500,24 +507,24 @@ onUnmounted(() => {
   inset: 1px;
   border-radius: inherit;
   pointer-events: none;
-  border: 1px solid rgba(255,255,255,0.04);
+  border: 1px solid rgba(31, 80, 132, 0.07);
 }
 .lc:hover::before,
 .lc:focus-within::before {
   opacity: 1;
 }
 .lc:focus-within {
-  border-color: rgba(92, 189, 197, 0.18);
+  border-color: rgba(76, 157, 228, 0.18);
   box-shadow:
-    0 0 0 1px rgba(92, 189, 197,0.08),
-    0 34px 90px rgba(0,0,0,0.62);
+    0 0 0 1px rgba(76, 157, 228, 0.08),
+    0 34px 90px rgba(23, 54, 92, 0.22);
 }
 .lc--success {
-  border-color: rgba(92, 189, 197, 0.34);
+  border-color: rgba(76, 157, 228, 0.34);
   box-shadow:
-    0 0 0 1px rgba(92, 189, 197,0.18),
-    0 28px 78px rgba(0,0,0,0.58),
-    0 0 44px rgba(92, 189, 197,0.12);
+    0 0 0 1px rgba(76, 157, 228, 0.18),
+    0 28px 78px rgba(23, 54, 92, 0.20),
+    0 0 44px rgba(76, 157, 228, 0.12);
 }
 
 @keyframes shake {
@@ -537,13 +544,13 @@ onUnmounted(() => {
 .lc__brand :deep(.app-logo__name) {
   font-size: 16px;
   font-weight: 700;
-  color: #fff;
+  color: rgba(22, 41, 63, 0.92);
   letter-spacing: 0.3px;
   font-family: var(--mc-font-family);
 }
 .lc__brand :deep(.app-logo__sub) {
   font-size: 11px;
-  color: rgba(255,255,255,0.35);
+  color: rgba(22, 41, 63, 0.47);
   letter-spacing: 1.2px;
   text-transform: uppercase;
 }
@@ -557,14 +564,14 @@ onUnmounted(() => {
   margin: 0 0 6px;
   font-size: 26px;
   font-weight: 700;
-  color: #fff;
+  color: #16293F;
   letter-spacing: 0;
   font-family: var(--mc-font-family);
 }
 .lc__desc {
   margin: 0;
   font-size: 13px;
-  color: rgba(255,255,255,0.35);
+  color: rgba(22, 41, 63, 0.47);
   font-family: var(--mc-font-cn);
 }
 
@@ -592,7 +599,7 @@ onUnmounted(() => {
   top: 22px;
   left: 28px;
   font-size: 14px;
-  color: rgba(255,255,255,0.3);
+  color: rgba(22, 41, 63, 0.41);
   pointer-events: none;
   transition: top 0.2s ease, font-size 0.2s ease, color 0.2s ease;
   transform-origin: left;
@@ -600,14 +607,21 @@ onUnmounted(() => {
 .lf__label--up {
   top: 0;
   font-size: 12px;
-  color: rgba(255,255,255,0.45);
+  color: rgba(22, 41, 63, 0.61);
+  letter-spacing: 0.5px;
+}
+/* 浏览器自动填充时 :placeholder-shown 失效，用 CSS 兜底上浮，避免与值重叠 */
+.lf__field:has(.lf__input:not(:placeholder-shown)) .lf__label {
+  top: 0;
+  font-size: 12px;
+  color: rgba(22, 41, 63, 0.61);
   letter-spacing: 0.5px;
 }
 .lf__field--focus .lf__label--up {
-  color: #5CBDC5;
+  color: #4c9de4;
 }
 .lf__field--error .lf__label--up {
-  color: #E0486D;
+  color: #E0576E;
 }
 
 /* 输入行 */
@@ -622,12 +636,12 @@ onUnmounted(() => {
 .lf__icon {
   width: 16px; height: 16px;
   flex-shrink: 0;
-  color: rgba(255,255,255,0.25);
+  color: rgba(22, 41, 63, 0.34);
   transition: color 0.2s, transform 0.2s;
 }
-.lf__field--focus .lf__icon { color: #5CBDC5; transform: scale(1.08); }
-.lf__field--filled:not(.lf__field--focus):not(.lf__field--error) .lf__icon { color: rgba(255,255,255,0.42); }
-.lf__field--error .lf__icon { color: #E0486D; }
+.lf__field--focus .lf__icon { color: #4c9de4; transform: scale(1.08); }
+.lf__field--filled:not(.lf__field--focus):not(.lf__field--error) .lf__icon { color: rgba(22, 41, 63, 0.57); }
+.lf__field--error .lf__icon { color: #E0576E; }
 
 /* 原生 input — 完全掌控，无任何框架干扰 */
 .lf__input {
@@ -638,9 +652,9 @@ onUnmounted(() => {
   font-size: 15px !important;
   font-weight: 400 !important;
   font-family: var(--mc-font-family) !important;
-  color: #ffffff !important;
-  caret-color: #5CBDC5 !important;
-  -webkit-text-fill-color: #ffffff !important;
+  color: #16293F !important;
+  caret-color: #4c9de4 !important;
+  -webkit-text-fill-color: #16293F !important;
   line-height: 1.4 !important;
   padding: 0 !important;
   margin: 0 !important;
@@ -655,14 +669,14 @@ onUnmounted(() => {
 .lf__input::placeholder {
   color: transparent; /* label 代替 placeholder */
 }
-/* 自动填充时保持深色背景白色文字 */
+/* 自动填充时保持深色文字，背景色贴近卡片底色 */
 .lf__input:-webkit-autofill,
 .lf__input:-webkit-autofill:hover,
 .lf__input:-webkit-autofill:focus,
 .lf__input:-webkit-autofill:active {
-  -webkit-text-fill-color: #ffffff !important;
-  -webkit-box-shadow: 0 0 0 1000px #0E1018 inset !important;
-  caret-color: #5CBDC5 !important;
+  -webkit-text-fill-color: #16293F !important;
+  -webkit-box-shadow: 0 0 0 1000px #F1F6FD inset !important;
+  caret-color: #4c9de4 !important;
   transition: background-color 5000s ease-in-out 0s;
 }
 
@@ -685,7 +699,7 @@ onUnmounted(() => {
 .lf__line {
   position: relative;
   height: 1px;
-  background: rgba(255,255,255,0.1);
+  background: rgba(76, 157, 228, 0.11);
   overflow: hidden;
   transition: background 0.25s, box-shadow 0.25s;
 }
@@ -693,7 +707,7 @@ onUnmounted(() => {
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(90deg, #E0486D, #5CBDC5);
+  background: linear-gradient(90deg, #4c9de4, #4c9de4);
   transform: translateX(-105%);
   transition: transform 0.28s ease;
 }
@@ -702,12 +716,12 @@ onUnmounted(() => {
   transform: translateX(0);
 }
 .lf__field--focus .lf__line {
-  background: rgba(92, 189, 197,0.45);
-  box-shadow: 0 0 8px rgba(92, 189, 197,0.5);
+  background: rgba(76, 157, 228, 0.45);
+  box-shadow: 0 0 8px rgba(76, 157, 228, 0.5);
 }
 .lf__field--error .lf__line {
-  background: #E0486D;
-  box-shadow: 0 0 8px rgba(224, 72, 109,0.4);
+  background: #E0576E;
+  box-shadow: 0 0 8px rgba(224, 87, 110,0.4);
 }
 
 /* 眼睛按钮 */
@@ -718,14 +732,14 @@ onUnmounted(() => {
   cursor: pointer;
   display: flex;
   align-items: center;
-  color: rgba(255,255,255,0.25);
+  color: rgba(22, 41, 63, 0.34);
   transition: color 0.2s, transform 0.2s;
   flex-shrink: 0;
 }
 .lf__eye svg { width: 18px; height: 18px; }
-.lf__eye:hover { color: rgba(255,255,255,0.6); transform: scale(1.08); }
+.lf__eye:hover { color: rgba(22, 41, 63, 0.81); transform: scale(1.08); }
 .lf__eye:focus-visible {
-  outline: 2px solid rgba(92, 189, 197,0.7);
+  outline: 2px solid rgba(76, 157, 228, 0.7);
   outline-offset: 4px;
   border-radius: 999px;
 }
@@ -736,7 +750,7 @@ onUnmounted(() => {
   align-items: center;
   gap: 6px;
   font-size: 12px;
-  color: #E0486D;
+  color: #E0576E;
   margin-top: -12px;
 }
 .lf__error svg { width: 14px; height: 14px; flex-shrink: 0; }
@@ -757,18 +771,18 @@ onUnmounted(() => {
   letter-spacing: 3px;
   color: #fff;
   font-family: var(--mc-font-family);
-  background: linear-gradient(90deg, #E0486D 0%, #5CBDC5 100%);
+  background: linear-gradient(90deg, #4c9de4 0%, #4c9de4 100%);
   position: relative;
   overflow: hidden;
   transition: opacity 0.2s, transform 0.15s, box-shadow 0.2s;
-  box-shadow: 0 4px 24px rgba(224, 72, 109,0.35);
+  box-shadow: 0 4px 24px rgba(76, 157, 228, 0.35);
 }
 /* 光泽扫光 */
 .lf__btn::before {
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(105deg, transparent 40%, rgba(255,255,255,0.18) 50%, transparent 60%);
+  background: linear-gradient(105deg, transparent 40%, rgba(76, 157, 228, 0.2) 50%, transparent 60%);
   transform: translateX(-100%);
   transition: transform 0.5s ease;
 }
@@ -776,15 +790,15 @@ onUnmounted(() => {
 .lf__btn:hover:not(:disabled) {
   opacity: 0.92;
   transform: translateY(-1px);
-  box-shadow: 0 8px 32px rgba(224, 72, 109,0.45);
+  box-shadow: 0 8px 32px rgba(76, 157, 228, 0.45);
 }
 .lf__btn:active:not(:disabled) {
   transform: translateY(0);
-  box-shadow: 0 2px 12px rgba(224, 72, 109,0.3);
+  box-shadow: 0 2px 12px rgba(76, 157, 228, 0.3);
 }
 .lf__btn:disabled { cursor: not-allowed; opacity: 0.7; }
 .lf__btn:focus-visible {
-  outline: 2px solid rgba(255,255,255,0.7);
+  outline: 2px solid rgba(22, 41, 63, 0.92);
   outline-offset: 4px;
 }
 .lf__btn--loading,
@@ -795,7 +809,7 @@ onUnmounted(() => {
   animation: btnSweep 1.1s ease-in-out infinite;
 }
 .lf__btn--success {
-  background: linear-gradient(90deg, #33C98A 0%, #5CBDC5 100%);
+  background: linear-gradient(90deg, #22a06b 0%, #4c9de4 100%);
   box-shadow: 0 8px 34px rgba(51, 201, 138,0.24);
 }
 .lf__btn-text--done {
@@ -814,7 +828,7 @@ onUnmounted(() => {
 .lf__spinner {
   display: inline-block;
   width: 20px; height: 20px;
-  border: 2px solid rgba(255,255,255,0.3);
+  border: 2px solid rgba(31, 80, 132, 0.3);
   border-top-color: #fff;
   border-radius: 50%;
   animation: spin 0.7s linear infinite;
