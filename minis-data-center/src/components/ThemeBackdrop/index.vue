@@ -5,9 +5,20 @@
     :class="`backdrop--${themeStore.motion}`"
     aria-hidden="true"
   >
-    <!-- 图片壁纸：自动等比铺满窗口，可选缓慢缩放/漂浮动效 -->
+    <!-- 壁纸素材：图片/GIF 用 img，动态视频用 video，均自动等比铺满窗口 -->
     <div v-if="wallpaper && displayUrl" class="bd-wall">
+      <video
+        v-if="isVideo"
+        class="bd-wall-img"
+        :src="displayUrl"
+        autoplay
+        muted
+        loop
+        playsinline
+        @error="handleImageError"
+      />
       <img
+        v-else
         class="bd-wall-img"
         :class="`bd-wall-img--${wallpaper.motion}`"
         :src="displayUrl"
@@ -35,6 +46,7 @@ const themeStore = useThemeStore()
 const failedPrimary = ref(false)
 
 const wallpaper = computed(() => themeStore.wallpaper)
+const isVideo = computed(() => wallpaper.value?.kind === 'video')
 const visible = computed(() => Boolean(wallpaper.value) || themeStore.motion !== 'none')
 /** 图片读取失败时回退到原始图片地址 */
 const displayUrl = computed(() => {
@@ -222,12 +234,13 @@ function handleImageError() {
 
 /* ─── 关键帧 ─────────────────────────────────────── */
 @keyframes bd-kenburns {
-  from { transform: scale(1.02) translate3d(-1.2%, -0.8%, 0); }
-  to { transform: scale(1.16) translate3d(1.6%, 1.2%, 0); }
+  /* 放大倍数控制在 4%~9%，再大就会把原图拉糊 */
+  from { transform: scale(1.04) translate3d(-0.8%, -0.5%, 0); }
+  to { transform: scale(1.09) translate3d(1%, 0.8%, 0); }
 }
 @keyframes bd-float {
-  from { transform: scale(1.08) translate3d(-1.6%, 0.8%, 0); }
-  to { transform: scale(1.1) translate3d(1.8%, -1.2%, 0); }
+  from { transform: scale(1.05) translate3d(-1%, 0.5%, 0); }
+  to { transform: scale(1.07) translate3d(1.1%, -0.7%, 0); }
 }
 @keyframes bd-drift-a {
   from { transform: translate3d(-6%, -4%, 0) scale(1); }

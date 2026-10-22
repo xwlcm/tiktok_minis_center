@@ -103,11 +103,23 @@
               背景壁纸
               <em>{{ themeStore.wallpaper ? '已启用' : '未设置' }}</em>
             </div>
+            <div class="ts-wall-types">
+              <button
+                v-for="tab in WALLPAPER_TABS"
+                :key="tab.id"
+                type="button"
+                class="ts-wall-type"
+                :class="{ 'ts-wall-type--active': wallpaperType === tab.id }"
+                @click="switchWallpaperType(tab.id)"
+              >
+                {{ tab.name }}
+              </button>
+            </div>
             <div class="ts-wall-search">
               <a-input
                 v-model="wallpaperKeyword"
                 size="small"
-                placeholder="搜索全网壁纸：星空 / 极光 / 波纹…"
+                :placeholder="wallpaperType === 'video' ? '搜索动态视频：海浪 / 日落 / 森林…' : '搜索动图壁纸：3D 动态 / 极光 / 流体…'"
                 allow-clear
                 @press-enter="runWallpaperSearch()"
               />
@@ -117,7 +129,7 @@
             </div>
             <div class="ts-wall-tags">
               <button
-                v-for="tag in WALLPAPER_TAGS"
+                v-for="tag in currentWallpaperTags"
                 :key="tag"
                 type="button"
                 class="ts-wall-tag"
@@ -126,8 +138,11 @@
                 {{ tag }}
               </button>
             </div>
+            <p v-if="wallpaperType === 'image'" class="ts-wall-tip">
+              网络动图源多为 640px，铺满大屏会偏软；追求清晰建议用「3D 动态视频」
+            </p>
 
-            <div v-if="wallpaperLoading" class="ts-wall-loading">正在搜索壁纸，请稍候…</div>
+            <div v-if="wallpaperLoading" class="ts-wall-loading">正在搜索素材，请稍候…</div>
             <div v-else-if="wallpaperResults.length" class="ts-wall-grid">
               <button
                 v-for="item in wallpaperResults"
@@ -138,19 +153,32 @@
                 @click="useWallpaper(item)"
               >
                 <img :src="item.thumb" alt="" loading="lazy" referrerpolicy="no-referrer" />
-                <span v-if="applyingId === item.id" class="ts-wall-badge">应用中…</span>
+                <span class="ts-wall-kind">
+                  {{ item.kind === 'video' ? '1080P · ' + formatDuration(item.duration) : '动图 / 图片' }}
+                </span>
+                <span v-if="applyingId === item.id" class="ts-wall-badge">下载中…</span>
                 <span v-else class="ts-wall-badge">一键使用</span>
                 <span class="ts-wall-size">{{ item.width }}×{{ item.height }}</span>
               </button>
             </div>
-            <p v-else-if="wallpaperSearched" class="ts-wall-empty">没有找到合适的横图，换个关键词试试</p>
+            <p v-else-if="wallpaperSearched" class="ts-wall-empty">没有找到合适的素材，换个关键词试试</p>
 
             <div v-if="themeStore.wallpaper" class="ts-wall-current">
               <div class="ts-wall-current-head">
-                <img :src="themeStore.wallpaper.url" alt="" referrerpolicy="no-referrer" />
+                <video
+                  v-if="themeStore.wallpaper.kind === 'video'"
+                  :src="themeStore.wallpaper.url"
+                  autoplay
+                  muted
+                  loop
+                  playsinline
+                />
+                <img v-else :src="themeStore.wallpaper.url" alt="" referrerpolicy="no-referrer" />
                 <div class="ts-wall-current-meta">
                   <p class="ts-wall-current-title">{{ themeStore.wallpaper.title || '当前壁纸' }}</p>
-                  <p class="ts-wall-current-sub">已下载并转存，换设备登录同样生效</p>
+                  <p class="ts-wall-current-sub">
+                    {{ themeStore.wallpaper.kind === 'video' ? '动态视频壁纸，循环播放' : '已存入数据库，换设备登录同样生效' }}
+                  </p>
                 </div>
                 <button type="button" class="ts-wall-remove" @click="removeWallpaper">移除</button>
               </div>
@@ -167,7 +195,7 @@
                 />
                 <span class="ts-wall-row-value">{{ maskDraft }}%</span>
               </div>
-              <div class="ts-wall-row">
+              <div v-if="themeStore.wallpaper.kind !== 'video'" class="ts-wall-row">
                 <span class="ts-wall-row-label">动效</span>
                 <a-radio-group
                   :model-value="themeStore.wallpaper.motion"
@@ -180,7 +208,9 @@
                   <a-radio value="float">漂浮</a-radio>
                 </a-radio-group>
               </div>
-              <p class="ts-wall-hint">壁纸自动等比铺满窗口；遮罩越高文字越清晰。</p>
+              <p class="ts-wall-hint">
+                {{ themeStore.wallpaper.kind === 'video' ? '视频自带动态，无需再选缩放动效；遮罩越高文字越清晰。' : '壁纸自动等比铺满窗口；遮罩越高文字越清晰。' }}
+              </p>
             </div>
           </section>
 
@@ -270,6 +300,7 @@ import {
   searchWallpaper,
   updateWallpaperConfig,
   type WallpaperItem,
+  type WallpaperKind,
   type WallpaperMotion,
 } from '@/api/wallpaper.ts'
 import { useThemeStore } from '@/stores/theme.ts'
@@ -298,33 +329,74 @@ const accountLabel = computed(() =>
   themeStore.userId === null ? '未登录 · 访客配色' : `账号 #${themeStore.userId} · 独立配色`,
 )
 
-/* ── 背景壁纸：全网搜索 + 一键下载应用 ─────────────── */
-const WALLPAPER_TAGS = ['唯美壁纸', '极光', '星空', '波纹', '赛博朋克', '山川', '海洋']
-const wallpaperKeyword = ref('唯美壁纸')
+/* ── 背景壁纸：3D 动态视频 + GIF 动图/图片 ────────────── */
+const WALLPAPER_TABS = [
+  { id: 'video' as WallpaperKind, name: '3D 动态视频' },
+  { id: 'image' as WallpaperKind, name: 'GIF 动图 / 图片' },
+]
+const IMAGE_TAGS = ['3D 动态壁纸', '极光 GIF', '星空动图', '流体动图', '粒子动图', '唯美壁纸']
+const VIDEO_TAGS = ['海浪', '日落', '森林', '雪景', '城市', '建筑']
+const wallpaperType = ref<WallpaperKind>('video')
+const wallpaperKeyword = ref('海浪')
 const wallpaperResults = ref<WallpaperItem[]>([])
 const wallpaperLoading = ref(false)
 const wallpaperSearched = ref(false)
 const applyingId = ref('')
 const maskDraft = ref(32)
+/** 搜索中的新关键词，本次请求结束后自动补搜，避免点了没反应 */
+let pendingKeyword = ''
+
+const currentWallpaperTags = computed(() =>
+  wallpaperType.value === 'video' ? VIDEO_TAGS : IMAGE_TAGS,
+)
+
+function formatDuration(seconds?: number) {
+  const total = Math.max(0, Math.round(seconds ?? 0))
+  return `${Math.floor(total / 60)}:${String(total % 60).padStart(2, '0')}`
+}
+
+function switchWallpaperType(type: WallpaperKind) {
+  if (wallpaperType.value === type) return
+  wallpaperType.value = type
+  wallpaperKeyword.value = type === 'video' ? '海浪' : '极光 GIF'
+  wallpaperSearched.value = false
+  wallpaperResults.value = []
+  void runWallpaperSearch()
+}
 
 async function runWallpaperSearch(keyword?: string) {
   if (keyword) wallpaperKeyword.value = keyword
   const word = wallpaperKeyword.value.trim()
-  if (!word || wallpaperLoading.value) return
+  if (!word) return
+  if (wallpaperLoading.value) {
+    pendingKeyword = word
+    return
+  }
   wallpaperLoading.value = true
   try {
-    wallpaperResults.value = await searchWallpaper(word)
+    wallpaperResults.value = await searchWallpaper(word, 0, wallpaperType.value)
     wallpaperSearched.value = true
   } catch {
     wallpaperResults.value = []
+    Message.error('搜索超时或失败，请稍后重试')
   } finally {
     wallpaperLoading.value = false
+    const next = pendingKeyword
+    pendingKeyword = ''
+    if (next && next !== word) void runWallpaperSearch(next)
   }
 }
 
 async function useWallpaper(item: WallpaperItem) {
   if (applyingId.value) return
   applyingId.value = item.id
+  const hint = Message.loading({
+    content:
+      item.kind === 'video'
+        ? '正在下载 1080P 视频并保存，约需 5~20 秒…'
+        : '正在下载素材并保存，请稍候…',
+    duration: 0,
+  })
   try {
     // 服务端下载原图并存入数据库，再把图片读回来转成 blob 地址展示
     const config = await applyWallpaperApi(item)
@@ -336,10 +408,11 @@ async function useWallpaper(item: WallpaperItem) {
     }
     themeStore.setWallpaper(config)
     maskDraft.value = config.mask ?? 32
-    Message.success('壁纸已应用')
+    Message.success(`壁纸已应用：${item.title}`)
   } catch {
     // 请求层已统一提示错误
   } finally {
+    hint.close()
     applyingId.value = ''
   }
 }
@@ -580,6 +653,25 @@ watch(open, (value) => {
 }
 
 /* ── 背景壁纸 ───────────────────────────────── */
+.ts-wall-types { display: flex; gap: 6px; }
+.ts-wall-type {
+  flex: 1;
+  height: 28px;
+  border: 1px solid color-mix(in srgb, var(--mc-text-primary) 14%, transparent);
+  border-radius: 8px;
+  background: transparent;
+  color: color-mix(in srgb, var(--mc-text-primary) 60%, transparent);
+  font-size: 11px;
+  font-family: var(--mc-font-family);
+  cursor: pointer;
+  transition: border-color 0.18s ease, color 0.18s ease, background 0.18s ease;
+}
+.ts-wall-type:hover { border-color: var(--mc-primary); color: var(--mc-primary); }
+.ts-wall-type--active {
+  border-color: color-mix(in srgb, var(--mc-primary) 62%, transparent);
+  background: color-mix(in srgb, var(--mc-primary) 12%, transparent);
+  color: var(--mc-primary);
+}
 .ts-wall-search { display: flex; align-items: center; gap: 8px; }
 .ts-wall-tags { display: flex; flex-wrap: wrap; gap: 6px; }
 .ts-wall-tag {
@@ -595,6 +687,12 @@ watch(open, (value) => {
   transition: border-color 0.18s ease, color 0.18s ease;
 }
 .ts-wall-tag:hover { border-color: var(--mc-primary); color: var(--mc-primary); }
+.ts-wall-tip {
+  margin: 0;
+  color: color-mix(in srgb, var(--mc-text-primary) 40%, transparent);
+  font-size: 9.5px;
+  line-height: 1.5;
+}
 .ts-wall-loading,
 .ts-wall-empty {
   margin: 0;
@@ -651,6 +749,17 @@ watch(open, (value) => {
   font-size: 9px;
   line-height: 1.4;
 }
+.ts-wall-kind {
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  padding: 1px 5px;
+  border-radius: 4px;
+  background: rgba(0, 0, 0, 0.52);
+  color: #fff;
+  font-size: 9px;
+  line-height: 1.4;
+}
 .ts-wall-current {
   display: flex;
   flex-direction: column;
@@ -661,7 +770,8 @@ watch(open, (value) => {
   background: color-mix(in srgb, var(--mc-bg-card) 72%, transparent);
 }
 .ts-wall-current-head { display: flex; align-items: center; gap: 8px; }
-.ts-wall-current-head img {
+.ts-wall-current-head img,
+.ts-wall-current-head video {
   flex-shrink: 0;
   width: 52px;
   height: 34px;

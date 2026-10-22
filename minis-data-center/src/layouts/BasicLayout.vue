@@ -1,5 +1,5 @@
 <template>
-  <div class="shell" :class="{ 'shell--mobile': isMobile }">
+  <div class="shell" :class="{ 'shell--mobile': isMobile, 'shell--wallpaper': Boolean(themeStore.wallpaper) }">
     <div class="shell-aurora" aria-hidden="true" />
     <ThemeBackdrop />
 
@@ -543,6 +543,20 @@ watch(activeGroupKey, (key) => {
   width: 72px;
   padding-left: 8px;
   padding-right: 8px;
+}
+
+/* 启用壁纸后侧边栏减淡，让背景画面铺满整屏而不是被侧栏切断 */
+.shell--wallpaper .sider {
+  background: color-mix(in srgb, var(--mc-bg-card) 32%, transparent);
+  border-right-color: color-mix(in srgb, var(--mc-text-primary) 16%, transparent);
+  backdrop-filter: blur(10px) saturate(1.05);
+  -webkit-backdrop-filter: blur(10px) saturate(1.05);
+}
+.shell--wallpaper .commandbar {
+  background: color-mix(in srgb, var(--mc-bg-card) 58%, transparent);
+}
+.shell--wallpaper .topbar {
+  background: color-mix(in srgb, var(--mc-bg-card) 58%, transparent);
 }
 
 /* 品牌区 */

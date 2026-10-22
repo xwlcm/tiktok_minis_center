@@ -1,19 +1,26 @@
 import request from '@/utils/request.ts'
 
+/** 壁纸类型：image 静态图或 GIF 动图，video 动态视频 */
+export type WallpaperKind = 'image' | 'video'
+
 /** 搜索结果条目，thumb 直接用于预览，original 交给服务端下载 */
 export interface WallpaperItem {
   id: string
+  kind: WallpaperKind
   thumb: string
   original: string
   width: number
   height: number
+  /** 视频时长（秒），图片为 0 */
+  duration?: number
   title: string
 }
 
 export type WallpaperMotion = 'none' | 'kenburns' | 'float'
 
-/** 当前账号的壁纸配置，图片存在数据库里，url 为前端生成的 blob 地址 */
+/** 当前账号的壁纸配置，素材存在数据库里，url 为前端生成的 blob 地址 */
 export interface WallpaperConfig {
+  kind: WallpaperKind
   url: string
   sourceUrl?: string
   title?: string
@@ -24,9 +31,10 @@ export interface WallpaperConfig {
   updatedAt?: number
 }
 
-export function searchWallpaper(keyword: string, page = 0) {
+export function searchWallpaper(keyword: string, page = 0, type: WallpaperKind = 'image') {
   return request.get<WallpaperItem[]>('/system/wallpaper/search', {
-    params: { keyword, page },
+    params: { keyword, page, type },
+    timeout: 60_000,
   })
 }
 
@@ -34,12 +42,15 @@ export function getWallpaper() {
   return request.get<WallpaperConfig | null>('/system/wallpaper/current')
 }
 
-/** 一键应用：服务端下载原图并存入数据库，耗时可能超过默认 30s */
+/** 一键应用：服务端下载素材并存入数据库，耗时可能超过默认 30s */
 export function applyWallpaper(item: WallpaperItem) {
   return request.post<WallpaperConfig>(
     '/system/wallpaper/apply',
     {
       original: item.original,
+      // 原图被源站防盗链拦截时，服务端会用缩略图兜底
+      thumb: item.thumb,
+      kind: item.kind,
       title: item.title,
       width: item.width,
       height: item.height,
