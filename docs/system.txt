@@ -1,0 +1,653 @@
+# Minis Data Center — 系统设计文档
+# 版本：v3.0  最后更新：2026-05
+
+---
+
+## 一、技术栈
+
+| 层级 | 技术选型 | 版本 | 说明 |
+|------|----------|------|------|
+| 前端框架 | Vue 3 | 3.5.33 | Composition API + `<script setup>` |
+| UI 组件库 | Arco Design | 2.58.0 | 中台布局 + 全套业务组件 |
+| CSS 框架 | Tailwind CSS | 4.2.4 | 原子化 CSS，关闭 preflight 避免与 Arco 冲突 |
+| 图表库 | ECharts | 6.0.0 | 按需引入，Canvas 渲染 |
+| 状态管理 | Pinia | 2.2.6 | 模块化 Store |
+| 路由 | Vue Router | 4.4.5 | 懒加载 + 路由守卫 + 权限守卫 |
+| HTTP | Axios | 1.7.9 | 拦截器统一处理 token / clientKey / 错误 |
+| 构建工具 | Vite | 5.4.11 | 快速 HMR，按需打包 |
+| 语言 | TypeScript | 5.6.3 | 全量类型覆盖 |
+| 视频上传 | tt-uploader | ^1.6.1 | 字节跳动 VOD SDK，分片上传 + STS 鉴权 |
+| 视频播放 | @byteplus/veplayer | ^1.16.0 | BytePlus 播放器 SDK |
+| 视频上传(新) | @byteplus/uploader | ^1.1.3 | BytePlus 上传 SDK |
+| 代码规范 | ESLint | 10.2.1 | 含自定义 eslint-plugin-minis 规则 |
+| 自动导入 | unplugin-auto-import | 0.18.6 | Arco 组件自动按需导入 |
+| 组件注册 | unplugin-vue-components | 0.27.4 | Arco 组件自动注册 |
+| Mock | Mock.js | ^1.1.0 | 开发阶段接口模拟 |
+
+> 版本选型原则：选用经过大量生产验证、社区活跃、兼容性稳定的版本，不追最新 major。
+
+---
+
+## 二、功能模块总览
+
+> 当前为 v3.0 版本，已实现登录认证、权限控制、账号管理、短剧全生命周期管理、
+> 智能广告投放算法、事件回传、用户画像等完整功能。
+
+---
+
+### 模块 0：登录认证
+
+**定位**：系统入口，负责用户身份验证和会话管理。
+
+#### 0.1 登录页
+- 独立全屏页面（不走 BasicLayout），路由 `/login`
+- 用户名 + 密码表单，浮动 Label 交互
+- 密码明文/密文切换
+- 登录失败抖动动画 + 错误提示
+- 粒子动画背景（Canvas 实现，鼠标交互）
+- 登录成功后 token 存入 `localStorage`，跳转仪表盘
+
+#### 0.2 认证流程
+- 路由守卫：未登录（无 token）→ 强制跳转 `/login`
+- Axios 请求拦截器自动注入 `Authorization: Bearer <token>` + `clientid` 请求头
+- 响应拦截器：`401` → 清除 token/refresh_token/client_id + 跳转登录页
+- 退出登录：调用 `/auth/logout`，清除本地状态（token/client_id/accountStore/appStore）
+
+---
+
+### 模块 1：短剧管理
+
+**定位**：平台内容资产的核心管理入口，负责短剧的全生命周期管理及首页运营位配置。
+
+#### 1.1 短剧列表
+- 路由：`/drama/list`，权限：`canManageDrama`
+- 分页展示所有短剧（封面、名称、标签、集数、解锁模式、广告规则、创建时间）
+- 名称模糊搜索
+- 标签筛选（按标签名称单选过滤）
+- 解锁模式标签：仅广告（绿）/ 仅付费（橙红）/ 广告或付费（蓝）
+- 广告推送规则关联展示（每N广告解锁N集，每日上限）
+- 点击名称跳转详情
+- 删除操作（二次确认，含关联数据检查：剧集/标签/首页展位/广告规则）
+- 切换应用时自动刷新列表
+- `keep-alive` 缓存组件
+
+#### 1.2 上传短剧
+- 路由：`/drama/upload`，权限：`canManageDrama`
+- 两阶段交互流程：
+  - **阶段一（组织文件）**：填写基本信息 + 添加/排序视频文件
+  - **阶段二（上传进度）**：实时展示每个文件的上传状态和进度
+- 基本信息表单：
+  - 短剧名称（必填，2–50 字符）
+  - 短剧描述（选填，最多 500 字符）
+  - 标签选择（多选，按分组展示）
+  - 解锁模式选择（IAA_ONLY / IAP_ONLY / IAA_IAP）
+  - 广告推送规则关联（下拉选择已启用的规则）
+  - 免费集数设置
+- 视频文件管理：
+  - 拖拽或点击上传（支持 mp4 / mov，单文件不超过 2GB）
+  - 按文件名自动排序
+  - 拖拽行调整顺序、上下移动、删除
+- 上传引擎：`tt-uploader` / `@byteplus/uploader` SDK
+  - STS Token 鉴权（通过 `/vod/upload-session` 获取）
+  - 分片上传，支持暂停/恢复/重试
+  - 实时进度百分比 + 速度显示
+  - 完成后返回 Vid（视频ID）和 PosterUri
+
+#### 1.3 短剧详情
+- 路由：`/drama/:id`，权限：`canManageDrama`
+- 基本信息卡片：名称、集数、创建时间、标签、描述、解锁模式
+- 集数列表 + 内嵌视频播放器（BytePlus VePlayer）
+- 集数 Tab 切换，未解锁集显示锁定状态
+- 视频时长格式化显示
+
+#### 1.4 短剧标签管理
+- 路由：`/drama/tags`，权限：`canManageDrama`
+- 标签 CRUD（名称 + 分组 + 颜色 + 排序权重 + 状态）
+- 分组 Tab 筛选（全部 / 按分组名过滤）
+- 默认分组：题材、风格、受众（支持自定义输入新分组）
+- 行内 Switch 启用/禁用标签
+- 关联短剧数量展示（`refCount`）
+- 删除时提示关联短剧数
+
+#### 1.5 首页轮播管理
+- 路由：`/drama/home-banner`，权限：`canManageDrama`
+- 管理 TikTok Minis 首页轮播推荐短剧（最多 8 张）
+- CRUD + 排序调整（上移/下移）
+- 关联短剧选择（搜索下拉）
+- 轮播标题、封面图 URL
+- 行内 Switch 控制展示/隐藏
+- 统一 HomeSlot 模型（slotType=BANNER）
+
+#### 1.6 首页热播短剧
+- 路由：`/drama/home-hot`，权限：`canManageDrama`
+- 管理首页热播短剧模块
+- CRUD + 排序调整
+- 排名徽章（前三名金/银/铜色）
+- 行内 Switch 控制展示/隐藏
+- 统一 HomeSlot 模型（slotType=HOT）
+
+#### 1.7 首页分类排行榜
+- 路由：`/drama/home-rank`，权限：`canManageDrama`
+- 管理各分类短剧排行榜（每个分类最多 10 条）
+- 8 个固定分类：甜宠、霸总、逆袭、玄幻、都市、古装、悬疑、喜剧
+- 分类 Tab 切换，显示各分类启用条数（RankCategoryStat）
+- CRUD + 排名调整（上移/下移）
+- 排名徽章（前三名金/银/铜色）
+- 行内 Switch 控制展示/隐藏
+- 统一 HomeSlot 模型（slotType=RANK）
+
+#### 1.8 更多短剧（Explore）
+- 路由：`/drama/home-explore`，权限：`canManageDrama`
+- 管理首页"更多短剧"模块的展示内容
+
+#### 1.9 广告推送设置（短剧维度）
+- 路由：`/drama/ad-settings`，权限：`canManageDrama`
+- 管理短剧级别的广告推送规则
+- 规则参数：每N广告解锁N集、每日广告上限
+- 规则启用/禁用、默认规则标记
+- `keep-alive` 缓存组件
+
+#### 1.10 渲染顺序设置
+- 路由：`/drama/module-order`，权限：`canManageDrama`
+- 管理首页各模块（轮播/热播/排行榜/更多）的渲染顺序
+
+---
+
+### 模块 2：用户管理
+
+**定位**：运营人员了解用户行为、分析用户质量的核心工具。
+
+#### 2.1 用户列表
+- 路由：`/user/list`，权限：`canViewUser`
+- 分页展示注册用户（头像、昵称、OpenID、注册时间、最后活跃）
+- 关键词搜索（昵称 / OpenID）
+- 注册时间范围筛选（`a-range-picker`）
+- 点击行跳转用户详情
+- 切换应用时自动刷新列表
+- `keep-alive` 缓存组件
+
+#### 2.2 用户详情（数据画像）
+- 路由：`/user/:id`，权限：`canViewUser`
+- 基础信息卡片：头像、昵称、注册时间、最后活跃时间、价值分层（valueTier）
+- 8 项行为指标卡片（4×2 网格）：
+  - 播放集数（totalEpisodesWatched）
+  - 观看时长（totalWatchDurationMs，格式化为 `Xh Xm`）
+  - 观看短剧数量（totalDramasWatched）
+  - 观看广告数量（totalAdsWatched）
+  - 完成广告数量（totalAdsCompleted）
+  - 完成短剧数量（totalDramasCompleted）
+  - 完成集数（totalEpisodesCompleted）
+  - 广告完成率（adCompletionRate）
+- 近 30 天观看趋势图（ECharts 双 Y 轴折线图）：
+  - 左 Y 轴：观看时长（分钟，durationMinutes）
+  - 右 Y 轴：播放集数（episodes）
+  - 平滑曲线 + 面积渐变
+
+---
+
+### 模块 3：应用管理（切换应用）
+
+**定位**：支持多 TK Minis 应用的数据隔离与快速切换，是全局数据上下文的控制中心。
+
+#### 3.1 应用列表 / 切换
+- 路由：`/system/app`，权限：`canSwitchApp`（仅管理员）
+- 卡片式展示所有应用（首字母头像、名称、运行状态、应用类型）
+- 点击切换当前工作应用，全局数据随之刷新
+- 当前应用高亮标识 + 渐变顶部边线
+- 切换后自动跳转仪表盘
+- 应用信息：appName / appType / clientKey / dailyEventQuota / featureFlags
+
+#### 3.2 顶部导航栏快捷切换
+- `AppSwitcher` 组件（下拉菜单，仅 `canSwitchApp` 权限可见）
+- 非 admin 用户显示当前应用名（只读，绿色状态点）
+- 切换后自动跳转仪表盘
+
+#### 3.3 数据隔离机制
+- 后端通过 Sa-Token Session 存储当前 clientKey
+- 前端调用 `POST /system/application/switch` 切换应用
+- 切换后后端将 clientKey 写入 Session，后续所有 SQL 自动拼接 `WHERE app_id = ?`
+- 前端不在请求参数中传递 clientKey（由后端 Session 自动获取）
+
+---
+
+### 模块 4：广告管理
+
+**定位**：管理 TK Minis 平台内的广告资源，配置广告触发策略，智能投放算法，事件回传，最大化广告收益。
+
+#### 4.1 广告库存列表
+- 路由：`/ad/list`，权限：`canManageAd`
+- 分页展示所有广告（规则名称、广告位 ID、类型、推送次数、激活状态、更新时间）
+- 行内 Switch 切换激活状态（启用/禁用 API）
+- 广告类型标签：激励视频（`RewardedVideoAd`）、插屏广告（`InterstitialAd`）
+- 编辑（Modal 表单）、删除（二次确认）
+- `keep-alive` 缓存组件
+
+#### 4.2 广告推送规则
+- 路由：`/ad/push-settings`，权限：`canManageAd`
+- 推送规则 CRUD
+- 规则参数：
+  - 规则名称
+  - 每次解锁需观看广告数（adCountPerUnlock）
+  - 每次解锁的集数（episodesPerUnlock）
+  - 每日广告上限（maxAdCountPerDay，0=不限）
+  - 是否默认规则（isDefault）
+- 行内启用/禁用开关
+
+#### 4.3 事件回传规则
+- 路由：`/ad/callback-rules`，权限：`canManageAd`
+- 按短剧维度配置事件回传规则
+- 支持 IAP 标准事件（9 个）：
+  - video_play_request / ep_play / add_to_wishlist / start_unlock
+  - complete_watching / unlock_panel_show_request / unlock_panel_show
+  - unlock_panel_click / unlock_success
+- 支持 IAA 标准事件（3 个）：
+  - video_play_request / ep_play / minis_ad_show
+- 每个事件可配置：启用/禁用、回传比例（callbackRatio）
+- 批量保存配置
+
+#### 4.4 回传日志
+- 路由：`/ad/callback-logs`，权限：`canManageAd`
+- 分页展示回传执行日志
+- 日志字段：事件类型、回传URL、请求体、响应码、状态、重试次数、耗时
+- 状态标签：待执行(橙) / 成功(绿) / 失败(红) / 重试中(橙) / 已放弃(灰)
+- 手动触发重试补偿按钮
+
+#### 4.5 算法分析（智能投放）
+- 路由：`/ad/analytics`，权限：`canManageAd`
+- 广告效果分析面板
+- 时间窗口切换：24H / 7D / 30D
+- 指标：推送次数、完成次数、完成率、解锁次数、转化率
+- 风险标签展示（riskTag）
+
+#### 4.6 算法状态
+- 路由：`/ad/algorithm-status`，权限：`canManageAd`
+- 算法运行阶段展示：冷启动（COLD_START）/ 正常（NORMAL）
+- 冷启动阈值与当前 Epsilon 值
+- 冷启动广告列表（7日推送次数）
+- TOP10 广告排行（finalScore + scoreMatrix 多维评分）
+
+#### 4.7 推送日志
+- 路由：`/ad/push-logs`，权限：`canManageAd`
+- 分页查询广告推送执行日志
+- 筛选：openId / adId / 时间范围 / 解锁状态 / 嫌疑标记
+- 日志字段：用户、广告、短剧、集数、观看状态、观看秒数、是否嫌疑、嫌疑原因、解锁结果
+
+#### 4.8 算法参数配置
+- 路由：`/ad/algorithm-config`，权限：`canManageAd`
+- 算法全局开关（isEnabled）
+- Epsilon 参数：冷启动 / 正常阶段
+- 冷启动参数：最小曝光基数 / 冷启动因子
+- 时间窗口权重配置：5分钟 / 30分钟 / 2小时 / 24小时 / 7天
+- 多维度评分配置：维度代码 / 维度名称 / 权重 / 启用状态 / 计算器 Bean
+
+---
+
+### 模块 5：仪表盘
+
+**定位**：运营数据的全局视图，快速感知平台健康状态和核心指标趋势。
+
+#### 5.1 用户指标
+- 6 项指标卡片（响应式网格）：
+  - DAU（日活跃用户）
+  - 启动次数
+  - 新增用户
+  - IAA 解锁次数（广告解锁）
+  - IAP 解锁次数（付费解锁）
+  - IAP 收入（美元，`$` 前缀）
+- 大数格式化（≥10000 显示 x.xw）
+- 每个卡片独立配色 + 顶部渐变线 + hover 动效
+
+#### 5.2 趋势图
+- ECharts 双 Y 轴折线图
+- 时间范围切换：近 7 天 / 近 30 天 / 自定义日期范围
+- 折线图指标：
+  - 左 Y 轴（用户）：新增用户、活跃用户
+  - 右 Y 轴（广告）：广告展示、广告完成（虚线）
+- 平滑曲线 + 面积渐变
+
+#### 5.3 来源分布 & 价值分层
+- sourceDistribution：用户来源渠道分布
+- valueTierDistribution：用户价值分层分布
+
+#### 5.4 数据接口
+- 接口：`/admin/dashboard/overview`
+- 参数：`startDate`、`endDate`、`platform`（可选）、`userType`（可选）
+
+---
+
+### 模块 6：系统管理
+
+**定位**：管理后台登录账号、角色和权限，实现细粒度的访问控制。
+
+#### 6.1 用户管理
+- 路由：`/system/user`，权限：`canManageAccounts`（仅管理员）
+- 基于 RuoYi-Vue-Plus 标准用户管理体系
+- 用户信息：userName / nickName / email / phonenumber / sex / status
+- 角色关联（SysRole）：roleId / roleName / roleKey / dataScope
+- 部门关联（SysDept）：树形结构
+- 岗位关联（SysPost）
+
+#### 6.2 权限体系
+- 基于 Sa-Token 的 RBAC 权限模型
+- 登录后通过 `/getInfo` 获取：user + permissions[] + roles[] + applications[]
+- 前端菜单权限映射：
+  - `canViewDashboard` — 仪表盘
+  - `canViewUser` — 用户列表
+  - `canManageDrama` — 短剧管理（含所有子页面）
+  - `canManageAd` — 广告管理（含所有子页面）
+  - `canSwitchApp` — 切换应用（仅管理员）
+  - `canManageAccounts` — 系统管理（仅管理员）
+- 侧边栏菜单根据权限动态显示/隐藏
+
+#### 6.3 角色体系
+| 角色 | 标识 | 说明 |
+|------|------|------|
+| 管理员 | `admin` | 全部权限，可切换应用、管理账号 |
+| 运营 | `operator` | 短剧管理、广告管理、用户查看、仪表盘 |
+| 观察者 | `viewer` | 仅查看用户列表和仪表盘 |
+
+---
+
+## 三、全局约定
+
+### 3.1 数据隔离
+- 所有业务数据以 `clientKey`（TikTok Minis 应用标识）为维度隔离
+- 后端通过 Sa-Token Session 存储当前 clientKey，SQL 拦截器自动拼接 `WHERE app_id = ?`
+- 前端调用 `POST /system/application/switch` 切换应用
+- 前端不在请求参数中传递 clientKey（由后端 Session 自动获取）
+- 路由守卫：未选应用时，admin 强制跳转应用列表页；非 admin 自动选择第一个应用
+
+### 3.2 接口规范
+- 统一响应格式：`{ code: number, data: T, msg: string }`
+- Axios 响应拦截器自动解包：`code === 0 || code === 200` 时返回 `data`，否则 `Message.error`
+- 分页参数：`pageNum`（从 1 开始）、`pageSize`
+- 分页响应格式：`{ rows: T[], total: number }`
+- 时间格式：ISO 8601 `YYYY-MM-DD HH:mm:ss`
+- 错误码：`0` / `200` 成功，非 `0` 失败，`401` 未登录，`403` 无权限
+- 错误处理：认证接口不弹全局错误提示，其他接口统一 `Message.error`
+- 请求头：`Authorization: Bearer <token>` + `clientid: <client_id>`
+
+### 3.3 前端架构约定
+- 页面组件：`src/views/<module>/`
+- 公共组件：`src/components/`（AppSwitcher / EmptyState / GlobalLoading / Nav / ResizableTable）
+- API 层：`src/api/<module>.ts`，只做请求，不含业务逻辑
+- Store：`src/stores/<module>.ts`，管理列表分页状态
+- 类型定义：`src/types/<module>.ts`
+- 工具函数：`src/utils/`（request / echarts / format / vod-uploader / vod-url）
+- Composables：`src/composables/`（useVideoUpload / useAsyncLock / useResizableColumns）
+- ECharts 统一按需引入，入口：`src/utils/echarts.ts`
+- Mock 数据：`src/mock/<module>.ts`
+- 布局：`src/layouts/BasicLayout.vue`（侧边栏 + 顶部导航 + 内容区）
+- 样式：`src/styles/`（global.css + tokens.css）
+
+### 3.4 路由结构
+```
+/                        → 重定向 /dashboard
+/login                   → 登录页（public，不走 BasicLayout）
+/403                     → 无权限提示页
+/dashboard               → 仪表盘（canViewDashboard）
+/drama/list              → 短剧列表（canManageDrama）
+/drama/upload            → 上传短剧（canManageDrama）
+/drama/:id               → 短剧详情（canManageDrama）
+/drama/tags              → 标签管理（canManageDrama）
+/drama/home-banner       → 首页轮播（canManageDrama）
+/drama/home-hot          → 热播短剧（canManageDrama）
+/drama/home-rank         → 分类排行榜（canManageDrama）
+/drama/home-explore      → 更多短剧（canManageDrama）
+/drama/ad-settings       → 广告推送设置（canManageDrama）
+/drama/module-order      → 渲染顺序（canManageDrama）
+/user/list               → 用户列表（canViewUser）
+/user/:id                → 用户详情（canViewUser）
+/ad/list                 → 广告列表（canManageAd）
+/ad/push-settings        → 推送规则（canManageAd）
+/ad/callback-rules       → 回传规则（canManageAd）
+/ad/callback-logs        → 回传日志（canManageAd）
+/ad/analytics            → 算法分析（canManageAd）
+/ad/algorithm-status     → 算法状态（canManageAd）
+/ad/push-logs            → 推送日志（canManageAd）
+/ad/algorithm-config     → 参数配置（canManageAd）
+/system/user             → 用户管理（canManageAccounts）
+/system/app              → 应用管理（canSwitchApp）
+```
+
+
+### 3.5 API 路由汇总
+
+| 模块 | 接口 | 方法 | 说明 |
+|------|------|------|------|
+| 认证 | `/auth/login` | POST | 登录 |
+| 认证 | `/auth/logout` | POST | 退出 |
+| 认证 | `/getInfo` | GET | 获取当前用户信息+权限+应用列表 |
+| 应用 | `/system/application/switch` | POST | 切换当前应用 |
+| 应用 | `/system/application/list` | GET | 应用列表 |
+| 短剧 | `/drama/list` | GET | 短剧列表（分页） |
+| 短剧 | `/drama` | POST | 创建短剧（含剧集+标签） |
+| 短剧 | `/drama/{id}` | GET/PUT/DELETE | 短剧详情/更新/删除 |
+| 短剧 | `/drama/{id}/episodes` | GET | 剧集列表 |
+| 标签 | `/drama/tag/list` | GET | 标签列表 |
+| 标签 | `/drama/tag/grouped` | GET | 标签分组列表 |
+| 标签 | `/drama/tag` | POST | 新增标签 |
+| 标签 | `/drama/tag/{id}` | PUT/DELETE | 标签更新/删除 |
+| 首页 | `/drama/home-slot/list` | GET | 展位列表 |
+| 首页 | `/drama/home-slot` | POST | 新增展位 |
+| 首页 | `/drama/home-slot/{id}` | PUT/DELETE | 展位更新/删除 |
+| 首页 | `/drama/home-slot/{id}/enable` | PUT | 启用展位 |
+| 首页 | `/drama/home-slot/{id}/disable` | PUT | 禁用展位 |
+| 首页 | `/drama/home-slot/sort` | PUT | 展位排序 |
+| 首页 | `/drama/home-slot/rank-stats` | GET | 排行榜分类统计 |
+| 广告库存 | `/drama/ad/inventory/list` | GET | 广告库存列表 |
+| 广告库存 | `/drama/ad/inventory` | POST | 新增广告 |
+| 广告库存 | `/drama/ad/inventory/{id}/enable` | PUT | 启用广告 |
+| 广告库存 | `/drama/ad/inventory/{id}/disable` | PUT | 禁用广告 |
+| 推送规则 | `/drama/ad/push-rule/list` | GET | 推送规则列表 |
+| 推送规则 | `/drama/ad/push-rule` | POST | 新增规则 |
+| 推送规则 | `/drama/ad/push-rule/{id}` | PUT/DELETE | 规则更新/删除 |
+| 回传配置 | `/drama/callback/config/{dramaId}` | GET/POST | 查询/保存回传配置 |
+| 回传配置 | `/drama/callback/configured-dramas` | GET | 已配置回传的短剧列表 |
+| 回传日志 | `/drama/callback/log/list` | GET | 回传日志列表 |
+| 回传日志 | `/drama/callback/retry` | POST | 手动触发重试 |
+| 算法分析 | `/system/ad/analytics` | GET | 广告效果分析 |
+| 算法状态 | `/system/ad/algorithm/status` | GET | 算法运行状态 |
+| 推送日志 | `/system/ad/push-logs` | GET | 推送日志查询 |
+| 算法配置 | `/system/ad/algorithm/config` | GET/PUT | 算法参数查询/更新 |
+| 用户 | `/cend/user/list` | GET | C端用户列表 |
+| 用户 | `/cend/user/{openId}/profile` | GET | 用户画像 |
+| 用户 | `/cend/user/{openId}/trend` | GET | 用户趋势 |
+| 仪表盘 | `/admin/dashboard/overview` | GET | 仪表盘数据 |
+| VOD | `/vod/upload-session` | POST | 获取上传凭证 |
+
+
+### 3.6 Arco Design 组件使用规范（强制）
+
+> 以下规则来自实际踩坑，违反会产生 Vue warn 或运行时异常。
+
+#### 3.6.1 `a-statistic` — value 类型限制
+- ❌ 禁止将字符串传给 `:value` prop（只接受 Number | Object）
+- ✅ 字符串类型指标用自定义 div 渲染，样式对齐 Statistic
+
+#### 3.6.2 `a-statistic` — prefix / suffix 使用方式
+- ❌ `prefix` 不是 prop，禁止 `prefix="$"`
+- ✅ `prefix` 用具名插槽 `<template #prefix>$</template>`
+- ✅ `suffix` 是 prop，可直接传字符串
+
+#### 3.6.3 API 返回值解构规范
+- 分页接口返回 `{ rows: T[], total: number }`
+- 调用方必须解构后再赋值，不能把整个响应对象赋给数组 ref
+
+#### 3.6.4 ECharts 实例生命周期规范
+- `initChart` 必须在 `onMounted` + `nextTick` 之后调用
+- `onUnmounted` 中必须 `dispose()` + 移除 resize 监听
+
+#### 3.6.5 Mock 正则匹配顺序规范
+- 详情/子资源路由必须在列表路由之前注册
+- 所有 Mock 正则末尾统一使用 `(\?.*)?$`
+
+#### 3.6.6 `a-badge` status 合法值
+- 只接受：`normal` / `processing` / `success` / `warning` / `danger`
+- ❌ 不存在 `"default"`
+
+#### 3.6.7 `a-range-picker` placeholder 必须是数组
+- ✅ `:placeholder="['开始日期', '结束日期']"`
+
+#### 3.6.8 禁止使用不存在的 Arco Design 图标
+- ❌ `icon-pie-chart` → 用 `icon-bar-chart` 替代
+
+---
+
+### 3.7 UI 设计规范
+
+#### 整体风格
+- 深色主题（TikTok 体系设计），霓虹质感
+- 品牌双色：`#D94466`（红）+ `#5BA8B0`（青），用于渐变、高亮、状态
+- 主按钮使用红→青渐变（`linear-gradient(135deg, #D94466, #5BA8B0)`）
+
+#### 色彩体系
+| 用途 | 色值 | CSS 变量 |
+|------|------|----------|
+| 主色（青） | `#5BA8B0` | `--mc-primary` |
+| 品牌红 | `#D94466` | `--tt-red` |
+| 成功色 | `#3DB87A` | `--mc-success` |
+| 警告色 | `#D4913A` | `--mc-warning` |
+| 危险色 | `#D94466` | `--mc-danger` |
+| 信息色 | `#8B6AAE` | `--mc-info` |
+
+#### 背景层次
+| 层级 | 色值 | 用途 |
+|------|------|------|
+| 页面背景 | `#0C0D12` | body / #app |
+| 卡片背景 | `#131620` | 卡片、表格容器 |
+| 二级卡片 | `#1A1D28` | 嵌套面板 |
+| 输入框/弹窗 | `#171A24` | input / modal / dropdown |
+| 侧边栏 | `#10121A` | sider 背景 |
+
+#### 文字色
+| 层级 | 透明度 | 用途 |
+|------|--------|------|
+| 主文字 | `rgba(255,255,255,0.92)` | 标题、重要内容 |
+| 次文字 | `rgba(255,255,255,0.60)` | 正文、描述 |
+| 辅助文字 | `rgba(255,255,255,0.35)` | 占位符、禁用 |
+
+#### 边框与圆角
+- 默认边框：`rgba(255,255,255,0.06~0.07)`
+- 卡片圆角：12px（`--mc-radius-lg`）
+- 输入框圆角：8px（`--mc-radius-md`）
+- 标签圆角：4px（`--mc-radius-sm`）
+
+#### 布局
+- 侧边栏固定定位，可折叠（220px ↔ 56px）
+- 顶部导航栏 sticky，毛玻璃效果（`backdrop-filter: blur(16px)`），高度 56px
+- 内容区 padding 20px
+- 页面组件 `keep-alive` 缓存：`DramaList`、`UserList`、`AdList`、`DramaAdSettings`
+
+#### 交互动效
+- 全局过渡：`0.18s ease`
+- 主按钮 hover：上移 1px + 阴影增强
+- 页面切换：`page-fade` 过渡（`out-in` 模式）
+- 侧边栏折叠/展开：`0.2s ease`
+
+#### 角色配色
+| 角色 | 头像色 | 标签样式 |
+|------|--------|----------|
+| admin | `#D94466` | 红底红字 |
+| operator | `#5BA8B0` | 青底青字 |
+| viewer | `#8B6AAE` | 紫底紫字 |
+
+---
+
+## 四、类型定义汇总
+
+### Drama 类型
+```ts
+interface Tag { id, clientKey?, name, groupName, color, icon, sortWeight, status, refCount, createTime?, updateTime? }
+interface Episode { id, dramaId?, episodeNumber, name?, description?, duration?, videoUrl?, vid?, isFree?, status? }
+interface AdInventory { id, adName, adType, adUnitId, status, pushCount, createTime?, updateTime? }
+interface AdPushRule { id, ruleName, adCountPerUnlock, episodesPerUnlock, maxAdCountPerDay, isDefault, status, createTime?, updateTime? }
+interface Drama { id, name, description?, coverUrl?, tags?, totalEpisodes?, freeEpisodes?, unlockMode?, adPushRuleId?, episodePrice?, bundlePrice?, sortWeight?, status?, isRecommended?, createTime?, updateTime? }
+interface HomeSlot { id, slotType: 'BANNER'|'HOT'|'RANK', dramaId, dramaName?, coverUrl?, title?, sort?, enabled, createTime? }
+interface RankCategoryStat { category, total_count, enabled_count }
+```
+
+### User 类型
+```ts
+interface User { userId, clientKey?, tenantId?, openId, nickname, avatarUrl, gender?, phone?, email?, status?, createTime?, updateTime? }
+interface UserProfile { openId, nickname, avatarUrl, registeredAt, lastActiveAt, valueTier, totalEpisodesWatched, totalWatchDurationMs, totalDramasWatched, totalAdsWatched, totalAdsCompleted, totalDramasCompleted, totalEpisodesCompleted, adCompletionRate }
+interface UserTrendPoint { date, durationMinutes, episodes }
+```
+
+### Ad Algorithm 类型
+```ts
+interface AdAnalyticsVo { adId, adName, advertiser, pushCount, completeCount, completeRate, unlockCount, conversionRate, lastPushTime, riskTag }
+interface AdAlgorithmStatusVo { phase: 'COLD_START'|'NORMAL', coldStartThreshold, currentEpsilon, coldStartAds[], top10[] }
+interface AdPushLogVo { id, openId, adId, adName, dramaId, episodeNumber, watchStatus, watchedSeconds, isSuspect, suspectReason, unlockSuccess, createTime }
+interface AdAlgorithmConfigVo { id, isEnabled, epsilonColdStart, epsilonNormal, coldStartMinExposureBase, coldStartFactor, weightWindow5m/30m/2h/24h/7d, dimensions[] }
+interface DimensionConfigVo { id, dimensionCode, dimensionName, weight, isEnabled, calculatorBean }
+```
+
+### Ad Callback 类型
+```ts
+interface DramaCallbackConfig { id?, clientKey?, dramaId?, eventType, enabled, callbackRatio }
+interface AdCallbackLog { id, clientKey?, dramaId?, eventLogId?, eventType, openId?, callbackUrl, requestBody?, responseCode?, responseBody?, status, retryCount, nextRetryTime?, errorMessage?, executeTime?, costMs?, createTime? }
+```
+
+### Dashboard 类型
+```ts
+interface TrendPoint { date, newUsers, activeUsers, adImpressions, adCompletions, watchDuration }
+interface DashboardData { totalLaunchCount?, totalDau?, newUserCount?, iaaUnlockCount?, iapUnlockCount?, totalIapRevenue?, sourceDistribution?, valueTierDistribution?, dauTrend? }
+```
+
+### App 类型
+```ts
+interface App { id, tenantId, appName, appType, clientKey, appDescription, dailyEventQuota, featureFlags, status, sortOrder, remark, createTime }
+```
+
+### Account 类型
+```ts
+interface SysUser { userId, userName, nickName, email?, phonenumber?, sex?, avatar?, status, loginIp?, loginDate?, roles?, roleIds? }
+interface SysRole { roleId, roleName, roleKey, roleSort, dataScope?, status }
+interface GetInfoResponse { user: UserInfo, permissions: string[], roles: string[], applications: App[] }
+```
+
+---
+
+## 五、构建与开发
+
+### 开发命令
+```bash
+pnpm dev          # 启动开发服务器（端口 5174）
+pnpm build        # 生产构建（vue-tsc + vite build）
+pnpm build:dev    # 开发环境构建
+pnpm build:prod   # 生产环境构建
+pnpm lint         # ESLint 检查
+pnpm lint:fix     # ESLint 自动修复
+pnpm type-check   # TypeScript 类型检查
+```
+
+### 环境变量
+| 变量 | 说明 |
+|------|------|
+| `VITE_API_BASE_URL` | API 基础路径（开发环境 `/api`） |
+| `VITE_API_PROXY_TARGET` | Vite 代理目标（后端服务地址） |
+| `VITE_VOD_APP_ID` | 火山引擎 VOD 应用 ID |
+| `VITE_VOD_SPACE_NAME` | VOD 空间名称 |
+| `VITE_VOD_CDN_DOMAIN` | VOD CDN 域名 |
+
+### Vite 代理配置
+- `/api` 前缀请求代理到后端服务，rewrite 去掉 `/api` 前缀
+
+---
+
+## 六、后续迭代规划（参考）
+
+| 优先级 | 方向 | 说明 |
+|--------|------|------|
+| P1 | Drama 2.0（TikTok 内容 API 对接） | 通过 TikTok Open API 管理内容 |
+| P1 | 短剧在线编辑 | 详情页直接编辑基本信息、单集管理 |
+| P2 | 用户分群 | 基于行为标签的用户分群 |
+| P2 | 广告 A/B 测试 | 多策略并行测试，自动择优 |
+| P2 | 数据导出 | 列表、图表数据导出为 CSV / Excel |
+| P3 | 多应用对比 | 仪表盘支持多应用指标横向对比 |
+| P3 | 操作日志 | 记录关键操作的审计日志 |
+
+---
+
+**最后更新**：2026-05-19 · **版本**：v3.0
