@@ -98,6 +98,11 @@ axiosInstance.interceptors.response.use(
   (response) => {
     cleanupBySignal(response.config.signal)
 
+    // 二进制响应（图片等）直接返回 Blob，不参与业务码解包
+    if (response.config.responseType === 'blob') {
+      return response.data
+    }
+
     const resData = response.data
     const { code, msg, message } = resData
     const errMsg = msg || message

@@ -1,15 +1,47 @@
 /**
  * 主题风格：潮流色板 + 运行时变量派生
  *
- * 只暴露「背景色」「文字色」两个维度给用户，
+ * 只暴露「背景色」「文字色」「动态背景」几个维度给用户，
  * 其余（卡片、边框、次级文字、Arco 变量）按对比度自动派生，
  * 保证任何一组搭配都能形成可用界面。
  */
+
+export type MotionId =
+  | 'none'
+  | 'aurora'
+  | 'ripple'
+  | 'nebula'
+  | 'mesh'
+  | 'scan'
+  | 'breathe'
+
+export interface MotionPreset {
+  id: MotionId
+  name: string
+  tip: string
+}
+
+/** 动态背景预设：全部为纯 CSS 动画，不依赖外部图片 */
+export const MOTION_PRESETS: MotionPreset[] = [
+  { id: 'none', name: '无', tip: '纯色' },
+  { id: 'aurora', name: '极光', tip: '唯美' },
+  { id: 'ripple', name: '波纹', tip: '涟漪' },
+  { id: 'nebula', name: '星云', tip: '旋涡' },
+  { id: 'mesh', name: '流体', tip: '炫彩' },
+  { id: 'scan', name: '赛博', tip: '扫描' },
+  { id: 'breathe', name: '呼吸', tip: '微光' },
+]
+
+export function isMotionId(value: unknown): value is MotionId {
+  return MOTION_PRESETS.some(item => item.id === value)
+}
 
 export interface ThemeConfig {
   bg: string
   text: string
   accent: string
+  /** 动态背景：默认无，叠加在背景色之上 */
+  motion: MotionId
 }
 
 export interface Swatch {
@@ -279,6 +311,7 @@ export const DEFAULT_THEME: ThemeConfig = {
   bg: '#0B1B2E',
   text: '#E8F2FC',
   accent: '#4C9DE4',
+  motion: 'none',
 }
 
 /* ── 颜色计算 ─────────────────────────────────────────── */
@@ -368,7 +401,14 @@ export function buildThemeVars(theme: ThemeConfig): Record<string, string> {
   const glowB = mix(bg, accent, dark ? 0.24 : 0.18)
   const glowC = mix(bg, accent, dark ? 0.5 : 0.34)
 
+  // 动态背景的两种基色：比氛围光鲜明，但仍贴近主色
+  const motion1 = mix(bg, accent, dark ? 0.68 : 0.42)
+  const motion2 = mix(mix(bg, accent, dark ? 0.9 : 0.6), text, 0.3)
+
   return {
+    '--mc-motion-1': motion1,
+    '--mc-motion-2': motion2,
+
     '--mc-aurora-a': `color-mix(in srgb, ${glowA} ${dark ? 5 : 9}%, transparent)`,
     '--mc-aurora-b': `color-mix(in srgb, ${glowB} ${dark ? 4 : 7}%, transparent)`,
     '--mc-aurora-c': `color-mix(in srgb, ${glowC} ${dark ? 7 : 12}%, transparent)`,

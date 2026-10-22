@@ -1,6 +1,7 @@
 <template>
   <div class="shell" :class="{ 'shell--mobile': isMobile }">
     <div class="shell-aurora" aria-hidden="true" />
+    <ThemeBackdrop />
 
     <!-- ═══ 侧边导航：一级菜单 + 侧边栏内下拉展开 ═════════════ -->
     <aside
@@ -228,10 +229,13 @@ import {
 
 import AppLogo from '@/components/AppLogo/index.vue'
 import AppSwitcher from '@/components/AppSwitcher/index.vue'
+import ThemeBackdrop from '@/components/ThemeBackdrop/index.vue'
 import ThemeStudio from '@/components/ThemeStudio/index.vue'
 import { useAccountStore } from '@/stores/account.ts'
 import { useAppStore } from '@/stores/app.ts'
 import { useMenuStore } from '@/stores/menu.ts'
+import { useThemeStore } from '@/stores/theme.ts'
+import { loadWallpaper } from '@/api/wallpaper.ts'
 import { resolveMenuIcon, type MenuGroupDef, type TopMenuItem } from '@/config/menu.ts'
 import { logout } from '@/api/auth.ts'
 import { cancelHoverPrefetch, prefetchOnHover } from '@/utils/route-prefetch.ts'
@@ -242,6 +246,7 @@ const router = useRouter()
 const accountStore = useAccountStore()
 const appStore = useAppStore()
 const menuStore = useMenuStore()
+const themeStore = useThemeStore()
 
 /* ── 布局状态 ─────────────────────────────────────────── */
 
@@ -444,6 +449,7 @@ async function handleLogout() {
   localStorage.removeItem('client_id')
   accountStore.clear()
   appStore.clear()
+  themeStore.clearWallpaper()
   Message.success('已退出登录')
   router.push('/login')
 }
@@ -475,6 +481,10 @@ function handleKeydown(event: KeyboardEvent) {
 onMounted(() => {
   window.addEventListener('resize', handleResize)
   window.addEventListener('keydown', handleKeydown)
+  // 登录后回填该账号的壁纸，失败时静默回退到纯色背景
+  loadWallpaper()
+    .then((config) => themeStore.setWallpaper(config ?? null))
+    .catch(() => themeStore.setWallpaper(null))
 })
 
 onUnmounted(() => {
