@@ -1,0 +1,2674 @@
+/**
+ * Minis Data Center — Global Styles
+ * TikTok Dark Theme · Arco Design Variable Overrides
+ */
+
+/* ── 0. Tailwind CSS ──────────────────────────────────────────────────── */
+@layer theme, base, components, utilities;
+@import "tailwindcss/theme.css" layer(theme);
+@import "tailwindcss/utilities.css" layer(utilities);
+
+/* ── 1. Design Tokens ─────────────────────────────────────────────────── */
+@import 'tokens.css';
+
+/* ── 2. Arco Design CSS Variable Overrides (Dark Theme) ──────────────── */
+/*
+ * Arco Design reads these CSS variables for ALL components.
+ * Overriding at :root forces every component into dark mode
+ * without needing the arco-theme="dark" attribute.
+ */
+:root {
+  --color-bg-1:          #12151F;
+  --color-bg-2:          #1A1E2C;
+  --color-bg-3:          #1F2335;
+  --color-bg-4:          #252A3E;
+  --color-bg-5:          #2C3148;
+  --color-bg-white:      #12151F;
+  --color-bg-popup:      #1F2335;
+
+  --color-text-1:        rgba(255, 255, 255, 0.92);
+  --color-text-2:        rgba(255, 255, 255, 0.65);
+  --color-text-3:        rgba(255, 255, 255, 0.40);
+  --color-text-4:        rgba(255, 255, 255, 0.22);
+
+  --color-border-1:      rgba(255, 255, 255, 0.07);
+  --color-border-2:      rgba(255, 255, 255, 0.10);
+  --color-border-3:      rgba(255, 255, 255, 0.14);
+  --color-border-4:      rgba(255, 255, 255, 0.20);
+
+  --color-fill-1:        rgba(255, 255, 255, 0.04);
+  --color-fill-2:        rgba(255, 255, 255, 0.07);
+  --color-fill-3:        rgba(255, 255, 255, 0.10);
+  --color-fill-4:        rgba(255, 255, 255, 0.14);
+
+  --color-mask-bg:       rgba(0, 0, 0, 0.75);
+  --color-spin-layer-bg: rgba(8, 9, 14, 0.85);
+
+  --primary-1:           rgba(92, 189, 197, 0.08);
+  --primary-2:           rgba(92, 189, 197, 0.14);
+  --primary-3:           rgba(92, 189, 197, 0.22);
+  --primary-4:           rgba(92, 189, 197, 0.36);
+  --primary-5:           rgba(92, 189, 197, 0.60);
+  --primary-6:           #5CBDC5;
+  --primary-7:           #72CED7;
+
+  --arcoblue-1:          rgba(92, 189, 197, 0.08);
+  --arcoblue-2:          rgba(92, 189, 197, 0.14);
+  --arcoblue-3:          rgba(92, 189, 197, 0.22);
+  --arcoblue-4:          rgba(92, 189, 197, 0.36);
+  --arcoblue-5:          rgba(92, 189, 197, 0.60);
+  --arcoblue-6:          #5CBDC5;
+  --arcoblue-7:          #72CED7;
+
+  --red-6:               #E0486D;
+  --danger-6:            #E0486D;
+
+  --green-6:             #36D399;
+
+  --orange-6:            #F0A040;
+}
+
+/* ── 3. Base / Reset ──────────────────────────────────────────────────── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 14px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  height: 100%;
+  width: 100%;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  scrollbar-gutter: stable;
+}
+
+body.arco-overflow-hidden {
+  overflow: hidden !important;
+  padding-right: 0 !important;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #06070B;
+  color: rgba(255, 255, 255, 0.92);
+  font-family: var(--mc-font-family);
+  font-size: var(--mc-font-md);
+  line-height: 1.6;
+  height: 100%;
+  width: 100%;
+  min-height: 100vh;
+}
+
+#app {
+  height: 100%;
+  width: 100%;
+  min-height: 100vh;
+  background-color: #06070B;
+}
+
+a {
+  color: #5CBDC5;
+  text-decoration: none;
+  transition: color var(--mc-transition);
+}
+
+a:hover {
+  color: #72CED7;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+/* ── 4. Layout ────────────────────────────────────────────────────────── */
+.arco-layout {
+  background-color: #06070B !important;
+}
+
+.arco-layout-content {
+  background-color: #06070B !important;
+}
+
+/* ── 5. Sidebar / Sider ───────────────────────────────────────────────── */
+.arco-layout-sider {
+  background: linear-gradient(180deg, rgba(10, 13, 22, 0.97) 0%, rgba(8, 10, 18, 0.95) 50%, rgba(10, 13, 22, 0.97) 100%) !important;
+  border-right: 1px solid rgba(92, 189, 197, 0.06) !important;
+}
+
+.arco-layout-sider-children {
+  background: transparent !important;
+}
+
+/* Menu inside sider — 基础层，详细覆盖见下方 "菜单组件精细化覆盖" */
+
+/* 隐藏 Arco 默认的选中 ::before 指示器（我们自定义了 border-left + box-shadow） */
+.arco-menu-item.arco-menu-selected::before {
+  display: none !important;
+}
+
+/* 子菜单文字跟随父级颜色 */
+.arco-menu-item-inner,
+.arco-menu-inline-header-title {
+  color: inherit !important;
+  background-color: transparent !important;
+}
+
+/* Menu title / logo area */
+.arco-menu-title {
+  color: rgba(255, 255, 255, 0.85) !important;
+}
+
+/* ── 6. Header ────────────────────────────────────────────────────────── */
+.arco-layout-header {
+  background-color: rgba(18, 21, 31, 0.85) !important;
+  border-bottom: none !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+}
+
+/* ── 7. Card ──────────────────────────────────────────────────────────── */
+.arco-card {
+  background-color: var(--mc-bg-card) !important;
+  border: 1px solid var(--mc-border) !important;
+  border-radius: var(--mc-radius-lg) !important;
+  color: rgba(255, 255, 255, 0.92) !important;
+  box-shadow: var(--mc-shadow-sm) !important;
+  transition: transform 0.2s var(--mc-ease-out),
+              box-shadow 0.2s var(--mc-ease-out),
+              border-color 0.2s ease !important;
+}
+
+.arco-card-header {
+  background-color: transparent !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07) !important;
+  color: rgba(255, 255, 255, 0.92) !important;
+}
+
+.arco-card-header-title {
+  color: rgba(255, 255, 255, 0.92) !important;
+}
+
+.arco-card-body {
+  color: rgba(255, 255, 255, 0.65) !important;
+}
+
+/* ── 8. Table ─────────────────────────────────────────────────────────── */
+.arco-table {
+  background-color: transparent !important;
+  color: rgba(255, 255, 255, 0.92) !important;
+}
+
+.arco-table-container {
+  background-color: var(--mc-bg-card) !important;
+  border: 1px solid var(--mc-border) !important;
+  border-radius: var(--mc-radius-lg) !important;
+  overflow: auto !important;
+  box-shadow: var(--mc-shadow-sm) !important;
+}
+
+.arco-table-th {
+  background: linear-gradient(180deg, rgba(255,255,255,0.04) 0%, transparent 100%) !important;
+  color: rgba(255, 255, 255, 0.55) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+  font-weight: 500 !important;
+  font-size: 12px !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.04em !important;
+}
+
+.arco-table-td {
+  background-color: transparent !important;
+  color: rgba(255, 255, 255, 0.85) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
+}
+
+.arco-table-tr:hover .arco-table-td {
+  background-color: rgba(92, 189, 197, 0.04) !important;
+}
+
+.arco-table-tr:hover {
+  position: relative;
+}
+
+.arco-table-tr:hover .arco-table-td:first-child::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: #5CBDC5;
+  border-radius: 0 2px 2px 0;
+}
+
+.arco-table-tr:last-child .arco-table-td {
+  border-bottom: none !important;
+}
+
+/* Striped rows */
+.arco-table-tr-striped .arco-table-td {
+  background-color: rgba(255, 255, 255, 0.02) !important;
+}
+
+/* Expand row */
+.arco-table-expand-content {
+  background-color: #1F2335 !important;
+}
+
+/* Empty state */
+.arco-table-no-data {
+  color: rgba(255, 255, 255, 0.35) !important;
+}
+
+/* Sorter icons */
+.arco-table-sorter-icon {
+  color: rgba(255, 255, 255, 0.35) !important;
+}
+
+.arco-table-sorter-icon.active {
+  color: #5CBDC5 !important;
+  filter: drop-shadow(0 0 4px rgba(92,189,197,0.4));
+}
+
+/* ── 9. Pagination ────────────────────────────────────────────────────── */
+.arco-pagination {
+  color: rgba(255, 255, 255, 0.65) !important;
+  margin: 0 12px 12px !important;
+}
+
+.arco-pagination-item {
+  background-color: transparent !important;
+  border: 1px solid rgba(255, 255, 255, 0.10) !important;
+  color: rgba(255, 255, 255, 0.65) !important;
+  border-radius: var(--mc-radius-sm) !important;
+  transition: all var(--mc-transition) !important;
+}
+
+.arco-pagination-item:hover {
+  background-color: rgba(92, 189, 197, 0.10) !important;
+  border-color: rgba(92, 189, 197, 0.40) !important;
+  color: #5CBDC5 !important;
+}
+
+.arco-pagination-item-active,
+.arco-pagination-item-active:hover {
+  background-color: #5CBDC5 !important;
+  border-color: #5CBDC5 !important;
+  color: #fff !important;
+  font-weight: 600 !important;
+}
+
+.arco-pagination-jumper-input,
+.arco-pagination-size-changer .arco-select-view {
+  background-color: #1F2335 !important;
+  border-color: rgba(255, 255, 255, 0.10) !important;
+  color: rgba(255, 255, 255, 0.65) !important;
+}
+
+.arco-pagination-total {
+  color: rgba(255, 255, 255, 0.40) !important;
+}
+
+/* ── 10. Buttons ──────────────────────────────────────────────────────── */
+/* Primary button — red-to-cyan gradient */
+.arco-btn-primary {
+  background: linear-gradient(135deg, #E0486D 0%, #5CBDC5 100%) !important;
+  border: none !important;
+  color: #fff !important;
+  font-weight: 600 !important;
+  box-shadow: 0 2px 12px rgba(92, 189, 197, 0.25) !important;
+  transition: all var(--mc-transition) !important;
+}
+
+.arco-btn-primary:hover,
+.arco-btn-primary:focus {
+  background: linear-gradient(135deg, #f5305e 0%, #72CED7 100%) !important;
+  box-shadow: 0 4px 20px rgba(92, 189, 197, 0.40) !important;
+  transform: translateY(-1px) !important;
+}
+
+.arco-btn-primary:active {
+  transform: translateY(0) !important;
+  box-shadow: 0 2px 8px rgba(92, 189, 197, 0.20) !important;
+}
+
+.arco-btn-primary[disabled] {
+  background: rgba(255, 255, 255, 0.08) !important;
+  color: rgba(255, 255, 255, 0.25) !important;
+  box-shadow: none !important;
+  transform: none !important;
+}
+
+/* Secondary / outline button */
+.arco-btn-secondary,
+.arco-btn-outline {
+  background-color: transparent !important;
+  border: 1px solid rgba(255, 255, 255, 0.14) !important;
+  color: rgba(255, 255, 255, 0.75) !important;
+}
+
+.arco-btn-secondary:hover,
+.arco-btn-outline:hover {
+  background-color: rgba(255, 255, 255, 0.06) !important;
+  border-color: rgba(255, 255, 255, 0.25) !important;
+  color: rgba(255, 255, 255, 0.92) !important;
+}
+
+/* Text button */
+.arco-btn-text {
+  color: rgba(255, 255, 255, 0.65) !important;
+  background-color: transparent !important;
+}
+
+.arco-btn-text:hover {
+  background-color: rgba(255, 255, 255, 0.06) !important;
+  color: rgba(255, 255, 255, 0.92) !important;
+}
+
+/* Text button — danger variant */
+.arco-btn-text.arco-btn-status-danger {
+  color: #E0486D !important;
+  background-color: transparent !important;
+  border: none !important;
+}
+
+.arco-btn-text.arco-btn-status-danger:hover {
+  color: #f5305e !important;
+  background-color: rgba(224, 72, 109, 0.08) !important;
+  border: none !important;
+}
+
+/* Danger button */
+.arco-btn-status-danger {
+  background: #E0486D !important;
+  border-color: #E0486D !important;
+  color: #fff !important;
+}
+
+.arco-btn-status-danger:hover {
+  background: #f5305e !important;
+  border-color: #f5305e !important;
+}
+
+/* ── 11. Form Inputs ──────────────────────────────────────────────────── */
+.arco-input,
+.arco-input-wrapper,
+.arco-textarea,
+.arco-textarea-wrapper {
+  background-color: #1F2335 !important;
+  border-color: rgba(255, 255, 255, 0.10) !important;
+  color: rgba(255, 255, 255, 0.92) !important;
+  border-radius: var(--mc-radius-md) !important;
+}
+
+.arco-input:hover,
+.arco-input-wrapper:hover,
+.arco-textarea:hover,
+.arco-textarea-wrapper:hover {
+  border-color: rgba(255, 255, 255, 0.20) !important;
+}
+
+.arco-input:focus,
+.arco-input-wrapper.arco-input-focus,
+.arco-textarea:focus,
+.arco-textarea-wrapper.arco-textarea-focus {
+  border-color: #5CBDC5 !important;
+  box-shadow: 0 0 0 2px rgba(92, 189, 197, 0.15) !important;
+}
+
+.arco-input::placeholder,
+.arco-textarea::placeholder {
+  color: rgba(255, 255, 255, 0.25) !important;
+}
+
+.arco-input-prefix,
+.arco-input-suffix {
+  color: rgba(255, 255, 255, 0.40) !important;
+}
+
+/* Input group */
+.arco-input-group-wrapper {
+  background-color: #1F2335 !important;
+  border-color: rgba(255, 255, 255, 0.10) !important;
+}
+
+/* Input number */
+.arco-input-number {
+  background-color: #1F2335 !important;
+  border-color: rgba(255, 255, 255, 0.10) !important;
+  color: rgba(255, 255, 255, 0.92) !important;
+}
+
+/* Form label */
+.arco-form-label-text {
+  color: rgba(255, 255, 255, 0.65) !important;
+}
+
+.arco-form-item-label {
+  color: rgba(255, 255, 255, 0.65) !important;
+}
+
+/* ── 12. Select ───────────────────────────────────────────────────────── */
+.arco-select-view {
+  background-color: #1F2335 !important;
+  border-color: rgba(255, 255, 255, 0.10) !important;
+  color: rgba(255, 255, 255, 0.92) !important;
+  border-radius: var(--mc-radius-md) !important;
+}
+
+.arco-select-view:hover {
+  border-color: rgba(255, 255, 255, 0.20) !important;
+}
+
+.arco-select-view-focus,
+.arco-select-open .arco-select-view {
+  border-color: #5CBDC5 !important;
+  box-shadow: 0 0 0 2px rgba(92, 189, 197, 0.15) !important;
+}
+
+.arco-select-view-placeholder {
+  color: rgba(255, 255, 255, 0.25) !important;
+}
+
+.arco-select-dropdown {
+  background-color: #1F2335 !important;
+  border: 1px solid rgba(255, 255, 255, 0.10) !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6) !important;
+  border-radius: var(--mc-radius-md) !important;
+}
+
+.arco-select-option {
+  color: rgba(255, 255, 255, 0.75) !important;
+  border-radius: var(--mc-radius-sm) !important;
+}
+
+.arco-select-option:hover {
+  background-color: rgba(255, 255, 255, 0.06) !important;
+  color: rgba(255, 255, 255, 0.92) !important;
+}
+
+.arco-select-option-selected,
+.arco-select-option-selected:hover {
+  background-color: rgba(92, 189, 197, 0.12) !important;
+  color: #5CBDC5 !important;
+}
+
+.arco-select-option-disabled {
+  color: rgba(255, 255, 255, 0.22) !important;
+}
+
+/* ── 13. Modal / Drawer ───────────────────────────────────────────────── */
+.arco-modal {
+  background-color: #1F2335 !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border-radius: var(--mc-radius-xl) !important;
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.8) !important;
+  color: rgba(255, 255, 255, 0.92) !important;
+}
+
+.arco-modal-header {
+  background-color: transparent !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07) !important;
+  color: rgba(255, 255, 255, 0.92) !important;
+}
+
+.arco-modal-title {
+  color: rgba(255, 255, 255, 0.92) !important;
+}
+
+.arco-modal-body {
+  color: rgba(255, 255, 255, 0.75) !important;
+}
+
+.arco-modal-footer {
+  background-color: transparent !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.07) !important;
+}
+
+.arco-modal-close-btn {
+  color: rgba(255, 255, 255, 0.40) !important;
+}
+
+.arco-modal-close-btn:hover {
+  color: rgba(255, 255, 255, 0.75) !important;
+  background-color: rgba(255, 255, 255, 0.06) !important;
+}
+
+.arco-modal-mask {
+  background-color: rgba(0, 0, 0, 0.75) !important;
+}
+
+/* Drawer */
+.arco-drawer {
+  background-color: #1F2335 !important;
+  border-left: 1px solid rgba(255, 255, 255, 0.08) !important;
+  color: rgba(255, 255, 255, 0.92) !important;
+}
+
+.arco-drawer-header {
+  background-color: transparent !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07) !important;
+}
+
+.arco-drawer-title {
+  color: rgba(255, 255, 255, 0.92) !important;
+}
+
+.arco-drawer-footer {
+  border-top: 1px solid rgba(255, 255, 255, 0.07) !important;
+}
+
+/* ── 14. Dropdown ─────────────────────────────────────────────────────── */
+
+.arco-divider {
+  border-color: rgba(255, 255, 255, 0.07) !important;
+}
+
+/* ── 15. Tabs ─────────────────────────────────────────────────────────── */
+.arco-tabs-nav {
+  background-color: transparent !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07) !important;
+}
+
+.arco-tabs-tab {
+  color: rgba(255, 255, 255, 0.50) !important;
+  transition: color var(--mc-transition) !important;
+}
+
+.arco-tabs-tab:hover {
+  color: rgba(255, 255, 255, 0.80) !important;
+}
+
+.arco-tabs-tab-active,
+.arco-tabs-tab-active:hover {
+  color: #5CBDC5 !important;
+}
+
+.arco-tabs-nav-ink-bar {
+  background-color: #5CBDC5 !important;
+}
+
+.arco-tabs-content {
+  background-color: transparent !important;
+}
+
+/* ── 16. Tag ──────────────────────────────────────────────────────────── */
+.arco-tag {
+  background-color: rgba(255, 255, 255, 0.07) !important;
+  border-color: rgba(255, 255, 255, 0.10) !important;
+  color: rgba(255, 255, 255, 0.75) !important;
+  border-radius: var(--mc-radius-sm) !important;
+}
+
+.arco-tag-blue,
+.arco-tag-arcoblue {
+  background-color: rgba(92, 189, 197, 0.12) !important;
+  border-color: rgba(92, 189, 197, 0.25) !important;
+  color: #5CBDC5 !important;
+}
+
+.arco-tag-red {
+  background-color: rgba(224, 72, 109, 0.12) !important;
+  border-color: rgba(224, 72, 109, 0.25) !important;
+  color: #E0486D !important;
+}
+
+.arco-tag-green {
+  background-color: rgba(54, 211, 153, 0.12) !important;
+  border-color: rgba(54, 211, 153, 0.25) !important;
+  color: #36D399 !important;
+}
+
+.arco-tag-orange {
+  background-color: rgba(240, 160, 64, 0.12) !important;
+  border-color: rgba(240, 160, 64, 0.25) !important;
+  color: #F0A040 !important;
+}
+
+/* ── 17. Badge ────────────────────────────────────────────────────────── */
+.arco-badge-number {
+  background-color: #E0486D !important;
+  color: #fff !important;
+}
+
+/* ── 18. Avatar ───────────────────────────────────────────────────────── */
+.arco-avatar {
+  background-color: rgba(92, 189, 197, 0.20) !important;
+  color: #5CBDC5 !important;
+}
+
+/* ── 19. Tooltip / Popover ────────────────────────────────────────────── */
+.arco-tooltip-content {
+  background-color: #222536 !important;
+  color: rgba(255, 255, 255, 0.85) !important;
+  border: 1px solid rgba(255, 255, 255, 0.10) !important;
+  border-radius: var(--mc-radius-md) !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5) !important;
+}
+
+.arco-tooltip-arrow::before {
+  background-color: #222536 !important;
+  border-color: rgba(255, 255, 255, 0.10) !important;
+}
+
+.arco-popover-popup-content {
+  background-color: #1F2335 !important;
+  border: 1px solid rgba(255, 255, 255, 0.10) !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6) !important;
+  border-radius: var(--mc-radius-lg) !important;
+}
+
+.arco-popover-title {
+  color: rgba(255, 255, 255, 0.92) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07) !important;
+}
+
+.arco-popover-body {
+  color: rgba(255, 255, 255, 0.65) !important;
+}
+
+/* ── 20. Notification / Message ──────────────────────────────────────── */
+.arco-notification-item {
+  background-color: #1A1E2C !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6) !important;
+  border-radius: var(--mc-radius-lg) !important;
+  color: rgba(255, 255, 255, 0.85) !important;
+}
+
+.arco-notification-title {
+  color: rgba(255, 255, 255, 0.92) !important;
+}
+
+.arco-message-item {
+  background-color: #1A1E2C !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5) !important;
+  border-radius: var(--mc-radius-md) !important;
+  color: rgba(255, 255, 255, 0.85) !important;
+}
+
+/* 全屏/整页 spin 不受限制 */
+.arco-spin.arco-spin-fullscreen {
+  min-height: unset;
+}
+
+/* ── 22. Progress ─────────────────────────────────────────────────────── */
+.arco-progress-line-bar {
+  background: linear-gradient(90deg, #E0486D, #5CBDC5) !important;
+}
+
+.arco-progress-line-bg {
+  background-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+.arco-progress-circle-bg {
+  stroke: rgba(255, 255, 255, 0.08) !important;
+}
+
+.arco-progress-circle-bar {
+  stroke: #5CBDC5 !important;
+}
+
+/* ── 23. Switch ───────────────────────────────────────────────────────── */
+.arco-switch {
+  background-color: rgba(255, 255, 255, 0.15) !important;
+}
+
+.arco-switch-checked {
+  background-color: #5CBDC5 !important;
+}
+
+/* ── 24. Checkbox / Radio ─────────────────────────────────────────────── */
+.arco-checkbox-icon {
+  background-color: transparent !important;
+  border-color: rgba(255, 255, 255, 0.25) !important;
+}
+
+.arco-checkbox-checked .arco-checkbox-icon {
+  background-color: #5CBDC5 !important;
+  border-color: #5CBDC5 !important;
+}
+
+.arco-radio-icon {
+  border-color: rgba(255, 255, 255, 0.25) !important;
+  background-color: transparent !important;
+}
+
+.arco-radio-checked .arco-radio-icon {
+  border-color: #5CBDC5 !important;
+  background-color: #5CBDC5 !important;
+}
+
+.arco-checkbox-label,
+.arco-radio-label {
+  color: rgba(255, 255, 255, 0.75) !important;
+}
+
+/* ── 25. Date Picker ──────────────────────────────────────────────────── */
+.arco-picker {
+  background-color: #1F2335 !important;
+  border-color: rgba(255, 255, 255, 0.10) !important;
+  color: rgba(255, 255, 255, 0.92) !important;
+  border-radius: var(--mc-radius-md) !important;
+}
+
+.arco-picker:hover {
+  border-color: rgba(255, 255, 255, 0.20) !important;
+}
+
+.arco-picker-focused {
+  border-color: #5CBDC5 !important;
+  box-shadow: 0 0 0 2px rgba(92, 189, 197, 0.15) !important;
+}
+
+.arco-picker-panel {
+  background-color: #1F2335 !important;
+  border: 1px solid rgba(255, 255, 255, 0.10) !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6) !important;
+  border-radius: var(--mc-radius-lg) !important;
+}
+
+.arco-picker-header {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07) !important;
+  color: rgba(255, 255, 255, 0.92) !important;
+}
+
+.arco-picker-header-value {
+  color: rgba(255, 255, 255, 0.92) !important;
+}
+
+.arco-picker-cell-inner {
+  color: rgba(255, 255, 255, 0.75) !important;
+  border-radius: var(--mc-radius-sm) !important;
+}
+
+.arco-picker-cell:hover .arco-picker-cell-inner {
+  background-color: rgba(255, 255, 255, 0.06) !important;
+}
+
+.arco-picker-cell-selected .arco-picker-cell-inner,
+.arco-picker-cell-selected:hover .arco-picker-cell-inner {
+  background-color: #5CBDC5 !important;
+  color: #06070B !important;
+}
+
+.arco-picker-cell-today .arco-picker-cell-inner::after {
+  background-color: #5CBDC5 !important;
+}
+
+.arco-picker-cell-in-range .arco-picker-cell-inner {
+  background-color: rgba(92, 189, 197, 0.10) !important;
+}
+
+.arco-picker-footer {
+  border-top: 1px solid rgba(255, 255, 255, 0.07) !important;
+}
+
+/* ── 26. Upload ───────────────────────────────────────────────────────── */
+.arco-upload-drag {
+  background-color: rgba(255, 255, 255, 0.03) !important;
+  border: 2px dashed rgba(255, 255, 255, 0.12) !important;
+  border-radius: var(--mc-radius-lg) !important;
+  color: rgba(255, 255, 255, 0.50) !important;
+  transition: all var(--mc-transition) !important;
+}
+
+.arco-upload-drag:hover {
+  border-color: rgba(92, 189, 197, 0.40) !important;
+  background-color: rgba(92, 189, 197, 0.04) !important;
+  color: #5CBDC5 !important;
+}
+
+.arco-upload-list-item {
+  background-color: rgba(255, 255, 255, 0.04) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border-radius: var(--mc-radius-md) !important;
+  color: rgba(255, 255, 255, 0.75) !important;
+}
+
+/* ── 27. Breadcrumb ───────────────────────────────────────────────────── */
+.arco-breadcrumb-item {
+  color: rgba(255, 255, 255, 0.40) !important;
+}
+
+.arco-breadcrumb-item a {
+  color: rgba(255, 255, 255, 0.40) !important;
+}
+
+.arco-breadcrumb-item a:hover {
+  color: #5CBDC5 !important;
+}
+
+.arco-breadcrumb-item:last-child,
+.arco-breadcrumb-item:last-child a {
+  color: #5CBDC5 !important;
+}
+
+.arco-breadcrumb-separator {
+  color: rgba(255, 255, 255, 0.22) !important;
+}
+
+/* ── 28. Statistic ────────────────────────────────────────────────────── */
+.arco-statistic-title {
+  color: rgba(255, 255, 255, 0.50) !important;
+  font-size: 12px !important;
+}
+
+.arco-statistic-value {
+  color: rgba(255, 255, 255, 0.92) !important;
+}
+
+.arco-statistic-value-integer {
+  color: rgba(255, 255, 255, 0.92) !important;
+}
+
+/* ── 29. Empty State ──────────────────────────────────────────────────── */
+.arco-empty-description {
+  color: rgba(255, 255, 255, 0.35) !important;
+}
+
+/* ── 30. Descriptions ─────────────────────────────────────────────────── */
+.arco-descriptions-item-label {
+  color: rgba(255, 255, 255, 0.45) !important;
+  background-color: rgba(255, 255, 255, 0.03) !important;
+}
+
+.arco-descriptions-item-value {
+  color: rgba(255, 255, 255, 0.85) !important;
+}
+
+.arco-descriptions-border .arco-descriptions-item-label,
+.arco-descriptions-border .arco-descriptions-item-value {
+  border-color: rgba(255, 255, 255, 0.07) !important;
+}
+
+/* ── 31. Steps ────────────────────────────────────────────────────────── */
+.arco-steps-item-title {
+  color: rgba(255, 255, 255, 0.65) !important;
+}
+
+.arco-steps-item-description {
+  color: rgba(255, 255, 255, 0.40) !important;
+}
+
+.arco-steps-item-process .arco-steps-item-icon {
+  background-color: #5CBDC5 !important;
+  border-color: #5CBDC5 !important;
+  color: #06070B !important;
+}
+
+.arco-steps-item-finish .arco-steps-item-icon {
+  background-color: transparent !important;
+  border-color: #5CBDC5 !important;
+  color: #5CBDC5 !important;
+}
+
+.arco-steps-item-wait .arco-steps-item-icon {
+  background-color: transparent !important;
+  border-color: rgba(255, 255, 255, 0.20) !important;
+  color: rgba(255, 255, 255, 0.40) !important;
+}
+
+.arco-steps-item-tail::after {
+  background-color: rgba(255, 255, 255, 0.12) !important;
+}
+
+.arco-steps-item-finish .arco-steps-item-tail::after {
+  background-color: #5CBDC5 !important;
+}
+
+/* ── 32. Alert ────────────────────────────────────────────────────────── */
+.arco-alert {
+  border-radius: var(--mc-radius-md) !important;
+}
+
+.arco-alert-info {
+  background-color: rgba(92, 189, 197, 0.08) !important;
+  border: 1px solid rgba(92, 189, 197, 0.20) !important;
+  color: rgba(255, 255, 255, 0.75) !important;
+}
+
+.arco-alert-success {
+  background-color: rgba(54, 211, 153, 0.08) !important;
+  border: 1px solid rgba(54, 211, 153, 0.20) !important;
+  color: rgba(255, 255, 255, 0.75) !important;
+}
+
+.arco-alert-warning {
+  background-color: rgba(240, 160, 64, 0.08) !important;
+  border: 1px solid rgba(240, 160, 64, 0.20) !important;
+  color: rgba(255, 255, 255, 0.75) !important;
+}
+
+.arco-alert-error {
+  background-color: rgba(224, 72, 109, 0.08) !important;
+  border: 1px solid rgba(224, 72, 109, 0.20) !important;
+  color: rgba(255, 255, 255, 0.75) !important;
+}
+
+.arco-alert-title {
+  color: rgba(255, 255, 255, 0.92) !important;
+}
+
+/* ── 33. Tree ─────────────────────────────────────────────────────────── */
+.arco-tree-node-title {
+  color: rgba(255, 255, 255, 0.75) !important;
+  border-radius: var(--mc-radius-sm) !important;
+}
+
+.arco-tree-node-title:hover {
+  background-color: rgba(255, 255, 255, 0.05) !important;
+  color: rgba(255, 255, 255, 0.92) !important;
+}
+
+.arco-tree-node-selected .arco-tree-node-title {
+  background-color: rgba(92, 189, 197, 0.12) !important;
+  color: #5CBDC5 !important;
+}
+
+/* ── 34. Transfer ─────────────────────────────────────────────────────── */
+.arco-transfer-view {
+  background-color: #1F2335 !important;
+  border: 1px solid rgba(255, 255, 255, 0.10) !important;
+  border-radius: var(--mc-radius-md) !important;
+}
+
+.arco-transfer-view-header {
+  background-color: #1A1E2C !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07) !important;
+  color: rgba(255, 255, 255, 0.75) !important;
+}
+
+/* ── 35. Cascader ─────────────────────────────────────────────────────── */
+.arco-cascader-panel {
+  background-color: #1F2335 !important;
+  border: 1px solid rgba(255, 255, 255, 0.10) !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6) !important;
+  border-radius: var(--mc-radius-md) !important;
+}
+
+.arco-cascader-option {
+  color: rgba(255, 255, 255, 0.75) !important;
+}
+
+.arco-cascader-option:hover {
+  background-color: rgba(255, 255, 255, 0.06) !important;
+}
+
+.arco-cascader-option-active {
+  background-color: rgba(92, 189, 197, 0.10) !important;
+  color: #5CBDC5 !important;
+}
+
+/* ── 36. Slider ───────────────────────────────────────────────────────── */
+.arco-slider-track {
+  background-color: rgba(255, 255, 255, 0.12) !important;
+}
+
+.arco-slider-bar {
+  background: linear-gradient(90deg, #E0486D, #5CBDC5) !important;
+}
+
+.arco-slider-btn {
+  background-color: #5CBDC5 !important;
+  border-color: #5CBDC5 !important;
+  box-shadow: 0 0 8px rgba(92, 189, 197, 0.40) !important;
+}
+
+/* ── 37. Rate ─────────────────────────────────────────────────────────── */
+.arco-rate-character-left,
+.arco-rate-character-right {
+  color: rgba(255, 255, 255, 0.15) !important;
+}
+
+.arco-rate-character-left.arco-rate-character-full,
+.arco-rate-character-right.arco-rate-character-full {
+  color: #F0A040 !important;
+}
+
+/* ── 38. Typography ───────────────────────────────────────────────────── */
+.arco-typography {
+  color: rgba(255, 255, 255, 0.85) !important;
+}
+
+h1.arco-typography,
+h2.arco-typography,
+h3.arco-typography,
+h4.arco-typography,
+h5.arco-typography,
+h6.arco-typography {
+  color: rgba(255, 255, 255, 0.92) !important;
+}
+
+.arco-typography-secondary {
+  color: rgba(255, 255, 255, 0.50) !important;
+}
+
+.arco-typography-disabled {
+  color: rgba(255, 255, 255, 0.22) !important;
+}
+
+/* ── 39. List ─────────────────────────────────────────────────────────── */
+.arco-list {
+  background-color: transparent !important;
+  border-color: rgba(255, 255, 255, 0.07) !important;
+}
+
+.arco-list-item {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06) !important;
+  color: rgba(255, 255, 255, 0.75) !important;
+}
+
+.arco-list-item:hover {
+  background-color: rgba(255, 255, 255, 0.04) !important;
+}
+
+/* ── 40. Timeline ─────────────────────────────────────────────────────── */
+.arco-timeline-item-dot-line {
+  background-color: rgba(255, 255, 255, 0.12) !important;
+}
+
+.arco-timeline-item-dot-content {
+  background-color: #5CBDC5 !important;
+  border-color: #5CBDC5 !important;
+}
+
+.arco-timeline-item-content {
+  color: rgba(255, 255, 255, 0.75) !important;
+}
+
+.arco-timeline-item-label {
+  color: rgba(255, 255, 255, 0.40) !important;
+}
+
+/* ── 41. Collapse ─────────────────────────────────────────────────────── */
+.arco-collapse {
+  background-color: transparent !important;
+  border-color: rgba(255, 255, 255, 0.07) !important;
+}
+
+.arco-collapse-item {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07) !important;
+}
+
+.arco-collapse-item-header {
+  background-color: transparent !important;
+  color: rgba(255, 255, 255, 0.85) !important;
+}
+
+.arco-collapse-item-header:hover {
+  background-color: rgba(255, 255, 255, 0.04) !important;
+}
+
+.arco-collapse-item-content {
+  background-color: rgba(255, 255, 255, 0.02) !important;
+  color: rgba(255, 255, 255, 0.65) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.06) !important;
+}
+
+/* ── 42. Anchor ───────────────────────────────────────────────────────── */
+.arco-anchor-line {
+  background-color: rgba(255, 255, 255, 0.10) !important;
+}
+
+.arco-anchor-link-title {
+  color: rgba(255, 255, 255, 0.55) !important;
+}
+
+.arco-anchor-link-title:hover {
+  color: rgba(255, 255, 255, 0.85) !important;
+}
+
+.arco-anchor-link-active .arco-anchor-link-title {
+  color: #5CBDC5 !important;
+}
+
+.arco-anchor-line-slider {
+  background-color: #5CBDC5 !important;
+}
+
+/* ── 43. Image ────────────────────────────────────────────────────────── */
+.arco-image-error {
+  background-color: rgba(255, 255, 255, 0.04) !important;
+  color: rgba(255, 255, 255, 0.35) !important;
+}
+
+/* ── 44. Result ───────────────────────────────────────────────────────── */
+.arco-result-title {
+  color: rgba(255, 255, 255, 0.92) !important;
+}
+
+.arco-result-subtitle {
+  color: rgba(255, 255, 255, 0.50) !important;
+}
+
+/* ── 45. Skeleton ─────────────────────────────────────────────────────── */
+.arco-skeleton-line,
+.arco-skeleton-image,
+.arco-skeleton-shape {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.05) 25%,
+    rgba(255, 255, 255, 0.10) 50%,
+    rgba(255, 255, 255, 0.05) 75%
+  ) !important;
+  background-size: 400% 100% !important;
+  animation: arco-skeleton-loading 1.4s ease infinite !important;
+}
+
+@keyframes arco-skeleton-loading {
+  0%   { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* ── 46. Back Top ─────────────────────────────────────────────────────── */
+.arco-back-top {
+  background-color: #1A1E2C !important;
+  border: 1px solid rgba(255, 255, 255, 0.10) !important;
+  color: rgba(255, 255, 255, 0.65) !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5) !important;
+}
+
+.arco-back-top:hover {
+  background-color: rgba(92, 189, 197, 0.15) !important;
+  border-color: rgba(92, 189, 197, 0.30) !important;
+  color: #5CBDC5 !important;
+}
+
+/* ── 47. Verification Code Input ─────────────────────────────────────── */
+.arco-verification-code-input-item {
+  background-color: #1F2335 !important;
+  border-color: rgba(255, 255, 255, 0.10) !important;
+  color: rgba(255, 255, 255, 0.92) !important;
+}
+
+.arco-verification-code-input-item:focus {
+  border-color: #5CBDC5 !important;
+  box-shadow: 0 0 0 2px rgba(92, 189, 197, 0.15) !important;
+}
+
+/* ── 48. Mention ──────────────────────────────────────────────────────── */
+.arco-mention-dropdown {
+  background-color: #1F2335 !important;
+  border: 1px solid rgba(255, 255, 255, 0.10) !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6) !important;
+  border-radius: var(--mc-radius-md) !important;
+}
+
+.arco-mention-dropdown-option {
+  color: rgba(255, 255, 255, 0.75) !important;
+}
+
+.arco-mention-dropdown-option:hover {
+  background-color: rgba(255, 255, 255, 0.06) !important;
+}
+
+/* ── 49. Auto Complete ────────────────────────────────────────────────── */
+.arco-auto-complete-dropdown {
+  background-color: #1F2335 !important;
+  border: 1px solid rgba(255, 255, 255, 0.10) !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6) !important;
+  border-radius: var(--mc-radius-md) !important;
+}
+
+/* ── 50. Virtual List ─────────────────────────────────────────────────── */
+.arco-virtual-list-holder {
+  background-color: transparent !important;
+}
+
+/* ── 51. Utility Classes ──────────────────────────────────────────────── */
+
+/* TikTok gradient text */
+.tt-gradient-text {
+  background: linear-gradient(135deg, #E0486D 0%, #5CBDC5 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Glow effects */
+.tt-glow-cyan {
+  box-shadow: 0 0 16px rgba(92, 189, 197, 0.30);
+}
+
+.tt-glow-red {
+  box-shadow: 0 0 16px rgba(224, 72, 109, 0.30);
+}
+
+.mc-card {
+  background-color: var(--mc-bg-card);
+  border: 1px solid var(--mc-border);
+  border-radius: var(--mc-radius-lg);
+  padding: var(--mc-space-lg);
+  box-shadow: var(--mc-shadow-sm);
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.2s var(--mc-ease-out),
+              box-shadow 0.2s var(--mc-ease-out),
+              border-color 0.2s ease;
+}
+
+.mc-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: var(--mc-gradient-brand-soft);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.mc-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--mc-border-strong);
+  box-shadow: var(--mc-shadow-md), 0 0 0 1px rgba(255,255,255,0.04);
+}
+
+.mc-card:hover::before {
+  opacity: 1;
+}
+
+.mc-card-2 {
+  background-color: var(--mc-bg-elevated);
+  border: 1px solid var(--mc-border);
+  border-radius: var(--mc-radius-lg);
+  padding: var(--mc-space-lg);
+  box-shadow: var(--mc-shadow-sm);
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.2s var(--mc-ease-out),
+              box-shadow 0.2s var(--mc-ease-out),
+              border-color 0.2s ease;
+}
+
+.mc-card-2::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: var(--mc-gradient-brand-soft);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.mc-card-2:hover {
+  transform: translateY(-2px);
+  border-color: var(--mc-border-strong);
+  box-shadow: var(--mc-shadow-md), 0 0 0 1px rgba(255,255,255,0.04);
+}
+
+.mc-card-2:hover::before {
+  opacity: 1;
+}
+
+.mc-card-3 {
+  background-color: var(--mc-bg-card-2);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--mc-radius-lg);
+  padding: var(--mc-space-lg);
+  box-shadow: var(--mc-shadow-xs);
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.2s var(--mc-ease-out),
+              box-shadow 0.2s var(--mc-ease-out),
+              border-color 0.2s ease;
+}
+
+.mc-card-3::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: var(--mc-gradient-brand-soft);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.mc-card-3:hover {
+  transform: translateY(-1px);
+  border-color: var(--mc-border-strong);
+  box-shadow: var(--mc-shadow-sm);
+}
+
+.mc-card-3:hover::before {
+  opacity: 1;
+}
+
+/* Metric value display */
+.mc-metric-value {
+  font-size: var(--mc-font-2xl);
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.92);
+  line-height: 1.2;
+}
+
+.mc-metric-label {
+  font-size: var(--mc-font-sm);
+  color: rgba(255, 255, 255, 0.45);
+  margin-top: 4px;
+}
+
+/* Status indicators */
+.mc-status-dot {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  margin-right: 6px;
+}
+
+.mc-status-dot--active  { background-color: #36D399; box-shadow: 0 0 6px rgba(54, 211, 153, 0.5); }
+.mc-status-dot--warning { background-color: #F0A040; box-shadow: 0 0 6px rgba(240, 160, 64, 0.5); }
+.mc-status-dot--error   { background-color: #E0486D; box-shadow: 0 0 6px rgba(224, 72, 109, 0.5); }
+.mc-status-dot--inactive { background-color: rgba(255, 255, 255, 0.25); }
+
+/* Page header */
+.mc-page-header {
+  margin-bottom: var(--mc-space-lg);
+}
+
+.mc-page-title {
+  font-size: var(--mc-font-xl);
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.92);
+  margin: 0 0 4px;
+}
+
+.mc-page-subtitle {
+  font-size: var(--mc-font-sm);
+  color: rgba(255, 255, 255, 0.40);
+  margin: 0;
+}
+
+/* Divider */
+.mc-divider {
+  border: none;
+  border-top: 1px solid rgba(255, 255, 255, 0.07);
+  margin: var(--mc-space-md) 0;
+}
+
+/* Truncate text */
+.mc-truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Flex helpers */
+.mc-flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mc-flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.mc-flex-gap-sm { gap: var(--mc-space-sm); }
+.mc-flex-gap-md { gap: var(--mc-space-md); }
+
+/* ── 52. ECharts Container ────────────────────────────────────────────── */
+.mc-chart-container {
+  width: 100%;
+  position: relative;
+}
+
+.mc-chart-container canvas {
+  border-radius: var(--mc-radius-md);
+}
+
+/* ── 53. Login Page ───────────────────────────────────────────────────── */
+.mc-login-page {
+  min-height: 100vh;
+  background-color: #06070B;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mc-login-card {
+  background-color: #12151F;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--mc-radius-xl);
+  padding: 40px;
+  width: 400px;
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.6);
+}
+
+/* ── 54. App Switcher ─────────────────────────────────────────────────── */
+.mc-app-switcher {
+  background-color: #1F2335;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--mc-radius-lg);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
+}
+
+.mc-app-item {
+  padding: 10px 14px;
+  border-radius: var(--mc-radius-md);
+  cursor: pointer;
+  transition: background-color var(--mc-transition);
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.mc-app-item:hover {
+  background-color: rgba(255, 255, 255, 0.06);
+  color: rgba(255, 255, 255, 0.92);
+}
+
+.mc-app-item--active {
+  background-color: rgba(92, 189, 197, 0.12);
+  color: #5CBDC5;
+}
+
+/* ── 55. Responsive Adjustments ──────────────────────────────────────── */
+@media (max-width: 768px) {
+  .arco-layout-sider {
+    position: fixed !important;
+    z-index: 100 !important;
+    height: 100vh !important;
+  }
+
+  .mc-login-card {
+    width: calc(100vw - 32px);
+    padding: 24px;
+  }
+}
+
+/* ── 56. Transition Animations ────────────────────────────────────────── */
+.mc-fade-enter-active,
+.mc-fade-leave-active {
+  transition: opacity 0.2s ease;
+}
+
+.mc-fade-enter-from,
+.mc-fade-leave-to {
+  opacity: 0;
+}
+
+.mc-slide-up-enter-active,
+.mc-slide-up-leave-active {
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.mc-slide-up-enter-from,
+.mc-slide-up-leave-to {
+  opacity: 0;
+  transform: translateY(8px);
+}
+
+/* ── 57. Table Card (list pages) ──────────────────────────────────────── */
+.table-card {
+  background-color: #12151F;
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: var(--mc-radius-lg);
+  overflow: auto;
+  width: 100%;
+  max-width: 100%;
+}
+
+/* Clickable table rows */
+.clickable-row {
+  cursor: pointer;
+}
+.clickable-row:hover td {
+  background-color: rgba(92, 189, 197, 0.04) !important;
+}
+
+/* Section label */
+.mc-section-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.50);
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  margin-bottom: 12px;
+}
+
+/* Statistic wrap (custom, for string values) */
+.statistic-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.statistic-title {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.45);
+  line-height: 20px;
+}
+.statistic-value {
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 32px;
+  white-space: nowrap;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   布局强制深色覆盖（非 scoped，确保穿透 Arco 所有内部元素）
+   ═══════════════════════════════════════════════════════════ */
+
+/* 整体布局背景 */
+.arco-layout,
+.arco-layout-has-sider {
+  background: #06070B !important;
+}
+
+/* 侧边栏 trigger */
+.arco-layout-sider-trigger {
+  background: rgba(92, 189, 197, 0.02) !important;
+  border-top: 1px solid rgba(92, 189, 197, 0.06) !important;
+  color: rgba(92, 189, 197, 0.30) !important;
+}
+.arco-layout-sider-trigger:hover {
+  background: rgba(92, 189, 197, 0.08) !important;
+  color: rgba(92, 189, 197, 0.70) !important;
+}
+
+/* 顶部导航 */
+.arco-layout-header {
+  background: rgba(18, 21, 31, 0.85) !important;
+  border-bottom: none !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+  position: relative;
+}
+.arco-layout-header::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(92,189,197,0.15), transparent);
+}
+
+/* 内容区 */
+.arco-layout-content {
+  background: #06070B !important;
+}
+
+/* 菜单 — 所有状态 */
+.arco-menu,
+.arco-menu-light,
+.arco-menu-inner {
+  background: transparent !important;
+  border-right: none !important;
+}
+
+.arco-menu-item,
+.arco-menu-inline-header {
+  color: rgba(255,255,255,0.50) !important;
+  background-color: transparent !important;
+  border-radius: 6px !important;
+  margin: 1px 8px !important;
+  border-left: 3px solid transparent !important;
+  padding-left: 8px !important;
+  transition: background-color 0.2s cubic-bezier(0.4, 0, 0.2, 1), color 0.2s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+.arco-menu-item:hover,
+.arco-menu-inline-header:hover {
+  background: rgba(92,189,197,0.06) !important;
+  color: rgba(255,255,255,0.85) !important;
+  border-left-color: rgba(92,189,197,0.25) !important;
+}
+
+.arco-menu-item.arco-menu-selected,
+.arco-menu-item.arco-menu-selected:hover {
+  background: rgba(92,189,197,0.08) !important;
+  color: #5CBDC5 !important;
+  border-left-color: #5CBDC5 !important;
+  box-shadow: inset 3px 0 0 #5CBDC5 !important;
+}
+.arco-menu-item.arco-menu-selected::after {
+  content: '';
+  position: absolute;
+  left: 2px; top: 4px; bottom: 4px;
+  width: 2px;
+  background: #5CBDC5;
+  border-radius: 0 2px 2px 0;
+  box-shadow: 0 0 10px rgba(92,189,197,0.5), 0 0 20px rgba(92,189,197,0.25);
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.arco-menu-inline-header.arco-menu-open {
+  color: rgba(255,255,255,0.85) !important;
+  border-left-color: rgba(92,189,197,0.25) !important;
+}
+
+.arco-menu-inline-header.arco-menu-selected,
+.arco-menu-inline-header.arco-menu-selected:hover {
+  color: #5CBDC5 !important;
+  border-left-color: #5CBDC5 !important;
+  box-shadow: inset 3px 0 0 #5CBDC5 !important;
+}
+
+.arco-menu-inline-content {
+  background: transparent !important;
+}
+.arco-menu-icon {
+  color: inherit !important;
+}
+.arco-menu-icon-suffix {
+  color: rgba(92,189,197,0.25) !important;
+}
+
+/* 弹出子菜单（折叠时） */
+.arco-menu-pop,
+.arco-menu-pop-header {
+  background: rgba(10,13,22,0.97) !important;
+  border: 1px solid rgba(92,189,197,0.10) !important;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.7), 0 0 40px rgba(92,189,197,0.04) !important;
+}
+.arco-menu-pop .arco-menu-item {
+  color: rgba(255,255,255,0.50) !important;
+  border-left: 3px solid transparent !important;
+  padding-left: 8px !important;
+}
+.arco-menu-pop .arco-menu-item:hover {
+  background: rgba(92,189,197,0.06) !important;
+  color: rgba(255,255,255,0.85) !important;
+  border-left-color: rgba(92,189,197,0.25) !important;
+}
+.arco-menu-pop .arco-menu-item.arco-menu-selected {
+  background: rgba(92,189,197,0.08) !important;
+  color: #5CBDC5 !important;
+  border-left-color: #5CBDC5 !important;
+  box-shadow: inset 2px 0 0 #5CBDC5 !important;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   弹出层强制深色（渲染到 body，scoped 无效，必须全局覆盖）
+   ═══════════════════════════════════════════════════════════ */
+
+/* Dropdown 弹出层 */
+.arco-dropdown-popup,
+.arco-dropdown-popup .arco-dropdown-list-wrapper {
+  background: #1F2335 !important;
+  border: 1px solid rgba(255,255,255,0.10) !important;
+  box-shadow: 0 8px 40px rgba(0,0,0,0.7) !important;
+  border-radius: 10px !important;
+}
+
+.arco-dropdown-option,
+.arco-dropdown-option-content,
+.arco-dropdown-option .arco-dropdown-option-content {
+  color: rgba(255,255,255,0.75) !important;
+  font-size: 13px !important;
+}
+
+.arco-dropdown-option:hover,
+.arco-dropdown-option:hover .arco-dropdown-option-content {
+  background: rgba(255,255,255,0.06) !important;
+  color: rgba(255,255,255,0.92) !important;
+}
+
+.arco-dropdown-option-active,
+.arco-dropdown-option-active:hover,
+.arco-dropdown-option-active .arco-dropdown-option-content,
+.arco-dropdown-option-active:hover .arco-dropdown-option-content {
+  background: rgba(92,189,197,0.10) !important;
+  color: #5CBDC5 !important;
+}
+
+.arco-dropdown-option-disabled,
+.arco-dropdown-option-disabled .arco-dropdown-option-content {
+  color: rgba(255,255,255,0.22) !important;
+}
+
+/* Dropdown 内的分割线 */
+.arco-dropdown-popup .arco-divider {
+  border-color: rgba(255,255,255,0.07) !important;
+  margin: 4px 0 !important;
+}
+
+/* Select 下拉 */
+.arco-select-dropdown {
+  background: #1F2335 !important;
+  border: 1px solid rgba(255,255,255,0.10) !important;
+  box-shadow: 0 8px 40px rgba(0,0,0,0.7) !important;
+  border-radius: 10px !important;
+}
+
+.arco-select-option {
+  color: rgba(255,255,255,0.70) !important;
+  font-size: 13px !important;
+  border-radius: 6px !important;
+}
+
+.arco-select-option:hover {
+  background: rgba(255,255,255,0.06) !important;
+  color: rgba(255,255,255,0.92) !important;
+}
+
+.arco-select-option-selected,
+.arco-select-option-selected:hover {
+  background: rgba(92,189,197,0.12) !important;
+  color: #5CBDC5 !important;
+}
+
+/* Popconfirm 弹出层 */
+.arco-popconfirm-popup-content,
+.arco-popover-popup-content {
+  background: #1F2335 !important;
+  border: 1px solid rgba(255,255,255,0.10) !important;
+  box-shadow: 0 8px 40px rgba(0,0,0,0.7) !important;
+  border-radius: 10px !important;
+}
+
+.arco-popconfirm-title,
+.arco-popover-title {
+  color: rgba(255,255,255,0.85) !important;
+}
+
+.arco-popconfirm-footer .arco-btn-secondary {
+  background: rgba(255,255,255,0.06) !important;
+  border-color: rgba(255,255,255,0.12) !important;
+  color: rgba(255,255,255,0.70) !important;
+}
+
+/* Tooltip */
+.arco-tooltip-popup-content {
+  background: #222536 !important;
+  border: 1px solid rgba(255,255,255,0.10) !important;
+  color: rgba(255,255,255,0.85) !important;
+  border-radius: 8px !important;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.6) !important;
+}
+
+/* Date Picker 弹出层 */
+.arco-picker-dropdown {
+  background: #1F2335 !important;
+  border: 1px solid rgba(255,255,255,0.10) !important;
+  box-shadow: 0 8px 40px rgba(0,0,0,0.7) !important;
+  border-radius: 10px !important;
+}
+
+.arco-picker-panel {
+  background: #1F2335 !important;
+}
+
+.arco-picker-header {
+  border-bottom: 1px solid rgba(255,255,255,0.07) !important;
+  color: rgba(255,255,255,0.85) !important;
+}
+
+.arco-picker-header-value,
+.arco-picker-header-label {
+  color: rgba(255,255,255,0.85) !important;
+}
+
+.arco-picker-header-icon {
+  color: rgba(255,255,255,0.45) !important;
+}
+
+.arco-picker-header-icon:hover {
+  color: rgba(255,255,255,0.85) !important;
+  background: rgba(255,255,255,0.06) !important;
+}
+
+.arco-picker-cell-inner {
+  color: rgba(255,255,255,0.65) !important;
+  border-radius: 6px !important;
+}
+
+.arco-picker-cell-in-view .arco-picker-cell-inner {
+  color: rgba(255,255,255,0.85) !important;
+}
+
+.arco-picker-cell:hover .arco-picker-cell-inner {
+  background: rgba(255,255,255,0.06) !important;
+}
+
+.arco-picker-cell-selected .arco-picker-cell-inner,
+.arco-picker-cell-selected:hover .arco-picker-cell-inner {
+  background: #5CBDC5 !important;
+  color: #06070B !important;
+}
+
+.arco-picker-cell-today .arco-picker-cell-inner {
+  border-color: #5CBDC5 !important;
+}
+
+.arco-picker-cell-in-range .arco-picker-cell-inner {
+  background: rgba(92,189,197,0.10) !important;
+}
+
+.arco-picker-cell-range-start .arco-picker-cell-inner,
+.arco-picker-cell-range-end .arco-picker-cell-inner {
+  background: #5CBDC5 !important;
+  color: #06070B !important;
+}
+
+.arco-picker-footer {
+  border-top: 1px solid rgba(255,255,255,0.07) !important;
+  background: #1F2335 !important;
+}
+
+.arco-picker-week-list-item {
+  color: rgba(255,255,255,0.50) !important;
+}
+
+/* Modal 遮罩 */
+.arco-modal-mask {
+  background: rgba(0,0,0,0.80) !important;
+}
+
+/* Modal 本体 */
+.arco-modal-wrapper .arco-modal {
+  background: #1F2335 !important;
+  border: 1px solid rgba(255,255,255,0.08) !important;
+  border-radius: 14px !important;
+  box-shadow: 0 24px 80px rgba(0,0,0,0.8) !important;
+}
+
+.arco-modal-wrapper .arco-modal-header {
+  background: transparent !important;
+  border-bottom: 1px solid rgba(255,255,255,0.07) !important;
+}
+
+.arco-modal-wrapper .arco-modal-title {
+  color: rgba(255,255,255,0.92) !important;
+}
+
+.arco-modal-wrapper .arco-modal-body {
+  color: rgba(255,255,255,0.70) !important;
+}
+
+.arco-modal-wrapper .arco-modal-footer {
+  background: transparent !important;
+  border-top: 1px solid rgba(255,255,255,0.07) !important;
+}
+
+.arco-modal-wrapper .arco-modal-close-btn {
+  color: rgba(255,255,255,0.35) !important;
+}
+
+.arco-modal-wrapper .arco-modal-close-btn:hover {
+  color: rgba(255,255,255,0.75) !important;
+  background: rgba(255,255,255,0.06) !important;
+}
+
+/* Form items inside modal */
+.arco-modal-wrapper .arco-form-item-label-col label {
+  color: rgba(255,255,255,0.55) !important;
+}
+
+.arco-modal-wrapper .arco-input-wrapper,
+.arco-modal-wrapper .arco-select-view,
+.arco-modal-wrapper .arco-textarea-wrapper,
+.arco-modal-wrapper .arco-input-number {
+  background: #1A1E2C !important;
+  border-color: rgba(255,255,255,0.10) !important;
+  color: rgba(255,255,255,0.85) !important;
+}
+
+.arco-modal-wrapper .arco-input,
+.arco-modal-wrapper .arco-textarea {
+  color: rgba(255,255,255,0.85) !important;
+  background: transparent !important;
+}
+
+.arco-modal-wrapper .arco-input::placeholder,
+.arco-modal-wrapper .arco-textarea::placeholder {
+  color: rgba(255,255,255,0.22) !important;
+}
+
+.arco-modal-wrapper .arco-input-wrapper:focus-within,
+.arco-modal-wrapper .arco-select-view-focus,
+.arco-modal-wrapper .arco-textarea-wrapper:focus-within {
+  border-color: #5CBDC5 !important;
+  box-shadow: 0 0 0 2px rgba(92,189,197,0.15) !important;
+}
+
+.arco-modal-wrapper .arco-select-view-value {
+  color: rgba(255,255,255,0.85) !important;
+}
+
+.arco-modal-wrapper .arco-select-view-placeholder {
+  color: rgba(255,255,255,0.22) !important;
+}
+
+.arco-modal-wrapper .arco-radio-btn {
+  background: #1A1E2C !important;
+  border-color: rgba(255,255,255,0.10) !important;
+  color: rgba(255,255,255,0.55) !important;
+}
+
+.arco-modal-wrapper .arco-radio-checked .arco-radio-btn {
+  background: rgba(92,189,197,0.12) !important;
+  border-color: #5CBDC5 !important;
+  color: #5CBDC5 !important;
+}
+
+.arco-modal-wrapper .arco-checkbox-label {
+  color: rgba(255,255,255,0.70) !important;
+}
+
+.arco-modal-wrapper .arco-form-item-message {
+  color: #E0486D !important;
+}
+
+/* Upload inside modal */
+.arco-modal-wrapper .arco-upload-drag {
+  background: rgba(255,255,255,0.03) !important;
+  border-color: rgba(255,255,255,0.10) !important;
+  color: rgba(255,255,255,0.40) !important;
+}
+
+.arco-modal-wrapper .arco-upload-drag:hover {
+  border-color: rgba(92,189,197,0.35) !important;
+  background: rgba(92,189,197,0.04) !important;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   页面通用样式（覆盖所有列表页的共用类）
+   ═══════════════════════════════════════════════════════════ */
+
+/* 页面标题区 */
+.page-title {
+  font-size: 18px !important;
+  font-weight: 700 !important;
+  color: rgba(255,255,255,0.92) !important;
+}
+.page-subtitle {
+  font-size: 12px !important;
+  color: rgba(255,255,255,0.35) !important;
+  margin-top: 2px !important;
+}
+
+/* 表格卡片 — 强制深色，覆盖 scoped 里的旧 token */
+.table-card {
+  background: var(--mc-bg-card) !important;
+  border: 1px solid var(--mc-border) !important;
+  border-radius: 12px !important;
+  overflow: auto !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  box-shadow: var(--mc-shadow-sm) !important;
+}
+
+/* 表格容器内部 — Arco 自己的白色背景 */
+.table-card .arco-table-container {
+  background: transparent !important;
+  border: none !important;
+  border-radius: 0 !important;
+}
+
+/* 表单卡片（上传页等） */
+.form-card {
+  background: #12151F !important;
+  border: 1px solid rgba(255,255,255,0.07) !important;
+  border-radius: 12px !important;
+}
+
+/* 表单分区标题 */
+.form-section-title {
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  color: rgba(255,255,255,0.75) !important;
+  border-bottom: 1px solid rgba(255,255,255,0.07) !important;
+}
+
+/* 表单分割线 */
+.form-divider {
+  background: rgba(255,255,255,0.07) !important;
+}
+
+/* 表单底部 */
+.form-footer {
+  border-top: 1px solid rgba(255,255,255,0.07) !important;
+}
+
+/* 返回按钮 */
+.back-btn {
+  color: rgba(255,255,255,0.35) !important;
+}
+.back-btn:hover {
+  color: #5CBDC5 !important;
+}
+
+/* 行操作按钮 */
+.row-actions {
+  display: flex;
+  gap: 2px;
+}
+
+/* 用户单元格 */
+.user-cell { display: flex; flex-direction: column; gap: 2px; }
+.user-name { font-size: 13px; font-weight: 500; color: rgba(255,255,255,0.85) !important; }
+.user-id { font-size: 11px; color: rgba(255,255,255,0.50) !important; font-family: 'SF Mono', monospace; }
+
+/* 账号单元格 */
+.account-name { font-size: 13px; font-weight: 500; color: rgba(255,255,255,0.85) !important; }
+.account-email { font-size: 11px; color: rgba(255,255,255,0.50) !important; }
+
+/* 角色徽章 */
+.role-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 600;
+}
+.role-badge--admin    { background: rgba(224, 72, 109,0.15)  !important; color: #E0486D !important; }
+.role-badge--operator { background: rgba(92,189,197,0.15) !important; color: #5CBDC5 !important; }
+.role-badge--viewer   { background: rgba(155,126,196,0.15)  !important; color: #9B7EC4 !important; }
+
+/* 应用范围 */
+.scope-all { font-size: 12px; color: rgba(255,255,255,0.50) !important; font-style: italic; }
+
+/* 类型徽章（广告/推送） */
+.type-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 600;
+}
+.type-badge--blue,
+.type-badge--interstitial {
+  background: rgba(92,189,197,0.12) !important;
+  color: #5CBDC5 !important;
+}
+.type-badge--purple {
+  background: rgba(155,126,196,0.12) !important;
+  color: #9B7EC4 !important;
+}
+.type-badge--rewarded {
+  background: rgba(54,211,153,0.12) !important;
+  color: #36D399 !important;
+}
+.type-badge--banner {
+  background: rgba(240,160,64,0.12) !important;
+  color: #F0A040 !important;
+}
+
+/* 广告名称单元格 */
+.ad-name { font-size: 13px; font-weight: 500; color: rgba(255,255,255,0.85) !important; }
+.ad-network-id { font-size: 11px; color: rgba(255,255,255,0.50) !important; font-family: 'SF Mono', monospace; }
+
+/* 条件文字 */
+.condition-text { font-size: 13px; color: rgba(255,255,255,0.55) !important; }
+.condition-text strong { color: rgba(255,255,255,0.85) !important; font-weight: 600; }
+.ad-name-text { font-size: 13px; color: rgba(255,255,255,0.55) !important; }
+
+/* 短剧名称 */
+.drama-name { font-weight: 500; color: rgba(255,255,255,0.85) !important; cursor: pointer; }
+.drama-name:hover { color: #5CBDC5 !important; }
+.episode-count { font-weight: 600; color: rgba(255,255,255,0.85) !important; }
+.episode-unit { font-size: 11px; color: var(--mc-text-tertiary); }
+.empty-text { color: rgba(255,255,255,0.20) !important; font-size: 13px; }
+
+/* 颜色选择器（标签管理） */
+.color-swatch {
+  cursor: pointer;
+  border-radius: 4px;
+  padding: 2px;
+  border: 2px solid transparent;
+  transition: border-color 0.15s;
+}
+.color-swatch.selected { border-color: #5CBDC5 !important; }
+.color-swatch:hover { border-color: rgba(255,255,255,0.25) !important; }
+
+/* 短剧详情 — 信息卡片 */
+.info-card,
+.episodes-card {
+  background: #12151F !important;
+  border: 1px solid rgba(255,255,255,0.07) !important;
+  border-radius: 12px !important;
+  overflow: hidden !important;
+}
+
+.info-card-header {
+  padding: 14px 20px !important;
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  color: rgba(255,255,255,0.75) !important;
+  border-bottom: 1px solid rgba(255,255,255,0.07) !important;
+  background: rgba(255,255,255,0.02) !important;
+}
+
+.info-item {
+  border-bottom: 1px solid rgba(255,255,255,0.05) !important;
+  border-right: 1px solid rgba(255,255,255,0.05) !important;
+}
+
+.info-label {
+  font-size: 11px !important;
+  font-weight: 600 !important;
+  color: rgba(255,255,255,0.50) !important;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.info-value {
+  font-size: 13px !important;
+  color: rgba(255,255,255,0.85) !important;
+  font-weight: 500 !important;
+}
+
+.info-desc {
+  font-weight: 400 !important;
+  color: rgba(255,255,255,0.55) !important;
+  line-height: 1.6 !important;
+}
+
+.badge-count {
+  font-size: 16px !important;
+  font-weight: 700 !important;
+  color: #5CBDC5 !important;
+}
+
+/* 集数 Tab 按钮 */
+.episode-tab {
+  padding: 5px 12px;
+  font-size: 12px;
+  font-weight: 500;
+  color: rgba(255,255,255,0.40) !important;
+  background: rgba(255,255,255,0.04) !important;
+  border: 1px solid rgba(255,255,255,0.08) !important;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.episode-tab:hover {
+  border-color: rgba(92,189,197,0.35) !important;
+  color: #5CBDC5 !important;
+}
+.episode-tab.active {
+  background: #5CBDC5 !important;
+  border-color: #5CBDC5 !important;
+  color: #06070B !important;
+}
+
+/* 权限编辑器（账号管理） */
+.perm-modal-role { display: flex; align-items: center; gap: 8px; }
+
+/* 403 页面 */
+.error-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #06070B !important;
+}
+.error-code {
+  font-size: 72px !important;
+  font-weight: 800 !important;
+  color: rgba(255,255,255,0.12) !important;
+  line-height: 1;
+  letter-spacing: -4px;
+}
+.error-title {
+  font-size: 22px !important;
+  font-weight: 700 !important;
+  color: rgba(255,255,255,0.85) !important;
+}
+.error-desc {
+  font-size: 14px !important;
+  color: rgba(255,255,255,0.35) !important;
+  line-height: 1.8;
+}
+.error-role {
+  font-size: 12px !important;
+  color: rgba(255,255,255,0.50) !important;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   Popconfirm 完整深色覆盖
+   ═══════════════════════════════════════════════════════════ */
+
+.arco-popconfirm-popup-content {
+  background: #1A1B21 !important;
+  border: 1px solid rgba(255,255,255,0.10) !important;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.7) !important;
+  border-radius: 10px !important;
+  padding: 14px 16px !important;
+}
+
+/* 箭头 */
+.arco-popconfirm-popup-arrow::before {
+  background: #1A1B21 !important;
+  border-color: rgba(255,255,255,0.10) !important;
+}
+
+/* 图标区域 */
+.arco-popconfirm-icon {
+  color: #EE1D52 !important;
+}
+
+/* 内容文字 */
+.arco-popconfirm-body {
+  color: rgba(255,255,255,0.85) !important;
+  font-size: 13px !important;
+}
+
+.arco-popconfirm-content {
+  color: rgba(255,255,255,0.85) !important;
+  font-size: 13px !important;
+}
+
+/* 底部按钮区 */
+.arco-popconfirm-footer {
+  margin-top: 12px !important;
+  display: flex !important;
+  justify-content: flex-end !important;
+  gap: 8px !important;
+}
+
+/* 取消按钮 */
+.arco-popconfirm-footer .arco-btn-secondary,
+.arco-popconfirm-footer .arco-btn-outline {
+  background: rgba(255,255,255,0.06) !important;
+  border: 1px solid rgba(255,255,255,0.12) !important;
+  color: rgba(255,255,255,0.65) !important;
+  font-size: 12px !important;
+  height: 28px !important;
+  padding: 0 12px !important;
+  border-radius: 6px !important;
+}
+.arco-popconfirm-footer .arco-btn-secondary:hover,
+.arco-popconfirm-footer .arco-btn-outline:hover {
+  background: rgba(255,255,255,0.10) !important;
+  color: rgba(255,255,255,0.85) !important;
+}
+
+/* 确认按钮 */
+.arco-popconfirm-footer .arco-btn-primary {
+  background: linear-gradient(90deg, #EE1D52, #69C9D0) !important;
+  border: none !important;
+  color: #fff !important;
+  font-size: 12px !important;
+  height: 28px !important;
+  padding: 0 12px !important;
+  border-radius: 6px !important;
+  box-shadow: 0 2px 8px rgba(238,29,82,0.3) !important;
+}
+.arco-popconfirm-footer .arco-btn-primary:hover {
+  opacity: 0.88 !important;
+}
+
+/* 危险确认按钮（删除操作） */
+.arco-popconfirm-footer .arco-btn-status-danger {
+  background: rgba(238,29,82,0.15) !important;
+  border: 1px solid rgba(238,29,82,0.35) !important;
+  color: #EE1D52 !important;
+  font-size: 12px !important;
+  height: 28px !important;
+  padding: 0 12px !important;
+  border-radius: 6px !important;
+}
+.arco-popconfirm-footer .arco-btn-status-danger:hover {
+  background: rgba(238,29,82,0.25) !important;
+}
+
+.arco-spin-icon {
+  color: #E0486D !important;
+}
+
+.arco-dot-loading-item {
+  background-color: #E0486D !important;
+}
+
+.arco-dot-loading-item:nth-child(2) {
+  background-color: #E87898 !important;
+}
+
+.arco-dot-loading-item:nth-child(3) {
+  background-color: #EEA3B8 !important;
+}
+
+.arco-dot-loading-item:nth-child(4) {
+  background-color: #F4C5D6 !important;
+}
+
+.arco-dot-loading-item:nth-child(5) {
+  background-color: #F9E6F0 !important;
+}
+
+/* ── 路由切换过渡动画（shadcn 风格：scale + opacity + blur） ──────────── */
+.page-fade-enter-active {
+  animation: pageFadeIn 0.25s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.page-fade-leave-active {
+  animation: pageFadeOut 0.15s cubic-bezier(0.4, 0, 1, 1) both;
+}
+
+@keyframes pageFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px) scale(0.995);
+    filter: blur(2px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+  }
+}
+
+@keyframes pageFadeOut {
+  from {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-4px) scale(0.995);
+    filter: blur(2px);
+  }
+}
+
+/* ── Empty 状态图标替换（胶片/短剧主题）────────────────────────────────── */
+
+/* 隐藏 Arco 默认的 empty SVG */
+.arco-empty-image svg {
+  display: none !important;
+}
+
+/* 用伪元素注入空收件箱图标 SVG */
+.arco-empty-image::after {
+  content: '';
+  display: block;
+  width: 80px;
+  height: 80px;
+  margin: 0 auto;
+  background-color: transparent;
+  background-image: url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3C!-- 盒子底部 --%3E%3Cpath d='M10 46 L10 64 Q10 68 14 68 L66 68 Q70 68 70 64 L70 46 Z' stroke='rgba(255,255,255,0.22)' stroke-width='2' fill='rgba(255,255,255,0.04)'/%3E%3C!-- 盒子顶部左翼 --%3E%3Cpath d='M10 46 L20 28 L36 28' stroke='rgba(255,255,255,0.22)' stroke-width='2' fill='none' stroke-linejoin='round'/%3E%3C!-- 盒子顶部右翼 --%3E%3Cpath d='M70 46 L60 28 L44 28' stroke='rgba(255,255,255,0.22)' stroke-width='2' fill='none' stroke-linejoin='round'/%3E%3C!-- 中间凹槽（放东西的地方，空的） --%3E%3Cpath d='M36 28 Q36 40 40 40 Q44 40 44 28' stroke='rgba(255,255,255,0.22)' stroke-width='2' fill='none'/%3E%3C!-- 盒子内部空白强调线 --%3E%3Cline x1='22' y1='56' x2='58' y2='56' stroke='rgba(255,255,255,0.08)' stroke-width='1.5' stroke-linecap='round' stroke-dasharray='4 3'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+}
+
+/* 调整 empty 容器高度，避免图标被裁剪 */
+.arco-empty-image {
+  height: 80px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+
+/* ── 41. 增强表格空状态（shadcn 风格） ────────────────────────────────── */
+.arco-table-body .arco-empty {
+  padding: 60px 0;
+}
+
+.arco-table-body .arco-empty-description {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.30) !important;
+  margin-top: 8px;
+}
+
+/* ── 42. 侧边栏菜单项过渡增强 ────────────────────────────────────────── */
+.arco-menu-item,
+.arco-menu-inline-header {
+  transition: background-color 0.2s cubic-bezier(0.4, 0, 0.2, 1),
+              color 0.2s cubic-bezier(0.4, 0, 0.2, 1),
+              padding 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+/* 菜单文字在折叠时平滑隐藏 */
+.arco-menu-collapsed .arco-menu-item .arco-menu-title,
+.arco-menu-collapsed .arco-menu-inline-header .arco-menu-title {
+  opacity: 0;
+  transition: opacity 0.15s ease;
+}
+
+/* 菜单图标在折叠时居中 */
+.arco-menu-collapsed .arco-menu-icon {
+  margin-right: 0 !important;
+  transition: margin 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ── 43. 响应式适配 ───────────────────────────────────────────────────── */
+@media (max-width: 1024px) {
+  .arco-layout-sider {
+    width: 56px !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .arco-layout-sider {
+    transform: translateX(-100%);
+    transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .arco-layout-sider.sider-visible {
+    transform: translateX(0);
+  }
+}
+
+/* ── 44. 卡片 hover 微交互（霓虹精密风格） ─────────────────────────────── */
+.arco-card:hover {
+  transform: translateY(-2px) !important;
+  border-color: var(--mc-border-strong) !important;
+  box-shadow: var(--mc-shadow-md), 0 0 0 1px rgba(255,255,255,0.04) !important;
+}
+
+/* ── 45. 按钮点击涟漪效果 ─────────────────────────────────────────────── */
+.arco-btn {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+.arco-btn:active:not(:disabled) {
+  transform: scale(0.97) !important;
+}
+
+/* ── 46. 输入框 focus 动画增强 ────────────────────────────────────────── */
+.arco-input-wrapper,
+.arco-select-view,
+.arco-picker {
+  transition: border-color 0.2s ease,
+              box-shadow 0.2s ease,
+              background-color 0.2s ease !important;
+}
+
+/* ── 47. 模态框入场动画（shadcn 风格） ────────────────────────────────── */
+.arco-modal-wrapper {
+  animation: modal-overlay-in 0.2s ease both;
+}
+
+.arco-modal {
+  animation: modal-content-in 0.25s cubic-bezier(0.16, 1, 0.3, 1) both !important;
+}
+
+html body .fade-in-standard-leave-active,
+html body .fade-modal-leave-active {
+  transition: opacity 40ms ease-out !important;
+}
+
+html body .zoom-in-leave-active,
+html body .zoom-modal-leave-active {
+  transition: opacity 40ms ease-out, transform 40ms ease-out !important;
+}
+
+html body .arco-modal.zoom-in-leave-active,
+html body .arco-modal.zoom-modal-leave-active {
+  animation: none !important;
+}
+
+html body .fade-drawer-leave-active {
+  transition: opacity 40ms ease-out !important;
+}
+
+html body .slide-left-drawer-leave-active,
+html body .slide-right-drawer-leave-active,
+html body .slide-top-drawer-leave-active,
+html body .slide-bottom-drawer-leave-active {
+  transition: transform 60ms ease-out !important;
+}
+
+@keyframes modal-overlay-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes modal-content-in {
+  from {
+    opacity: 0;
+    transform: scale(0.96) translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* ── 48. 下拉菜单入场动画 ────────────────────────────────────────────── */
+.arco-dropdown-popup,
+.arco-select-dropdown {
+  animation: dropdown-in 0.15s cubic-bezier(0.16, 1, 0.3, 1) both !important;
+}
+
+@keyframes dropdown-in {
+  from {
+    opacity: 0;
+    transform: translateY(-4px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* ── 49. 消息通知入场动画 ────────────────────────────────────────────── */
+.arco-message-item {
+  animation: message-in 0.3s cubic-bezier(0.16, 1, 0.3, 1) both !important;
+}
+
+@keyframes message-in {
+  from {
+    opacity: 0;
+    transform: translateY(-12px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* ── 50. Staggered Reveal 动画系统 ────────────────────────────────────── */
+.stagger-item {
+  opacity: 0;
+  transform: translateY(8px);
+  animation: staggerFadeIn 0.3s var(--mc-ease-out) both;
+  animation-delay: calc(var(--stagger-index, 0) * 60ms + 80ms);
+}
+
+@keyframes staggerFadeIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ── 51. Scroll Reveal 动画 ───────────────────────────────────────────── */
+.scroll-reveal {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.5s var(--mc-ease-out), transform 0.5s var(--mc-ease-out);
+}
+
+.scroll-reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── 52. 数据脉冲动画 ─────────────────────────────────────────────────── */
+.mc-pulse-up {
+  animation: pulseUp 0.8s ease both;
+}
+
+.mc-pulse-down {
+  animation: pulseDown 0.8s ease both;
+}
+
+@keyframes pulseUp {
+  0%   { background-color: transparent; }
+  30%  { background-color: var(--mc-pulse-up); }
+  100% { background-color: transparent; }
+}
+
+@keyframes pulseDown {
+  0%   { background-color: transparent; }
+  30%  { background-color: var(--mc-pulse-down); }
+  100% { background-color: transparent; }
+}
+
+/* ── 53. Tag 状态变更过渡 ─────────────────────────────────────────────── */
+.arco-tag {
+  transition: all 0.25s var(--mc-ease-out) !important;
+}
+
+/* ── 54. 搜索框展开交互 ──────────────────────────────────────────────── */
+.mc-search-expand {
+  transition: width 0.25s var(--mc-ease-out), border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.mc-search-expand:focus-within {
+  box-shadow: var(--mc-glow-primary) !important;
+}
+
+/* ── 55. 应用切换脉冲反馈 ─────────────────────────────────────────────── */
+.mc-app-pulse {
+  animation: appPulse 0.6s ease both;
+}
+
+@keyframes appPulse {
+  0%   { box-shadow: none; }
+  30%  { box-shadow: 0 0 0 4px rgba(92, 189, 197, 0.2), 0 0 20px rgba(92, 189, 197, 0.15); }
+  100% { box-shadow: none; }
+}
+
+/* ── 56. Drawer 增强动效 ──────────────────────────────────────────────── */
+.arco-drawer {
+  transition: transform 0.3s var(--mc-ease-out) !important;
+}
+
+/* ── 57. 复制成功反馈 ─────────────────────────────────────────────────── */
+.mc-copy-success {
+  color: #5CBDC5 !important;
+  transition: color 0.2s ease;
+}
+
+/* ── 58. 进度条完成脉冲 ───────────────────────────────────────────────── */
+.mc-progress-complete {
+  animation: progressComplete 0.6s ease both;
+}
+
+@keyframes progressComplete {
+  0%   { box-shadow: none; }
+  50%  { box-shadow: 0 0 12px rgba(92, 189, 197, 0.5); }
+  100% { box-shadow: none; }
+}
