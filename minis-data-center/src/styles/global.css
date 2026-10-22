@@ -19,10 +19,10 @@
  */
 :root {
   --color-bg-1:          #FFFFFF;
-  --color-bg-2:          #FAFBFC;
-  --color-bg-3:          #F5F7FA;
-  --color-bg-4:          #EDF0F4;
-  --color-bg-5:          #E4E8EF;
+  --color-bg-2:          #F4F7FA;
+  --color-bg-3:          #EDF1F5;
+  --color-bg-4:          #E3E8EE;
+  --color-bg-5:          #D8DEE6;
   --color-bg-white:      #FFFFFF;
   --color-bg-popup:      #FFFFFF;
 
@@ -42,7 +42,7 @@
   --color-fill-4:        rgba(76, 157, 228, 0.20);
 
   --color-mask-bg:       rgba(19, 41, 66, 0.32);
-  --color-spin-layer-bg: rgba(245, 247, 250, 0.85);
+  --color-spin-layer-bg: rgba(237, 241, 245, 0.85);
 
   --primary-1:           rgba(76, 157, 228, 0.10);
   --primary-2:           rgba(76, 157, 228, 0.18);
@@ -94,7 +94,7 @@ body.arco-overflow-hidden {
 body {
   margin: 0;
   padding: 0;
-  background-color: #f5f7fa;
+  background-color: #edf1f5;
   color: rgba(22, 41, 63, 0.92);
   font-family: var(--mc-font-family);
   font-size: var(--mc-font-md);
@@ -108,7 +108,7 @@ body {
   height: 100%;
   width: 100%;
   min-height: 100vh;
-  background-color: #f5f7fa;
+  background-color: #edf1f5;
 }
 
 a {
@@ -142,11 +142,11 @@ a:hover {
 
 /* ── 4. Layout ────────────────────────────────────────────────────────── */
 .arco-layout {
-  background-color: #f5f7fa !important;
+  background-color: #edf1f5 !important;
 }
 
 .arco-layout-content {
-  background-color: #f5f7fa !important;
+  background-color: #edf1f5 !important;
 }
 
 /* ── 5. Sidebar / Sider ───────────────────────────────────────────────── */
@@ -689,7 +689,7 @@ a:hover {
 
 /* ── 20. Notification / Message ──────────────────────────────────────── */
 .arco-notification-item {
-  background-color: #f9fafc !important;
+  background-color: #f4f7fa !important;
   border: 1px solid rgba(31, 80, 132, 0.14) !important;
   box-shadow: 0 8px 32px rgba(23, 54, 92, 0.33) !important;
   border-radius: var(--mc-radius-lg) !important;
@@ -701,7 +701,7 @@ a:hover {
 }
 
 .arco-message-item {
-  background-color: #f9fafc !important;
+  background-color: #f4f7fa !important;
   border: 1px solid rgba(31, 80, 132, 0.14) !important;
   box-shadow: 0 4px 20px rgba(23, 54, 92, 0.28) !important;
   border-radius: var(--mc-radius-md) !important;
@@ -995,7 +995,7 @@ a:hover {
 }
 
 .arco-transfer-view-header {
-  background-color: #f9fafc !important;
+  background-color: #f4f7fa !important;
   border-bottom: 1px solid rgba(31, 80, 132, 0.13) !important;
   color: rgba(22, 41, 63, 0.75) !important;
 }
@@ -1184,7 +1184,7 @@ h6.arco-typography {
 
 /* ── 46. Back Top ─────────────────────────────────────────────────────── */
 .arco-back-top {
-  background-color: #f9fafc !important;
+  background-color: #f4f7fa !important;
   border: 1px solid rgba(31, 80, 132, 0.18) !important;
   color: rgba(22, 41, 63, 0.65) !important;
   box-shadow: 0 4px 16px rgba(23, 54, 92, 0.28) !important;
@@ -1444,7 +1444,7 @@ h6.arco-typography {
 /* ── 53. Login Page ───────────────────────────────────────────────────── */
 .mc-login-page {
   min-height: 100vh;
-  background-color: #f5f7fa;
+  background-color: #edf1f5;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1574,7 +1574,7 @@ h6.arco-typography {
 /* 整体布局背景 */
 .arco-layout,
 .arco-layout-has-sider {
-  background: #f5f7fa !important;
+  background: #edf1f5 !important;
 }
 
 /* 侧边栏 trigger */
@@ -1606,7 +1606,7 @@ h6.arco-typography {
 
 /* 内容区 */
 .arco-layout-content {
-  background: #f5f7fa !important;
+  background: #edf1f5 !important;
 }
 
 /* 菜单 — 所有状态 */
@@ -1921,7 +1921,7 @@ h6.arco-typography {
 .arco-modal-wrapper .arco-select-view,
 .arco-modal-wrapper .arco-textarea-wrapper,
 .arco-modal-wrapper .arco-input-number {
-  background: #f9fafc !important;
+  background: #f4f7fa !important;
   border-color: rgba(31, 80, 132, 0.18) !important;
   color: rgba(22, 41, 63, 0.85) !important;
 }
@@ -1953,7 +1953,7 @@ h6.arco-typography {
 }
 
 .arco-modal-wrapper .arco-radio-btn {
-  background: #f9fafc !important;
+  background: #f4f7fa !important;
   border-color: rgba(31, 80, 132, 0.18) !important;
   color: rgba(22, 41, 63, 0.55) !important;
 }
@@ -2216,7 +2216,7 @@ h6.arco-typography {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #f5f7fa !important;
+  background: #edf1f5 !important;
 }
 .error-code {
   font-size: 72px !important;
@@ -2245,7 +2245,7 @@ h6.arco-typography {
    ═══════════════════════════════════════════════════════════ */
 
 .arco-popconfirm-popup-content {
-  background: #f9fafc !important;
+  background: #f4f7fa !important;
   border: 1px solid rgba(31, 80, 132, 0.18) !important;
   box-shadow: 0 8px 32px rgba(23, 54, 92, 0.39) !important;
   border-radius: 10px !important;
@@ -2254,7 +2254,7 @@ h6.arco-typography {
 
 /* 箭头 */
 .arco-popconfirm-popup-arrow::before {
-  background: #f9fafc !important;
+  background: #f4f7fa !important;
   border-color: rgba(31, 80, 132, 0.18) !important;
 }
 

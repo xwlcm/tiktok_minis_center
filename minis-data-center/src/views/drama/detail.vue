@@ -947,7 +947,7 @@ onUnmounted(() => {
 .player-wrap {
   border-radius: var(--mc-radius-md);
   overflow: hidden;
-  background: #f5f7fa;
+  background: #edf1f5;
 }
 
 .video-player {
@@ -961,7 +961,7 @@ onUnmounted(() => {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #f5f7fa;
+  background: #edf1f5;
 }
 
 .video-player-container {
@@ -1026,7 +1026,7 @@ onUnmounted(() => {
   align-items: center;
   justify-content: space-between;
   padding: 8px 12px;
-  background: #f9fafc;
+  background: #f4f7fa;
   font-size: 12px;
   color: rgba(22, 41, 63, 0.47);
 }

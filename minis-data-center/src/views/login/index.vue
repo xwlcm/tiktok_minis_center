@@ -401,7 +401,7 @@ onUnmounted(() => {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #f5f7fa;
+  background: #edf1f5;
   overflow: hidden;
   font-family: var(--mc-font-family);
 }
@@ -675,7 +675,7 @@ onUnmounted(() => {
 .lf__input:-webkit-autofill:focus,
 .lf__input:-webkit-autofill:active {
   -webkit-text-fill-color: #16293F !important;
-  -webkit-box-shadow: 0 0 0 1000px #F5F7FA inset !important;
+  -webkit-box-shadow: 0 0 0 1000px #EDF1F5 inset !important;
   caret-color: #4c9de4 !important;
   transition: background-color 5000s ease-in-out 0s;
 }

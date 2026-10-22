@@ -1376,7 +1376,7 @@ onUnmounted(() => {
 
 .json-panel {
   padding: 14px 16px;
-  background: #f9fafc;
+  background: #f4f7fa;
   border: 1px solid rgba(31, 80, 132, 0.11);
   border-radius: 8px;
 }
@@ -1464,7 +1464,7 @@ onUnmounted(() => {
 
 .metric-card {
   padding: 16px 18px;
-  background: #f9fafc;
+  background: #f4f7fa;
   border: 1px solid rgba(31, 80, 132, 0.11);
   border-radius: 8px;
   position: relative;
@@ -1544,7 +1544,7 @@ onUnmounted(() => {
 }
 
 .trend-chart-card {
-  background: #f9fafc;
+  background: #f4f7fa;
   border: 1px solid rgba(31, 80, 132, 0.11);
   border-radius: 8px;
 }

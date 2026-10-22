@@ -46,10 +46,10 @@
   --mc-text-disabled:  rgba(22, 41, 63, 0.26);
 
   /* ── 背景层次（浅蓝 5 级） ────────────────────────────── */
-  --mc-bg-page:        #F5F7FA;
-  --mc-bg-sunken:      #EDF0F4;
+  --mc-bg-page:        #EDF1F5;
+  --mc-bg-sunken:      #E3E8EE;
   --mc-bg-card:        #FFFFFF;
-  --mc-bg-card-2:      #FAFBFC;
+  --mc-bg-card-2:      #F4F7FA;
   --mc-bg-elevated:    #FFFFFF;
   --mc-bg-hover:       rgba(76, 157, 228, 0.07);
   --mc-bg-active:      rgba(76, 157, 228, 0.13);
