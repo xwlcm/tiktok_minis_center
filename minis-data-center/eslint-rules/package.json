@@ -1,0 +1,7 @@
+{
+  "name": "eslint-plugin-minis",
+  "version": "1.0.0",
+  "description": "Minis Data Center 项目专用 ESLint 规则，对应 docs/system.txt 第 3.5 节强制规范",
+  "main": "index.js",
+  "type": "commonjs"
+}

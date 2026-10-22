@@ -1,0 +1,18 @@
+<svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="64" height="64" rx="16" fill="#040508"/>
+  <path d="M32 8L56 20.3V43.7L32 56L8 43.7V20.3L32 8Z" fill="url(#favicon-fill)"/>
+  <path d="M32 13L51.2 22.9V41.1L32 51L12.8 41.1V22.9L32 13Z" fill="none" stroke="url(#favicon-stroke)" stroke-width="1.4" opacity="0.55"/>
+  <path d="M23.5 23L32 44L40.5 23" stroke="#FFFFFF" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M20.5 31.5H43.5" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" opacity="0.76"/>
+  <defs>
+    <linearGradient id="favicon-fill" x1="8" y1="8" x2="56" y2="56" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#E0486D"/>
+      <stop offset="0.5" stop-color="#C44A7A"/>
+      <stop offset="1" stop-color="#5CBDC5"/>
+    </linearGradient>
+    <linearGradient id="favicon-stroke" x1="12.8" y1="13" x2="51.2" y2="51" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FF6B8A"/>
+      <stop offset="1" stop-color="#7DD4DB"/>
+    </linearGradient>
+  </defs>
+</svg>
