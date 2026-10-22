@@ -105,6 +105,8 @@
 
         <span class="cmd-divider" />
 
+        <ThemeStudio />
+
         <AppSwitcher v-if="perms.canSwitchApp" />
         <div v-else class="cmd-app">
           <span class="cmd-app-dot" />
@@ -211,6 +213,7 @@ import {
 
 import AppLogo from '@/components/AppLogo/index.vue'
 import AppSwitcher from '@/components/AppSwitcher/index.vue'
+import ThemeStudio from '@/components/ThemeStudio/index.vue'
 import { useAccountStore } from '@/stores/account.ts'
 import { useAppStore } from '@/stores/app.ts'
 import { useMenuStore } from '@/stores/menu.ts'
@@ -487,9 +490,9 @@ watch(activeGroupKey, (key) => {
   inset: 0;
   pointer-events: none;
   background:
-    radial-gradient(56% 42% at 4% 0%, rgba(124, 195, 240, 0.09) 0%, transparent 64%),
-    radial-gradient(52% 46% at 98% 2%, rgba(168, 204, 240, 0.07) 0%, transparent 68%),
-    radial-gradient(64% 44% at 50% 110%, rgba(203, 225, 247, 0.16) 0%, transparent 72%);
+    radial-gradient(56% 42% at 4% 0%, var(--mc-aurora-a, rgba(124, 195, 240, 0.05)) 0%, transparent 64%),
+    radial-gradient(52% 46% at 98% 2%, var(--mc-aurora-b, rgba(168, 204, 240, 0.04)) 0%, transparent 68%),
+    radial-gradient(64% 44% at 50% 110%, var(--mc-aurora-c, rgba(203, 225, 247, 0.08)) 0%, transparent 72%);
 }
 
 /* ─── 侧边导航 ──────────────────────────────────────────── */
@@ -501,8 +504,8 @@ watch(activeGroupKey, (key) => {
   display: flex;
   flex-direction: column;
   padding: 14px 10px 12px;
-  background: rgba(255, 255, 255, 0.86);
-  border-right: 1px solid rgba(31, 80, 132, 0.08);
+  background: color-mix(in srgb, var(--mc-bg-card) 92%, transparent);
+  border-right: 1px solid color-mix(in srgb, var(--mc-text-primary) 12%, transparent);
   backdrop-filter: blur(18px);
   -webkit-backdrop-filter: blur(18px);
   transition: width 0.22s var(--mc-ease-out), padding 0.22s ease;
@@ -545,7 +548,7 @@ watch(activeGroupKey, (key) => {
   border: none;
   border-radius: 8px;
   background: transparent;
-  color: rgba(22, 41, 63, 0.38);
+  color: color-mix(in srgb, var(--mc-text-primary) 46%, transparent);
   font-size: 14px;
   cursor: pointer;
   transition: background 0.16s ease, color 0.16s ease;
@@ -553,7 +556,7 @@ watch(activeGroupKey, (key) => {
 }
 .sider-collapse:hover {
   background: rgba(76, 157, 228, 0.10);
-  color: #2269AE;
+  color: #7CC3F0;
 }
 
 /* 一级菜单 */
@@ -566,11 +569,11 @@ watch(activeGroupKey, (key) => {
   overflow-y: auto;
   overflow-x: hidden;
   scrollbar-width: thin;
-  scrollbar-color: rgba(31, 80, 132, 0.16) transparent;
+  scrollbar-color: color-mix(in srgb, var(--mc-text-primary) 18%, transparent) transparent;
 }
 .sider-nav::-webkit-scrollbar { width: 4px; }
 .sider-nav::-webkit-scrollbar-thumb {
-  background: rgba(31, 80, 132, 0.16);
+  background: color-mix(in srgb, var(--mc-text-primary) 18%, transparent);
   border-radius: 4px;
 }
 
@@ -589,7 +592,7 @@ watch(activeGroupKey, (key) => {
   border: none;
   border-radius: 10px;
   background: transparent;
-  color: rgba(22, 41, 63, 0.66);
+  color: color-mix(in srgb, var(--mc-text-primary) 81%, transparent);
   font-size: 13px;
   font-weight: 500;
   font-family: var(--mc-font-family);
@@ -599,11 +602,11 @@ watch(activeGroupKey, (key) => {
 }
 .nav-parent:hover {
   background: rgba(76, 157, 228, 0.08);
-  color: #2269AE;
+  color: #7CC3F0;
 }
 
 .nav-parent--active {
-  color: #1F63A6;
+  color: #7CC3F0;
   background: linear-gradient(150deg, rgba(111, 182, 242, 0.20) 0%, rgba(76, 157, 228, 0.12) 100%);
   box-shadow: inset 0 0 0 1px rgba(76, 157, 228, 0.16);
 }
@@ -631,7 +634,7 @@ watch(activeGroupKey, (key) => {
   padding: 0 4px;
   border-radius: 8px;
   background: rgba(76, 157, 228, 0.12);
-  color: #3285CE;
+  color: #7CC3F0;
   font-size: 9px;
   font-weight: 700;
   line-height: 16px;
@@ -642,7 +645,7 @@ watch(activeGroupKey, (key) => {
 
 .nav-parent-arrow {
   font-size: 11px;
-  color: rgba(22, 41, 63, 0.30);
+  color: color-mix(in srgb, var(--mc-text-primary) 37%, transparent);
   flex-shrink: 0;
   transition: transform 0.22s var(--mc-ease-out);
 }
@@ -658,7 +661,7 @@ watch(activeGroupKey, (key) => {
   display: flex;
   flex-direction: column;
   gap: 1px;
-  border-left: 1px solid rgba(31, 80, 132, 0.10);
+  border-left: 1px solid color-mix(in srgb, var(--mc-text-primary) 15%, transparent);
 }
 
 .nav-leaf {
@@ -671,7 +674,7 @@ watch(activeGroupKey, (key) => {
   border: none;
   border-radius: 8px;
   background: transparent;
-  color: rgba(22, 41, 63, 0.62);
+  color: color-mix(in srgb, var(--mc-text-primary) 76%, transparent);
   font-size: 12.5px;
   font-family: var(--mc-font-family);
   text-align: left;
@@ -680,12 +683,12 @@ watch(activeGroupKey, (key) => {
 }
 .nav-leaf:hover {
   background: rgba(76, 157, 228, 0.08);
-  color: #2269AE;
+  color: #7CC3F0;
 }
 
 .nav-leaf--active {
   background: rgba(76, 157, 228, 0.14);
-  color: #1F63A6;
+  color: #7CC3F0;
   font-weight: 600;
   box-shadow: inset 0 0 0 1px rgba(76, 157, 228, 0.14);
 }
@@ -694,7 +697,7 @@ watch(activeGroupKey, (key) => {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: rgba(22, 41, 63, 0.22);
+  background: color-mix(in srgb, var(--mc-text-primary) 30%, transparent);
   flex-shrink: 0;
   transition: background 0.16s ease, transform 0.18s var(--mc-ease-spring);
 }
@@ -727,7 +730,7 @@ watch(activeGroupKey, (key) => {
   flex-shrink: 0;
   padding-top: 10px;
   margin-top: 6px;
-  border-top: 1px solid rgba(31, 80, 132, 0.08);
+  border-top: 1px solid color-mix(in srgb, var(--mc-text-primary) 12%, transparent);
 }
 
 .sider-manage {
@@ -737,19 +740,19 @@ watch(activeGroupKey, (key) => {
   width: 100%;
   height: 36px;
   padding: 0 10px;
-  border: 1px dashed rgba(31, 80, 132, 0.16);
+  border: 1px dashed color-mix(in srgb, var(--mc-text-primary) 24%, transparent);
   border-radius: 10px;
   background: transparent;
-  color: rgba(22, 41, 63, 0.5);
+  color: color-mix(in srgb, var(--mc-text-primary) 61%, transparent);
   font-size: 12px;
   font-family: var(--mc-font-family);
   cursor: pointer;
   transition: border-color 0.18s ease, color 0.18s ease, background 0.18s ease;
 }
 .sider-manage:hover {
-  border-color: rgba(76, 157, 228, 0.4);
+  border-color: rgba(124, 195, 240, 0.5);
   background: rgba(76, 157, 228, 0.07);
-  color: #2269AE;
+  color: #7CC3F0;
 }
 
 /* 折叠态：仅保留图标 */
@@ -781,7 +784,7 @@ watch(activeGroupKey, (key) => {
   position: fixed;
   inset: 0;
   z-index: 320;
-  background: rgba(19, 41, 66, 0.24);
+  background: rgba(3, 10, 20, 0.54);
   backdrop-filter: blur(2px);
   -webkit-backdrop-filter: blur(2px);
 }
@@ -806,11 +809,11 @@ watch(activeGroupKey, (key) => {
   gap: 10px;
   padding: 0 12px;
   border-radius: 15px;
-  background: rgba(255, 255, 255, 0.82);
-  border: 1px solid rgba(31, 80, 132, 0.08);
+  background: color-mix(in srgb, var(--mc-bg-card) 92%, transparent);
+  border: 1px solid color-mix(in srgb, var(--mc-text-primary) 12%, transparent);
   backdrop-filter: blur(20px) saturate(1.1);
   -webkit-backdrop-filter: blur(20px) saturate(1.1);
-  box-shadow: 0 8px 24px rgba(23, 54, 92, 0.07);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
 }
 
 .cmd-ghost {
@@ -822,7 +825,7 @@ watch(activeGroupKey, (key) => {
   border: none;
   border-radius: 9px;
   background: rgba(76, 157, 228, 0.07);
-  color: rgba(22, 41, 63, 0.55);
+  color: color-mix(in srgb, var(--mc-text-primary) 67%, transparent);
   font-size: 15px;
   cursor: pointer;
   transition: background 0.16s ease, color 0.16s ease;
@@ -830,7 +833,7 @@ watch(activeGroupKey, (key) => {
 }
 .cmd-ghost:hover {
   background: rgba(76, 157, 228, 0.14);
-  color: #1F63A6;
+  color: #7CC3F0;
 }
 
 .cmd-trail {
@@ -842,20 +845,20 @@ watch(activeGroupKey, (key) => {
 
 .cmd-trail-group {
   font-size: 12px;
-  color: rgba(22, 41, 63, 0.42);
+  color: color-mix(in srgb, var(--mc-text-primary) 51%, transparent);
   white-space: nowrap;
 }
 
 .cmd-trail-sep {
   font-size: 10px;
-  color: rgba(22, 41, 63, 0.2);
+  color: color-mix(in srgb, var(--mc-text-primary) 30%, transparent);
   flex-shrink: 0;
 }
 
 .cmd-trail-page {
   font-size: 14px;
   font-weight: 600;
-  color: #16293F;
+  color: var(--mc-text-primary);
   letter-spacing: 0.005em;
   max-width: 260px;
   overflow: hidden;
@@ -874,10 +877,10 @@ watch(activeGroupKey, (key) => {
   gap: 7px;
   height: 32px;
   padding: 0 9px 0 11px;
-  border: 1px solid rgba(31, 80, 132, 0.10);
+  border: 1px solid color-mix(in srgb, var(--mc-text-primary) 15%, transparent);
   border-radius: 9px;
-  background: rgba(255, 255, 255, 0.7);
-  color: rgba(22, 41, 63, 0.45);
+  background: color-mix(in srgb, var(--mc-bg-card) 92%, transparent);
+  color: color-mix(in srgb, var(--mc-text-primary) 55%, transparent);
   font-size: 12px;
   font-family: var(--mc-font-family);
   cursor: pointer;
@@ -885,9 +888,9 @@ watch(activeGroupKey, (key) => {
   flex-shrink: 0;
 }
 .cmd-search:hover {
-  border-color: rgba(76, 157, 228, 0.4);
+  border-color: rgba(124, 195, 240, 0.5);
   background: rgba(76, 157, 228, 0.07);
-  color: #2269AE;
+  color: #7CC3F0;
 }
 
 .cmd-search kbd {
@@ -895,16 +898,16 @@ watch(activeGroupKey, (key) => {
   font-size: 9px;
   padding: 2px 5px;
   border-radius: 4px;
-  border: 1px solid rgba(31, 80, 132, 0.12);
+  border: 1px solid color-mix(in srgb, var(--mc-text-primary) 18%, transparent);
   background: rgba(76, 157, 228, 0.06);
-  color: rgba(22, 41, 63, 0.42);
+  color: color-mix(in srgb, var(--mc-text-primary) 51%, transparent);
   letter-spacing: 0.04em;
 }
 
 .cmd-divider {
   width: 1px;
   height: 20px;
-  background: rgba(31, 80, 132, 0.10);
+  background: color-mix(in srgb, var(--mc-text-primary) 16%, transparent);
   flex-shrink: 0;
 }
 
@@ -913,21 +916,21 @@ watch(activeGroupKey, (key) => {
   align-items: center;
   gap: 6px;
   padding: 5px 10px;
-  border: 1px solid rgba(31, 80, 132, 0.09);
+  border: 1px solid color-mix(in srgb, var(--mc-text-primary) 14%, transparent);
   border-radius: 8px;
-  background: rgba(255, 255, 255, 0.7);
+  background: color-mix(in srgb, var(--mc-bg-card) 92%, transparent);
   flex-shrink: 0;
 }
 .cmd-app-dot {
   width: 5px;
   height: 5px;
   border-radius: 50%;
-  background: #22A06B;
-  box-shadow: 0 0 0 3px rgba(34, 160, 107, 0.14);
+  background: #2FBF87;
+  box-shadow: 0 0 0 3px rgba(47, 191, 135, 0.18);
 }
 .cmd-app-name {
   font-size: 12px;
-  color: rgba(22, 41, 63, 0.62);
+  color: color-mix(in srgb, var(--mc-text-primary) 76%, transparent);
   max-width: 132px;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -948,7 +951,7 @@ watch(activeGroupKey, (key) => {
 }
 .cmd-user:hover {
   background: rgba(76, 157, 228, 0.08);
-  border-color: rgba(31, 80, 132, 0.10);
+  border-color: color-mix(in srgb, var(--mc-text-primary) 15%, transparent);
 }
 
 .cmd-avatar {
@@ -975,7 +978,7 @@ watch(activeGroupKey, (key) => {
 .cmd-user-name {
   font-size: 12px;
   font-weight: 600;
-  color: #16293F;
+  color: var(--mc-text-primary);
   max-width: 120px;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -983,11 +986,11 @@ watch(activeGroupKey, (key) => {
 }
 .cmd-user-role {
   font-size: 10px;
-  color: rgba(22, 41, 63, 0.42);
+  color: color-mix(in srgb, var(--mc-text-primary) 51%, transparent);
 }
 .cmd-user-caret {
   font-size: 10px;
-  color: rgba(22, 41, 63, 0.3);
+  color: color-mix(in srgb, var(--mc-text-primary) 37%, transparent);
 }
 
 .canvas {
@@ -997,11 +1000,11 @@ watch(activeGroupKey, (key) => {
   overflow-x: hidden;
   padding: 4px var(--mc-content-padding) var(--mc-content-padding);
   scrollbar-width: thin;
-  scrollbar-color: rgba(31, 80, 132, 0.16) transparent;
+  scrollbar-color: color-mix(in srgb, var(--mc-text-primary) 18%, transparent) transparent;
 }
 .canvas::-webkit-scrollbar { width: 6px; }
 .canvas::-webkit-scrollbar-thumb {
-  background: rgba(31, 80, 132, 0.16);
+  background: color-mix(in srgb, var(--mc-text-primary) 18%, transparent);
   border-radius: 6px;
 }
 
@@ -1014,7 +1017,7 @@ watch(activeGroupKey, (key) => {
   align-items: flex-start;
   justify-content: center;
   padding-top: 12vh;
-  background: rgba(19, 41, 66, 0.28);
+  background: rgba(3, 10, 20, 0.58);
   backdrop-filter: blur(6px);
 }
 
@@ -1024,9 +1027,9 @@ watch(activeGroupKey, (key) => {
   display: flex;
   flex-direction: column;
   border-radius: 18px;
-  border: 1px solid rgba(31, 80, 132, 0.10);
-  background: rgba(255, 255, 255, 0.99);
-  box-shadow: 0 30px 80px rgba(23, 54, 92, 0.22), 0 2px 10px rgba(23, 54, 92, 0.06);
+  border: 1px solid color-mix(in srgb, var(--mc-text-primary) 15%, transparent);
+  background: color-mix(in srgb, var(--mc-bg-card) 98%, transparent);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.57), 0 2px 10px rgba(0, 0, 0, 0.16);
   overflow: hidden;
   animation: palette-in 0.16s var(--mc-ease-out);
 }
@@ -1041,12 +1044,12 @@ watch(activeGroupKey, (key) => {
   align-items: center;
   gap: 10px;
   padding: 14px 16px;
-  border-bottom: 1px solid rgba(31, 80, 132, 0.08);
+  border-bottom: 1px solid color-mix(in srgb, var(--mc-text-primary) 12%, transparent);
 }
 
 .palette-search-icon {
   font-size: 16px;
-  color: rgba(22, 41, 63, 0.36);
+  color: color-mix(in srgb, var(--mc-text-primary) 44%, transparent);
   flex-shrink: 0;
 }
 
@@ -1056,13 +1059,13 @@ watch(activeGroupKey, (key) => {
   border: none;
   background: transparent;
   outline: none;
-  color: #16293F;
+  color: var(--mc-text-primary);
   font-size: 15px;
   font-family: var(--mc-font-family);
   letter-spacing: 0.005em;
 }
 .palette-input::placeholder {
-  color: rgba(22, 41, 63, 0.32);
+  color: color-mix(in srgb, var(--mc-text-primary) 39%, transparent);
 }
 
 .palette-esc {
@@ -1070,9 +1073,9 @@ watch(activeGroupKey, (key) => {
   font-size: 9px;
   padding: 2px 6px;
   border-radius: 4px;
-  border: 1px solid rgba(31, 80, 132, 0.12);
+  border: 1px solid color-mix(in srgb, var(--mc-text-primary) 18%, transparent);
   background: rgba(76, 157, 228, 0.06);
-  color: rgba(22, 41, 63, 0.36);
+  color: color-mix(in srgb, var(--mc-text-primary) 44%, transparent);
   flex-shrink: 0;
 }
 
@@ -1084,7 +1087,7 @@ watch(activeGroupKey, (key) => {
   flex-direction: column;
   gap: 2px;
   scrollbar-width: thin;
-  scrollbar-color: rgba(31, 80, 132, 0.16) transparent;
+  scrollbar-color: color-mix(in srgb, var(--mc-text-primary) 18%, transparent) transparent;
 }
 
 .palette-item {
@@ -1096,7 +1099,7 @@ watch(activeGroupKey, (key) => {
   border: none;
   border-radius: 10px;
   background: transparent;
-  color: rgba(22, 41, 63, 0.7);
+  color: color-mix(in srgb, var(--mc-text-primary) 85%, transparent);
   font-size: 13px;
   font-family: var(--mc-font-family);
   cursor: pointer;
@@ -1106,7 +1109,7 @@ watch(activeGroupKey, (key) => {
 
 .palette-item--active {
   background: linear-gradient(90deg, rgba(76, 157, 228, 0.16) 0%, rgba(76, 157, 228, 0.06) 100%);
-  color: #1F63A6;
+  color: #7CC3F0;
 }
 
 .palette-item-main {
@@ -1118,7 +1121,7 @@ watch(activeGroupKey, (key) => {
 
 .palette-item-icon {
   font-size: 15px;
-  color: #3285CE;
+  color: #7CC3F0;
   flex-shrink: 0;
 }
 
@@ -1130,7 +1133,7 @@ watch(activeGroupKey, (key) => {
 
 .palette-item-group {
   font-size: 11px;
-  color: rgba(22, 41, 63, 0.36);
+  color: color-mix(in srgb, var(--mc-text-primary) 44%, transparent);
   flex-shrink: 0;
 }
 
@@ -1138,7 +1141,7 @@ watch(activeGroupKey, (key) => {
   padding: 28px 12px;
   text-align: center;
   font-size: 13px;
-  color: rgba(22, 41, 63, 0.36);
+  color: color-mix(in srgb, var(--mc-text-primary) 44%, transparent);
 }
 
 .palette-foot {
@@ -1146,9 +1149,9 @@ watch(activeGroupKey, (key) => {
   align-items: center;
   gap: 14px;
   padding: 10px 16px;
-  border-top: 1px solid rgba(31, 80, 132, 0.08);
+  border-top: 1px solid color-mix(in srgb, var(--mc-text-primary) 12%, transparent);
   font-size: 10px;
-  color: rgba(22, 41, 63, 0.36);
+  color: color-mix(in srgb, var(--mc-text-primary) 44%, transparent);
 }
 
 .palette-foot kbd {
@@ -1157,14 +1160,14 @@ watch(activeGroupKey, (key) => {
   padding: 1px 5px;
   margin-right: 3px;
   border-radius: 3px;
-  border: 1px solid rgba(31, 80, 132, 0.12);
+  border: 1px solid color-mix(in srgb, var(--mc-text-primary) 18%, transparent);
   background: rgba(76, 157, 228, 0.06);
-  color: rgba(22, 41, 63, 0.44);
+  color: color-mix(in srgb, var(--mc-text-primary) 54%, transparent);
 }
 
 .palette-foot-tip {
   margin-left: auto;
-  color: rgba(22, 41, 63, 0.3);
+  color: color-mix(in srgb, var(--mc-text-primary) 37%, transparent);
 }
 
 /* ═══════════════════════════════════════════════════════════
@@ -1192,7 +1195,7 @@ watch(activeGroupKey, (key) => {
     transform: translateX(-100%);
     transition: transform 0.24s cubic-bezier(0.4, 0, 0.2, 1);
     z-index: 330;
-    box-shadow: 0 18px 44px rgba(23, 54, 92, 0.18);
+    box-shadow: 0 18px 44px rgba(0, 0, 0, 0.47);
   }
   .sider--open,
   .sider--collapsed.sider--open {

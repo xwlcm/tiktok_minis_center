@@ -798,7 +798,7 @@ onMounted(() => {
 }
 .stat-card:hover {
   transform: translateY(-2px);
-  box-shadow: var(--mc-shadow-sm, 0 4px 12px rgba(23, 54, 92, 0.163));
+  box-shadow: var(--mc-shadow-sm, 0 4px 12px rgba(0, 0, 0, 0.42));
 }
 .stat-icon {
   display: flex;
@@ -822,7 +822,7 @@ onMounted(() => {
   background: rgba(255, 125, 0, 0.12);
 }
 .stat-icon--app {
-  color: #7b8fe0;
+  color: #93A6F0;
   background: rgba(155, 126, 196, 0.12);
 }
 .stat-num {
@@ -915,7 +915,7 @@ onMounted(() => {
   width: 22px;
   height: 22px;
   border-radius: 6px;
-  background: linear-gradient(135deg, #e0576e 0%, #c9465d 100%);
+  background: linear-gradient(135deg, #F2748A 0%, #c9465d 100%);
   color: #fff;
   font-size: 12px;
   font-weight: 700;

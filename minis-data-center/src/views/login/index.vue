@@ -401,7 +401,7 @@ onUnmounted(() => {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #edf1f5;
+  background: var(--mc-bg-sunken);
   overflow: hidden;
   font-family: var(--mc-font-family);
 }
@@ -412,8 +412,8 @@ onUnmounted(() => {
   z-index: 0;
   pointer-events: none;
   background:
-    linear-gradient(rgba(22, 41, 63, 0.06) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(22, 41, 63, 0.06) 1px, transparent 1px);
+    linear-gradient(color-mix(in srgb, var(--mc-text-primary) 5%, transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in srgb, var(--mc-text-primary) 5%, transparent) 1px, transparent 1px);
   background-size: 44px 44px;
   mask-image: radial-gradient(circle at 50% 46%, #000 0%, transparent 72%);
   opacity: 0.55;
@@ -437,12 +437,12 @@ onUnmounted(() => {
 }
 .lw__glow--red {
   width: 500px; height: 500px;
-  background: rgba(76, 157, 228, 0.12);
+  background: rgba(76, 157, 228, 0.07);
   top: -100px; left: -100px;
 }
 .lw__glow--cyan {
   width: 500px; height: 500px;
-  background: rgba(76, 157, 228, 0.10);
+  background: rgba(76, 157, 228, 0.06);
   bottom: -100px; right: -100px;
 }
 
@@ -452,19 +452,19 @@ onUnmounted(() => {
   left: 32px;
   z-index: 1;
   padding: 10px 12px;
-  border: 1px solid rgba(31, 80, 132, 0.14);
+  border: 1px solid color-mix(in srgb, var(--mc-text-primary) 21%, transparent);
   border-radius: 12px;
-  background: rgba(76, 157, 228, 0.04);
+  background: color-mix(in srgb, var(--mc-bg-card) 66%, transparent);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  box-shadow: 0 18px 48px rgba(23, 54, 92, 0.182);
+  box-shadow: 0 18px 48px rgba(0, 0, 0, 0.47);
   animation: logoEnter 0.55s 0.04s ease both;
 }
 .lw__brand-mark :deep(.app-logo__name) {
-  color: rgba(22, 41, 63, 0.92);
+  color: color-mix(in srgb, var(--mc-text-primary) 96%, transparent);
 }
 .lw__brand-mark :deep(.app-logo__sub) {
-  color: rgba(22, 41, 63, 0.57);
+  color: color-mix(in srgb, var(--mc-text-primary) 70%, transparent);
   letter-spacing: 1px;
 }
 
@@ -478,14 +478,14 @@ onUnmounted(() => {
   z-index: 1;
   width: 400px;
   padding: 44px 40px 36px;
-  background: rgba(76, 157, 228, 0.04);
-  border: 1px solid rgba(31, 80, 132, 0.13);
+  background: color-mix(in srgb, var(--mc-bg-card) 78%, transparent);
+  border: 1px solid color-mix(in srgb, var(--mc-text-primary) 20%, transparent);
   border-radius: 16px;
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
   box-shadow:
     0 0 0 1px rgba(76, 157, 228, 0.06),
-    0 32px 80px rgba(23, 54, 92, 0.18);
+    0 32px 80px rgba(0, 0, 0, 0.47);
   transform: perspective(900px) rotateX(var(--tilt-x)) rotateY(var(--tilt-y)) translateY(0);
   transform-style: preserve-3d;
   transition: transform 0.18s ease, border-color 0.25s ease, box-shadow 0.25s ease;
@@ -507,23 +507,23 @@ onUnmounted(() => {
   inset: 1px;
   border-radius: inherit;
   pointer-events: none;
-  border: 1px solid rgba(31, 80, 132, 0.07);
+  border: 1px solid color-mix(in srgb, var(--mc-text-primary) 11%, transparent);
 }
 .lc:hover::before,
 .lc:focus-within::before {
   opacity: 1;
 }
 .lc:focus-within {
-  border-color: rgba(76, 157, 228, 0.18);
+  border-color: rgba(124, 195, 240, 0.22);
   box-shadow:
     0 0 0 1px rgba(76, 157, 228, 0.08),
-    0 34px 90px rgba(23, 54, 92, 0.22);
+    0 34px 90px rgba(0, 0, 0, 0.57);
 }
 .lc--success {
-  border-color: rgba(76, 157, 228, 0.34);
+  border-color: rgba(124, 195, 240, 0.43);
   box-shadow:
     0 0 0 1px rgba(76, 157, 228, 0.18),
-    0 28px 78px rgba(23, 54, 92, 0.20),
+    0 28px 78px rgba(0, 0, 0, 0.52),
     0 0 44px rgba(76, 157, 228, 0.12);
 }
 
@@ -544,13 +544,13 @@ onUnmounted(() => {
 .lc__brand :deep(.app-logo__name) {
   font-size: 16px;
   font-weight: 700;
-  color: rgba(22, 41, 63, 0.92);
+  color: color-mix(in srgb, var(--mc-text-primary) 96%, transparent);
   letter-spacing: 0.3px;
   font-family: var(--mc-font-family);
 }
 .lc__brand :deep(.app-logo__sub) {
   font-size: 11px;
-  color: rgba(22, 41, 63, 0.47);
+  color: color-mix(in srgb, var(--mc-text-primary) 57%, transparent);
   letter-spacing: 1.2px;
   text-transform: uppercase;
 }
@@ -564,14 +564,14 @@ onUnmounted(() => {
   margin: 0 0 6px;
   font-size: 26px;
   font-weight: 700;
-  color: #16293F;
+  color: var(--mc-text-primary);
   letter-spacing: 0;
   font-family: var(--mc-font-family);
 }
 .lc__desc {
   margin: 0;
   font-size: 13px;
-  color: rgba(22, 41, 63, 0.47);
+  color: color-mix(in srgb, var(--mc-text-primary) 57%, transparent);
   font-family: var(--mc-font-cn);
 }
 
@@ -599,7 +599,7 @@ onUnmounted(() => {
   top: 22px;
   left: 28px;
   font-size: 14px;
-  color: rgba(22, 41, 63, 0.41);
+  color: color-mix(in srgb, var(--mc-text-primary) 50%, transparent);
   pointer-events: none;
   transition: top 0.2s ease, font-size 0.2s ease, color 0.2s ease;
   transform-origin: left;
@@ -607,21 +607,21 @@ onUnmounted(() => {
 .lf__label--up {
   top: 0;
   font-size: 12px;
-  color: rgba(22, 41, 63, 0.61);
+  color: color-mix(in srgb, var(--mc-text-primary) 74%, transparent);
   letter-spacing: 0.5px;
 }
 /* 浏览器自动填充时 :placeholder-shown 失效，用 CSS 兜底上浮，避免与值重叠 */
 .lf__field:has(.lf__input:not(:placeholder-shown)) .lf__label {
   top: 0;
   font-size: 12px;
-  color: rgba(22, 41, 63, 0.61);
+  color: color-mix(in srgb, var(--mc-text-primary) 74%, transparent);
   letter-spacing: 0.5px;
 }
 .lf__field--focus .lf__label--up {
   color: #4c9de4;
 }
 .lf__field--error .lf__label--up {
-  color: #E0576E;
+  color: #F2748A;
 }
 
 /* 输入行 */
@@ -636,12 +636,12 @@ onUnmounted(() => {
 .lf__icon {
   width: 16px; height: 16px;
   flex-shrink: 0;
-  color: rgba(22, 41, 63, 0.34);
+  color: color-mix(in srgb, var(--mc-text-primary) 41%, transparent);
   transition: color 0.2s, transform 0.2s;
 }
 .lf__field--focus .lf__icon { color: #4c9de4; transform: scale(1.08); }
-.lf__field--filled:not(.lf__field--focus):not(.lf__field--error) .lf__icon { color: rgba(22, 41, 63, 0.57); }
-.lf__field--error .lf__icon { color: #E0576E; }
+.lf__field--filled:not(.lf__field--focus):not(.lf__field--error) .lf__icon { color: color-mix(in srgb, var(--mc-text-primary) 70%, transparent); }
+.lf__field--error .lf__icon { color: #F2748A; }
 
 /* 原生 input — 完全掌控，无任何框架干扰 */
 .lf__input {
@@ -652,9 +652,9 @@ onUnmounted(() => {
   font-size: 15px !important;
   font-weight: 400 !important;
   font-family: var(--mc-font-family) !important;
-  color: #16293F !important;
+  color: var(--mc-text-primary) !important;
   caret-color: #4c9de4 !important;
-  -webkit-text-fill-color: #16293F !important;
+  -webkit-text-fill-color: var(--mc-text-primary) !important;
   line-height: 1.4 !important;
   padding: 0 !important;
   margin: 0 !important;
@@ -674,8 +674,8 @@ onUnmounted(() => {
 .lf__input:-webkit-autofill:hover,
 .lf__input:-webkit-autofill:focus,
 .lf__input:-webkit-autofill:active {
-  -webkit-text-fill-color: #16293F !important;
-  -webkit-box-shadow: 0 0 0 1000px #EDF1F5 inset !important;
+  -webkit-text-fill-color: var(--mc-text-primary) !important;
+  -webkit-box-shadow: 0 0 0 1000px var(--mc-bg-sunken) inset !important;
   caret-color: #4c9de4 !important;
   transition: background-color 5000s ease-in-out 0s;
 }
@@ -720,7 +720,7 @@ onUnmounted(() => {
   box-shadow: 0 0 8px rgba(76, 157, 228, 0.5);
 }
 .lf__field--error .lf__line {
-  background: #E0576E;
+  background: #F2748A;
   box-shadow: 0 0 8px rgba(224, 87, 110,0.4);
 }
 
@@ -732,14 +732,14 @@ onUnmounted(() => {
   cursor: pointer;
   display: flex;
   align-items: center;
-  color: rgba(22, 41, 63, 0.34);
+  color: color-mix(in srgb, var(--mc-text-primary) 41%, transparent);
   transition: color 0.2s, transform 0.2s;
   flex-shrink: 0;
 }
 .lf__eye svg { width: 18px; height: 18px; }
-.lf__eye:hover { color: rgba(22, 41, 63, 0.81); transform: scale(1.08); }
+.lf__eye:hover { color: color-mix(in srgb, var(--mc-text-primary) 96%, transparent); transform: scale(1.08); }
 .lf__eye:focus-visible {
-  outline: 2px solid rgba(76, 157, 228, 0.7);
+  outline: 2px solid rgba(124, 195, 240, 0.6);
   outline-offset: 4px;
   border-radius: 999px;
 }
@@ -750,7 +750,7 @@ onUnmounted(() => {
   align-items: center;
   gap: 6px;
   font-size: 12px;
-  color: #E0576E;
+  color: #F2748A;
   margin-top: -12px;
 }
 .lf__error svg { width: 14px; height: 14px; flex-shrink: 0; }
@@ -798,7 +798,7 @@ onUnmounted(() => {
 }
 .lf__btn:disabled { cursor: not-allowed; opacity: 0.7; }
 .lf__btn:focus-visible {
-  outline: 2px solid rgba(22, 41, 63, 0.92);
+  outline: 2px solid color-mix(in srgb, var(--mc-text-primary) 34%, transparent);
   outline-offset: 4px;
 }
 .lf__btn--loading,
@@ -809,7 +809,7 @@ onUnmounted(() => {
   animation: btnSweep 1.1s ease-in-out infinite;
 }
 .lf__btn--success {
-  background: linear-gradient(90deg, #22a06b 0%, #4c9de4 100%);
+  background: linear-gradient(90deg, #2FBF87 0%, #4c9de4 100%);
   box-shadow: 0 8px 34px rgba(51, 201, 138,0.24);
 }
 .lf__btn-text--done {
@@ -828,8 +828,8 @@ onUnmounted(() => {
 .lf__spinner {
   display: inline-block;
   width: 20px; height: 20px;
-  border: 2px solid rgba(31, 80, 132, 0.3);
-  border-top-color: #fff;
+  border: 2px solid color-mix(in srgb, var(--mc-text-primary) 34%, transparent);
+  border-top-color: color-mix(in srgb, var(--mc-text-primary) 18%, transparent);
   border-radius: 50%;
   animation: spin 0.7s linear infinite;
 }

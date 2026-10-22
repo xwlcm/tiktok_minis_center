@@ -39,7 +39,7 @@
               style="border-radius: 4px; flex-shrink: 0"
             />
             <div v-else class="cover-placeholder">
-              <icon-video-camera style="font-size: 14px; color: rgba(22, 41, 63, 0.27)" />
+              <icon-video-camera style="font-size: 14px; color: color-mix(in srgb, var(--mc-text-primary) 33%, transparent)" />
             </div>
             <span class="drama-name">{{ record.name }}</span>
           </div>
@@ -253,7 +253,7 @@ onMounted(() => {
   height: 28px;
   border-radius: 4px;
   background: rgba(76, 157, 228, 0.04);
-  border: 1px solid rgba(31, 80, 132, 0.14);
+  border: 1px solid color-mix(in srgb, var(--mc-text-primary) 21%, transparent);
   display: flex;
   align-items: center;
   justify-content: center;

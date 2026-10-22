@@ -70,15 +70,15 @@ const allMetrics = computed<MetricDef[]>(() => {
 
   return [
     { key: 'dau',             label: 'DAU',         display: fmt(d.dau),              suffix: '',  color: '#4c9de4', rgb: '92,189,197',  icon: IconUserGroup,    category: 'common' },
-    { key: 'mau',             label: 'MAU',         display: fmt(d.mau),              suffix: '',  color: '#22a06b', rgb: '54,211,153',  icon: IconUserAdd,      category: 'common' },
+    { key: 'mau',             label: 'MAU',         display: fmt(d.mau),              suffix: '',  color: '#2FBF87', rgb: '54,211,153',  icon: IconUserAdd,      category: 'common' },
     { key: 'newUsers',        label: '新增用户',     display: fmt(d.newUsers),          suffix: '',  color: '#3498DB', rgb: '52,152,219',  icon: IconCalendar,      category: 'common' },
-    { key: 'totalLaunch',     label: '启动次数',     display: fmt(d.totalLaunchCount),  suffix: '',  color: '#7b8fe0', rgb: '155,126,196', icon: IconThunderbolt,    category: 'common' },
-    { key: 'completionRate',  label: '完播率',       display: d.completionRate != null ? Number(d.completionRate).toFixed(1) + '%' : '—', suffix: '', color: '#db8a24', rgb: '240,160,64', icon: IconPlayCircle, category: 'common' },
+    { key: 'totalLaunch',     label: '启动次数',     display: fmt(d.totalLaunchCount),  suffix: '',  color: '#93A6F0', rgb: '155,126,196', icon: IconThunderbolt,    category: 'common' },
+    { key: 'completionRate',  label: '完播率',       display: d.completionRate != null ? Number(d.completionRate).toFixed(1) + '%' : '—', suffix: '', color: '#E5A046', rgb: '240,160,64', icon: IconPlayCircle, category: 'common' },
     { key: 'iaaUnlock',       label: 'IAA 解锁',    display: fmt(d.iaaUnlockCount),    suffix: '',  color: '#E8A0BF', rgb: '232,160,191', icon: IconEye,            category: 'iaa' },
     { key: 'adShow',          label: '广告展示',     display: fmt(adShowCount),         suffix: '',  color: '#7EC8E3', rgb: '126,200,227', icon: IconDesktop,        category: 'iaa' },
     { key: 'adComplete',      label: '广告完播',     display: fmt(adCompleteCount),     suffix: '',  color: '#C4A77D', rgb: '196,167,125', icon: IconCheckCircle,   category: 'iaa' },
     { key: 'adCompletionRate',label: '广告完播率',   display: adCompletionRate,         suffix: '',  color: '#D4A5A5', rgb: '212,165,165', icon: IconBarChart,     category: 'iaa' },
-    { key: 'iapUnlock',       label: 'IAP 解锁',    display: fmt(d.iapUnlockCount),    suffix: '',  color: '#db8a24', rgb: '240,160,64',  icon: IconLock,           category: 'iap' },
+    { key: 'iapUnlock',       label: 'IAP 解锁',    display: fmt(d.iapUnlockCount),    suffix: '',  color: '#E5A046', rgb: '240,160,64',  icon: IconLock,           category: 'iap' },
     { key: 'iapRevenue',      label: 'IAP 收入',    display: '$' + ((d.iapRevenue ?? 0) / 100).toFixed(2), suffix: '', color: '#4c9de4', rgb: '224,72,109', icon: IconPlayCircle, category: 'iap' },
   ]
 })
@@ -109,8 +109,8 @@ const visibleMetrics = computed(() => {
 
 .metric-card {
   position: relative;
-  background: #ffffff;
-  border: 1px solid rgba(31, 80, 132, 0.13);
+  background: var(--mc-bg-card);
+  border: 1px solid color-mix(in srgb, var(--mc-text-primary) 20%, transparent);
   border-radius: 12px;
   padding: 18px 16px 14px;
   overflow: hidden;
@@ -127,7 +127,7 @@ const visibleMetrics = computed(() => {
 .metric-card:hover {
   transform: translateY(-2px);
   border-color: rgba(var(--accent-rgb), 0.25);
-  box-shadow: 0 8px 24px rgba(23, 54, 92, 0.26), 0 0 0 1px rgba(var(--accent-rgb), 0.12);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(var(--accent-rgb), 0.12);
 }
 
 .metric-top {
@@ -139,7 +139,7 @@ const visibleMetrics = computed(() => {
 .metric-label {
   font-size: 11px;
   font-weight: 600;
-  color: rgba(22, 41, 63, 0.81);
+  color: color-mix(in srgb, var(--mc-text-primary) 96%, transparent);
   text-transform: uppercase;
   letter-spacing: 0.6px;
 }
@@ -156,7 +156,7 @@ const visibleMetrics = computed(() => {
 .metric-value {
   font-size: 26px;
   font-weight: 800;
-  color: rgba(22, 41, 63, 0.92);
+  color: color-mix(in srgb, var(--mc-text-primary) 96%, transparent);
   line-height: 1;
   letter-spacing: -0.5px;
   margin-bottom: 10px;
@@ -169,7 +169,7 @@ const visibleMetrics = computed(() => {
 }
 .metric-suffix {
   font-size: 11px;
-  color: rgba(22, 41, 63, 0.41);
+  color: color-mix(in srgb, var(--mc-text-primary) 50%, transparent);
   font-weight: 500;
 }
 .metric-bar {

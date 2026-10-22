@@ -167,19 +167,19 @@ onBeforeUnmount(() => {
 .oauth-logo :deep(.app-logo__name) {
   font-size: 18px;
   font-weight: 700;
-  color: rgba(22, 41, 63, 0.92);
+  color: color-mix(in srgb, var(--mc-text-primary) 96%, transparent);
   font-family: var(--mc-font-family);
 }
 .oauth-logo :deep(.app-logo__sub) {
   font-size: 11px;
-  color: rgba(22, 41, 63, 0.41);
+  color: color-mix(in srgb, var(--mc-text-primary) 50%, transparent);
 }
 
 .callback-content {
   padding: 40px;
 }
 .loading-text {
-  color: rgba(22, 41, 63, 0.74);
+  color: color-mix(in srgb, var(--mc-text-primary) 90%, transparent);
   font-size: 14px;
   margin-top: 16px;
   font-family: var(--mc-font-cn);

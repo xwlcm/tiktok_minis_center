@@ -47,7 +47,7 @@ defineEmits<{
 }
 
 .empty-icon {
-  color: rgba(22, 41, 63, 0.27);
+  color: color-mix(in srgb, var(--mc-text-primary) 33%, transparent);
   line-height: 0;
   animation: empty-breathe 3s ease-in-out infinite;
 }
@@ -59,7 +59,7 @@ defineEmits<{
 
 .empty-desc {
   font-size: 13px;
-  color: rgba(22, 41, 63, 0.41);
+  color: color-mix(in srgb, var(--mc-text-primary) 50%, transparent);
 }
 
 .empty-cta {

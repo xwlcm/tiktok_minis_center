@@ -67,12 +67,12 @@ function handleSelect(value: string | number | Record<string, unknown> | undefin
   border-radius: 6px;
   cursor: pointer;
   transition: all 0.15s;
-  border: 1px solid rgba(31, 80, 132, 0.14);
+  border: 1px solid color-mix(in srgb, var(--mc-text-primary) 21%, transparent);
   background: rgba(76, 157, 228, 0.04);
 }
 .switcher-trigger:hover {
   background: rgba(76, 157, 228, 0.08);
-  border-color: rgba(76, 157, 228, 0.3);
+  border-color: rgba(124, 195, 240, 0.38);
 }
 
 .switcher-dot {
@@ -82,13 +82,13 @@ function handleSelect(value: string | number | Record<string, unknown> | undefin
   flex-shrink: 0;
 }
 .switcher-dot.active {
-  background: #22a06b;
+  background: #2FBF87;
   box-shadow: 0 0 6px rgba(54,211,153,0.5);
 }
 
 .switcher-name {
   font-size: 13px;
-  color: rgba(22, 41, 63, 0.92);
+  color: color-mix(in srgb, var(--mc-text-primary) 96%, transparent);
   font-weight: 500;
   max-width: 140px;
   overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
@@ -96,7 +96,7 @@ function handleSelect(value: string | number | Record<string, unknown> | undefin
 
 .switcher-arrow {
   font-size: 11px;
-  color: rgba(22, 41, 63, 0.34);
+  color: color-mix(in srgb, var(--mc-text-primary) 41%, transparent);
   flex-shrink: 0;
 }
 </style>
@@ -106,7 +106,7 @@ function handleSelect(value: string | number | Record<string, unknown> | undefin
   padding: 8px 12px 4px;
   font-size: 10px;
   font-weight: 600;
-  color: rgba(22, 41, 63, 0.34) !important;
+  color: color-mix(in srgb, var(--mc-text-primary) 41%, transparent) !important;
   text-transform: uppercase;
   letter-spacing: 0.5px;
   pointer-events: none;
@@ -118,7 +118,7 @@ function handleSelect(value: string | number | Record<string, unknown> | undefin
   gap: 8px;
   width: 100%;
   min-width: 200px;
-  color: rgba(22, 41, 63, 0.92) !important;
+  color: color-mix(in srgb, var(--mc-text-primary) 96%, transparent) !important;
   margin: 6px 0;
 }
 
@@ -136,7 +136,7 @@ function handleSelect(value: string | number | Record<string, unknown> | undefin
   text-overflow: ellipsis;
   white-space: nowrap;
   font-size: 13px !important;
-  color: rgba(22, 41, 63, 0.92) !important;
+  color: color-mix(in srgb, var(--mc-text-primary) 96%, transparent) !important;
 }
 
 .switcher-option--active .switcher-option-name {
@@ -153,10 +153,10 @@ function handleSelect(value: string | number | Record<string, unknown> | undefin
 }
 .switcher-option-status--active {
   background: rgba(54,211,153,0.15) !important;
-  color: #22a06b !important;
+  color: #2FBF87 !important;
 }
 .switcher-option-status--inactive {
   background: rgba(76, 157, 228, 0.07) !important;
-  color: rgba(22, 41, 63, 0.41) !important;
+  color: color-mix(in srgb, var(--mc-text-primary) 50%, transparent) !important;
 }
 </style>

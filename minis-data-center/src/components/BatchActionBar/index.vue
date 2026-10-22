@@ -37,7 +37,7 @@ defineEmits<{
   z-index: 100;
   background: var(--mc-bg-elevated);
   border-top: 1px solid var(--mc-border);
-  box-shadow: 0 -4px 24px rgba(23, 54, 92, 0.26);
+  box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.6);
 }
 
 .batch-bar-gradient {

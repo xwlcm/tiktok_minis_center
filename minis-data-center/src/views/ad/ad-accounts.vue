@@ -878,7 +878,7 @@ onMounted(loadAllData)
 }
 
 .cell-error {
-  color: #db8a24;
+  color: #E5A046;
   font-size: 12px;
 }
 

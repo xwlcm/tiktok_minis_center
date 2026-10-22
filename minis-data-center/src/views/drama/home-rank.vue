@@ -50,7 +50,7 @@
             style="border-radius: 5px; display: block"
           />
           <div v-else class="cover-placeholder">
-            <icon-video-camera style="font-size: 16px; color: rgba(22, 41, 63, 0.27)" />
+            <icon-video-camera style="font-size: 16px; color: color-mix(in srgb, var(--mc-text-primary) 33%, transparent)" />
           </div>
         </template>
 
@@ -304,7 +304,7 @@ watch(() => appStore.currentClientKey, async () => {
   height: 38px;
   border-radius: 5px;
   background: rgba(76, 157, 228, 0.04);
-  border: 1px solid rgba(31, 80, 132, 0.14);
+  border: 1px solid color-mix(in srgb, var(--mc-text-primary) 21%, transparent);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -319,7 +319,7 @@ watch(() => appStore.currentClientKey, async () => {
   min-height: 42px;
   padding: 8px 10px;
   background: rgba(76, 157, 228, 0.04);
-  border: 1px solid rgba(31, 80, 132, 0.14);
+  border: 1px solid color-mix(in srgb, var(--mc-text-primary) 21%, transparent);
   border-radius: 8px;
 }
 .selected-drama {
@@ -327,15 +327,15 @@ watch(() => appStore.currentClientKey, async () => {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  color: rgba(22, 41, 63, 0.92);
+  color: color-mix(in srgb, var(--mc-text-primary) 96%, transparent);
 }
 
 .page-header {
   display: flex; align-items: flex-start; justify-content: space-between;
   margin-bottom: 16px;
 }
-.page-title { font-size: 18px; font-weight: 700; color: rgba(22, 41, 63, 0.92); }
-.page-subtitle { font-size: 12px; color: rgba(22, 41, 63, 0.47); margin-top: 2px; }
+.page-title { font-size: 18px; font-weight: 700; color: color-mix(in srgb, var(--mc-text-primary) 96%, transparent); }
+.page-subtitle { font-size: 12px; color: color-mix(in srgb, var(--mc-text-primary) 57%, transparent); margin-top: 2px; }
 
 .cat-tabs {
   display: flex;
@@ -347,27 +347,27 @@ watch(() => appStore.currentClientKey, async () => {
   display: flex; align-items: center; gap: 5px;
   padding: 6px 14px;
   font-size: 13px; font-weight: 500;
-  color: rgba(22, 41, 63, 0.61);
+  color: color-mix(in srgb, var(--mc-text-primary) 74%, transparent);
   background: rgba(76, 157, 228, 0.04);
-  border: 1px solid rgba(31, 80, 132, 0.14);
+  border: 1px solid color-mix(in srgb, var(--mc-text-primary) 21%, transparent);
   border-radius: 8px;
   cursor: pointer;
   transition: all 0.15s;
 }
 .cat-tab:hover {
-  color: rgba(22, 41, 63, 0.92);
-  border-color: rgba(31, 80, 132, 0.27);
+  color: color-mix(in srgb, var(--mc-text-primary) 96%, transparent);
+  border-color: color-mix(in srgb, var(--mc-text-primary) 34%, transparent);
 }
 .cat-tab.active {
   color: #4c9de4;
   background: rgba(76, 157, 228, 0.10);
-  border-color: rgba(76, 157, 228, 0.30);
+  border-color: rgba(124, 195, 240, 0.38);
 }
 .cat-count {
   font-size: 10px; font-weight: 700;
   padding: 1px 5px; border-radius: 3px;
   background: rgba(76, 157, 228, 0.09);
-  color: rgba(22, 41, 63, 0.54);
+  color: color-mix(in srgb, var(--mc-text-primary) 66%, transparent);
 }
 .cat-tab.active .cat-count {
   background: rgba(76, 157, 228, 0.15);
@@ -379,21 +379,21 @@ watch(() => appStore.currentClientKey, async () => {
   display: flex; align-items: center; justify-content: center;
   font-size: 12px; font-weight: 700;
   background: rgba(76, 157, 228, 0.07);
-  color: rgba(22, 41, 63, 0.54);
+  color: color-mix(in srgb, var(--mc-text-primary) 66%, transparent);
 }
 .rank-gold   { background: rgba(255,215,0,0.15);  color: #FFD700; }
 .rank-silver { background: rgba(192,192,192,0.15); color: #C0C0C0; }
 .rank-bronze { background: rgba(205,127,50,0.15);  color: #CD7F32; }
 
 .item-info { display: flex; flex-direction: column; gap: 4px; }
-.item-title { font-size: 13px; font-weight: 600; color: rgba(22, 41, 63, 0.92); }
+.item-title { font-size: 13px; font-weight: 600; color: color-mix(in srgb, var(--mc-text-primary) 96%, transparent); }
 
 .sort-cell { display: flex; align-items: center; gap: 6px; }
 .sort-num {
   width: 28px; height: 28px; border-radius: 6px;
   background: rgba(76, 157, 228, 0.07); border: 1px solid rgba(76, 157, 228, 0.09);
   display: flex; align-items: center; justify-content: center;
-  font-size: 13px; font-weight: 600; color: rgba(22, 41, 63, 0.92);
+  font-size: 13px; font-weight: 600; color: color-mix(in srgb, var(--mc-text-primary) 96%, transparent);
 }
 .sort-btns { display: flex; flex-direction: column; gap: 1px; }
 .row-actions { display: flex; gap: 4px; }

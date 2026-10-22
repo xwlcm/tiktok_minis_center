@@ -149,7 +149,7 @@
                 <div :id="'player-' + ep.vid" class="video-player-container" ></div>
               </div>
               <div v-else class="video-locked">
-                <icon-lock style="font-size: 24px; color: rgba(22, 41, 63, 0.27)" />
+                <icon-lock style="font-size: 24px; color: color-mix(in srgb, var(--mc-text-primary) 33%, transparent)" />
                 <span>该集未上传视频</span>
               </div>
               <div class="video-meta">
@@ -194,7 +194,7 @@
               </div>
             </div>
             <div v-else class="cover-placeholder" @click="coverInput?.click()">
-              <icon-plus style="font-size: 24px; color: rgba(22, 41, 63, 0.41)" />
+              <icon-plus style="font-size: 24px; color: color-mix(in srgb, var(--mc-text-primary) 50%, transparent)" />
               <span class="cover-placeholder-hint">点击上传封面</span>
             </div>
             <div v-if="coverUploading" class="cover-loading">
@@ -806,8 +806,8 @@ onUnmounted(() => {
 
 .info-card,
 .episodes-card {
-  background: #ffffff;
-  border: 1px solid rgba(31, 80, 132, 0.13);
+  background: var(--mc-bg-card);
+  border: 1px solid color-mix(in srgb, var(--mc-text-primary) 20%, transparent);
   border-radius: 12px;
   overflow: hidden;
 }
@@ -816,8 +816,8 @@ onUnmounted(() => {
   padding: 14px 20px;
   font-size: 13px;
   font-weight: 600;
-  color: rgba(22, 41, 63, 0.92);
-  border-bottom: 1px solid rgba(31, 80, 132, 0.13);
+  color: color-mix(in srgb, var(--mc-text-primary) 96%, transparent);
+  border-bottom: 1px solid color-mix(in srgb, var(--mc-text-primary) 20%, transparent);
   background: rgba(76, 157, 228, 0.04);
 }
 
@@ -909,15 +909,15 @@ onUnmounted(() => {
   padding: 5px 12px;
   font-size: 12px;
   font-weight: 500;
-  color: rgba(22, 41, 63, 0.54);
+  color: color-mix(in srgb, var(--mc-text-primary) 66%, transparent);
   background: rgba(76, 157, 228, 0.04);
-  border: 1px solid rgba(31, 80, 132, 0.14);
+  border: 1px solid color-mix(in srgb, var(--mc-text-primary) 21%, transparent);
   border-radius: 6px;
   cursor: pointer;
   transition: all 0.15s;
 }
 .episode-tab:hover {
-  border-color: rgba(76, 157, 228, 0.35);
+  border-color: rgba(124, 195, 240, 0.44);
   color: #4c9de4;
 }
 .episode-tab.active {
@@ -934,7 +934,7 @@ onUnmounted(() => {
   right: -4px;
   font-size: 9px;
   font-weight: 700;
-  background: #22a06b;
+  background: #2FBF87;
   color: #fff;
   width: 14px;
   height: 14px;
@@ -947,7 +947,7 @@ onUnmounted(() => {
 .player-wrap {
   border-radius: var(--mc-radius-md);
   overflow: hidden;
-  background: #edf1f5;
+  background: var(--mc-bg-sunken);
 }
 
 .video-player {
@@ -961,7 +961,7 @@ onUnmounted(() => {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #edf1f5;
+  background: var(--mc-bg-sunken);
 }
 
 .video-player-container {
@@ -1003,11 +1003,11 @@ onUnmounted(() => {
 }
 .play-hint {
   font-size: 13px;
-  color: rgba(22, 41, 63, 0.68);
+  color: color-mix(in srgb, var(--mc-text-primary) 83%, transparent);
 }
 .play-vid {
   font-size: 11px;
-  color: rgba(22, 41, 63, 0.34);
+  color: color-mix(in srgb, var(--mc-text-primary) 41%, transparent);
   font-family: 'SF Mono', 'Fira Code', monospace;
 }
 
@@ -1017,7 +1017,7 @@ onUnmounted(() => {
   justify-content: center;
   gap: 8px;
   height: 200px;
-  color: rgba(22, 41, 63, 0.34);
+  color: color-mix(in srgb, var(--mc-text-primary) 41%, transparent);
   font-size: 14px;
 }
 
@@ -1026,9 +1026,9 @@ onUnmounted(() => {
   align-items: center;
   justify-content: space-between;
   padding: 8px 12px;
-  background: #f4f7fa;
+  background: var(--mc-bg-card);
   font-size: 12px;
-  color: rgba(22, 41, 63, 0.47);
+  color: color-mix(in srgb, var(--mc-text-primary) 57%, transparent);
 }
 .meta-left {
   display: flex;
@@ -1058,16 +1058,16 @@ onUnmounted(() => {
 .cover-img { width: 100%; height: 100%; object-fit: cover; }
 .cover-actions { position: absolute; top: 4px; right: 4px; }
 .cover-placeholder {
-  width: 100%; height: 100%; border: 1px dashed rgba(22, 41, 63, 0.2);
+  width: 100%; height: 100%; border: 1px dashed color-mix(in srgb, var(--mc-text-primary) 24%, transparent);
   border-radius: 8px; display: flex; flex-direction: column;
   align-items: center; justify-content: center; gap: 6px; cursor: pointer;
 }
-.cover-placeholder:hover { border-color: rgba(22, 41, 63, 0.41); }
-.cover-placeholder-hint { font-size: 11px; color: rgba(22, 41, 63, 0.41); }
+.cover-placeholder:hover { border-color: color-mix(in srgb, var(--mc-text-primary) 50%, transparent); }
+.cover-placeholder-hint { font-size: 11px; color: color-mix(in srgb, var(--mc-text-primary) 50%, transparent); }
 .cover-loading {
   position: absolute; inset: 0; background: rgba(0,0,0,0.6);
   display: flex; flex-direction: column; align-items: center;
   justify-content: center; gap: 6px; border-radius: 8px;
-  font-size: 12px; color: rgba(22, 41, 63, 0.92);
+  font-size: 12px; color: color-mix(in srgb, var(--mc-text-primary) 96%, transparent);
 }
 </style>

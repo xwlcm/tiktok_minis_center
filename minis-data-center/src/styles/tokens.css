@@ -1,87 +1,87 @@
 /**
  * Minis Data Center — 设计 Token
- * 浅蓝体系 · 通透 · 干净
- * "浅蓝为主色 · 白卡为底 · 层次靠光影而非纯黑"
+ * 深蓝体系 · 沉稳 · 通透
+ * "深海军蓝为底 · 亮蓝为高光 · 层次靠明度与光晕"
  */
 
 :root {
-  /* ── 品牌色（浅蓝） ──────────────────────────────────── */
-  --tt-red:          #E0576E; /* 保留变量名，语义已调整为「强调/危险」 */
-  --tt-red-dim:      rgba(224, 87, 110, 0.10);
-  --tt-red-glow:     rgba(224, 87, 110, 0.20);
-  --tt-cyan:         #4C9DE4; /* 保留变量名，语义已调整为「主蓝」 */
-  --tt-cyan-dim:     rgba(76, 157, 228, 0.10);
-  --tt-cyan-glow:    rgba(76, 157, 228, 0.20);
+  /* ── 品牌色（深蓝底上的高光蓝） ────────────────────────── */
+  --tt-red:          #F2748A; /* 保留变量名，语义已调整为「强调/危险」 */
+  --tt-red-dim:      rgba(242, 116, 138, 0.14);
+  --tt-red-glow:     rgba(242, 116, 138, 0.24);
+  --tt-cyan:         #5AA9EE; /* 保留变量名，语义已调整为主蓝 */
+  --tt-cyan-dim:     rgba(90, 169, 238, 0.14);
+  --tt-cyan-glow:    rgba(90, 169, 238, 0.24);
 
-  /* ── 浅蓝色阶 ────────────────────────────────────────── */
-  --tt-blue-50:      #F2F7FE;
-  --tt-blue-100:     #E4EFFB;
-  --tt-blue-200:     #CBE1F7;
-  --tt-blue-300:     #A8CCF0;
-  --tt-blue-400:     #7CB6EC;
+  /* ── 深蓝色阶（由深到亮） ──────────────────────────────── */
+  --tt-blue-50:      #0E2036;
+  --tt-blue-100:     #132942;
+  --tt-blue-200:     #1A3450;
+  --tt-blue-300:     #26496C;
+  --tt-blue-400:     #6FB6F2;
   --tt-blue-500:     #4C9DE4;
-  --tt-blue-600:     #3285CE;
-  --tt-blue-700:     #226AAE;
+  --tt-blue-600:     #7CC3F0;
+  --tt-blue-700:     #A8D6F8;
 
   /* ── 语义色 ──────────────────────────────────────────── */
   --mc-primary:        #4C9DE4;
-  --mc-primary-light:  rgba(76, 157, 228, 0.10);
+  --mc-primary-light:  rgba(76, 157, 228, 0.16);
   --mc-primary-hover:  #6FB6F2;
 
-  --mc-success:        #22A06B;
-  --mc-success-light:  rgba(34, 160, 107, 0.10);
-  --mc-warning:        #DB8A24;
-  --mc-warning-light:  rgba(219, 138, 36, 0.12);
-  --mc-danger:         #E0576E;
-  --mc-danger-light:   rgba(224, 87, 110, 0.10);
-  --mc-info:           #7B8FE0;
-  --mc-info-light:     rgba(123, 143, 224, 0.10);
-  --mc-teal:           #2FA8C4;
-  --mc-teal-light:     rgba(47, 168, 196, 0.10);
+  --mc-success:        #2FBF87;
+  --mc-success-light:  rgba(47, 191, 135, 0.14);
+  --mc-warning:        #E5A046;
+  --mc-warning-light:  rgba(229, 160, 70, 0.16);
+  --mc-danger:         #F2748A;
+  --mc-danger-light:   rgba(242, 116, 138, 0.14);
+  --mc-info:           #93A6F0;
+  --mc-info-light:     rgba(147, 166, 240, 0.14);
+  --mc-teal:           #45C2DC;
+  --mc-teal-light:     rgba(69, 194, 220, 0.14);
 
-  /* ── 文字色（浅色体系 · 蓝墨） ────────────────────────── */
-  --mc-text-primary:   #16293F;
-  --mc-text-secondary: rgba(22, 41, 63, 0.64);
-  --mc-text-tertiary:  rgba(22, 41, 63, 0.44);
-  --mc-text-disabled:  rgba(22, 41, 63, 0.26);
+  /* ── 文字色（深色体系 · 冷白） ────────────────────────── */
+  --mc-text-primary:   #E8F2FC;
+  --mc-text-secondary: rgba(232, 242, 252, 0.70);
+  --mc-text-tertiary:  rgba(232, 242, 252, 0.48);
+  --mc-text-disabled:  rgba(232, 242, 252, 0.28);
 
-  /* ── 背景层次（浅蓝 5 级） ────────────────────────────── */
-  --mc-bg-page:        #EDF1F5;
-  --mc-bg-sunken:      #E3E8EE;
-  --mc-bg-card:        #FFFFFF;
-  --mc-bg-card-2:      #F4F7FA;
-  --mc-bg-elevated:    #FFFFFF;
-  --mc-bg-hover:       rgba(76, 157, 228, 0.07);
-  --mc-bg-active:      rgba(76, 157, 228, 0.13);
+  /* ── 背景层次（深蓝 5 级） ────────────────────────────── */
+  --mc-bg-page:        #0B1B2E;
+  --mc-bg-sunken:      #081422;
+  --mc-bg-card:        #12263D;
+  --mc-bg-card-2:      #172F4A;
+  --mc-bg-elevated:    #16293F;
+  --mc-bg-hover:       rgba(124, 195, 240, 0.08);
+  --mc-bg-active:      rgba(124, 195, 240, 0.14);
 
   /* ── 边框 ─────────────────────────────────────────────── */
-  --mc-border:         rgba(31, 80, 132, 0.10);
-  --mc-border-strong:  rgba(31, 80, 132, 0.18);
-  --mc-border-accent:  rgba(76, 157, 228, 0.34);
+  --mc-border:         rgba(140, 185, 230, 0.14);
+  --mc-border-strong:  rgba(140, 185, 230, 0.24);
+  --mc-border-accent:  rgba(92, 176, 240, 0.42);
 
-  /* ── 阴影（浅色下用蓝灰投影） ─────────────────────────── */
-  --mc-shadow-xs:  0 1px 2px rgba(23, 54, 92, 0.06);
-  --mc-shadow-sm:  0 2px 8px rgba(23, 54, 92, 0.08);
-  --mc-shadow-md:  0 6px 20px rgba(23, 54, 92, 0.10);
-  --mc-shadow-lg:  0 12px 36px rgba(23, 54, 92, 0.14);
-  --mc-glow-cyan:  0 0 0 3px rgba(76, 157, 228, 0.12);
-  --mc-glow-red:   0 0 0 3px rgba(224, 87, 110, 0.12);
+  /* ── 阴影（深底用黑色投影） ───────────────────────────── */
+  --mc-shadow-xs:  0 1px 2px rgba(0, 0, 0, 0.24);
+  --mc-shadow-sm:  0 2px 8px rgba(0, 0, 0, 0.26);
+  --mc-shadow-md:  0 6px 20px rgba(0, 0, 0, 0.32);
+  --mc-shadow-lg:  0 12px 36px rgba(0, 0, 0, 0.40);
+  --mc-glow-cyan:  0 0 0 3px rgba(90, 169, 238, 0.18);
+  --mc-glow-red:   0 0 0 3px rgba(242, 116, 138, 0.18);
 
   /* ── 交互状态焦点环 ───────────────────────────────────── */
-  --mc-glow-primary:   0 0 0 3px rgba(76, 157, 228, 0.18);
-  --mc-glow-primary-h: 0 0 0 4px rgba(76, 157, 228, 0.26);
-  --mc-glow-danger:    0 0 0 3px rgba(224, 87, 110, 0.18);
-  --mc-glow-success:   0 0 0 3px rgba(34, 160, 107, 0.16);
-  --mc-glow-warning:   0 0 0 3px rgba(219, 138, 36, 0.16);
+  --mc-glow-primary:   0 0 0 3px rgba(90, 169, 238, 0.24);
+  --mc-glow-primary-h: 0 0 0 4px rgba(90, 169, 238, 0.32);
+  --mc-glow-danger:    0 0 0 3px rgba(242, 116, 138, 0.24);
+  --mc-glow-success:   0 0 0 3px rgba(47, 191, 135, 0.22);
+  --mc-glow-warning:   0 0 0 3px rgba(229, 160, 70, 0.22);
 
   /* ── 数据脉冲色 ───────────────────────────────────────── */
-  --mc-pulse-up:   rgba(34, 160, 107, 0.12);
-  --mc-pulse-down: rgba(224, 87, 110, 0.12);
+  --mc-pulse-up:   rgba(47, 191, 135, 0.18);
+  --mc-pulse-down: rgba(242, 116, 138, 0.18);
 
   /* ── 渐变体系 ─────────────────────────────────────────── */
-  --mc-gradient-brand:       linear-gradient(135deg, #6FB6F2 0%, #4C9DE4 100%);
-  --mc-gradient-brand-soft:  linear-gradient(135deg, rgba(111, 182, 242, 0.16) 0%, rgba(76, 157, 228, 0.16) 100%);
-  --mc-gradient-brand-subtle:linear-gradient(135deg, rgba(111, 182, 242, 0.08) 0%, rgba(76, 157, 228, 0.08) 100%);
+  --mc-gradient-brand:       linear-gradient(135deg, #5AA9EE 0%, #3B82C4 100%);
+  --mc-gradient-brand-soft:  linear-gradient(135deg, rgba(90, 169, 238, 0.26) 0%, rgba(59, 130, 196, 0.26) 100%);
+  --mc-gradient-brand-subtle:linear-gradient(135deg, rgba(90, 169, 238, 0.14) 0%, rgba(59, 130, 196, 0.14) 100%);
 
   /* ── 圆角 ─────────────────────────────────────────────── */
   --mc-radius-sm:  4px;

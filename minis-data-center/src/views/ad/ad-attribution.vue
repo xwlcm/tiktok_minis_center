@@ -52,7 +52,7 @@
                 :percent="Number(arrivalRate) || 0"
                 :show-text="false"
                 :color="arrivalRateColor"
-                track-color="rgba(22, 41, 63, 0.08)"
+                track-color="color-mix(in srgb, var(--mc-text-primary) 14%, transparent)"
                 size="small"
                 style="margin-top: 8px"
               />
@@ -77,7 +77,7 @@
                 :percent="Number(bounceRate) || 0"
                 :show-text="false"
                 :color="bounceRateColor"
-                track-color="rgba(22, 41, 63, 0.08)"
+                track-color="color-mix(in srgb, var(--mc-text-primary) 14%, transparent)"
                 size="small"
                 style="margin-top: 8px"
               />
@@ -96,18 +96,18 @@
               <div class="metric-value">{{ playPvFmt }}</div>
               <div class="metric-sub">UV: {{ playUvFmt }}</div>
             </div>
-            <div class="metric-card" style="--accent: #db8a24">
+            <div class="metric-card" style="--accent: #E5A046">
               <div class="metric-label">人均观看时长</div>
               <div class="metric-value">{{ formatDurationDisplay(avgWatchDuration) }}</div>
             </div>
-            <div class="metric-card" style="--accent: #7b8fe0">
+            <div class="metric-card" style="--accent: #93A6F0">
               <div class="metric-label">卡点解锁到达率</div>
               <div class="metric-value">{{ sf(unlockGateRate) }}%</div>
               <a-progress
                 :percent="Number(unlockGateRate) || 0"
                 :show-text="false"
-                color="#7b8fe0"
-                track-color="rgba(22, 41, 63, 0.08)"
+                color="#93A6F0"
+                track-color="color-mix(in srgb, var(--mc-text-primary) 14%, transparent)"
                 size="small"
                 style="margin-top: 8px"
               />
@@ -140,7 +140,7 @@
                 :percent="Number(adFillRate) || 0"
                 :show-text="false"
                 :color="fillRateColor"
-                track-color="rgba(22, 41, 63, 0.08)"
+                track-color="color-mix(in srgb, var(--mc-text-primary) 14%, transparent)"
                 size="small"
                 style="margin-top: 8px"
               />
@@ -150,22 +150,22 @@
               <div class="metric-value">{{ adImpFmt }}</div>
               <div class="metric-sub">完播: {{ adCompFmt }}</div>
             </div>
-            <div class="metric-card" style="--accent: #22a06b">
+            <div class="metric-card" style="--accent: #2FBF87">
               <div class="metric-label">广告展现率</div>
               <div class="metric-value">{{ sf(adImpressionRate) }}%</div>
             </div>
-            <div class="metric-card" style="--accent: #db8a24">
+            <div class="metric-card" style="--accent: #E5A046">
               <div class="metric-label">人均广告观看次数</div>
               <div class="metric-value">{{ sf(avgAdViewsPerUser) }}</div>
               <a-tooltip content="大盘参考: 7-8次">
                 <div class="metric-ref">大盘: 7-8次</div>
               </a-tooltip>
             </div>
-            <div class="metric-card" style="--accent: #7b8fe0">
+            <div class="metric-card" style="--accent: #93A6F0">
               <div class="metric-label">eCPM</div>
               <div class="metric-value">${{ sf(ecpm, 2) }}</div>
             </div>
-            <div class="metric-card" style="--accent: #22a06b">
+            <div class="metric-card" style="--accent: #2FBF87">
               <div class="metric-label">广告变现总收入</div>
               <div class="metric-value">{{ revenueFmt }}</div>
             </div>
@@ -652,13 +652,13 @@ const revenueFmt = useMetric(
 )
 
 const arrivalRateColor = computed(() =>
-  arrivalRate.value > 50 ? '#22a06b' : arrivalRate.value < 30 ? '#4c9de4' : '#db8a24',
+  arrivalRate.value > 50 ? '#2FBF87' : arrivalRate.value < 30 ? '#4c9de4' : '#E5A046',
 )
 const bounceRateColor = computed(() =>
-  bounceRate.value > 40 ? '#4c9de4' : bounceRate.value < 20 ? '#22a06b' : '#db8a24',
+  bounceRate.value > 40 ? '#4c9de4' : bounceRate.value < 20 ? '#2FBF87' : '#E5A046',
 )
 const fillRateColor = computed(() =>
-  adFillRate.value > 70 ? '#22a06b' : adFillRate.value < 50 ? '#4c9de4' : '#db8a24',
+  adFillRate.value > 70 ? '#2FBF87' : adFillRate.value < 50 ? '#4c9de4' : '#E5A046',
 )
 
 function addDays(dateText: string, days: number): string {
@@ -1032,7 +1032,7 @@ function onHistoryPageSizeChange(pageSize: number) {
 }
 
 const chartTextColor = '#9CA3AF'
-const chartGridColor = 'rgba(22, 41, 63, 0.08)'
+const chartGridColor = 'color-mix(in srgb, var(--mc-text-primary) 14%, transparent)'
 
 function renderChurnChart() {
   if (!churnChartRef.value || !churnData.value.length) return
@@ -1150,8 +1150,8 @@ function renderAvgAdViewsChart() {
       type: 'line',
       data: values,
       smooth: true,
-      lineStyle: { color: '#db8a24' },
-      itemStyle: { color: '#db8a24' },
+      lineStyle: { color: '#E5A046' },
+      itemStyle: { color: '#E5A046' },
       areaStyle: { color: 'rgba(240,160,64,0.1)' },
       markArea: {
         silent: true,
@@ -1159,7 +1159,7 @@ function renderAvgAdViewsChart() {
           {
             yAxis: 7,
             itemStyle: { color: 'rgba(240,160,64,0.08)' },
-            label: { show: true, position: 'insideTop', formatter: '大盘 7-8x', color: '#db8a24', fontSize: 10 },
+            label: { show: true, position: 'insideTop', formatter: '大盘 7-8x', color: '#E5A046', fontSize: 10 },
           },
           { yAxis: 8 },
         ]],
@@ -1195,8 +1195,8 @@ function renderEcpmChart() {
       type: 'line',
       data: values,
       smooth: true,
-      lineStyle: { color: '#7b8fe0' },
-      itemStyle: { color: '#7b8fe0' },
+      lineStyle: { color: '#93A6F0' },
+      itemStyle: { color: '#93A6F0' },
       areaStyle: { color: 'rgba(155,126,196,0.1)' },
     }],
   }, true)
@@ -1264,12 +1264,12 @@ onUnmounted(() => {
 .page-title {
   font-size: 18px;
   font-weight: 700;
-  color: rgba(22, 41, 63, 0.92);
+  color: color-mix(in srgb, var(--mc-text-primary) 96%, transparent);
 }
 
 .page-subtitle {
   font-size: 12px;
-  color: rgba(22, 41, 63, 0.47);
+  color: color-mix(in srgb, var(--mc-text-primary) 57%, transparent);
   margin-top: 2px;
 }
 
@@ -1281,13 +1281,13 @@ onUnmounted(() => {
 
 .history-card {
   margin-top: 16px;
-  background: #ffffff;
-  border: 1px solid rgba(31, 80, 132, 0.13);
+  background: var(--mc-bg-card);
+  border: 1px solid color-mix(in srgb, var(--mc-text-primary) 20%, transparent);
   border-radius: 12px;
 }
 
 .history-card :deep(.arco-card-header) {
-  border-bottom: 1px solid rgba(31, 80, 132, 0.09);
+  border-bottom: 1px solid color-mix(in srgb, var(--mc-text-primary) 14%, transparent);
 }
 
 .history-card :deep(.arco-card-body) {
@@ -1311,12 +1311,12 @@ onUnmounted(() => {
 .section-title {
   font-size: 14px;
   font-weight: 600;
-  color: rgba(22, 41, 63, 0.92);
+  color: color-mix(in srgb, var(--mc-text-primary) 96%, transparent);
 }
 
 .section-subtitle {
   font-size: 12px;
-  color: rgba(22, 41, 63, 0.47);
+  color: color-mix(in srgb, var(--mc-text-primary) 57%, transparent);
   margin-top: 2px;
 }
 
@@ -1336,14 +1336,14 @@ onUnmounted(() => {
   margin-bottom: 14px;
   padding: 10px 12px;
   background: rgba(76, 157, 228, 0.08);
-  border: 1px solid rgba(76, 157, 228, 0.16);
+  border: 1px solid rgba(124, 195, 240, 0.2);
   border-radius: 8px;
 }
 
 .history-active-label {
   font-size: 12px;
   font-weight: 600;
-  color: rgba(22, 41, 63, 0.92);
+  color: color-mix(in srgb, var(--mc-text-primary) 96%, transparent);
   line-height: 20px;
 }
 
@@ -1355,7 +1355,7 @@ onUnmounted(() => {
 
 .filter-chip-clear {
   padding: 0 2px;
-  color: rgba(22, 41, 63, 0.7);
+  color: color-mix(in srgb, var(--mc-text-primary) 85%, transparent);
 }
 
 .filter-chip-clear:hover {
@@ -1376,15 +1376,15 @@ onUnmounted(() => {
 
 .json-panel {
   padding: 14px 16px;
-  background: #f4f7fa;
-  border: 1px solid rgba(31, 80, 132, 0.11);
+  background: var(--mc-bg-card);
+  border: 1px solid color-mix(in srgb, var(--mc-text-primary) 17%, transparent);
   border-radius: 8px;
 }
 
 .json-panel-title {
   font-size: 12px;
   font-weight: 600;
-  color: rgba(22, 41, 63, 0.92);
+  color: color-mix(in srgb, var(--mc-text-primary) 96%, transparent);
   margin-bottom: 8px;
 }
 
@@ -1395,7 +1395,7 @@ onUnmounted(() => {
   word-break: break-word;
   font-size: 12px;
   line-height: 1.6;
-  color: rgba(22, 41, 63, 0.92);
+  color: color-mix(in srgb, var(--mc-text-primary) 96%, transparent);
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', monospace;
 }
 
@@ -1416,8 +1416,8 @@ onUnmounted(() => {
 }
 
 .attribution-collapse :deep(.arco-collapse-item) {
-  background: #ffffff;
-  border: 1px solid rgba(31, 80, 132, 0.13);
+  background: var(--mc-bg-card);
+  border: 1px solid color-mix(in srgb, var(--mc-text-primary) 20%, transparent);
   border-radius: 10px !important;
   margin-bottom: 12px;
   overflow: hidden;
@@ -1425,7 +1425,7 @@ onUnmounted(() => {
 
 .attribution-collapse :deep(.arco-collapse-item-header) {
   background: transparent;
-  border-bottom: 1px solid rgba(31, 80, 132, 0.09);
+  border-bottom: 1px solid color-mix(in srgb, var(--mc-text-primary) 14%, transparent);
 }
 
 .attribution-collapse :deep(.arco-collapse-item-content) {
@@ -1436,12 +1436,12 @@ onUnmounted(() => {
 .layer-name {
   font-size: 14px;
   font-weight: 600;
-  color: rgba(22, 41, 63, 0.92);
+  color: color-mix(in srgb, var(--mc-text-primary) 96%, transparent);
 }
 
 .layer-desc {
   font-size: 12px;
-  color: rgba(22, 41, 63, 0.47);
+  color: color-mix(in srgb, var(--mc-text-primary) 57%, transparent);
   margin-left: 8px;
 }
 
@@ -1464,8 +1464,8 @@ onUnmounted(() => {
 
 .metric-card {
   padding: 16px 18px;
-  background: #f4f7fa;
-  border: 1px solid rgba(31, 80, 132, 0.11);
+  background: var(--mc-bg-card);
+  border: 1px solid color-mix(in srgb, var(--mc-text-primary) 17%, transparent);
   border-radius: 8px;
   position: relative;
   overflow: hidden;
@@ -1490,26 +1490,26 @@ onUnmounted(() => {
 
 .metric-label {
   font-size: 12px;
-  color: rgba(22, 41, 63, 0.47);
+  color: color-mix(in srgb, var(--mc-text-primary) 57%, transparent);
   margin-bottom: 6px;
 }
 
 .metric-value {
   font-size: 20px;
   font-weight: 700;
-  color: rgba(22, 41, 63, 0.92);
+  color: color-mix(in srgb, var(--mc-text-primary) 96%, transparent);
   font-variant-numeric: tabular-nums;
 }
 
 .metric-sub {
   font-size: 11px;
-  color: rgba(22, 41, 63, 0.41);
+  color: color-mix(in srgb, var(--mc-text-primary) 50%, transparent);
   margin-top: 4px;
 }
 
 .metric-ref {
   font-size: 11px;
-  color: rgba(22, 41, 63, 0.34);
+  color: color-mix(in srgb, var(--mc-text-primary) 41%, transparent);
   margin-top: 4px;
   cursor: help;
   text-decoration: underline dotted;
@@ -1519,13 +1519,13 @@ onUnmounted(() => {
 .churn-section {
   margin-top: 16px;
   padding-top: 16px;
-  border-top: 1px solid rgba(31, 80, 132, 0.11);
+  border-top: 1px solid color-mix(in srgb, var(--mc-text-primary) 17%, transparent);
 }
 
 .churn-title {
   font-size: 13px;
   font-weight: 600;
-  color: rgba(22, 41, 63, 0.92);
+  color: color-mix(in srgb, var(--mc-text-primary) 96%, transparent);
   margin-bottom: 12px;
 }
 
@@ -1540,12 +1540,12 @@ onUnmounted(() => {
   gap: 12px;
   margin-top: 16px;
   padding-top: 16px;
-  border-top: 1px solid rgba(31, 80, 132, 0.11);
+  border-top: 1px solid color-mix(in srgb, var(--mc-text-primary) 17%, transparent);
 }
 
 .trend-chart-card {
-  background: #f4f7fa;
-  border: 1px solid rgba(31, 80, 132, 0.11);
+  background: var(--mc-bg-card);
+  border: 1px solid color-mix(in srgb, var(--mc-text-primary) 17%, transparent);
   border-radius: 8px;
 }
 
@@ -1556,7 +1556,7 @@ onUnmounted(() => {
 .trend-chart-title {
   font-size: 12px;
   font-weight: 600;
-  color: rgba(22, 41, 63, 0.74);
+  color: color-mix(in srgb, var(--mc-text-primary) 90%, transparent);
   margin-bottom: 10px;
 }
 
@@ -1570,15 +1570,15 @@ onUnmounted(() => {
 }
 
 :deep(.arco-picker) {
-  --arco-picker-bg: #ffffff;
-  --arco-picker-color: rgba(22, 41, 63, 0.92);
-  border-color: rgba(31, 80, 132, 0.22);
+  --arco-picker-bg: #12263D;
+  --arco-picker-color: rgba(232, 242, 252, 0.96);
+  border-color: color-mix(in srgb, var(--mc-text-primary) 33%, transparent);
 }
 
 :deep(.arco-select-view-single) {
-  --arco-select-view-bg: #ffffff;
-  --arco-select-view-color: rgba(22, 41, 63, 0.92);
-  border-color: rgba(31, 80, 132, 0.22);
+  --arco-select-view-bg: #12263D;
+  --arco-select-view-color: rgba(232, 242, 252, 0.96);
+  border-color: color-mix(in srgb, var(--mc-text-primary) 33%, transparent);
 }
 
 :deep(.arco-progress-line-bar) {

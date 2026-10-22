@@ -11,61 +11,62 @@
 /* ── 1. Design Tokens ─────────────────────────────────────────────────── */
 @import 'tokens.css';
 
-/* ── 2. Arco Design CSS Variable Overrides (Light Blue Theme) ────────── */
+/* ── 2. Arco Design CSS Variable Overrides (Navy Theme) ──────────────── */
 /*
  * Arco Design reads these CSS variables for ALL components.
- * Overriding at :root keeps every component on the light blue palette
- * even inside portals / popups rendered outside #app.
+ * Overriding on body[arco-theme='dark'] (and :root) keeps every component
+ * on the navy palette even inside portals / popups rendered outside #app.
  */
+body[arco-theme='dark'],
 :root {
-  --color-bg-1:          #FFFFFF;
-  --color-bg-2:          #F4F7FA;
-  --color-bg-3:          #EDF1F5;
-  --color-bg-4:          #E3E8EE;
-  --color-bg-5:          #D8DEE6;
-  --color-bg-white:      #FFFFFF;
-  --color-bg-popup:      #FFFFFF;
+  --color-bg-1:          #12263D;
+  --color-bg-2:          #172F4A;
+  --color-bg-3:          #0E2036;
+  --color-bg-4:          #0B1B2E;
+  --color-bg-5:          #091624;
+  --color-bg-white:      #12263D;
+  --color-bg-popup:      #16293F;
 
-  --color-text-1:        #16293F;
-  --color-text-2:        rgba(22, 41, 63, 0.64);
-  --color-text-3:        rgba(22, 41, 63, 0.44);
-  --color-text-4:        rgba(22, 41, 63, 0.26);
+  --color-text-1:        #E8F2FC;
+  --color-text-2:        rgba(232, 242, 252, 0.70);
+  --color-text-3:        rgba(232, 242, 252, 0.48);
+  --color-text-4:        rgba(232, 242, 252, 0.28);
 
-  --color-border-1:      rgba(31, 80, 132, 0.10);
-  --color-border-2:      rgba(31, 80, 132, 0.14);
-  --color-border-3:      rgba(31, 80, 132, 0.20);
-  --color-border-4:      rgba(31, 80, 132, 0.28);
+  --color-border-1:      rgba(140, 185, 230, 0.12);
+  --color-border-2:      rgba(140, 185, 230, 0.18);
+  --color-border-3:      rgba(140, 185, 230, 0.26);
+  --color-border-4:      rgba(140, 185, 230, 0.36);
 
-  --color-fill-1:        rgba(76, 157, 228, 0.06);
-  --color-fill-2:        rgba(76, 157, 228, 0.10);
-  --color-fill-3:        rgba(76, 157, 228, 0.14);
-  --color-fill-4:        rgba(76, 157, 228, 0.20);
+  --color-fill-1:        rgba(124, 195, 240, 0.06);
+  --color-fill-2:        rgba(124, 195, 240, 0.10);
+  --color-fill-3:        rgba(124, 195, 240, 0.14);
+  --color-fill-4:        rgba(124, 195, 240, 0.20);
 
-  --color-mask-bg:       rgba(19, 41, 66, 0.32);
-  --color-spin-layer-bg: rgba(237, 241, 245, 0.85);
+  --color-mask-bg:       rgba(3, 10, 20, 0.66);
+  --color-spin-layer-bg: rgba(11, 27, 46, 0.86);
 
-  --primary-1:           rgba(76, 157, 228, 0.10);
-  --primary-2:           rgba(76, 157, 228, 0.18);
-  --primary-3:           rgba(76, 157, 228, 0.28);
-  --primary-4:           rgba(76, 157, 228, 0.42);
-  --primary-5:           rgba(76, 157, 228, 0.70);
+  --primary-1:           rgba(76, 157, 228, 0.16);
+  --primary-2:           rgba(76, 157, 228, 0.24);
+  --primary-3:           rgba(76, 157, 228, 0.34);
+  --primary-4:           rgba(76, 157, 228, 0.48);
+  --primary-5:           rgba(76, 157, 228, 0.74);
   --primary-6:           #4C9DE4;
-  --primary-7:           #3285CE;
+  --primary-7:           #7CC3F0;
 
-  --arcoblue-1:          rgba(76, 157, 228, 0.10);
-  --arcoblue-2:          rgba(76, 157, 228, 0.18);
-  --arcoblue-3:          rgba(76, 157, 228, 0.28);
-  --arcoblue-4:          rgba(76, 157, 228, 0.42);
-  --arcoblue-5:          rgba(76, 157, 228, 0.70);
+  --arcoblue-1:          rgba(76, 157, 228, 0.16);
+  --arcoblue-2:          rgba(76, 157, 228, 0.24);
+  --arcoblue-3:          rgba(76, 157, 228, 0.34);
+  --arcoblue-4:          rgba(76, 157, 228, 0.48);
+  --arcoblue-5:          rgba(76, 157, 228, 0.74);
   --arcoblue-6:          #4C9DE4;
-  --arcoblue-7:          #3285CE;
+  --arcoblue-7:          #7CC3F0;
 
-  --red-6:               #E0576E;
-  --danger-6:            #E0576E;
+  --red-6:               #F2748A;
+  --danger-6:            #F2748A;
 
-  --green-6:             #22A06B;
+  --green-6:             #2FBF87;
 
-  --orange-6:            #DB8A24;
+  --orange-6:            #E5A046;
 }
 
 /* ── 3. Base / Reset ──────────────────────────────────────────────────── */
@@ -94,8 +95,8 @@ body.arco-overflow-hidden {
 body {
   margin: 0;
   padding: 0;
-  background-color: #edf1f5;
-  color: rgba(22, 41, 63, 0.92);
+  background-color: var(--mc-bg-sunken);
+  color: color-mix(in srgb, var(--mc-text-primary) 96%, transparent);
   font-family: var(--mc-font-family);
   font-size: var(--mc-font-md);
   line-height: 1.6;
@@ -108,7 +109,7 @@ body {
   height: 100%;
   width: 100%;
   min-height: 100vh;
-  background-color: #edf1f5;
+  background-color: var(--mc-bg-sunken);
 }
 
 a {
@@ -117,7 +118,7 @@ a {
   transition: color var(--mc-transition);
 }
 
-a:hover {
+a: hover {
   color: #6fb6f2;
 }
 
@@ -142,17 +143,17 @@ a:hover {
 
 /* ── 4. Layout ────────────────────────────────────────────────────────── */
 .arco-layout {
-  background-color: #edf1f5 !important;
+  background-color: var(--mc-bg-sunken) !important;
 }
 
 .arco-layout-content {
-  background-color: #edf1f5 !important;
+  background-color: var(--mc-bg-sunken) !important;
 }
 
 /* ── 5. Sidebar / Sider ───────────────────────────────────────────────── */
 .arco-layout-sider {
-  background: #FFFFFF !important;
-  border-right: 1px solid rgba(76, 157, 228, 0.06) !important;
+  background: var(--mc-bg-card) !important;
+  border-right: 1px solid rgba(124, 195, 240, 0.14) !important;
 }
 
 .arco-layout-sider-children {
@@ -175,12 +176,12 @@ a:hover {
 
 /* Menu title / logo area */
 .arco-menu-title {
-  color: rgba(22, 41, 63, 0.85) !important;
+  color: color-mix(in srgb, var(--mc-text-primary) 96%, transparent) !important;
 }
 
 /* ── 6. Header ────────────────────────────────────────────────────────── */
 .arco-layout-header {
-  background-color: rgba(255, 255, 255, 0.86) !important;
+  background-color: color-mix(in srgb, var(--mc-bg-card) 92%, transparent) !important;
   border-bottom: none !important;
   backdrop-filter: blur(12px) !important;
   -webkit-backdrop-filter: blur(12px) !important;
@@ -191,7 +192,7 @@ a:hover {
   background-color: var(--mc-bg-card) !important;
   border: 1px solid var(--mc-border) !important;
   border-radius: var(--mc-radius-lg) !important;
-  color: rgba(22, 41, 63, 0.92) !important;
+  color: color-mix(in srgb, var(--mc-text-primary) 96%, transparent) !important;
   box-shadow: var(--mc-shadow-sm) !important;
   transition: transform 0.2s var(--mc-ease-out),
               box-shadow 0.2s var(--mc-ease-out),
@@ -200,22 +201,22 @@ a:hover {
 
 .arco-card-header {
   background-color: transparent !important;
-  border-bottom: 1px solid rgba(31, 80, 132, 0.13) !important;
-  color: rgba(22, 41, 63, 0.92) !important;
+  border-bottom: 1px solid color-mix(in srgb, var(--mc-text-primary) 20%, transparent) !important;
+  color: color-mix(in srgb, var(--mc-text-primary) 96%, transparent) !important;
 }
 
 .arco-card-header-title {
-  color: rgba(22, 41, 63, 0.92) !important;
+  color: color-mix(in srgb, var(--mc-text-primary) 96%, transparent) !important;
 }
 
 .arco-card-body {
-  color: rgba(22, 41, 63, 0.65) !important;
+  color: color-mix(in srgb, var(--mc-text-primary) 79%, transparent) !important;
 }
 
 /* ── 8. Table ─────────────────────────────────────────────────────────── */
 .arco-table {
   background-color: transparent !important;
-  color: rgba(22, 41, 63, 0.92) !important;
+  color: color-mix(in srgb, var(--mc-text-primary) 96%, transparent) !important;
 }
 
 .arco-table-container {
@@ -228,8 +229,8 @@ a:hover {
 
 .arco-table-th {
   background: linear-gradient(180deg, rgba(76, 157, 228, 0.04) 0%, transparent 100%) !important;
-  color: rgba(22, 41, 63, 0.62) !important;
-  border-bottom: 1px solid rgba(31, 80, 132, 0.14) !important;
+  color: color-mix(in srgb, var(--mc-text-primary) 76%, transparent) !important;
+  border-bottom: 1px solid color-mix(in srgb, var(--mc-text-primary) 21%, transparent) !important;
   font-weight: 600 !important;
   font-size: 12px !important;
   text-transform: uppercase !important;
@@ -238,8 +239,8 @@ a:hover {
 
 .arco-table-td {
   background-color: transparent !important;
-  color: rgba(22, 41, 63, 0.85) !important;
-  border-bottom: 1px solid rgba(31, 80, 132, 0.09) !important;
+  color: color-mix(in srgb, var(--mc-text-primary) 96%, transparent) !important;
+  border-bottom: 1px solid color-mix(in srgb, var(--mc-text-primary) 14%, transparent) !important;
 }
 
 .arco-table-tr:hover .arco-table-td {
@@ -272,17 +273,17 @@ a:hover {
 
 /* Expand row */
 .arco-table-expand-content {
-  background-color: #ffffff !important;
+  background-color: var(--mc-bg-card) !important;
 }
 
 /* Empty state */
 .arco-table-no-data {
-  color: rgba(22, 41, 63, 0.35) !important;
+  color: color-mix(in srgb, var(--mc-text-primary) 43%, transparent) !important;
 }
 
 /* Sorter icons */
 .arco-table-sorter-icon {
-  color: rgba(22, 41, 63, 0.35) !important;
+  color: color-mix(in srgb, var(--mc-text-primary) 43%, transparent) !important;
 }
 
 .arco-table-sorter-icon.active {
@@ -292,21 +293,21 @@ a:hover {
 
 /* ── 9. Pagination ────────────────────────────────────────────────────── */
 .arco-pagination {
-  color: rgba(22, 41, 63, 0.65) !important;
+  color: color-mix(in srgb, var(--mc-text-primary) 79%, transparent) !important;
   margin: 0 12px 12px !important;
 }
 
 .arco-pagination-item {
   background-color: transparent !important;
-  border: 1px solid rgba(31, 80, 132, 0.18) !important;
-  color: rgba(22, 41, 63, 0.65) !important;
+  border: 1px solid color-mix(in srgb, var(--mc-text-primary) 27%, transparent) !important;
+  color: color-mix(in srgb, var(--mc-text-primary) 79%, transparent) !important;
   border-radius: var(--mc-radius-sm) !important;
   transition: all var(--mc-transition) !important;
 }
 
 .arco-pagination-item:hover {
   background-color: rgba(76, 157, 228, 0.10) !important;
-  border-color: rgba(76, 157, 228, 0.40) !important;
+  border-color: rgba(124, 195, 240, 0.5) !important;
   color: #4c9de4 !important;
 }
 
@@ -320,13 +321,13 @@ a:hover {
 
 .arco-pagination-jumper-input,
 .arco-pagination-size-changer .arco-select-view {
-  background-color: #ffffff !important;
-  border-color: rgba(31, 80, 132, 0.18) !important;
-  color: rgba(22, 41, 63, 0.65) !important;
+  background-color: var(--mc-bg-card) !important;
+  border-color: color-mix(in srgb, var(--mc-text-primary) 27%, transparent) !important;
+  color: color-mix(in srgb, var(--mc-text-primary) 79%, transparent) !important;
 }
 
 .arco-pagination-total {
-  color: rgba(22, 41, 63, 0.40) !important;
+  color: color-mix(in srgb, var(--mc-text-primary) 49%, transparent) !important;
 }
 
 /* ── 10. Buttons ──────────────────────────────────────────────────────── */
@@ -354,7 +355,7 @@ a:hover {
 
 .arco-btn-primary[disabled] {
   background: rgba(76, 157, 228, 0.08) !important;
-  color: rgba(22, 41, 63, 0.25) !important;
+  color: color-mix(in srgb, var(--mc-text-primary) 30%, transparent) !important;
   box-shadow: none !important;
   transform: none !important;
 }
@@ -363,31 +364,31 @@ a:hover {
 .arco-btn-secondary,
 .arco-btn-outline {
   background-color: transparent !important;
-  border: 1px solid rgba(31, 80, 132, 0.25) !important;
-  color: rgba(22, 41, 63, 0.75) !important;
+  border: 1px solid color-mix(in srgb, var(--mc-text-primary) 34%, transparent) !important;
+  color: color-mix(in srgb, var(--mc-text-primary) 92%, transparent) !important;
 }
 
 .arco-btn-secondary:hover,
 .arco-btn-outline:hover {
   background-color: rgba(76, 157, 228, 0.06) !important;
-  border-color: rgba(31, 80, 132, 0.34) !important;
-  color: rgba(22, 41, 63, 0.92) !important;
+  border-color: color-mix(in srgb, var(--mc-text-primary) 34%, transparent) !important;
+  color: color-mix(in srgb, var(--mc-text-primary) 96%, transparent) !important;
 }
 
 /* Text button */
 .arco-btn-text {
-  color: rgba(22, 41, 63, 0.65) !important;
+  color: color-mix(in srgb, var(--mc-text-primary) 79%, transparent) !important;
   background-color: transparent !important;
 }
 
 .arco-btn-text:hover {
   background-color: rgba(76, 157, 228, 0.06) !important;
-  color: rgba(22, 41, 63, 0.92) !important;
+  color: color-mix(in srgb, var(--mc-text-primary) 96%, transparent) !important;
 }
 
 /* Text button — danger variant */
 .arco-btn-text.arco-btn-status-danger {
-  color: #E0576E !important;
+  color: #F2748A !important;
   background-color: transparent !important;
   border: none !important;
 }
@@ -400,8 +401,8 @@ a:hover {
 
 /* Danger button */
 .arco-btn-status-danger {
-  background: #E0576E !important;
-  border-color: #E0576E !important;
+  background: #F2748A !important;
+  border-color: #F2748A !important;
   color: #fff !important;
 }
 
@@ -415,9 +416,9 @@ a:hover {
 .arco-input-wrapper,
 .arco-textarea,
 .arco-textarea-wrapper {
-  background-color: #ffffff !important;
-  border-color: rgba(31, 80, 132, 0.18) !important;
-  color: rgba(22, 41, 63, 0.92) !important;
+  background-color: var(--mc-bg-card) !important;
+  border-color: color-mix(in srgb, var(--mc-text-primary) 27%, transparent) !important;
+  color: color-mix(in srgb, var(--mc-text-primary) 96%, transparent) !important;
   border-radius: var(--mc-radius-md) !important;
 }
 
@@ -425,7 +426,7 @@ a:hover {
 .arco-input-wrapper:hover,
 .arco-textarea:hover,
 .arco-textarea-wrapper:hover {
-  border-color: rgba(31, 80, 132, 0.34) !important;
+  border-color: color-mix(in srgb, var(--mc-text-primary) 34%, transparent) !important;
 }
 
 .arco-input:focus,
@@ -438,46 +439,46 @@ a:hover {
 
 .arco-input::placeholder,
 .arco-textarea::placeholder {
-  color: rgba(22, 41, 63, 0.25) !important;
+  color: color-mix(in srgb, var(--mc-text-primary) 30%, transparent) !important;
 }
 
 .arco-input-prefix,
 .arco-input-suffix {
-  color: rgba(22, 41, 63, 0.40) !important;
+  color: color-mix(in srgb, var(--mc-text-primary) 49%, transparent) !important;
 }
 
 /* Input group */
 .arco-input-group-wrapper {
-  background-color: #ffffff !important;
-  border-color: rgba(31, 80, 132, 0.18) !important;
+  background-color: var(--mc-bg-card) !important;
+  border-color: color-mix(in srgb, var(--mc-text-primary) 27%, transparent) !important;
 }
 
 /* Input number */
 .arco-input-number {
-  background-color: #ffffff !important;
-  border-color: rgba(31, 80, 132, 0.18) !important;
-  color: rgba(22, 41, 63, 0.92) !important;
+  background-color: var(--mc-bg-card) !important;
+  border-color: color-mix(in srgb, var(--mc-text-primary) 27%, transparent) !important;
+  color: color-mix(in srgb, var(--mc-text-primary) 96%, transparent) !important;
 }
 
 /* Form label */
 .arco-form-label-text {
-  color: rgba(22, 41, 63, 0.65) !important;
+  color: color-mix(in srgb, var(--mc-text-primary) 79%, transparent) !important;
 }
 
 .arco-form-item-label {
-  color: rgba(22, 41, 63, 0.65) !important;
+  color: color-mix(in srgb, var(--mc-text-primary) 79%, transparent) !important;
 }
 
 /* ── 12. Select ───────────────────────────────────────────────────────── */
 .arco-select-view {
-  background-color: #ffffff !important;
-  border-color: rgba(31, 80, 132, 0.18) !important;
-  color: rgba(22, 41, 63, 0.92) !important;
+  background-color: var(--mc-bg-card) !important;
+  border-color: color-mix(in srgb, var(--mc-text-primary) 27%, transparent) !important;
+  color: color-mix(in srgb, var(--mc-text-primary) 96%, transparent) !important;
   border-radius: var(--mc-radius-md) !important;
 }
 
 .arco-select-view:hover {
-  border-color: rgba(31, 80, 132, 0.34) !important;
+  border-color: color-mix(in srgb, var(--mc-text-primary) 34%, transparent) !important;
 }
 
 .arco-select-view-focus,
@@ -487,24 +488,24 @@ a:hover {
 }
 
 .arco-select-view-placeholder {
-  color: rgba(22, 41, 63, 0.25) !important;
+  color: color-mix(in srgb, var(--mc-text-primary) 30%, transparent) !important;
 }
 
 .arco-select-dropdown {
-  background-color: #ffffff !important;
-  border: 1px solid rgba(31, 80, 132, 0.18) !important;
-  box-shadow: 0 8px 32px rgba(23, 54, 92, 0.33) !important;
+  background-color: var(--mc-bg-card) !important;
+  border: 1px solid color-mix(in srgb, var(--mc-text-primary) 27%, transparent) !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6) !important;
   border-radius: var(--mc-radius-md) !important;
 }
 
 .arco-select-option {
-  color: rgba(22, 41, 63, 0.75) !important;
+  color: color-mix(in srgb, var(--mc-text-primary) 92%, transparent) !important;
   border-radius: var(--mc-radius-sm) !important;
 }
 
 .arco-select-option:hover {
   background-color: rgba(76, 157, 228, 0.06) !important;
-  color: rgba(22, 41, 63, 0.92) !important;
+  color: color-mix(in srgb, var(--mc-text-primary) 96%, transparent) !important;
 }
 
 .arco-select-option-selected,
@@ -514,89 +515,89 @@ a:hover {
 }
 
 .arco-select-option-disabled {
-  color: rgba(22, 41, 63, 0.22) !important;
+  color: color-mix(in srgb, var(--mc-text-primary) 30%, transparent) !important;
 }
 
 /* ── 13. Modal / Drawer ───────────────────────────────────────────────── */
 .arco-modal {
-  background-color: #ffffff !important;
-  border: 1px solid rgba(31, 80, 132, 0.14) !important;
+  background-color: var(--mc-bg-card) !important;
+  border: 1px solid color-mix(in srgb, var(--mc-text-primary) 21%, transparent) !important;
   border-radius: var(--mc-radius-xl) !important;
-  box-shadow: 0 24px 80px rgba(23, 54, 92, 0.44) !important;
-  color: rgba(22, 41, 63, 0.92) !important;
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.6) !important;
+  color: color-mix(in srgb, var(--mc-text-primary) 96%, transparent) !important;
 }
 
 .arco-modal-header {
   background-color: transparent !important;
-  border-bottom: 1px solid rgba(31, 80, 132, 0.13) !important;
-  color: rgba(22, 41, 63, 0.92) !important;
+  border-bottom: 1px solid color-mix(in srgb, var(--mc-text-primary) 20%, transparent) !important;
+  color: color-mix(in srgb, var(--mc-text-primary) 96%, transparent) !important;
 }
 
 .arco-modal-title {
-  color: rgba(22, 41, 63, 0.92) !important;
+  color: color-mix(in srgb, var(--mc-text-primary) 96%, transparent) !important;
 }
 
 .arco-modal-body {
-  color: rgba(22, 41, 63, 0.75) !important;
+  color: color-mix(in srgb, var(--mc-text-primary) 92%, transparent) !important;
 }
 
 .arco-modal-footer {
   background-color: transparent !important;
-  border-top: 1px solid rgba(31, 80, 132, 0.13) !important;
+  border-top: 1px solid color-mix(in srgb, var(--mc-text-primary) 20%, transparent) !important;
 }
 
 .arco-modal-close-btn {
-  color: rgba(22, 41, 63, 0.40) !important;
+  color: color-mix(in srgb, var(--mc-text-primary) 49%, transparent) !important;
 }
 
 .arco-modal-close-btn:hover {
-  color: rgba(22, 41, 63, 0.75) !important;
+  color: color-mix(in srgb, var(--mc-text-primary) 92%, transparent) !important;
   background-color: rgba(76, 157, 228, 0.06) !important;
 }
 
 .arco-modal-mask {
-  background-color: rgba(19, 41, 66, 0.45) !important;
+  background-color: rgba(3, 10, 20, 0.75) !important;
 }
 
 /* Drawer */
 .arco-drawer {
-  background-color: #ffffff !important;
-  border-left: 1px solid rgba(31, 80, 132, 0.14) !important;
-  color: rgba(22, 41, 63, 0.92) !important;
+  background-color: var(--mc-bg-card) !important;
+  border-left: 1px solid color-mix(in srgb, var(--mc-text-primary) 21%, transparent) !important;
+  color: color-mix(in srgb, var(--mc-text-primary) 96%, transparent) !important;
 }
 
 .arco-drawer-header {
   background-color: transparent !important;
-  border-bottom: 1px solid rgba(31, 80, 132, 0.13) !important;
+  border-bottom: 1px solid color-mix(in srgb, var(--mc-text-primary) 20%, transparent) !important;
 }
 
 .arco-drawer-title {
-  color: rgba(22, 41, 63, 0.92) !important;
+  color: color-mix(in srgb, var(--mc-text-primary) 96%, transparent) !important;
 }
 
 .arco-drawer-footer {
-  border-top: 1px solid rgba(31, 80, 132, 0.13) !important;
+  border-top: 1px solid color-mix(in srgb, var(--mc-text-primary) 20%, transparent) !important;
 }
 
 /* ── 14. Dropdown ─────────────────────────────────────────────────────── */
 
 .arco-divider {
-  border-color: rgba(31, 80, 132, 0.13) !important;
+  border-color: color-mix(in srgb, var(--mc-text-primary) 20%, transparent) !important;
 }
 
 /* ── 15. Tabs ─────────────────────────────────────────────────────────── */
 .arco-tabs-nav {
   background-color: transparent !important;
-  border-bottom: 1px solid rgba(31, 80, 132, 0.13) !important;
+  border-bottom: 1px solid color-mix(in srgb, var(--mc-text-primary) 20%, transparent) !important;
 }
 
 .arco-tabs-tab {
-  color: rgba(22, 41, 63, 0.50) !important;
+  color: color-mix(in srgb, var(--mc-text-primary) 61%, transparent) !important;
   transition: color var(--mc-transition) !important;
 }
 
 .arco-tabs-tab:hover {
-  color: rgba(22, 41, 63, 0.80) !important;
+  color: color-mix(in srgb, var(--mc-text-primary) 96%, transparent) !important;
 }
 
 .arco-tabs-tab-active,
@@ -615,34 +616,34 @@ a:hover {
 /* ── 16. Tag ──────────────────────────────────────────────────────────── */
 .arco-tag {
   background-color: rgba(76, 157, 228, 0.07) !important;
-  border-color: rgba(31, 80, 132, 0.18) !important;
-  color: rgba(22, 41, 63, 0.75) !important;
+  border-color: color-mix(in srgb, var(--mc-text-primary) 27%, transparent) !important;
+  color: color-mix(in srgb, var(--mc-text-primary) 92%, transparent) !important;
   border-radius: var(--mc-radius-sm) !important;
 }
 
 .arco-tag-blue,
 .arco-tag-arcoblue {
   background-color: rgba(76, 157, 228, 0.12) !important;
-  border-color: rgba(76, 157, 228, 0.25) !important;
+  border-color: rgba(124, 195, 240, 0.31) !important;
   color: #4c9de4 !important;
 }
 
 .arco-tag-red {
   background-color: rgba(224, 87, 110, 0.12) !important;
   border-color: rgba(224, 87, 110, 0.25) !important;
-  color: #E0576E !important;
+  color: #F2748A !important;
 }
 
 .arco-tag-green {
   background-color: rgba(34, 160, 107, 0.12) !important;
   border-color: rgba(34, 160, 107, 0.25) !important;
-  color: #22a06b !important;
+  color: #2FBF87 !important;
 }
 
 .arco-tag-orange {
   background-color: rgba(219, 138, 36, 0.12) !important;
   border-color: rgba(219, 138, 36, 0.25) !important;
-  color: #db8a24 !important;
+  color: #E5A046 !important;
 }
 
 /* ── 17. Badge ────────────────────────────────────────────────────────── */
@@ -659,53 +660,53 @@ a:hover {
 
 /* ── 19. Tooltip / Popover ────────────────────────────────────────────── */
 .arco-tooltip-content {
-  background-color: #eaf2fc !important;
-  color: rgba(22, 41, 63, 0.85) !important;
-  border: 1px solid rgba(31, 80, 132, 0.18) !important;
+  background-color: var(--mc-bg-elevated) !important;
+  color: color-mix(in srgb, var(--mc-text-primary) 96%, transparent) !important;
+  border: 1px solid color-mix(in srgb, var(--mc-text-primary) 27%, transparent) !important;
   border-radius: var(--mc-radius-md) !important;
-  box-shadow: 0 4px 16px rgba(23, 54, 92, 0.28) !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.6) !important;
 }
 
 .arco-tooltip-arrow::before {
-  background-color: #eaf2fc !important;
-  border-color: rgba(31, 80, 132, 0.18) !important;
+  background-color: var(--mc-bg-elevated) !important;
+  border-color: color-mix(in srgb, var(--mc-text-primary) 27%, transparent) !important;
 }
 
 .arco-popover-popup-content {
-  background-color: #ffffff !important;
-  border: 1px solid rgba(31, 80, 132, 0.18) !important;
-  box-shadow: 0 8px 32px rgba(23, 54, 92, 0.33) !important;
+  background-color: var(--mc-bg-card) !important;
+  border: 1px solid color-mix(in srgb, var(--mc-text-primary) 27%, transparent) !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6) !important;
   border-radius: var(--mc-radius-lg) !important;
 }
 
 .arco-popover-title {
-  color: rgba(22, 41, 63, 0.92) !important;
-  border-bottom: 1px solid rgba(31, 80, 132, 0.13) !important;
+  color: color-mix(in srgb, var(--mc-text-primary) 96%, transparent) !important;
+  border-bottom: 1px solid color-mix(in srgb, var(--mc-text-primary) 20%, transparent) !important;
 }
 
 .arco-popover-body {
-  color: rgba(22, 41, 63, 0.65) !important;
+  color: color-mix(in srgb, var(--mc-text-primary) 79%, transparent) !important;
 }
 
 /* ── 20. Notification / Message ──────────────────────────────────────── */
 .arco-notification-item {
-  background-color: #f4f7fa !important;
-  border: 1px solid rgba(31, 80, 132, 0.14) !important;
-  box-shadow: 0 8px 32px rgba(23, 54, 92, 0.33) !important;
+  background-color: var(--mc-bg-card) !important;
+  border: 1px solid color-mix(in srgb, var(--mc-text-primary) 21%, transparent) !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6) !important;
   border-radius: var(--mc-radius-lg) !important;
-  color: rgba(22, 41, 63, 0.85) !important;
+  color: color-mix(in srgb, var(--mc-text-primary) 96%, transparent) !important;
 }
 
 .arco-notification-title {
-  color: rgba(22, 41, 63, 0.92) !important;
+  color: color-mix(in srgb, var(--mc-text-primary) 96%, transparent) !important;
 }
 
 .arco-message-item {
-  background-color: #f4f7fa !important;
-  border: 1px solid rgba(31, 80, 132, 0.14) !important;
-  box-shadow: 0 4px 20px rgba(23, 54, 92, 0.28) !important;
+  background-color: var(--mc-bg-card) !important;
+  border: 1px solid color-mix(in srgb, var(--mc-text-primary) 21%, transparent) !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6) !important;
   border-radius: var(--mc-radius-md) !important;
-  color: rgba(22, 41, 63, 0.85) !important;
+  color: color-mix(in srgb, var(--mc-text-primary) 96%, transparent) !important;
 }
 
 /* 全屏/整页 spin 不受限制 */
@@ -742,7 +743,7 @@ a:hover {
 /* ── 24. Checkbox / Radio ─────────────────────────────────────────────── */
 .arco-checkbox-icon {
   background-color: transparent !important;
-  border-color: rgba(31, 80, 132, 0.34) !important;
+  border-color: color-mix(in srgb, var(--mc-text-primary) 34%, transparent) !important;
 }
 
 .arco-checkbox-checked .arco-checkbox-icon {
@@ -751,7 +752,7 @@ a:hover {
 }
 
 .arco-radio-icon {
-  border-color: rgba(31, 80, 132, 0.34) !important;
+  border-color: color-mix(in srgb, var(--mc-text-primary) 34%, transparent) !important;
   background-color: transparent !important;
 }
 
@@ -762,19 +763,19 @@ a:hover {
 
 .arco-checkbox-label,
 .arco-radio-label {
-  color: rgba(22, 41, 63, 0.75) !important;
+  color: color-mix(in srgb, var(--mc-text-primary) 92%, transparent) !important;
 }
 
 /* ── 25. Date Picker ──────────────────────────────────────────────────── */
 .arco-picker {
-  background-color: #ffffff !important;
-  border-color: rgba(31, 80, 132, 0.18) !important;
-  color: rgba(22, 41, 63, 0.92) !important;
+  background-color: var(--mc-bg-card) !important;
+  border-color: color-mix(in srgb, var(--mc-text-primary) 27%, transparent) !important;
+  color: color-mix(in srgb, var(--mc-text-primary) 96%, transparent) !important;
   border-radius: var(--mc-radius-md) !important;
 }
 
 .arco-picker:hover {
-  border-color: rgba(31, 80, 132, 0.34) !important;
+  border-color: color-mix(in srgb, var(--mc-text-primary) 34%, transparent) !important;
 }
 
 .arco-picker-focused {
@@ -783,23 +784,23 @@ a:hover {
 }
 
 .arco-picker-panel {
-  background-color: #ffffff !important;
-  border: 1px solid rgba(31, 80, 132, 0.18) !important;
-  box-shadow: 0 8px 32px rgba(23, 54, 92, 0.33) !important;
+  background-color: var(--mc-bg-card) !important;
+  border: 1px solid color-mix(in srgb, var(--mc-text-primary) 27%, transparent) !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6) !important;
   border-radius: var(--mc-radius-lg) !important;
 }
 
 .arco-picker-header {
-  border-bottom: 1px solid rgba(31, 80, 132, 0.13) !important;
-  color: rgba(22, 41, 63, 0.92) !important;
+  border-bottom: 1px solid color-mix(in srgb, var(--mc-text-primary) 20%, transparent) !important;
+  color: color-mix(in srgb, var(--mc-text-primary) 96%, transparent) !important;
 }
 
 .arco-picker-header-value {
-  color: rgba(22, 41, 63, 0.92) !important;
+  color: color-mix(in srgb, var(--mc-text-primary) 96%, transparent) !important;
 }
 
 .arco-picker-cell-inner {
-  color: rgba(22, 41, 63, 0.75) !important;
+  color: color-mix(in srgb, var(--mc-text-primary) 92%, transparent) !important;
   border-radius: var(--mc-radius-sm) !important;
 }
 
@@ -822,38 +823,38 @@ a:hover {
 }
 
 .arco-picker-footer {
-  border-top: 1px solid rgba(31, 80, 132, 0.13) !important;
+  border-top: 1px solid color-mix(in srgb, var(--mc-text-primary) 20%, transparent) !important;
 }
 
 /* ── 26. Upload ───────────────────────────────────────────────────────── */
 .arco-upload-drag {
   background-color: rgba(76, 157, 228, 0.03) !important;
-  border: 2px dashed rgba(31, 80, 132, 0.22) !important;
+  border: 2px dashed color-mix(in srgb, var(--mc-text-primary) 33%, transparent) !important;
   border-radius: var(--mc-radius-lg) !important;
-  color: rgba(22, 41, 63, 0.50) !important;
+  color: color-mix(in srgb, var(--mc-text-primary) 61%, transparent) !important;
   transition: all var(--mc-transition) !important;
 }
 
 .arco-upload-drag:hover {
-  border-color: rgba(76, 157, 228, 0.40) !important;
+  border-color: rgba(124, 195, 240, 0.5) !important;
   background-color: rgba(76, 157, 228, 0.04) !important;
   color: #4c9de4 !important;
 }
 
 .arco-upload-list-item {
   background-color: rgba(76, 157, 228, 0.04) !important;
-  border: 1px solid rgba(31, 80, 132, 0.14) !important;
+  border: 1px solid color-mix(in srgb, var(--mc-text-primary) 21%, transparent) !important;
   border-radius: var(--mc-radius-md) !important;
-  color: rgba(22, 41, 63, 0.75) !important;
+  color: color-mix(in srgb, var(--mc-text-primary) 92%, transparent) !important;
 }
 
 /* ── 27. Breadcrumb ───────────────────────────────────────────────────── */
 .arco-breadcrumb-item {
-  color: rgba(22, 41, 63, 0.40) !important;
+  color: color-mix(in srgb, var(--mc-text-primary) 49%, transparent) !important;
 }
 
 .arco-breadcrumb-item a {
-  color: rgba(22, 41, 63, 0.40) !important;
+  color: color-mix(in srgb, var(--mc-text-primary) 49%, transparent) !important;
 }
 
 .arco-breadcrumb-item a:hover {
@@ -866,50 +867,50 @@ a:hover {
 }
 
 .arco-breadcrumb-separator {
-  color: rgba(22, 41, 63, 0.22) !important;
+  color: color-mix(in srgb, var(--mc-text-primary) 30%, transparent) !important;
 }
 
 /* ── 28. Statistic ────────────────────────────────────────────────────── */
 .arco-statistic-title {
-  color: rgba(22, 41, 63, 0.50) !important;
+  color: color-mix(in srgb, var(--mc-text-primary) 61%, transparent) !important;
   font-size: 12px !important;
 }
 
 .arco-statistic-value {
-  color: rgba(22, 41, 63, 0.92) !important;
+  color: color-mix(in srgb, var(--mc-text-primary) 96%, transparent) !important;
 }
 
 .arco-statistic-value-integer {
-  color: rgba(22, 41, 63, 0.92) !important;
+  color: color-mix(in srgb, var(--mc-text-primary) 96%, transparent) !important;
 }
 
 /* ── 29. Empty State ──────────────────────────────────────────────────── */
 .arco-empty-description {
-  color: rgba(22, 41, 63, 0.35) !important;
+  color: color-mix(in srgb, var(--mc-text-primary) 43%, transparent) !important;
 }
 
 /* ── 30. Descriptions ─────────────────────────────────────────────────── */
 .arco-descriptions-item-label {
-  color: rgba(22, 41, 63, 0.45) !important;
+  color: color-mix(in srgb, var(--mc-text-primary) 55%, transparent) !important;
   background-color: rgba(76, 157, 228, 0.03) !important;
 }
 
 .arco-descriptions-item-value {
-  color: rgba(22, 41, 63, 0.85) !important;
+  color: color-mix(in srgb, var(--mc-text-primary) 96%, transparent) !important;
 }
 
 .arco-descriptions-border .arco-descriptions-item-label,
 .arco-descriptions-border .arco-descriptions-item-value {
-  border-color: rgba(31, 80, 132, 0.13) !important;
+  border-color: color-mix(in srgb, var(--mc-text-primary) 20%, transparent) !important;
 }
 
 /* ── 31. Steps ────────────────────────────────────────────────────────── */
 .arco-steps-item-title {
-  color: rgba(22, 41, 63, 0.65) !important;
+  color: color-mix(in srgb, var(--mc-text-primary) 79%, transparent) !important;
 }
 
 .arco-steps-item-description {
-  color: rgba(22, 41, 63, 0.40) !important;
+  color: color-mix(in srgb, var(--mc-text-primary) 49%, transparent) !important;
 }
 
 .arco-steps-item-process .arco-steps-item-icon {
@@ -926,8 +927,8 @@ a:hover {
 
 .arco-steps-item-wait .arco-steps-item-icon {
   background-color: transparent !important;
-  border-color: rgba(31, 80, 132, 0.34) !important;
-  color: rgba(22, 41, 63, 0.40) !important;
+  border-color: color-mix(in srgb, var(--mc-text-primary) 34%, transparent) !important;
+  color: color-mix(in srgb, var(--mc-text-primary) 49%, transparent) !important;
 }
 
 .arco-steps-item-tail::after {
@@ -945,41 +946,41 @@ a:hover {
 
 .arco-alert-info {
   background-color: rgba(76, 157, 228, 0.08) !important;
-  border: 1px solid rgba(76, 157, 228, 0.20) !important;
-  color: rgba(22, 41, 63, 0.75) !important;
+  border: 1px solid rgba(124, 195, 240, 0.25) !important;
+  color: color-mix(in srgb, var(--mc-text-primary) 92%, transparent) !important;
 }
 
 .arco-alert-success {
   background-color: rgba(34, 160, 107, 0.08) !important;
   border: 1px solid rgba(34, 160, 107, 0.20) !important;
-  color: rgba(22, 41, 63, 0.75) !important;
+  color: color-mix(in srgb, var(--mc-text-primary) 92%, transparent) !important;
 }
 
 .arco-alert-warning {
   background-color: rgba(219, 138, 36, 0.08) !important;
   border: 1px solid rgba(219, 138, 36, 0.20) !important;
-  color: rgba(22, 41, 63, 0.75) !important;
+  color: color-mix(in srgb, var(--mc-text-primary) 92%, transparent) !important;
 }
 
 .arco-alert-error {
   background-color: rgba(224, 87, 110, 0.08) !important;
   border: 1px solid rgba(224, 87, 110, 0.20) !important;
-  color: rgba(22, 41, 63, 0.75) !important;
+  color: color-mix(in srgb, var(--mc-text-primary) 92%, transparent) !important;
 }
 
 .arco-alert-title {
-  color: rgba(22, 41, 63, 0.92) !important;
+  color: color-mix(in srgb, var(--mc-text-primary) 96%, transparent) !important;
 }
 
 /* ── 33. Tree ─────────────────────────────────────────────────────────── */
 .arco-tree-node-title {
-  color: rgba(22, 41, 63, 0.75) !important;
+  color: color-mix(in srgb, var(--mc-text-primary) 92%, transparent) !important;
   border-radius: var(--mc-radius-sm) !important;
 }
 
 .arco-tree-node-title:hover {
   background-color: rgba(76, 157, 228, 0.05) !important;
-  color: rgba(22, 41, 63, 0.92) !important;
+  color: color-mix(in srgb, var(--mc-text-primary) 96%, transparent) !important;
 }
 
 .arco-tree-node-selected .arco-tree-node-title {
@@ -989,27 +990,27 @@ a:hover {
 
 /* ── 34. Transfer ─────────────────────────────────────────────────────── */
 .arco-transfer-view {
-  background-color: #ffffff !important;
-  border: 1px solid rgba(31, 80, 132, 0.18) !important;
+  background-color: var(--mc-bg-card) !important;
+  border: 1px solid color-mix(in srgb, var(--mc-text-primary) 27%, transparent) !important;
   border-radius: var(--mc-radius-md) !important;
 }
 
 .arco-transfer-view-header {
-  background-color: #f4f7fa !important;
-  border-bottom: 1px solid rgba(31, 80, 132, 0.13) !important;
-  color: rgba(22, 41, 63, 0.75) !important;
+  background-color: var(--mc-bg-card) !important;
+  border-bottom: 1px solid color-mix(in srgb, var(--mc-text-primary) 20%, transparent) !important;
+  color: color-mix(in srgb, var(--mc-text-primary) 92%, transparent) !important;
 }
 
 /* ── 35. Cascader ─────────────────────────────────────────────────────── */
 .arco-cascader-panel {
-  background-color: #ffffff !important;
-  border: 1px solid rgba(31, 80, 132, 0.18) !important;
-  box-shadow: 0 8px 32px rgba(23, 54, 92, 0.33) !important;
+  background-color: var(--mc-bg-card) !important;
+  border: 1px solid color-mix(in srgb, var(--mc-text-primary) 27%, transparent) !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6) !important;
   border-radius: var(--mc-radius-md) !important;
 }
 
 .arco-cascader-option {
-  color: rgba(22, 41, 63, 0.75) !important;
+  color: color-mix(in srgb, var(--mc-text-primary) 92%, transparent) !important;
 }
 
 .arco-cascader-option:hover {
@@ -1039,17 +1040,17 @@ a:hover {
 /* ── 37. Rate ─────────────────────────────────────────────────────────── */
 .arco-rate-character-left,
 .arco-rate-character-right {
-  color: rgba(22, 41, 63, 0.15) !important;
+  color: color-mix(in srgb, var(--mc-text-primary) 30%, transparent) !important;
 }
 
 .arco-rate-character-left.arco-rate-character-full,
 .arco-rate-character-right.arco-rate-character-full {
-  color: #db8a24 !important;
+  color: #E5A046 !important;
 }
 
 /* ── 38. Typography ───────────────────────────────────────────────────── */
 .arco-typography {
-  color: rgba(22, 41, 63, 0.85) !important;
+  color: color-mix(in srgb, var(--mc-text-primary) 96%, transparent) !important;
 }
 
 h1.arco-typography,
@@ -1058,26 +1059,26 @@ h3.arco-typography,
 h4.arco-typography,
 h5.arco-typography,
 h6.arco-typography {
-  color: rgba(22, 41, 63, 0.92) !important;
+  color: color-mix(in srgb, var(--mc-text-primary) 96%, transparent) !important;
 }
 
 .arco-typography-secondary {
-  color: rgba(22, 41, 63, 0.50) !important;
+  color: color-mix(in srgb, var(--mc-text-primary) 61%, transparent) !important;
 }
 
 .arco-typography-disabled {
-  color: rgba(22, 41, 63, 0.22) !important;
+  color: color-mix(in srgb, var(--mc-text-primary) 30%, transparent) !important;
 }
 
 /* ── 39. List ─────────────────────────────────────────────────────────── */
 .arco-list {
   background-color: transparent !important;
-  border-color: rgba(31, 80, 132, 0.13) !important;
+  border-color: color-mix(in srgb, var(--mc-text-primary) 20%, transparent) !important;
 }
 
 .arco-list-item {
-  border-bottom: 1px solid rgba(31, 80, 132, 0.11) !important;
-  color: rgba(22, 41, 63, 0.75) !important;
+  border-bottom: 1px solid color-mix(in srgb, var(--mc-text-primary) 17%, transparent) !important;
+  color: color-mix(in srgb, var(--mc-text-primary) 92%, transparent) !important;
 }
 
 .arco-list-item:hover {
@@ -1095,26 +1096,26 @@ h6.arco-typography {
 }
 
 .arco-timeline-item-content {
-  color: rgba(22, 41, 63, 0.75) !important;
+  color: color-mix(in srgb, var(--mc-text-primary) 92%, transparent) !important;
 }
 
 .arco-timeline-item-label {
-  color: rgba(22, 41, 63, 0.40) !important;
+  color: color-mix(in srgb, var(--mc-text-primary) 49%, transparent) !important;
 }
 
 /* ── 41. Collapse ─────────────────────────────────────────────────────── */
 .arco-collapse {
   background-color: transparent !important;
-  border-color: rgba(31, 80, 132, 0.13) !important;
+  border-color: color-mix(in srgb, var(--mc-text-primary) 20%, transparent) !important;
 }
 
 .arco-collapse-item {
-  border-bottom: 1px solid rgba(31, 80, 132, 0.13) !important;
+  border-bottom: 1px solid color-mix(in srgb, var(--mc-text-primary) 20%, transparent) !important;
 }
 
 .arco-collapse-item-header {
   background-color: transparent !important;
-  color: rgba(22, 41, 63, 0.85) !important;
+  color: color-mix(in srgb, var(--mc-text-primary) 96%, transparent) !important;
 }
 
 .arco-collapse-item-header:hover {
@@ -1123,8 +1124,8 @@ h6.arco-typography {
 
 .arco-collapse-item-content {
   background-color: rgba(76, 157, 228, 0.02) !important;
-  color: rgba(22, 41, 63, 0.65) !important;
-  border-top: 1px solid rgba(31, 80, 132, 0.11) !important;
+  color: color-mix(in srgb, var(--mc-text-primary) 79%, transparent) !important;
+  border-top: 1px solid color-mix(in srgb, var(--mc-text-primary) 17%, transparent) !important;
 }
 
 /* ── 42. Anchor ───────────────────────────────────────────────────────── */
@@ -1133,11 +1134,11 @@ h6.arco-typography {
 }
 
 .arco-anchor-link-title {
-  color: rgba(22, 41, 63, 0.55) !important;
+  color: color-mix(in srgb, var(--mc-text-primary) 67%, transparent) !important;
 }
 
 .arco-anchor-link-title:hover {
-  color: rgba(22, 41, 63, 0.85) !important;
+  color: color-mix(in srgb, var(--mc-text-primary) 96%, transparent) !important;
 }
 
 .arco-anchor-link-active .arco-anchor-link-title {
@@ -1151,16 +1152,16 @@ h6.arco-typography {
 /* ── 43. Image ────────────────────────────────────────────────────────── */
 .arco-image-error {
   background-color: rgba(76, 157, 228, 0.04) !important;
-  color: rgba(22, 41, 63, 0.35) !important;
+  color: color-mix(in srgb, var(--mc-text-primary) 43%, transparent) !important;
 }
 
 /* ── 44. Result ───────────────────────────────────────────────────────── */
 .arco-result-title {
-  color: rgba(22, 41, 63, 0.92) !important;
+  color: color-mix(in srgb, var(--mc-text-primary) 96%, transparent) !important;
 }
 
 .arco-result-subtitle {
-  color: rgba(22, 41, 63, 0.50) !important;
+  color: color-mix(in srgb, var(--mc-text-primary) 61%, transparent) !important;
 }
 
 /* ── 45. Skeleton ─────────────────────────────────────────────────────── */
@@ -1184,23 +1185,23 @@ h6.arco-typography {
 
 /* ── 46. Back Top ─────────────────────────────────────────────────────── */
 .arco-back-top {
-  background-color: #f4f7fa !important;
-  border: 1px solid rgba(31, 80, 132, 0.18) !important;
-  color: rgba(22, 41, 63, 0.65) !important;
-  box-shadow: 0 4px 16px rgba(23, 54, 92, 0.28) !important;
+  background-color: var(--mc-bg-card) !important;
+  border: 1px solid color-mix(in srgb, var(--mc-text-primary) 27%, transparent) !important;
+  color: color-mix(in srgb, var(--mc-text-primary) 79%, transparent) !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.6) !important;
 }
 
 .arco-back-top:hover {
   background-color: rgba(76, 157, 228, 0.15) !important;
-  border-color: rgba(76, 157, 228, 0.30) !important;
+  border-color: rgba(124, 195, 240, 0.38) !important;
   color: #4c9de4 !important;
 }
 
 /* ── 47. Verification Code Input ─────────────────────────────────────── */
 .arco-verification-code-input-item {
-  background-color: #ffffff !important;
-  border-color: rgba(31, 80, 132, 0.18) !important;
-  color: rgba(22, 41, 63, 0.92) !important;
+  background-color: var(--mc-bg-card) !important;
+  border-color: color-mix(in srgb, var(--mc-text-primary) 27%, transparent) !important;
+  color: color-mix(in srgb, var(--mc-text-primary) 96%, transparent) !important;
 }
 
 .arco-verification-code-input-item:focus {
@@ -1210,14 +1211,14 @@ h6.arco-typography {
 
 /* ── 48. Mention ──────────────────────────────────────────────────────── */
 .arco-mention-dropdown {
-  background-color: #ffffff !important;
-  border: 1px solid rgba(31, 80, 132, 0.18) !important;
-  box-shadow: 0 8px 32px rgba(23, 54, 92, 0.33) !important;
+  background-color: var(--mc-bg-card) !important;
+  border: 1px solid color-mix(in srgb, var(--mc-text-primary) 27%, transparent) !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6) !important;
   border-radius: var(--mc-radius-md) !important;
 }
 
 .arco-mention-dropdown-option {
-  color: rgba(22, 41, 63, 0.75) !important;
+  color: color-mix(in srgb, var(--mc-text-primary) 92%, transparent) !important;
 }
 
 .arco-mention-dropdown-option:hover {
@@ -1226,9 +1227,9 @@ h6.arco-typography {
 
 /* ── 49. Auto Complete ────────────────────────────────────────────────── */
 .arco-auto-complete-dropdown {
-  background-color: #ffffff !important;
-  border: 1px solid rgba(31, 80, 132, 0.18) !important;
-  box-shadow: 0 8px 32px rgba(23, 54, 92, 0.33) !important;
+  background-color: var(--mc-bg-card) !important;
+  border: 1px solid color-mix(in srgb, var(--mc-text-primary) 27%, transparent) !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6) !important;
   border-radius: var(--mc-radius-md) !important;
 }
 
@@ -1282,7 +1283,7 @@ h6.arco-typography {
 .mc-card:hover {
   transform: translateY(-2px);
   border-color: var(--mc-border-strong);
-  box-shadow: var(--mc-shadow-md), 0 0 0 1px rgba(31, 80, 132, 0.06);
+  box-shadow: var(--mc-shadow-md), 0 0 0 1px rgba(0, 0, 0, 0.16);
 }
 
 .mc-card:hover::before {
@@ -1315,7 +1316,7 @@ h6.arco-typography {
 .mc-card-2:hover {
   transform: translateY(-2px);
   border-color: var(--mc-border-strong);
-  box-shadow: var(--mc-shadow-md), 0 0 0 1px rgba(31, 80, 132, 0.06);
+  box-shadow: var(--mc-shadow-md), 0 0 0 1px rgba(0, 0, 0, 0.16);
 }
 
 .mc-card-2:hover::before {
@@ -1324,7 +1325,7 @@ h6.arco-typography {
 
 .mc-card-3 {
   background-color: var(--mc-bg-card-2);
-  border: 1px solid rgba(31, 80, 132, 0.14);
+  border: 1px solid color-mix(in srgb, var(--mc-text-primary) 21%, transparent);
   border-radius: var(--mc-radius-lg);
   padding: var(--mc-space-lg);
   box-shadow: var(--mc-shadow-xs);
@@ -1359,13 +1360,13 @@ h6.arco-typography {
 .mc-metric-value {
   font-size: var(--mc-font-2xl);
   font-weight: 700;
-  color: rgba(22, 41, 63, 0.92);
+  color: color-mix(in srgb, var(--mc-text-primary) 96%, transparent);
   line-height: 1.2;
 }
 
 .mc-metric-label {
   font-size: var(--mc-font-sm);
-  color: rgba(22, 41, 63, 0.45);
+  color: color-mix(in srgb, var(--mc-text-primary) 55%, transparent);
   margin-top: 4px;
 }
 
@@ -1378,9 +1379,9 @@ h6.arco-typography {
   margin-right: 6px;
 }
 
-.mc-status-dot--active  { background-color: #22a06b; box-shadow: 0 0 6px rgba(34, 160, 107, 0.5); }
-.mc-status-dot--warning { background-color: #db8a24; box-shadow: 0 0 6px rgba(219, 138, 36, 0.5); }
-.mc-status-dot--error   { background-color: #E0576E; box-shadow: 0 0 0 3px rgba(224, 87, 110, 0.16); }
+.mc-status-dot--active  { background-color: #2FBF87; box-shadow: 0 0 6px rgba(34, 160, 107, 0.5); }
+.mc-status-dot--warning { background-color: #E5A046; box-shadow: 0 0 6px rgba(219, 138, 36, 0.5); }
+.mc-status-dot--error   { background-color: #F2748A; box-shadow: 0 0 0 3px rgba(224, 87, 110, 0.16); }
 .mc-status-dot--inactive { background-color: rgba(76, 157, 228, 0.25); }
 
 /* Page header */
@@ -1391,20 +1392,20 @@ h6.arco-typography {
 .mc-page-title {
   font-size: var(--mc-font-xl);
   font-weight: 700;
-  color: rgba(22, 41, 63, 0.92);
+  color: color-mix(in srgb, var(--mc-text-primary) 96%, transparent);
   margin: 0 0 4px;
 }
 
 .mc-page-subtitle {
   font-size: var(--mc-font-sm);
-  color: rgba(22, 41, 63, 0.40);
+  color: color-mix(in srgb, var(--mc-text-primary) 49%, transparent);
   margin: 0;
 }
 
 /* Divider */
 .mc-divider {
   border: none;
-  border-top: 1px solid rgba(31, 80, 132, 0.13);
+  border-top: 1px solid color-mix(in srgb, var(--mc-text-primary) 20%, transparent);
   margin: var(--mc-space-md) 0;
 }
 
@@ -1444,27 +1445,27 @@ h6.arco-typography {
 /* ── 53. Login Page ───────────────────────────────────────────────────── */
 .mc-login-page {
   min-height: 100vh;
-  background-color: #edf1f5;
+  background-color: var(--mc-bg-sunken);
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 .mc-login-card {
-  background-color: #ffffff;
-  border: 1px solid rgba(31, 80, 132, 0.14);
+  background-color: var(--mc-bg-card);
+  border: 1px solid color-mix(in srgb, var(--mc-text-primary) 21%, transparent);
   border-radius: var(--mc-radius-xl);
   padding: 40px;
   width: 400px;
-  box-shadow: 0 24px 80px rgba(23, 54, 92, 0.33);
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.6);
 }
 
 /* ── 54. App Switcher ─────────────────────────────────────────────────── */
 .mc-app-switcher {
-  background-color: #ffffff;
-  border: 1px solid rgba(31, 80, 132, 0.14);
+  background-color: var(--mc-bg-card);
+  border: 1px solid color-mix(in srgb, var(--mc-text-primary) 21%, transparent);
   border-radius: var(--mc-radius-lg);
-  box-shadow: 0 8px 32px rgba(23, 54, 92, 0.33);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
 }
 
 .mc-app-item {
@@ -1472,12 +1473,12 @@ h6.arco-typography {
   border-radius: var(--mc-radius-md);
   cursor: pointer;
   transition: background-color var(--mc-transition);
-  color: rgba(22, 41, 63, 0.75);
+  color: color-mix(in srgb, var(--mc-text-primary) 92%, transparent);
 }
 
 .mc-app-item:hover {
   background-color: rgba(76, 157, 228, 0.06);
-  color: rgba(22, 41, 63, 0.92);
+  color: color-mix(in srgb, var(--mc-text-primary) 96%, transparent);
 }
 
 .mc-app-item--active {
@@ -1523,8 +1524,8 @@ h6.arco-typography {
 
 /* ── 57. Table Card (list pages) ──────────────────────────────────────── */
 .table-card {
-  background-color: #ffffff;
-  border: 1px solid rgba(31, 80, 132, 0.13);
+  background-color: var(--mc-bg-card);
+  border: 1px solid color-mix(in srgb, var(--mc-text-primary) 20%, transparent);
   border-radius: var(--mc-radius-lg);
   overflow: auto;
   width: 100%;
@@ -1543,7 +1544,7 @@ h6.arco-typography {
 .mc-section-label {
   font-size: 11px;
   font-weight: 600;
-  color: rgba(22, 41, 63, 0.50);
+  color: color-mix(in srgb, var(--mc-text-primary) 61%, transparent);
   text-transform: uppercase;
   letter-spacing: 0.8px;
   margin-bottom: 12px;
@@ -1557,7 +1558,7 @@ h6.arco-typography {
 }
 .statistic-title {
   font-size: 12px;
-  color: rgba(22, 41, 63, 0.45);
+  color: color-mix(in srgb, var(--mc-text-primary) 55%, transparent);
   line-height: 20px;
 }
 .statistic-value {
@@ -1574,13 +1575,13 @@ h6.arco-typography {
 /* 整体布局背景 */
 .arco-layout,
 .arco-layout-has-sider {
-  background: #edf1f5 !important;
+  background: var(--mc-bg-sunken) !important;
 }
 
 /* 侧边栏 trigger */
 .arco-layout-sider-trigger {
   background: rgba(76, 157, 228, 0.02) !important;
-  border-top: 1px solid rgba(76, 157, 228, 0.06) !important;
+  border-top: 1px solid rgba(124, 195, 240, 0.14) !important;
   color: rgba(76, 157, 228, 0.30) !important;
 }
 .arco-layout-sider-trigger:hover {
@@ -1606,7 +1607,7 @@ h6.arco-typography {
 
 /* 内容区 */
 .arco-layout-content {
-  background: #edf1f5 !important;
+  background: var(--mc-bg-sunken) !important;
 }
 
 /* 菜单 — 所有状态 */
@@ -1619,7 +1620,7 @@ h6.arco-typography {
 
 .arco-menu-item,
 .arco-menu-inline-header {
-  color: rgba(22, 41, 63, 0.50) !important;
+  color: color-mix(in srgb, var(--mc-text-primary) 61%, transparent) !important;
   background-color: transparent !important;
   border-radius: 6px !important;
   margin: 1px 8px !important;
@@ -1631,8 +1632,8 @@ h6.arco-typography {
 .arco-menu-item:hover,
 .arco-menu-inline-header:hover {
   background: rgba(76, 157, 228, 0.06) !important;
-  color: rgba(22, 41, 63, 0.85) !important;
-  border-left-color: rgba(76, 157, 228, 0.25) !important;
+  color: color-mix(in srgb, var(--mc-text-primary) 96%, transparent) !important;
+  border-left-color: rgba(124, 195, 240, 0.31) !important;
 }
 
 .arco-menu-item.arco-menu-selected,
@@ -1655,8 +1656,8 @@ h6.arco-typography {
 }
 
 .arco-menu-inline-header.arco-menu-open {
-  color: rgba(22, 41, 63, 0.85) !important;
-  border-left-color: rgba(76, 157, 228, 0.25) !important;
+  color: color-mix(in srgb, var(--mc-text-primary) 96%, transparent) !important;
+  border-left-color: rgba(124, 195, 240, 0.31) !important;
 }
 
 .arco-menu-inline-header.arco-menu-selected,
@@ -1679,19 +1680,19 @@ h6.arco-typography {
 /* 弹出子菜单（折叠时） */
 .arco-menu-pop,
 .arco-menu-pop-header {
-  background: #FFFFFF !important;
-  border: 1px solid rgba(76, 157, 228, 0.10) !important;
-  box-shadow: 0 8px 32px rgba(23, 54, 92, 0.39), 0 0 40px rgba(76, 157, 228, 0.04) !important;
+  background: var(--mc-bg-card) !important;
+  border: 1px solid rgba(124, 195, 240, 0.14) !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6), 0 0 40px rgba(76, 157, 228, 0.04) !important;
 }
 .arco-menu-pop .arco-menu-item {
-  color: rgba(22, 41, 63, 0.50) !important;
+  color: color-mix(in srgb, var(--mc-text-primary) 61%, transparent) !important;
   border-left: 3px solid transparent !important;
   padding-left: 8px !important;
 }
 .arco-menu-pop .arco-menu-item:hover {
   background: rgba(76, 157, 228, 0.06) !important;
-  color: rgba(22, 41, 63, 0.85) !important;
-  border-left-color: rgba(76, 157, 228, 0.25) !important;
+  color: color-mix(in srgb, var(--mc-text-primary) 96%, transparent) !important;
+  border-left-color: rgba(124, 195, 240, 0.31) !important;
 }
 .arco-menu-pop .arco-menu-item.arco-menu-selected {
   background: rgba(76, 157, 228, 0.08) !important;
@@ -1707,23 +1708,23 @@ h6.arco-typography {
 /* Dropdown 弹出层 */
 .arco-dropdown-popup,
 .arco-dropdown-popup .arco-dropdown-list-wrapper {
-  background: #ffffff !important;
-  border: 1px solid rgba(31, 80, 132, 0.18) !important;
-  box-shadow: 0 8px 40px rgba(23, 54, 92, 0.39) !important;
+  background: var(--mc-bg-card) !important;
+  border: 1px solid color-mix(in srgb, var(--mc-text-primary) 27%, transparent) !important;
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.6) !important;
   border-radius: 10px !important;
 }
 
 .arco-dropdown-option,
 .arco-dropdown-option-content,
 .arco-dropdown-option .arco-dropdown-option-content {
-  color: rgba(22, 41, 63, 0.75) !important;
+  color: color-mix(in srgb, var(--mc-text-primary) 92%, transparent) !important;
   font-size: 13px !important;
 }
 
 .arco-dropdown-option:hover,
 .arco-dropdown-option:hover .arco-dropdown-option-content {
   background: rgba(76, 157, 228, 0.06) !important;
-  color: rgba(22, 41, 63, 0.92) !important;
+  color: color-mix(in srgb, var(--mc-text-primary) 96%, transparent) !important;
 }
 
 .arco-dropdown-option-active,
@@ -1736,32 +1737,32 @@ h6.arco-typography {
 
 .arco-dropdown-option-disabled,
 .arco-dropdown-option-disabled .arco-dropdown-option-content {
-  color: rgba(22, 41, 63, 0.22) !important;
+  color: color-mix(in srgb, var(--mc-text-primary) 30%, transparent) !important;
 }
 
 /* Dropdown 内的分割线 */
 .arco-dropdown-popup .arco-divider {
-  border-color: rgba(31, 80, 132, 0.13) !important;
+  border-color: color-mix(in srgb, var(--mc-text-primary) 20%, transparent) !important;
   margin: 4px 0 !important;
 }
 
 /* Select 下拉 */
 .arco-select-dropdown {
-  background: #ffffff !important;
-  border: 1px solid rgba(31, 80, 132, 0.18) !important;
-  box-shadow: 0 8px 40px rgba(23, 54, 92, 0.39) !important;
+  background: var(--mc-bg-card) !important;
+  border: 1px solid color-mix(in srgb, var(--mc-text-primary) 27%, transparent) !important;
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.6) !important;
   border-radius: 10px !important;
 }
 
 .arco-select-option {
-  color: rgba(22, 41, 63, 0.70) !important;
+  color: color-mix(in srgb, var(--mc-text-primary) 85%, transparent) !important;
   font-size: 13px !important;
   border-radius: 6px !important;
 }
 
 .arco-select-option:hover {
   background: rgba(76, 157, 228, 0.06) !important;
-  color: rgba(22, 41, 63, 0.92) !important;
+  color: color-mix(in srgb, var(--mc-text-primary) 96%, transparent) !important;
 }
 
 .arco-select-option-selected,
@@ -1773,70 +1774,70 @@ h6.arco-typography {
 /* Popconfirm 弹出层 */
 .arco-popconfirm-popup-content,
 .arco-popover-popup-content {
-  background: #ffffff !important;
-  border: 1px solid rgba(31, 80, 132, 0.18) !important;
-  box-shadow: 0 8px 40px rgba(23, 54, 92, 0.39) !important;
+  background: var(--mc-bg-card) !important;
+  border: 1px solid color-mix(in srgb, var(--mc-text-primary) 27%, transparent) !important;
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.6) !important;
   border-radius: 10px !important;
 }
 
 .arco-popconfirm-title,
 .arco-popover-title {
-  color: rgba(22, 41, 63, 0.85) !important;
+  color: color-mix(in srgb, var(--mc-text-primary) 96%, transparent) !important;
 }
 
 .arco-popconfirm-footer .arco-btn-secondary {
   background: rgba(76, 157, 228, 0.06) !important;
-  border-color: rgba(31, 80, 132, 0.22) !important;
-  color: rgba(22, 41, 63, 0.70) !important;
+  border-color: color-mix(in srgb, var(--mc-text-primary) 33%, transparent) !important;
+  color: color-mix(in srgb, var(--mc-text-primary) 85%, transparent) !important;
 }
 
 /* Tooltip */
 .arco-tooltip-popup-content {
-  background: #eaf2fc !important;
-  border: 1px solid rgba(31, 80, 132, 0.18) !important;
-  color: rgba(22, 41, 63, 0.85) !important;
+  background: var(--mc-bg-elevated) !important;
+  border: 1px solid color-mix(in srgb, var(--mc-text-primary) 27%, transparent) !important;
+  color: color-mix(in srgb, var(--mc-text-primary) 96%, transparent) !important;
   border-radius: 8px !important;
-  box-shadow: 0 4px 20px rgba(23, 54, 92, 0.33) !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6) !important;
 }
 
 /* Date Picker 弹出层 */
 .arco-picker-dropdown {
-  background: #ffffff !important;
-  border: 1px solid rgba(31, 80, 132, 0.18) !important;
-  box-shadow: 0 8px 40px rgba(23, 54, 92, 0.39) !important;
+  background: var(--mc-bg-card) !important;
+  border: 1px solid color-mix(in srgb, var(--mc-text-primary) 27%, transparent) !important;
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.6) !important;
   border-radius: 10px !important;
 }
 
 .arco-picker-panel {
-  background: #ffffff !important;
+  background: var(--mc-bg-card) !important;
 }
 
 .arco-picker-header {
-  border-bottom: 1px solid rgba(31, 80, 132, 0.13) !important;
-  color: rgba(22, 41, 63, 0.85) !important;
+  border-bottom: 1px solid color-mix(in srgb, var(--mc-text-primary) 20%, transparent) !important;
+  color: color-mix(in srgb, var(--mc-text-primary) 96%, transparent) !important;
 }
 
 .arco-picker-header-value,
 .arco-picker-header-label {
-  color: rgba(22, 41, 63, 0.85) !important;
+  color: color-mix(in srgb, var(--mc-text-primary) 96%, transparent) !important;
 }
 
 .arco-picker-header-icon {
-  color: rgba(22, 41, 63, 0.45) !important;
+  color: color-mix(in srgb, var(--mc-text-primary) 55%, transparent) !important;
 }
 
 .arco-picker-header-icon:hover {
-  color: rgba(22, 41, 63, 0.85) !important;
+  color: color-mix(in srgb, var(--mc-text-primary) 96%, transparent) !important;
   background: rgba(76, 157, 228, 0.06) !important;
 }
 
 .arco-picker-cell-inner {
-  color: rgba(22, 41, 63, 0.65) !important;
+  color: color-mix(in srgb, var(--mc-text-primary) 79%, transparent) !important;
   border-radius: 6px !important;
 }
 
 .arco-picker-cell-in-view .arco-picker-cell-inner {
-  color: rgba(22, 41, 63, 0.85) !important;
+  color: color-mix(in srgb, var(--mc-text-primary) 96%, transparent) !important;
 }
 
 .arco-picker-cell:hover .arco-picker-cell-inner {
@@ -1864,77 +1865,77 @@ h6.arco-typography {
 }
 
 .arco-picker-footer {
-  border-top: 1px solid rgba(31, 80, 132, 0.13) !important;
-  background: #ffffff !important;
+  border-top: 1px solid color-mix(in srgb, var(--mc-text-primary) 20%, transparent) !important;
+  background: var(--mc-bg-card) !important;
 }
 
 .arco-picker-week-list-item {
-  color: rgba(22, 41, 63, 0.50) !important;
+  color: color-mix(in srgb, var(--mc-text-primary) 61%, transparent) !important;
 }
 
 /* Modal 遮罩 */
 .arco-modal-mask {
-  background: rgba(19, 41, 66, 0.48) !important;
+  background: rgba(3, 10, 20, 0.78) !important;
 }
 
 /* Modal 本体 */
 .arco-modal-wrapper .arco-modal {
-  background: #ffffff !important;
-  border: 1px solid rgba(31, 80, 132, 0.14) !important;
+  background: var(--mc-bg-card) !important;
+  border: 1px solid color-mix(in srgb, var(--mc-text-primary) 21%, transparent) !important;
   border-radius: 14px !important;
-  box-shadow: 0 24px 80px rgba(23, 54, 92, 0.44) !important;
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.6) !important;
 }
 
 .arco-modal-wrapper .arco-modal-header {
   background: transparent !important;
-  border-bottom: 1px solid rgba(31, 80, 132, 0.13) !important;
+  border-bottom: 1px solid color-mix(in srgb, var(--mc-text-primary) 20%, transparent) !important;
 }
 
 .arco-modal-wrapper .arco-modal-title {
-  color: rgba(22, 41, 63, 0.92) !important;
+  color: color-mix(in srgb, var(--mc-text-primary) 96%, transparent) !important;
 }
 
 .arco-modal-wrapper .arco-modal-body {
-  color: rgba(22, 41, 63, 0.70) !important;
+  color: color-mix(in srgb, var(--mc-text-primary) 85%, transparent) !important;
 }
 
 .arco-modal-wrapper .arco-modal-footer {
   background: transparent !important;
-  border-top: 1px solid rgba(31, 80, 132, 0.13) !important;
+  border-top: 1px solid color-mix(in srgb, var(--mc-text-primary) 20%, transparent) !important;
 }
 
 .arco-modal-wrapper .arco-modal-close-btn {
-  color: rgba(22, 41, 63, 0.35) !important;
+  color: color-mix(in srgb, var(--mc-text-primary) 43%, transparent) !important;
 }
 
 .arco-modal-wrapper .arco-modal-close-btn:hover {
-  color: rgba(22, 41, 63, 0.75) !important;
+  color: color-mix(in srgb, var(--mc-text-primary) 92%, transparent) !important;
   background: rgba(76, 157, 228, 0.06) !important;
 }
 
 /* Form items inside modal */
 .arco-modal-wrapper .arco-form-item-label-col label {
-  color: rgba(22, 41, 63, 0.55) !important;
+  color: color-mix(in srgb, var(--mc-text-primary) 67%, transparent) !important;
 }
 
 .arco-modal-wrapper .arco-input-wrapper,
 .arco-modal-wrapper .arco-select-view,
 .arco-modal-wrapper .arco-textarea-wrapper,
 .arco-modal-wrapper .arco-input-number {
-  background: #f4f7fa !important;
-  border-color: rgba(31, 80, 132, 0.18) !important;
-  color: rgba(22, 41, 63, 0.85) !important;
+  background: var(--mc-bg-card) !important;
+  border-color: color-mix(in srgb, var(--mc-text-primary) 27%, transparent) !important;
+  color: color-mix(in srgb, var(--mc-text-primary) 96%, transparent) !important;
 }
 
 .arco-modal-wrapper .arco-input,
 .arco-modal-wrapper .arco-textarea {
-  color: rgba(22, 41, 63, 0.85) !important;
+  color: color-mix(in srgb, var(--mc-text-primary) 96%, transparent) !important;
   background: transparent !important;
 }
 
 .arco-modal-wrapper .arco-input::placeholder,
 .arco-modal-wrapper .arco-textarea::placeholder {
-  color: rgba(22, 41, 63, 0.22) !important;
+  color: color-mix(in srgb, var(--mc-text-primary) 30%, transparent) !important;
 }
 
 .arco-modal-wrapper .arco-input-wrapper:focus-within,
@@ -1945,17 +1946,17 @@ h6.arco-typography {
 }
 
 .arco-modal-wrapper .arco-select-view-value {
-  color: rgba(22, 41, 63, 0.85) !important;
+  color: color-mix(in srgb, var(--mc-text-primary) 96%, transparent) !important;
 }
 
 .arco-modal-wrapper .arco-select-view-placeholder {
-  color: rgba(22, 41, 63, 0.22) !important;
+  color: color-mix(in srgb, var(--mc-text-primary) 30%, transparent) !important;
 }
 
 .arco-modal-wrapper .arco-radio-btn {
-  background: #f4f7fa !important;
-  border-color: rgba(31, 80, 132, 0.18) !important;
-  color: rgba(22, 41, 63, 0.55) !important;
+  background: var(--mc-bg-card) !important;
+  border-color: color-mix(in srgb, var(--mc-text-primary) 27%, transparent) !important;
+  color: color-mix(in srgb, var(--mc-text-primary) 67%, transparent) !important;
 }
 
 .arco-modal-wrapper .arco-radio-checked .arco-radio-btn {
@@ -1965,7 +1966,7 @@ h6.arco-typography {
 }
 
 .arco-modal-wrapper .arco-checkbox-label {
-  color: rgba(22, 41, 63, 0.70) !important;
+  color: color-mix(in srgb, var(--mc-text-primary) 85%, transparent) !important;
 }
 
 .arco-modal-wrapper .arco-form-item-message {
@@ -1975,12 +1976,12 @@ h6.arco-typography {
 /* Upload inside modal */
 .arco-modal-wrapper .arco-upload-drag {
   background: rgba(76, 157, 228, 0.03) !important;
-  border-color: rgba(31, 80, 132, 0.18) !important;
-  color: rgba(22, 41, 63, 0.40) !important;
+  border-color: color-mix(in srgb, var(--mc-text-primary) 27%, transparent) !important;
+  color: color-mix(in srgb, var(--mc-text-primary) 49%, transparent) !important;
 }
 
 .arco-modal-wrapper .arco-upload-drag:hover {
-  border-color: rgba(76, 157, 228, 0.35) !important;
+  border-color: rgba(124, 195, 240, 0.44) !important;
   background: rgba(76, 157, 228, 0.04) !important;
 }
 
@@ -1992,11 +1993,11 @@ h6.arco-typography {
 .page-title {
   font-size: 18px !important;
   font-weight: 700 !important;
-  color: rgba(22, 41, 63, 0.92) !important;
+  color: color-mix(in srgb, var(--mc-text-primary) 96%, transparent) !important;
 }
 .page-subtitle {
   font-size: 12px !important;
-  color: rgba(22, 41, 63, 0.35) !important;
+  color: color-mix(in srgb, var(--mc-text-primary) 43%, transparent) !important;
   margin-top: 2px !important;
 }
 
@@ -2020,8 +2021,8 @@ h6.arco-typography {
 
 /* 表单卡片（上传页等） */
 .form-card {
-  background: #ffffff !important;
-  border: 1px solid rgba(31, 80, 132, 0.13) !important;
+  background: var(--mc-bg-card) !important;
+  border: 1px solid color-mix(in srgb, var(--mc-text-primary) 20%, transparent) !important;
   border-radius: 12px !important;
 }
 
@@ -2029,8 +2030,8 @@ h6.arco-typography {
 .form-section-title {
   font-size: 13px !important;
   font-weight: 600 !important;
-  color: rgba(22, 41, 63, 0.75) !important;
-  border-bottom: 1px solid rgba(31, 80, 132, 0.13) !important;
+  color: color-mix(in srgb, var(--mc-text-primary) 92%, transparent) !important;
+  border-bottom: 1px solid color-mix(in srgb, var(--mc-text-primary) 20%, transparent) !important;
 }
 
 /* 表单分割线 */
@@ -2040,12 +2041,12 @@ h6.arco-typography {
 
 /* 表单底部 */
 .form-footer {
-  border-top: 1px solid rgba(31, 80, 132, 0.13) !important;
+  border-top: 1px solid color-mix(in srgb, var(--mc-text-primary) 20%, transparent) !important;
 }
 
 /* 返回按钮 */
 .back-btn {
-  color: rgba(22, 41, 63, 0.35) !important;
+  color: color-mix(in srgb, var(--mc-text-primary) 43%, transparent) !important;
 }
 .back-btn:hover {
   color: #4c9de4 !important;
@@ -2059,12 +2060,12 @@ h6.arco-typography {
 
 /* 用户单元格 */
 .user-cell { display: flex; flex-direction: column; gap: 2px; }
-.user-name { font-size: 13px; font-weight: 500; color: rgba(22, 41, 63, 0.85) !important; }
-.user-id { font-size: 11px; color: rgba(22, 41, 63, 0.50) !important; font-family: 'SF Mono', monospace; }
+.user-name { font-size: 13px; font-weight: 500; color: color-mix(in srgb, var(--mc-text-primary) 96%, transparent) !important; }
+.user-id { font-size: 11px; color: color-mix(in srgb, var(--mc-text-primary) 61%, transparent) !important; font-family: 'SF Mono', monospace; }
 
 /* 账号单元格 */
-.account-name { font-size: 13px; font-weight: 500; color: rgba(22, 41, 63, 0.85) !important; }
-.account-email { font-size: 11px; color: rgba(22, 41, 63, 0.50) !important; }
+.account-name { font-size: 13px; font-weight: 500; color: color-mix(in srgb, var(--mc-text-primary) 96%, transparent) !important; }
+.account-email { font-size: 11px; color: color-mix(in srgb, var(--mc-text-primary) 61%, transparent) !important; }
 
 /* 角色徽章 */
 .role-badge {
@@ -2075,12 +2076,12 @@ h6.arco-typography {
   font-size: 11px;
   font-weight: 600;
 }
-.role-badge--admin    { background: rgba(224, 87, 110, 0.15)  !important; color: #E0576E !important; }
+.role-badge--admin    { background: rgba(224, 87, 110, 0.15)  !important; color: #F2748A !important; }
 .role-badge--operator { background: rgba(76, 157, 228, 0.15) !important; color: #4c9de4 !important; }
-.role-badge--viewer   { background: rgba(123, 143, 224, 0.15)  !important; color: #7b8fe0 !important; }
+.role-badge--viewer   { background: rgba(123, 143, 224, 0.15)  !important; color: #93A6F0 !important; }
 
 /* 应用范围 */
-.scope-all { font-size: 12px; color: rgba(22, 41, 63, 0.50) !important; font-style: italic; }
+.scope-all { font-size: 12px; color: color-mix(in srgb, var(--mc-text-primary) 61%, transparent) !important; font-style: italic; }
 
 /* 类型徽章（广告/推送） */
 .type-badge {
@@ -2098,32 +2099,32 @@ h6.arco-typography {
 }
 .type-badge--purple {
   background: rgba(123, 143, 224, 0.12) !important;
-  color: #7b8fe0 !important;
+  color: #93A6F0 !important;
 }
 .type-badge--rewarded {
   background: rgba(34, 160, 107, 0.12) !important;
-  color: #22a06b !important;
+  color: #2FBF87 !important;
 }
 .type-badge--banner {
   background: rgba(219, 138, 36, 0.12) !important;
-  color: #db8a24 !important;
+  color: #E5A046 !important;
 }
 
 /* 广告名称单元格 */
-.ad-name { font-size: 13px; font-weight: 500; color: rgba(22, 41, 63, 0.85) !important; }
-.ad-network-id { font-size: 11px; color: rgba(22, 41, 63, 0.50) !important; font-family: 'SF Mono', monospace; }
+.ad-name { font-size: 13px; font-weight: 500; color: color-mix(in srgb, var(--mc-text-primary) 96%, transparent) !important; }
+.ad-network-id { font-size: 11px; color: color-mix(in srgb, var(--mc-text-primary) 61%, transparent) !important; font-family: 'SF Mono', monospace; }
 
 /* 条件文字 */
-.condition-text { font-size: 13px; color: rgba(22, 41, 63, 0.55) !important; }
-.condition-text strong { color: rgba(22, 41, 63, 0.85) !important; font-weight: 600; }
-.ad-name-text { font-size: 13px; color: rgba(22, 41, 63, 0.55) !important; }
+.condition-text { font-size: 13px; color: color-mix(in srgb, var(--mc-text-primary) 67%, transparent) !important; }
+.condition-text strong { color: color-mix(in srgb, var(--mc-text-primary) 96%, transparent) !important; font-weight: 600; }
+.ad-name-text { font-size: 13px; color: color-mix(in srgb, var(--mc-text-primary) 67%, transparent) !important; }
 
 /* 短剧名称 */
-.drama-name { font-weight: 500; color: rgba(22, 41, 63, 0.85) !important; cursor: pointer; }
+.drama-name { font-weight: 500; color: color-mix(in srgb, var(--mc-text-primary) 96%, transparent) !important; cursor: pointer; }
 .drama-name:hover { color: #4c9de4 !important; }
-.episode-count { font-weight: 600; color: rgba(22, 41, 63, 0.85) !important; }
+.episode-count { font-weight: 600; color: color-mix(in srgb, var(--mc-text-primary) 96%, transparent) !important; }
 .episode-unit { font-size: 11px; color: var(--mc-text-tertiary); }
-.empty-text { color: rgba(22, 41, 63, 0.20) !important; font-size: 13px; }
+.empty-text { color: color-mix(in srgb, var(--mc-text-primary) 24%, transparent) !important; font-size: 13px; }
 
 /* 颜色选择器（标签管理） */
 .color-swatch {
@@ -2134,13 +2135,13 @@ h6.arco-typography {
   transition: border-color 0.15s;
 }
 .color-swatch.selected { border-color: #4c9de4 !important; }
-.color-swatch:hover { border-color: rgba(31, 80, 132, 0.34) !important; }
+.color-swatch:hover { border-color: color-mix(in srgb, var(--mc-text-primary) 40%, transparent) !important; }
 
 /* 短剧详情 — 信息卡片 */
 .info-card,
 .episodes-card {
-  background: #ffffff !important;
-  border: 1px solid rgba(31, 80, 132, 0.13) !important;
+  background: var(--mc-bg-card) !important;
+  border: 1px solid color-mix(in srgb, var(--mc-text-primary) 20%, transparent) !important;
   border-radius: 12px !important;
   overflow: hidden !important;
 }
@@ -2149,33 +2150,33 @@ h6.arco-typography {
   padding: 14px 20px !important;
   font-size: 13px !important;
   font-weight: 600 !important;
-  color: rgba(22, 41, 63, 0.75) !important;
-  border-bottom: 1px solid rgba(31, 80, 132, 0.13) !important;
+  color: color-mix(in srgb, var(--mc-text-primary) 92%, transparent) !important;
+  border-bottom: 1px solid color-mix(in srgb, var(--mc-text-primary) 20%, transparent) !important;
   background: rgba(76, 157, 228, 0.02) !important;
 }
 
 .info-item {
-  border-bottom: 1px solid rgba(31, 80, 132, 0.09) !important;
-  border-right: 1px solid rgba(31, 80, 132, 0.09) !important;
+  border-bottom: 1px solid color-mix(in srgb, var(--mc-text-primary) 14%, transparent) !important;
+  border-right: 1px solid color-mix(in srgb, var(--mc-text-primary) 14%, transparent) !important;
 }
 
 .info-label {
   font-size: 11px !important;
   font-weight: 600 !important;
-  color: rgba(22, 41, 63, 0.50) !important;
+  color: color-mix(in srgb, var(--mc-text-primary) 61%, transparent) !important;
   text-transform: uppercase;
   letter-spacing: 0.3px;
 }
 
 .info-value {
   font-size: 13px !important;
-  color: rgba(22, 41, 63, 0.85) !important;
+  color: color-mix(in srgb, var(--mc-text-primary) 96%, transparent) !important;
   font-weight: 500 !important;
 }
 
 .info-desc {
   font-weight: 400 !important;
-  color: rgba(22, 41, 63, 0.55) !important;
+  color: color-mix(in srgb, var(--mc-text-primary) 67%, transparent) !important;
   line-height: 1.6 !important;
 }
 
@@ -2190,15 +2191,15 @@ h6.arco-typography {
   padding: 5px 12px;
   font-size: 12px;
   font-weight: 500;
-  color: rgba(22, 41, 63, 0.40) !important;
+  color: color-mix(in srgb, var(--mc-text-primary) 49%, transparent) !important;
   background: rgba(76, 157, 228, 0.04) !important;
-  border: 1px solid rgba(31, 80, 132, 0.14) !important;
+  border: 1px solid color-mix(in srgb, var(--mc-text-primary) 21%, transparent) !important;
   border-radius: 6px;
   cursor: pointer;
   transition: all 0.15s;
 }
 .episode-tab:hover {
-  border-color: rgba(76, 157, 228, 0.35) !important;
+  border-color: rgba(124, 195, 240, 0.44) !important;
   color: #4c9de4 !important;
 }
 .episode-tab.active {
@@ -2216,28 +2217,28 @@ h6.arco-typography {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #edf1f5 !important;
+  background: var(--mc-bg-sunken) !important;
 }
 .error-code {
   font-size: 72px !important;
   font-weight: 800 !important;
-  color: rgba(22, 41, 63, 0.12) !important;
+  color: color-mix(in srgb, var(--mc-text-primary) 30%, transparent) !important;
   line-height: 1;
   letter-spacing: -4px;
 }
 .error-title {
   font-size: 22px !important;
   font-weight: 700 !important;
-  color: rgba(22, 41, 63, 0.85) !important;
+  color: color-mix(in srgb, var(--mc-text-primary) 96%, transparent) !important;
 }
 .error-desc {
   font-size: 14px !important;
-  color: rgba(22, 41, 63, 0.35) !important;
+  color: color-mix(in srgb, var(--mc-text-primary) 43%, transparent) !important;
   line-height: 1.8;
 }
 .error-role {
   font-size: 12px !important;
-  color: rgba(22, 41, 63, 0.50) !important;
+  color: color-mix(in srgb, var(--mc-text-primary) 61%, transparent) !important;
 }
 
 /* ═══════════════════════════════════════════════════════════
@@ -2245,32 +2246,32 @@ h6.arco-typography {
    ═══════════════════════════════════════════════════════════ */
 
 .arco-popconfirm-popup-content {
-  background: #f4f7fa !important;
-  border: 1px solid rgba(31, 80, 132, 0.18) !important;
-  box-shadow: 0 8px 32px rgba(23, 54, 92, 0.39) !important;
+  background: var(--mc-bg-card) !important;
+  border: 1px solid color-mix(in srgb, var(--mc-text-primary) 27%, transparent) !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6) !important;
   border-radius: 10px !important;
   padding: 14px 16px !important;
 }
 
 /* 箭头 */
 .arco-popconfirm-popup-arrow::before {
-  background: #f4f7fa !important;
-  border-color: rgba(31, 80, 132, 0.18) !important;
+  background: var(--mc-bg-card) !important;
+  border-color: color-mix(in srgb, var(--mc-text-primary) 27%, transparent) !important;
 }
 
 /* 图标区域 */
 .arco-popconfirm-icon {
-  color: #DB8A24 !important;
+  color: #E5A046 !important;
 }
 
 /* 内容文字 */
 .arco-popconfirm-body {
-  color: rgba(22, 41, 63, 0.85) !important;
+  color: color-mix(in srgb, var(--mc-text-primary) 96%, transparent) !important;
   font-size: 13px !important;
 }
 
 .arco-popconfirm-content {
-  color: rgba(22, 41, 63, 0.85) !important;
+  color: color-mix(in srgb, var(--mc-text-primary) 96%, transparent) !important;
   font-size: 13px !important;
 }
 
@@ -2286,8 +2287,8 @@ h6.arco-typography {
 .arco-popconfirm-footer .arco-btn-secondary,
 .arco-popconfirm-footer .arco-btn-outline {
   background: rgba(76, 157, 228, 0.06) !important;
-  border: 1px solid rgba(31, 80, 132, 0.22) !important;
-  color: rgba(22, 41, 63, 0.65) !important;
+  border: 1px solid color-mix(in srgb, var(--mc-text-primary) 33%, transparent) !important;
+  color: color-mix(in srgb, var(--mc-text-primary) 79%, transparent) !important;
   font-size: 12px !important;
   height: 28px !important;
   padding: 0 12px !important;
@@ -2296,7 +2297,7 @@ h6.arco-typography {
 .arco-popconfirm-footer .arco-btn-secondary:hover,
 .arco-popconfirm-footer .arco-btn-outline:hover {
   background: rgba(76, 157, 228, 0.10) !important;
-  color: rgba(22, 41, 63, 0.85) !important;
+  color: color-mix(in srgb, var(--mc-text-primary) 96%, transparent) !important;
 }
 
 /* 确认按钮 */
@@ -2318,7 +2319,7 @@ h6.arco-typography {
 .arco-popconfirm-footer .arco-btn-status-danger {
   background: rgba(224, 87, 110, 0.15) !important;
   border: 1px solid rgba(224, 87, 110, 0.35) !important;
-  color: #E0576E !important;
+  color: #F2748A !important;
   font-size: 12px !important;
   height: 28px !important;
   padding: 0 12px !important;
@@ -2345,11 +2346,11 @@ h6.arco-typography {
 }
 
 .arco-dot-loading-item:nth-child(4) {
-  background-color: #CBE1F7 !important;
+  background-color: var(--mc-bg-elevated) !important;
 }
 
 .arco-dot-loading-item:nth-child(5) {
-  background-color: #E4EFFB !important;
+  background-color: var(--mc-bg-elevated) !important;
 }
 
 /* ── 路由切换过渡动画（shadcn 风格：scale + opacity + blur） ──────────── */
@@ -2424,7 +2425,7 @@ h6.arco-typography {
 
 .arco-table-body .arco-empty-description {
   font-size: 13px;
-  color: rgba(22, 41, 63, 0.30) !important;
+  color: color-mix(in srgb, var(--mc-text-primary) 37%, transparent) !important;
   margin-top: 8px;
 }
 
@@ -2471,7 +2472,7 @@ h6.arco-typography {
 .arco-card:hover {
   transform: translateY(-2px) !important;
   border-color: var(--mc-border-strong) !important;
-  box-shadow: var(--mc-shadow-md), 0 0 0 1px rgba(31, 80, 132, 0.06) !important;
+  box-shadow: var(--mc-shadow-md), 0 0 0 1px rgba(0, 0, 0, 0.16) !important;
 }
 
 /* ── 45. 按钮点击涟漪效果 ─────────────────────────────────────────────── */

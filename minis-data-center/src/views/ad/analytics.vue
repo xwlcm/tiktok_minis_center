@@ -86,7 +86,7 @@ onMounted(() => loadData())
   display: flex; align-items: flex-start; justify-content: space-between;
   margin-bottom: 20px;
 }
-.page-title { font-size: 18px; font-weight: 700; color: rgba(22, 41, 63, 0.92); }
-.page-subtitle { font-size: 12px; color: rgba(22, 41, 63, 0.47); margin-top: 2px; }
-.text-success { color: #22a06b; font-size: 12px; }
+.page-title { font-size: 18px; font-weight: 700; color: color-mix(in srgb, var(--mc-text-primary) 96%, transparent); }
+.page-subtitle { font-size: 12px; color: color-mix(in srgb, var(--mc-text-primary) 57%, transparent); margin-top: 2px; }
+.text-success { color: #2FBF87; font-size: 12px; }
 </style>

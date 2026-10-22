@@ -78,7 +78,7 @@
           />
           <div v-else class="cover-placeholder">
             <icon-video-camera
-              style="font-size: 18px; color: rgba(22, 41, 63, 0.27)"
+              style="font-size: 18px; color: color-mix(in srgb, var(--mc-text-primary) 33%, transparent)"
             />
           </div>
         </template>
@@ -368,7 +368,7 @@ onMounted(() => {
   height: 38px;
   border-radius: 4px;
   background: rgba(76, 157, 228, 0.04);
-  border: 1px solid rgba(31, 80, 132, 0.14);
+  border: 1px solid color-mix(in srgb, var(--mc-text-primary) 21%, transparent);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -412,7 +412,7 @@ onMounted(() => {
 .tag-filter-label {
   font-size: 12px;
   font-weight: 600;
-  color: rgba(22, 41, 63, 0.68);
+  color: color-mix(in srgb, var(--mc-text-primary) 83%, transparent);
   white-space: nowrap;
   padding-top: 5px;
   flex-shrink: 0;
@@ -429,16 +429,16 @@ onMounted(() => {
   padding: 4px 12px;
   font-size: 12px;
   font-weight: 500;
-  color: rgba(22, 41, 63, 0.68);
+  color: color-mix(in srgb, var(--mc-text-primary) 83%, transparent);
   background: rgba(76, 157, 228, 0.04);
-  border: 1px solid rgba(31, 80, 132, 0.14);
+  border: 1px solid color-mix(in srgb, var(--mc-text-primary) 21%, transparent);
   border-radius: 6px;
   cursor: pointer;
   transition: all 0.15s;
 }
 .tag-filter-item:hover {
-  color: rgba(22, 41, 63, 0.92);
-  border-color: rgba(31, 80, 132, 0.3);
+  color: color-mix(in srgb, var(--mc-text-primary) 96%, transparent);
+  border-color: color-mix(in srgb, var(--mc-text-primary) 34%, transparent);
   background: rgba(76, 157, 228, 0.07);
 }
 .tag-filter-item.active {

@@ -68,7 +68,7 @@ withDefaults(defineProps<{
   background: linear-gradient(
     135deg,
     transparent 0%,
-    rgba(22, 41, 63, 0.06) 40%,
+    color-mix(in srgb, var(--mc-text-primary) 14%, transparent) 40%,
     rgba(76, 157, 228, 0.03) 60%,
     transparent 100%
   );
@@ -100,7 +100,7 @@ withDefaults(defineProps<{
   display: flex;
   gap: 16px;
   padding: 16px;
-  border-bottom: 1px solid rgba(31, 80, 132, 0.07);
+  border-bottom: 1px solid color-mix(in srgb, var(--mc-text-primary) 11%, transparent);
 }
 
 .skeleton-table-row:last-child {
@@ -109,7 +109,7 @@ withDefaults(defineProps<{
 
 .skeleton-card {
   background: rgba(76, 157, 228, 0.04);
-  border: 1px solid rgba(31, 80, 132, 0.11);
+  border: 1px solid color-mix(in srgb, var(--mc-text-primary) 17%, transparent);
   border-radius: 12px;
   padding: 24px;
 }
@@ -122,7 +122,7 @@ withDefaults(defineProps<{
 
 .skeleton-stat-item {
   background: rgba(76, 157, 228, 0.04);
-  border: 1px solid rgba(31, 80, 132, 0.11);
+  border: 1px solid color-mix(in srgb, var(--mc-text-primary) 17%, transparent);
   border-radius: 12px;
   padding: 20px;
 }

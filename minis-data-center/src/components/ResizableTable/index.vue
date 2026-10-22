@@ -71,14 +71,14 @@ function attachHandle(th: HTMLElement) {
     width: 3px;
     height: 20px;
     border-radius: 3px;
-    background: rgba(255,255,255,0);
+    background: color-mix(in srgb, var(--mc-bg-card) 55%, transparent);
     transition: background 0.15s;
     pointer-events: none;
   `
   handle.appendChild(bar)
 
   function onMouseEnter() {
-    bar.style.background = 'rgba(22, 41, 63, 0.92)'
+    bar.style.background = 'color-mix(in srgb, var(--mc-text-primary) 96%, transparent)'
   }
   function onMouseLeave() {
     bar.style.background = 'rgba(255,255,255,0)'

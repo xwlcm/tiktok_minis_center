@@ -576,11 +576,11 @@ onMounted(() => {
 .page-title {
   font-size: 18px;
   font-weight: 700;
-  color: rgba(22, 41, 63, 0.92);
+  color: color-mix(in srgb, var(--mc-text-primary) 96%, transparent);
 }
 .page-subtitle {
   font-size: 12px;
-  color: rgba(22, 41, 63, 0.47);
+  color: color-mix(in srgb, var(--mc-text-primary) 57%, transparent);
   margin-top: 2px;
 }
 .header-actions { display: flex; gap: 8px; }
@@ -594,8 +594,8 @@ onMounted(() => {
 }
 
 .table-card {
-  background: #ffffff;
-  border: 1px solid rgba(31, 80, 132, 0.14);
+  background: var(--mc-bg-card);
+  border: 1px solid color-mix(in srgb, var(--mc-text-primary) 21%, transparent);
   border-radius: 12px;
   padding: 16px;
 }
@@ -616,14 +616,14 @@ onMounted(() => {
 .app-name {
   font-size: 13px;
   font-weight: 600;
-  color: rgba(22, 41, 63, 0.92);
+  color: color-mix(in srgb, var(--mc-text-primary) 96%, transparent);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 .app-key {
   font-size: 11px;
-  color: rgba(22, 41, 63, 0.41);
+  color: color-mix(in srgb, var(--mc-text-primary) 50%, transparent);
   font-family: monospace;
 }
 </style>

@@ -93,9 +93,9 @@ function renderChart() {
   const C = {
     cyan:   '#4c9de4',
     red:    '#4c9de4',
-    green:  '#22a06b',
-    orange: '#db8a24',
-    purple: '#7b8fe0',
+    green:  '#2FBF87',
+    orange: '#E5A046',
+    purple: '#93A6F0',
   }
 
   const mkArea = (hex: string) => ({
@@ -161,19 +161,19 @@ function renderChart() {
     backgroundColor: 'transparent',
     tooltip: {
       trigger: 'axis',
-      axisPointer: { type: 'line', lineStyle: { color: 'rgba(22, 41, 63, 0.11)', width: 1 } },
-      backgroundColor: '#ffffff',
-      borderColor: 'rgba(31, 80, 132, 0.18)',
+      axisPointer: { type: 'line', lineStyle: { color: 'color-mix(in srgb, var(--mc-text-primary) 14%, transparent)', width: 1 } },
+      backgroundColor: 'rgba(0, 0, 0, 0)',
+      borderColor: 'color-mix(in srgb, var(--mc-text-primary) 23%, transparent)',
       borderWidth: 1,
       padding: [10, 14],
-      textStyle: { color: 'rgba(22, 41, 63, 0.92)', fontSize: 12 },
-      extraCssText: 'box-shadow: 0 8px 32px rgba(23, 54, 92, 0.39); border-radius: 10px;',
+      textStyle: { color: 'color-mix(in srgb, var(--mc-text-primary) 96%, transparent)', fontSize: 12 },
+      extraCssText: 'box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6); border-radius: 10px;',
     },
     legend: {
       data: legendData,
       bottom: 4,
       itemWidth: 16, itemHeight: 3, itemGap: 24,
-      textStyle: { color: 'rgba(22, 41, 63, 0.54)', fontSize: 11 },
+      textStyle: { color: 'color-mix(in srgb, var(--mc-text-primary) 66%, transparent)', fontSize: 11 },
       icon: 'roundRect',
     },
     grid: { left: 52, right: hasRightAxis ? 52 : 20, top: 16, bottom: 48 },
@@ -181,25 +181,25 @@ function renderChart() {
       type: 'category',
       data: dates,
       boundaryGap: false,
-      axisLine: { lineStyle: { color: 'rgba(22, 41, 63, 0.09)' } },
+      axisLine: { lineStyle: { color: 'color-mix(in srgb, var(--mc-text-primary) 14%, transparent)' } },
       axisTick: { show: false },
-      axisLabel: { color: 'rgba(22, 41, 63, 0.41)', fontSize: 11, rotate: dates.length > 20 ? 30 : 0 },
+      axisLabel: { color: 'color-mix(in srgb, var(--mc-text-primary) 50%, transparent)', fontSize: 11, rotate: dates.length > 20 ? 30 : 0 },
       splitLine: { show: false },
     },
     yAxis: [
       {
         type: 'value', name: '用户', position: 'left',
-        nameTextStyle: { color: 'rgba(22, 41, 63, 0.34)', fontSize: 10 },
+        nameTextStyle: { color: 'color-mix(in srgb, var(--mc-text-primary) 41%, transparent)', fontSize: 10 },
         axisLine: { show: false }, axisTick: { show: false },
-        axisLabel: { color: 'rgba(22, 41, 63, 0.34)', fontSize: 10 },
-        splitLine: { lineStyle: { color: 'rgba(22, 41, 63, 0.07)', type: 'dashed' } },
+        axisLabel: { color: 'color-mix(in srgb, var(--mc-text-primary) 41%, transparent)', fontSize: 10 },
+        splitLine: { lineStyle: { color: 'color-mix(in srgb, var(--mc-text-primary) 14%, transparent)', type: 'dashed' } },
       },
       hasRightAxis ? {
         type: 'value', name: type === 'IAA_IAP' ? '广告/收入' : (type === 'IAP' ? '收入' : '广告'),
         position: 'right',
-        nameTextStyle: { color: 'rgba(22, 41, 63, 0.34)', fontSize: 10 },
+        nameTextStyle: { color: 'color-mix(in srgb, var(--mc-text-primary) 41%, transparent)', fontSize: 10 },
         axisLine: { show: false }, axisTick: { show: false },
-        axisLabel: { color: 'rgba(22, 41, 63, 0.34)', fontSize: 10 },
+        axisLabel: { color: 'color-mix(in srgb, var(--mc-text-primary) 41%, transparent)', fontSize: 10 },
         splitLine: { show: false },
       } : undefined,
     ].filter(Boolean),
@@ -224,8 +224,8 @@ onUnmounted(() => {
 
 <style scoped>
 .trend-card {
-  background: #ffffff;
-  border: 1px solid rgba(31, 80, 132, 0.13);
+  background: var(--mc-bg-card);
+  border: 1px solid color-mix(in srgb, var(--mc-text-primary) 20%, transparent);
   border-radius: 12px;
   overflow: hidden;
   position: relative;
@@ -244,7 +244,7 @@ onUnmounted(() => {
   align-items: center;
   justify-content: space-between;
   padding: 16px 20px;
-  border-bottom: 1px solid rgba(31, 80, 132, 0.11);
+  border-bottom: 1px solid color-mix(in srgb, var(--mc-text-primary) 17%, transparent);
   flex-wrap: wrap;
   gap: 12px;
 }
@@ -253,11 +253,11 @@ onUnmounted(() => {
 .trend-title {
   font-size: 14px;
   font-weight: 700;
-  color: rgba(22, 41, 63, 0.92);
+  color: color-mix(in srgb, var(--mc-text-primary) 96%, transparent);
 }
 .trend-desc {
   font-size: 11px;
-  color: rgba(22, 41, 63, 0.68);
+  color: color-mix(in srgb, var(--mc-text-primary) 83%, transparent);
 }
 
 .trend-controls {
@@ -270,7 +270,7 @@ onUnmounted(() => {
 .range-tabs {
   display: flex;
   background: rgba(76, 157, 228, 0.04);
-  border: 1px solid rgba(31, 80, 132, 0.13);
+  border: 1px solid color-mix(in srgb, var(--mc-text-primary) 20%, transparent);
   border-radius: 8px;
   padding: 3px;
   gap: 2px;
@@ -280,7 +280,7 @@ onUnmounted(() => {
   padding: 4px 12px;
   font-size: 12px;
   font-weight: 500;
-  color: rgba(22, 41, 63, 0.47);
+  color: color-mix(in srgb, var(--mc-text-primary) 57%, transparent);
   background: transparent;
   border: none;
   border-radius: 6px;
@@ -288,7 +288,7 @@ onUnmounted(() => {
   transition: all 0.15s ease;
   white-space: nowrap;
 }
-.range-tab:hover { color: rgba(22, 41, 63, 0.92); background: rgba(22, 41, 63, 0.07); }
+.range-tab:hover { color: color-mix(in srgb, var(--mc-text-primary) 96%, transparent); background: color-mix(in srgb, var(--mc-text-primary) 14%, transparent); }
 .range-tab.active {
   color: #4c9de4;
   background: rgba(76, 157, 228, 0.12);

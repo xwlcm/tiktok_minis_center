@@ -198,7 +198,7 @@
             <a-button size="mini" @click="handleCheckAll">全选</a-button>
             <a-button size="mini" @click="handleUncheckAll">全不选</a-button>
           </div>
-          <div style="max-height: 300px; overflow-y: auto; border: 1px solid rgba(22, 41, 63, 0.11); border-radius: 6px; padding: 8px">
+          <div style="max-height: 300px; overflow-y: auto; border: 1px solid color-mix(in srgb, var(--mc-text-primary) 14%, transparent); border-radius: 6px; padding: 8px">
             <a-tree
               ref="menuTreeRef"
               :checked-keys="menuCheckedKeys"
@@ -217,7 +217,7 @@
 
         <!-- 步骤 3：应用权限 -->
         <div v-if="wizardStep === 3">
-          <div style="margin-bottom: 12px; color: rgba(22, 41, 63, 0.68); font-size: 12px">
+          <div style="margin-bottom: 12px; color: color-mix(in srgb, var(--mc-text-primary) 83%, transparent); font-size: 12px">
             选择该角色可访问的应用（用户切换应用时需要角色关联）
           </div>
           <a-checkbox-group v-model="appCheckedKeys" direction="vertical">
@@ -227,7 +227,7 @@
                   {{ app.appName[0] }}
                 </a-avatar>
                 <span>{{ app.appName }}</span>
-                <span style="color: rgba(22, 41, 63, 0.41); font-size: 11px">{{ app.clientKey }}</span>
+                <span style="color: color-mix(in srgb, var(--mc-text-primary) 50%, transparent); font-size: 11px">{{ app.clientKey }}</span>
               </div>
             </a-checkbox>
           </a-checkbox-group>
@@ -276,7 +276,7 @@
             <a-select v-model="roleForm.dataScope" :options="dataScopeOptions" />
           </a-form-item>
           <a-form-item v-if="roleForm.dataScope === '2'" field="deptIds" label="部门权限">
-            <div style="max-height: 300px; overflow-y: auto; border: 1px solid rgba(22, 41, 63, 0.11); border-radius: 6px; padding: 8px">
+            <div style="max-height: 300px; overflow-y: auto; border: 1px solid color-mix(in srgb, var(--mc-text-primary) 14%, transparent); border-radius: 6px; padding: 8px">
               <div style="margin-bottom: 8px; display: flex; gap: 12px">
                 <a-checkbox v-model="deptCheckStrictly">父子联动</a-checkbox>
                 <a-button size="mini" @click="handleDeptCheckAll">全选</a-button>
@@ -318,7 +318,7 @@
         <a-button size="mini" @click="handleCheckAll">全选</a-button>
         <a-button size="mini" @click="handleUncheckAll">全不选</a-button>
       </div>
-      <div style="max-height: 400px; overflow-y: auto; border: 1px solid rgba(22, 41, 63, 0.11); border-radius: 6px; padding: 8px">
+      <div style="max-height: 400px; overflow-y: auto; border: 1px solid color-mix(in srgb, var(--mc-text-primary) 14%, transparent); border-radius: 6px; padding: 8px">
         <a-tree
           ref="menuTreeRef"
           :checked-keys="menuCheckedKeys"
@@ -340,7 +340,7 @@
       @ok="handleSubmitApp"
       @cancel="appVisible = false"
     >
-      <div style="margin-bottom: 12px; color: rgba(22, 41, 63, 0.68); font-size: 12px">
+      <div style="margin-bottom: 12px; color: color-mix(in srgb, var(--mc-text-primary) 83%, transparent); font-size: 12px">
         选择该角色可访问的应用（用户切换应用时需要角色关联）
       </div>
       <a-checkbox-group v-model="appCheckedKeys" direction="vertical">
@@ -350,7 +350,7 @@
               {{ app.appName[0] }}
             </a-avatar>
             <span>{{ app.appName }}</span>
-            <span style="color: rgba(22, 41, 63, 0.41); font-size: 11px">{{ app.clientKey }}</span>
+            <span style="color: color-mix(in srgb, var(--mc-text-primary) 50%, transparent); font-size: 11px">{{ app.clientKey }}</span>
           </div>
         </a-checkbox>
       </a-checkbox-group>

@@ -295,6 +295,6 @@ onMounted(fetchList)
 }
 .tier-high { background: rgba(0,180,100,0.12); color: #00B464; }
 .tier-medium { background: rgba(76, 157, 228, 0.12); color: #4c9de4; }
-.tier-low { background: rgba(22, 41, 63, 0.08); color: rgba(22, 41, 63, 0.54); }
+.tier-low { background: color-mix(in srgb, var(--mc-text-primary) 14%, transparent); color: color-mix(in srgb, var(--mc-text-primary) 66%, transparent); }
 .tier-churned { background: rgba(224, 87, 110,0.12); color: #4c9de4; }
 </style>

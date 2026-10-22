@@ -42,7 +42,7 @@
             style="border-radius: 5px; display: block"
           />
           <div v-else class="cover-placeholder">
-            <icon-video-camera style="font-size: 16px; color: rgba(22, 41, 63, 0.27)" />
+            <icon-video-camera style="font-size: 16px; color: color-mix(in srgb, var(--mc-text-primary) 33%, transparent)" />
           </div>
         </template>
 
@@ -269,7 +269,7 @@ onMounted(loadList)
   height: 38px;
   border-radius: 5px;
   background: rgba(76, 157, 228, 0.04);
-  border: 1px solid rgba(31, 80, 132, 0.14);
+  border: 1px solid color-mix(in srgb, var(--mc-text-primary) 21%, transparent);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -284,7 +284,7 @@ onMounted(loadList)
   min-height: 42px;
   padding: 8px 10px;
   background: rgba(76, 157, 228, 0.04);
-  border: 1px solid rgba(31, 80, 132, 0.14);
+  border: 1px solid color-mix(in srgb, var(--mc-text-primary) 21%, transparent);
   border-radius: 8px;
 }
 .selected-drama {
@@ -292,15 +292,15 @@ onMounted(loadList)
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  color: rgba(22, 41, 63, 0.92);
+  color: color-mix(in srgb, var(--mc-text-primary) 96%, transparent);
 }
 
 .page-header {
   display: flex; align-items: flex-start; justify-content: space-between;
   margin-bottom: 16px;
 }
-.page-title { font-size: 18px; font-weight: 700; color: rgba(22, 41, 63, 0.92); }
-.page-subtitle { font-size: 12px; color: rgba(22, 41, 63, 0.47); margin-top: 2px; }
+.page-title { font-size: 18px; font-weight: 700; color: color-mix(in srgb, var(--mc-text-primary) 96%, transparent); }
+.page-subtitle { font-size: 12px; color: color-mix(in srgb, var(--mc-text-primary) 57%, transparent); margin-top: 2px; }
 
 .preview-tip {
   display: flex; align-items: center; gap: 8px;
@@ -309,7 +309,7 @@ onMounted(loadList)
   border: 1px solid rgba(224, 68, 102,0.12);
   border-radius: 8px;
   font-size: 12px;
-  color: rgba(22, 41, 63, 0.68);
+  color: color-mix(in srgb, var(--mc-text-primary) 83%, transparent);
   margin-bottom: 16px;
 }
 
@@ -319,21 +319,21 @@ onMounted(loadList)
   display: flex; align-items: center; justify-content: center;
   font-size: 12px; font-weight: 700;
   background: rgba(76, 157, 228, 0.07);
-  color: rgba(22, 41, 63, 0.54);
+  color: color-mix(in srgb, var(--mc-text-primary) 66%, transparent);
 }
 .rank-gold   { background: rgba(255,215,0,0.15);  color: #FFD700; }
 .rank-silver { background: rgba(192,192,192,0.15); color: #C0C0C0; }
 .rank-bronze { background: rgba(205,127,50,0.15);  color: #CD7F32; }
 
 .item-info { display: flex; flex-direction: column; gap: 4px; }
-.item-title { font-size: 13px; font-weight: 600; color: rgba(22, 41, 63, 0.92); }
+.item-title { font-size: 13px; font-weight: 600; color: color-mix(in srgb, var(--mc-text-primary) 96%, transparent); }
 
 .sort-cell { display: flex; align-items: center; gap: 6px; }
 .sort-num {
   width: 28px; height: 28px; border-radius: 6px;
   background: rgba(76, 157, 228, 0.07); border: 1px solid rgba(76, 157, 228, 0.09);
   display: flex; align-items: center; justify-content: center;
-  font-size: 13px; font-weight: 600; color: rgba(22, 41, 63, 0.92);
+  font-size: 13px; font-weight: 600; color: color-mix(in srgb, var(--mc-text-primary) 96%, transparent);
 }
 .sort-btns { display: flex; flex-direction: column; gap: 1px; }
 .row-actions { display: flex; gap: 4px; }

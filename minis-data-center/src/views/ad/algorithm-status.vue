@@ -96,8 +96,8 @@ onMounted(() => loadData())
   display: flex; align-items: flex-start; justify-content: space-between;
   margin-bottom: 20px;
 }
-.page-title { font-size: 18px; font-weight: 700; color: rgba(22, 41, 63, 0.92); }
-.page-subtitle { font-size: 12px; color: rgba(22, 41, 63, 0.47); margin-top: 2px; }
+.page-title { font-size: 18px; font-weight: 700; color: color-mix(in srgb, var(--mc-text-primary) 96%, transparent); }
+.page-subtitle { font-size: 12px; color: color-mix(in srgb, var(--mc-text-primary) 57%, transparent); margin-top: 2px; }
 .status-cards {
   display: flex; gap: 16px; margin-bottom: 24px;
 }
@@ -106,9 +106,9 @@ onMounted(() => loadData())
   background: rgba(76, 157, 228, 0.04); border: 1px solid rgba(76, 157, 228, 0.09);
   display: flex; flex-direction: column; gap: 8px;
 }
-.card-label { font-size: 12px; color: rgba(22, 41, 63, 0.61); }
-.card-value { font-size: 20px; font-weight: 600; color: rgba(22, 41, 63, 0.92); }
+.card-label { font-size: 12px; color: color-mix(in srgb, var(--mc-text-primary) 74%, transparent); }
+.card-value { font-size: 20px; font-weight: 600; color: color-mix(in srgb, var(--mc-text-primary) 96%, transparent); }
 .section { margin-bottom: 24px; }
-.section-title { font-size: 14px; font-weight: 500; color: rgba(22, 41, 63, 0.92); margin-bottom: 12px; }
+.section-title { font-size: 14px; font-weight: 500; color: color-mix(in srgb, var(--mc-text-primary) 96%, transparent); margin-bottom: 12px; }
 .w-full { width: 100%; }
 </style>

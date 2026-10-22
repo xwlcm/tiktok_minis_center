@@ -184,7 +184,7 @@ watch(keyword, () => {
   padding: 10px 12px;
   margin-bottom: 12px;
   background: rgba(76, 157, 228, 0.04);
-  border: 1px solid rgba(31, 80, 132, 0.13);
+  border: 1px solid color-mix(in srgb, var(--mc-text-primary) 20%, transparent);
   border-radius: 8px;
 }
 
@@ -204,16 +204,16 @@ watch(keyword, () => {
   border-radius: 6px;
   color: #78d9df;
   background: rgba(76, 157, 228, 0.12);
-  border: 1px solid rgba(76, 157, 228, 0.28);
+  border: 1px solid rgba(124, 195, 240, 0.35);
   font-weight: 600;
 }
 
 .summary-item {
-  color: rgba(22, 41, 63, 0.7);
+  color: color-mix(in srgb, var(--mc-text-primary) 85%, transparent);
 }
 
 .summary-item strong {
-  color: rgba(22, 41, 63, 0.92);
+  color: color-mix(in srgb, var(--mc-text-primary) 96%, transparent);
   font-weight: 700;
 }
 
@@ -223,21 +223,21 @@ watch(keyword, () => {
 
 .picker-search :deep(.arco-input-wrapper) {
   height: 36px;
-  background: rgba(255, 255, 255, 0.58);
-  border-color: rgba(31, 80, 132, 0.18);
+  background: color-mix(in srgb, var(--mc-bg-card) 82%, transparent);
+  border-color: color-mix(in srgb, var(--mc-text-primary) 27%, transparent);
   border-radius: 8px 0 0 8px;
 }
 
 .picker-search :deep(.arco-input-wrapper:hover),
 .picker-search :deep(.arco-input-wrapper.arco-input-focus) {
-  border-color: rgba(76, 157, 228, 0.45);
+  border-color: rgba(124, 195, 240, 0.56);
 }
 
 .picker-search :deep(.arco-btn-primary) {
   width: 42px;
   height: 36px;
   background: rgba(76, 157, 228, 0.88);
-  border-color: rgba(76, 157, 228, 0.88);
+  border-color: rgba(124, 195, 240, 0.6);
   box-shadow: none;
 }
 
@@ -262,7 +262,7 @@ watch(keyword, () => {
   padding: 11px 12px;
   text-align: left;
   background: rgba(76, 157, 228, 0.04);
-  border: 1px solid rgba(31, 80, 132, 0.14);
+  border: 1px solid color-mix(in srgb, var(--mc-text-primary) 21%, transparent);
   border-radius: 8px;
   cursor: pointer;
   outline: none;
@@ -271,24 +271,24 @@ watch(keyword, () => {
 
 .candidate-item:hover {
   background: rgba(76, 157, 228, 0.055);
-  border-color: rgba(76, 157, 228, 0.34);
+  border-color: rgba(124, 195, 240, 0.43);
 }
 
 .candidate-item:focus-visible {
-  border-color: rgba(76, 157, 228, 0.72);
+  border-color: rgba(124, 195, 240, 0.6);
   box-shadow: 0 0 0 2px rgba(76, 157, 228, 0.12);
 }
 
 .candidate-item.disabled {
   cursor: not-allowed;
   background: rgba(76, 157, 228, 0.04);
-  border-color: rgba(31, 80, 132, 0.1);
+  border-color: color-mix(in srgb, var(--mc-text-primary) 15%, transparent);
   opacity: 0.82;
 }
 
 .candidate-item.disabled:hover {
   background: rgba(76, 157, 228, 0.04);
-  border-color: rgba(31, 80, 132, 0.1);
+  border-color: color-mix(in srgb, var(--mc-text-primary) 15%, transparent);
 }
 
 .candidate-cover {
@@ -297,7 +297,7 @@ watch(keyword, () => {
   border-radius: 6px;
   overflow: hidden;
   flex-shrink: 0;
-  border: 1px solid rgba(31, 80, 132, 0.14);
+  border: 1px solid color-mix(in srgb, var(--mc-text-primary) 21%, transparent);
 }
 
 .candidate-cover.placeholder {
@@ -305,7 +305,7 @@ watch(keyword, () => {
   align-items: center;
   justify-content: center;
   background: rgba(76, 157, 228, 0.06);
-  color: rgba(22, 41, 63, 0.3);
+  color: color-mix(in srgb, var(--mc-text-primary) 37%, transparent);
 }
 
 .candidate-main {
@@ -328,7 +328,7 @@ watch(keyword, () => {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  color: rgba(22, 41, 63, 0.92);
+  color: color-mix(in srgb, var(--mc-text-primary) 96%, transparent);
   font-size: 13px;
   font-weight: 650;
   line-height: 18px;
@@ -357,14 +357,14 @@ watch(keyword, () => {
 .status-added {
   color: #d9829a;
   background: rgba(76, 157, 228, 0.1);
-  border: 1px solid rgba(76, 157, 228, 0.26);
+  border: 1px solid rgba(124, 195, 240, 0.33);
 }
 
 .candidate-meta {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
-  color: rgba(22, 41, 63, 0.57);
+  color: color-mix(in srgb, var(--mc-text-primary) 70%, transparent);
   font-size: 12px;
   line-height: 18px;
 }
@@ -381,9 +381,9 @@ watch(keyword, () => {
   align-items: center;
   padding: 0 7px;
   border-radius: 5px;
-  color: rgba(22, 41, 63, 0.84);
+  color: color-mix(in srgb, var(--mc-text-primary) 96%, transparent);
   background: rgba(76, 157, 228, 0.05);
-  border: 1px solid rgba(31, 80, 132, 0.18);
+  border: 1px solid color-mix(in srgb, var(--mc-text-primary) 27%, transparent);
   font-size: 12px;
 }
 
@@ -394,22 +394,22 @@ watch(keyword, () => {
 
 .select-button {
   min-width: 62px;
-  border-color: rgba(76, 157, 228, 0.45);
+  border-color: rgba(124, 195, 240, 0.56);
   color: #a8ccf0;
   background: rgba(76, 157, 228, 0.08);
 }
 
 .select-button:not(.arco-btn-disabled):hover {
-  border-color: rgba(76, 157, 228, 0.78);
+  border-color: rgba(124, 195, 240, 0.6);
   color: #ffffff;
   background: rgba(76, 157, 228, 0.22);
 }
 
 .candidate-item.disabled .select-button {
   min-width: 104px;
-  color: rgba(22, 41, 63, 0.49);
+  color: color-mix(in srgb, var(--mc-text-primary) 60%, transparent);
   background: rgba(76, 157, 228, 0.04);
-  border-color: rgba(31, 80, 132, 0.14);
+  border-color: color-mix(in srgb, var(--mc-text-primary) 21%, transparent);
 }
 
 .empty-panel {
@@ -418,7 +418,7 @@ watch(keyword, () => {
   align-items: center;
   justify-content: center;
   background: rgba(76, 157, 228, 0.04);
-  border: 1px dashed rgba(31, 80, 132, 0.18);
+  border: 1px dashed color-mix(in srgb, var(--mc-text-primary) 27%, transparent);
   border-radius: 8px;
 }
 

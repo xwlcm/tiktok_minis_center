@@ -128,7 +128,7 @@ onUnmounted(() => {
   margin: 0;
   font-size: 22px;
   font-weight: 800;
-  color: rgba(22, 41, 63, 0.92);
+  color: color-mix(in srgb, var(--mc-text-primary) 96%, transparent);
   letter-spacing: -0.5px;
 }
 
@@ -144,15 +144,15 @@ onUnmounted(() => {
   gap: 6px;
   padding: 4px 10px;
   background: rgba(76, 157, 228, 0.06);
-  border: 1px solid rgba(31, 80, 132, 0.14);
+  border: 1px solid color-mix(in srgb, var(--mc-text-primary) 21%, transparent);
   border-radius: 20px;
   font-size: 12px;
-  color: rgba(22, 41, 63, 0.68);
+  color: color-mix(in srgb, var(--mc-text-primary) 83%, transparent);
 }
 .dash-app-dot {
   width: 5px; height: 5px;
   border-radius: 50%;
-  background: #22a06b;
+  background: #2FBF87;
   box-shadow: 0 0 6px rgba(54, 211, 153,0.6);
 }
 
@@ -166,16 +166,16 @@ onUnmounted(() => {
 .dash-type-badge--iaa {
   background: rgba(76, 157, 228, 0.12);
   color: #4c9de4;
-  border: 1px solid rgba(76, 157, 228, 0.25);
+  border: 1px solid rgba(124, 195, 240, 0.31);
 }
 .dash-type-badge--iap {
   background: rgba(240, 160, 64, 0.12);
-  color: #db8a24;
+  color: #E5A046;
   border: 1px solid rgba(240, 160, 64, 0.25);
 }
 .dash-type-badge--iaa_iap {
   background: rgba(224, 87, 110, 0.12);
-  color: #E0576E;
+  color: #F2748A;
   border: 1px solid rgba(224, 87, 110, 0.25);
 }
 
@@ -189,7 +189,7 @@ onUnmounted(() => {
   border-radius: 20px;
   font-size: 11px;
   font-weight: 600;
-  color: #E0576E;
+  color: #F2748A;
   letter-spacing: 0.3px;
 }
 .dash-live-dot {
@@ -210,7 +210,7 @@ onUnmounted(() => {
   gap: 8px;
   font-size: 11px;
   font-weight: 700;
-  color: rgba(22, 41, 63, 0.47);
+  color: color-mix(in srgb, var(--mc-text-primary) 57%, transparent);
   text-transform: uppercase;
   letter-spacing: 1px;
   margin-bottom: 12px;

@@ -94,7 +94,7 @@ onMounted(async () => {
 
 .detail-header { margin-bottom: 16px; }
 .back-btn {
-  color: rgba(22, 41, 63, 0.47) !important;
+  color: color-mix(in srgb, var(--mc-text-primary) 57%, transparent) !important;
   padding: 0 !important;
   font-size: 13px !important;
 }
@@ -104,8 +104,8 @@ onMounted(async () => {
   display: flex;
   align-items: center;
   gap: 16px;
-  background: #ffffff;
-  border: 1px solid rgba(31, 80, 132, 0.13);
+  background: var(--mc-bg-card);
+  border: 1px solid color-mix(in srgb, var(--mc-text-primary) 20%, transparent);
   border-radius: 12px;
   padding: 20px 24px;
   margin-bottom: 16px;
@@ -129,7 +129,7 @@ onMounted(async () => {
 .profile-name {
   font-size: 18px;
   font-weight: 700;
-  color: rgba(22, 41, 63, 0.92);
+  color: color-mix(in srgb, var(--mc-text-primary) 96%, transparent);
   margin-bottom: 4px;
   display: flex;
   align-items: center;
@@ -137,26 +137,26 @@ onMounted(async () => {
 }
 .profile-meta {
   font-size: 12px;
-  color: rgba(22, 41, 63, 0.47);
+  color: color-mix(in srgb, var(--mc-text-primary) 57%, transparent);
   display: flex;
   align-items: center;
   gap: 6px;
 }
-.meta-sep { color: rgba(22, 41, 63, 0.2); }
+.meta-sep { color: color-mix(in srgb, var(--mc-text-primary) 24%, transparent); }
 
 .info-card {
-  background: #ffffff;
-  border: 1px solid rgba(31, 80, 132, 0.13);
+  background: var(--mc-bg-card);
+  border: 1px solid color-mix(in srgb, var(--mc-text-primary) 20%, transparent);
   border-radius: 12px;
   padding: 20px 24px;
 }
 .info-card-header {
   font-size: 14px;
   font-weight: 600;
-  color: rgba(22, 41, 63, 0.92);
+  color: color-mix(in srgb, var(--mc-text-primary) 96%, transparent);
   margin-bottom: 16px;
   padding-bottom: 12px;
-  border-bottom: 1px solid rgba(31, 80, 132, 0.11);
+  border-bottom: 1px solid color-mix(in srgb, var(--mc-text-primary) 17%, transparent);
 }
 .info-grid {
   display: grid;
@@ -166,12 +166,12 @@ onMounted(async () => {
 .info-label {
   font-size: 11px;
   font-weight: 600;
-  color: rgba(22, 41, 63, 0.47);
+  color: color-mix(in srgb, var(--mc-text-primary) 57%, transparent);
   margin-bottom: 4px;
 }
 .info-value {
   font-size: 14px;
   font-weight: 500;
-  color: rgba(22, 41, 63, 0.92);
+  color: color-mix(in srgb, var(--mc-text-primary) 96%, transparent);
 }
 </style>

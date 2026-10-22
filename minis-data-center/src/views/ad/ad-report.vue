@@ -272,8 +272,8 @@ const day13RoasCounter = useCountUp(() => overview.day13Roas ?? 0, 600, (v) => N
 
 const summaryCards = computed(() => [
   { key: 'spend', label: '总消耗', display: spendCounter.formatted.value, icon: IconTrophy, accent: '#4c9de4' },
-  { key: 'day0Roas', label: 'D0 ROAS', display: day0RoasCounter.formatted.value, icon: IconTrophy, accent: '#db8a24' },
-  { key: 'day13Roas', label: 'D13 ROAS', display: day13RoasCounter.formatted.value, icon: IconTrophy, accent: '#db8a24' },
+  { key: 'day0Roas', label: 'D0 ROAS', display: day0RoasCounter.formatted.value, icon: IconTrophy, accent: '#E5A046' },
+  { key: 'day13Roas', label: 'D13 ROAS', display: day13RoasCounter.formatted.value, icon: IconTrophy, accent: '#E5A046' },
 ])
 
 
@@ -358,13 +358,13 @@ function renderTrendChart() {
     backgroundColor: 'transparent',
     tooltip: {
       trigger: 'axis',
-      axisPointer: { type: 'cross', crossStyle: { color: 'rgba(22, 41, 63, 0.2)' } },
-      backgroundColor: '#ffffff',
-      borderColor: 'rgba(31, 80, 132, 0.18)',
+      axisPointer: { type: 'cross', crossStyle: { color: 'color-mix(in srgb, var(--mc-text-primary) 24%, transparent)' } },
+      backgroundColor: 'rgba(0, 0, 0, 0)',
+      borderColor: 'color-mix(in srgb, var(--mc-text-primary) 23%, transparent)',
       borderWidth: 1,
       padding: [10, 14],
-      textStyle: { color: 'rgba(22, 41, 63, 0.92)', fontSize: 12 },
-      extraCssText: 'box-shadow: 0 8px 32px rgba(23, 54, 92, 0.39); border-radius: 10px;',
+      textStyle: { color: 'color-mix(in srgb, var(--mc-text-primary) 96%, transparent)', fontSize: 12 },
+      extraCssText: 'box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6); border-radius: 10px;',
     },
     legend: {
       data: ['消耗', 'ROAS'],
@@ -372,7 +372,7 @@ function renderTrendChart() {
       itemWidth: 16,
       itemHeight: 3,
       itemGap: 24,
-      textStyle: { color: 'rgba(22, 41, 63, 0.54)', fontSize: 11 },
+      textStyle: { color: 'color-mix(in srgb, var(--mc-text-primary) 66%, transparent)', fontSize: 11 },
       icon: 'roundRect',
     },
     grid: { left: 56, right: 56, top: 20, bottom: 48 },
@@ -380,9 +380,9 @@ function renderTrendChart() {
       type: 'category',
       data: dates,
       boundaryGap: true,
-      axisLine: { lineStyle: { color: 'rgba(22, 41, 63, 0.09)' } },
+      axisLine: { lineStyle: { color: 'color-mix(in srgb, var(--mc-text-primary) 14%, transparent)' } },
       axisTick: { show: false },
-      axisLabel: { color: 'rgba(22, 41, 63, 0.41)', fontSize: 11 },
+      axisLabel: { color: 'color-mix(in srgb, var(--mc-text-primary) 50%, transparent)', fontSize: 11 },
       splitLine: { show: false },
     },
     yAxis: [
@@ -390,20 +390,20 @@ function renderTrendChart() {
         type: 'value',
         name: '消耗 ($)',
         position: 'left',
-        nameTextStyle: { color: 'rgba(22, 41, 63, 0.34)', fontSize: 10 },
+        nameTextStyle: { color: 'color-mix(in srgb, var(--mc-text-primary) 41%, transparent)', fontSize: 10 },
         axisLine: { show: false },
         axisTick: { show: false },
-        axisLabel: { color: 'rgba(22, 41, 63, 0.34)', fontSize: 10, formatter: '${value}' },
-        splitLine: { lineStyle: { color: 'rgba(22, 41, 63, 0.08)', type: 'dashed' } },
+        axisLabel: { color: 'color-mix(in srgb, var(--mc-text-primary) 41%, transparent)', fontSize: 10, formatter: '${value}' },
+        splitLine: { lineStyle: { color: 'color-mix(in srgb, var(--mc-text-primary) 14%, transparent)', type: 'dashed' } },
       },
       {
         type: 'value',
         name: 'ROAS',
         position: 'right',
-        nameTextStyle: { color: 'rgba(22, 41, 63, 0.34)', fontSize: 10 },
+        nameTextStyle: { color: 'color-mix(in srgb, var(--mc-text-primary) 41%, transparent)', fontSize: 10 },
         axisLine: { show: false },
         axisTick: { show: false },
-        axisLabel: { color: 'rgba(22, 41, 63, 0.34)', fontSize: 10 },
+        axisLabel: { color: 'color-mix(in srgb, var(--mc-text-primary) 41%, transparent)', fontSize: 10 },
         splitLine: { show: false },
       },
     ],
@@ -730,12 +730,12 @@ onUnmounted(() => {
 .page-title {
   font-size: 18px;
   font-weight: 700;
-  color: rgba(22, 41, 63, 0.92);
+  color: color-mix(in srgb, var(--mc-text-primary) 96%, transparent);
 }
 
 .page-subtitle {
   font-size: 12px;
-  color: rgba(22, 41, 63, 0.47);
+  color: color-mix(in srgb, var(--mc-text-primary) 57%, transparent);
   margin-top: 2px;
 }
 
@@ -747,8 +747,8 @@ onUnmounted(() => {
   flex-wrap: wrap;
   margin-bottom: 20px;
   padding: 16px 20px;
-  background: #ffffff;
-  border: 1px solid rgba(31, 80, 132, 0.13);
+  background: var(--mc-bg-card);
+  border: 1px solid color-mix(in srgb, var(--mc-text-primary) 20%, transparent);
   border-radius: 10px;
 }
 
@@ -840,8 +840,8 @@ onUnmounted(() => {
   align-items: center;
   gap: 14px;
   padding: 18px 20px;
-  background: #ffffff;
-  border: 1px solid rgba(31, 80, 132, 0.13);
+  background: var(--mc-bg-card);
+  border: 1px solid color-mix(in srgb, var(--mc-text-primary) 20%, transparent);
   border-radius: 10px;
   position: relative;
   overflow: hidden;
@@ -879,20 +879,20 @@ onUnmounted(() => {
 
 .summary-label {
   font-size: 12px;
-  color: rgba(22, 41, 63, 0.47);
+  color: color-mix(in srgb, var(--mc-text-primary) 57%, transparent);
   margin-bottom: 4px;
 }
 
 .summary-value {
   font-size: 22px;
   font-weight: 700;
-  color: rgba(22, 41, 63, 0.92);
+  color: color-mix(in srgb, var(--mc-text-primary) 96%, transparent);
   font-variant-numeric: tabular-nums;
 }
 
 .chart-section {
-  background: #ffffff;
-  border: 1px solid rgba(31, 80, 132, 0.13);
+  background: var(--mc-bg-card);
+  border: 1px solid color-mix(in srgb, var(--mc-text-primary) 20%, transparent);
   border-radius: 10px;
   padding: 20px;
   margin-bottom: 20px;
@@ -916,7 +916,7 @@ onUnmounted(() => {
 .section-title {
   font-size: 14px;
   font-weight: 600;
-  color: rgba(22, 41, 63, 0.92);
+  color: color-mix(in srgb, var(--mc-text-primary) 96%, transparent);
   margin-bottom: 16px;
 }
 
@@ -933,8 +933,8 @@ onUnmounted(() => {
 }
 
 .table-card {
-  background: #ffffff;
-  border: 1px solid rgba(31, 80, 132, 0.13);
+  background: var(--mc-bg-card);
+  border: 1px solid color-mix(in srgb, var(--mc-text-primary) 20%, transparent);
   border-radius: 10px;
   overflow-x: auto;
   overflow-y: hidden;
@@ -947,21 +947,21 @@ onUnmounted(() => {
 }
 
 .roas-good {
-  color: #22a06b;
+  color: #2FBF87;
   font-weight: 600;
 }
 
 .roas-bad {
-  color: #E0576E;
+  color: #F2748A;
   font-weight: 600;
 }
 
 :deep(.arco-table) {
   --arco-table-bg: transparent;
   --arco-table-tr-bg: transparent;
-  --arco-table-td-color: rgba(22, 41, 63, 0.81);
-  --arco-table-th-color: rgba(22, 41, 63, 0.47);
-  --arco-table-border-color: rgba(22, 41, 63, 0.08);
+  --arco-table-td-color: rgba(232, 242, 252, 0.96);
+  --arco-table-th-color: rgba(232, 242, 252, 0.57);
+  --arco-table-border-color: rgba(232, 242, 252, 0.14);
 }
 
 :deep(.arco-table-th) {
@@ -973,7 +973,7 @@ onUnmounted(() => {
 }
 
 :deep(.arco-pagination) {
-  --arco-pagination-color: rgba(22, 41, 63, 0.81);
+  --arco-pagination-color: rgba(232, 242, 252, 0.96);
 }
 
 :deep(.arco-spin-dot-item) {
@@ -981,20 +981,20 @@ onUnmounted(() => {
 }
 
 :deep(.arco-picker) {
-  --arco-picker-bg: #ffffff;
-  --arco-picker-color: rgba(22, 41, 63, 0.92);
-  border-color: rgba(31, 80, 132, 0.22);
+  --arco-picker-bg: #12263D;
+  --arco-picker-color: rgba(232, 242, 252, 0.96);
+  border-color: color-mix(in srgb, var(--mc-text-primary) 33%, transparent);
 }
 
 :deep(.arco-select-view-single) {
-  --arco-select-view-bg: #ffffff;
-  --arco-select-view-color: rgba(22, 41, 63, 0.92);
-  border-color: rgba(31, 80, 132, 0.22);
+  --arco-select-view-bg: #12263D;
+  --arco-select-view-color: rgba(232, 242, 252, 0.96);
+  border-color: color-mix(in srgb, var(--mc-text-primary) 33%, transparent);
 }
 
 :deep(.arco-input-wrapper) {
-  --arco-input-bg: #ffffff;
-  --arco-input-color: rgba(22, 41, 63, 0.92);
-  border-color: rgba(31, 80, 132, 0.22);
+  --arco-input-bg: #12263D;
+  --arco-input-color: rgba(232, 242, 252, 0.96);
+  border-color: color-mix(in srgb, var(--mc-text-primary) 33%, transparent);
 }
 </style>

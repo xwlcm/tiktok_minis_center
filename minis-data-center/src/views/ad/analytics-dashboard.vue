@@ -1534,7 +1534,7 @@ function renderEpisodeChart() {
     yAxisIndex: 0,
     barMaxWidth: 18,
     itemStyle: {
-      color: '#db8a24',
+      color: '#E5A046',
       borderRadius: [4, 4, 0, 0],
     },
     emphasis: { focus: 'series' },
@@ -1561,15 +1561,15 @@ function renderEpisodeChart() {
       smooth: true,
       symbol: 'triangle',
       symbolSize: 8,
-      lineStyle: { width: 2, color: '#db8a24' },
-      itemStyle: { color: '#db8a24', borderWidth: 2, borderColor: '#ffffff' },
+      lineStyle: { width: 2, color: '#E5A046' },
+      itemStyle: { color: '#E5A046', borderWidth: 2, borderColor: '#ffffff' },
       data: rows.map((row) => Number(row.adUnlockSuccessRate.toFixed(2))),
     })
   }
   episodeChart.off('datazoom', handleEpisodeDataZoom)
   episodeChart.on('datazoom', handleEpisodeDataZoom)
   episodeChart.setOption({
-    color: ['#4b83f1', '#db8a24', '#9c27b0', '#22a06b'],
+    color: ['#4b83f1', '#E5A046', '#9c27b0', '#2FBF87'],
     grid: { top: 54, right: 58, bottom: rows.length > 20 ? 92 : 62, left: 64 },
     tooltip: {
       trigger: 'axis',
@@ -1644,7 +1644,7 @@ function renderEpisodeChart() {
         color: (value: string) => {
           const row = rowFromAxisValue(value, rows)
           if (row?.isPoisonPoint) return '#4c9de4'
-          if (row?.isAdCheckpoint) return '#db8a24'
+          if (row?.isAdCheckpoint) return '#E5A046'
           return 'rgba(226,232,240,0.62)'
         },
         fontWeight: (value: string) => rowFromAxisValue(value, rows)?.isAdCheckpoint ? 700 : 400,
@@ -1843,9 +1843,9 @@ onUnmounted(() => {
   align-items: center;
   padding: 14px;
   margin-bottom: 16px;
-  border: 1px solid rgba(76, 157, 228, 0.14);
+  border: 1px solid rgba(124, 195, 240, 0.18);
   border-radius: 8px;
-  background: rgba(255, 255, 255, 0.72);
+  background: color-mix(in srgb, var(--mc-bg-card) 92%, transparent);
 }
 
 .dashboard-tabs {
@@ -1892,8 +1892,8 @@ onUnmounted(() => {
 .panel {
   border: 1px solid rgba(148, 163, 184, 0.12);
   border-radius: 8px;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.94), rgba(255, 255, 255, 0.94));
-  box-shadow: 0 10px 28px rgba(23, 54, 92, 0.143);
+  background: linear-gradient(180deg, color-mix(in srgb, var(--mc-bg-card) 98%, transparent), color-mix(in srgb, var(--mc-bg-card) 98%, transparent));
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.37);
 }
 
 .metric-tile {
@@ -1947,7 +1947,7 @@ onUnmounted(() => {
 
 .metric-help-formula {
   margin-top: 6px;
-  color: rgba(22, 41, 63, 0.92);
+  color: color-mix(in srgb, var(--mc-text-primary) 96%, transparent);
 }
 
 .metric-value {
@@ -1970,7 +1970,7 @@ onUnmounted(() => {
   max-width: 360px;
   overflow: hidden;
   padding: 6px 10px;
-  border: 1px solid rgba(76, 157, 228, 0.22);
+  border: 1px solid rgba(124, 195, 240, 0.28);
   border-radius: 999px;
   color: #4c9de4;
   background: rgba(76, 157, 228, 0.1);
@@ -1986,7 +1986,7 @@ onUnmounted(() => {
 }
 
 .source-tiktok {
-  color: #db8a24;
+  color: #E5A046;
   background: rgba(240, 160, 64, 0.13);
 }
 
@@ -2019,19 +2019,19 @@ onUnmounted(() => {
 .decision-score-ring--good {
   background:
     radial-gradient(circle at center, rgba(255, 255, 255, 0.98) 58%, transparent 60%),
-    conic-gradient(#22a06b 280deg, rgba(54, 211, 153, 0.18) 0deg);
+    conic-gradient(#2FBF87 280deg, rgba(54, 211, 153, 0.18) 0deg);
 }
 
 .decision-score-ring--warn {
   background:
     radial-gradient(circle at center, rgba(255, 255, 255, 0.98) 58%, transparent 60%),
-    conic-gradient(#db8a24 230deg, rgba(240, 160, 64, 0.18) 0deg);
+    conic-gradient(#E5A046 230deg, rgba(240, 160, 64, 0.18) 0deg);
 }
 
 .decision-score-ring--bad {
   background:
     radial-gradient(circle at center, rgba(255, 255, 255, 0.98) 58%, transparent 60%),
-    conic-gradient(#e0576e 175deg, rgba(224, 87, 110, 0.18) 0deg);
+    conic-gradient(#F2748A 175deg, rgba(224, 87, 110, 0.18) 0deg);
 }
 
 .decision-score-ring span {
@@ -2082,7 +2082,7 @@ onUnmounted(() => {
   padding: 14px;
   border: 1px solid rgba(148, 163, 184, 0.12);
   border-radius: 8px;
-  background: rgba(255, 255, 255, 0.82);
+  background: color-mix(in srgb, var(--mc-bg-card) 92%, transparent);
 }
 
 .action-card--good {
@@ -2159,15 +2159,15 @@ onUnmounted(() => {
 }
 
 .signal-status--good {
-  color: #22a06b;
+  color: #2FBF87;
 }
 
 .signal-status--warn {
-  color: #db8a24;
+  color: #E5A046;
 }
 
 .signal-status--bad {
-  color: #e0576e;
+  color: #F2748A;
 }
 
 .signal-status--neutral {
@@ -2188,15 +2188,15 @@ onUnmounted(() => {
 }
 
 .signal-fill--good {
-  background: #22a06b;
+  background: #2FBF87;
 }
 
 .signal-fill--warn {
-  background: #db8a24;
+  background: #E5A046;
 }
 
 .signal-fill--bad {
-  background: #e0576e;
+  background: #F2748A;
 }
 
 .signal-fill--neutral {
@@ -2256,7 +2256,7 @@ onUnmounted(() => {
   gap: 5px;
   padding: 5px 10px;
   border-radius: 999px;
-  color: #22a06b;
+  color: #2FBF87;
   background: rgba(54, 211, 153, 0.11);
   font-size: 12px;
 }
@@ -2290,7 +2290,7 @@ onUnmounted(() => {
   padding: 12px;
   border: 1px solid rgba(148, 163, 184, 0.12);
   border-radius: 8px;
-  background: rgba(255, 255, 255, 0.52);
+  background: color-mix(in srgb, var(--mc-bg-card) 82%, transparent);
 }
 
 .acquisition-summary-card span,
@@ -2345,7 +2345,7 @@ onUnmounted(() => {
   padding: 14px;
   border: 1px solid rgba(148, 163, 184, 0.14);
   border-radius: 8px;
-  background: rgba(255, 255, 255, 0.62);
+  background: color-mix(in srgb, var(--mc-bg-card) 82%, transparent);
 }
 
 .acquisition-node-top {
@@ -2374,7 +2374,7 @@ onUnmounted(() => {
 .acquisition-connector {
   display: grid;
   place-items: center;
-  color: #db8a24;
+  color: #E5A046;
   font-size: 12px;
   text-align: center;
 }
@@ -2402,7 +2402,7 @@ onUnmounted(() => {
 .acquisition-progress-fill {
   height: 100%;
   border-radius: inherit;
-  background: linear-gradient(90deg, #4c9de4, #22a06b);
+  background: linear-gradient(90deg, #4c9de4, #2FBF87);
 }
 
 .acquisition-progress-meta {
@@ -2433,17 +2433,17 @@ onUnmounted(() => {
 }
 
 .activation-health-pill--good {
-  color: #22a06b;
+  color: #2FBF87;
   background: rgba(54, 211, 153, 0.11);
 }
 
 .activation-health-pill--warn {
-  color: #db8a24;
+  color: #E5A046;
   background: rgba(240, 160, 64, 0.12);
 }
 
 .activation-health-pill--bad {
-  color: #e0576e;
+  color: #F2748A;
   background: rgba(224, 87, 110, 0.12);
 }
 
@@ -2482,7 +2482,7 @@ onUnmounted(() => {
   padding: 12px;
   border: 1px solid rgba(148, 163, 184, 0.12);
   border-radius: 8px;
-  background: rgba(255, 255, 255, 0.52);
+  background: color-mix(in srgb, var(--mc-bg-card) 82%, transparent);
 }
 
 .activation-metric-label {
@@ -2525,7 +2525,7 @@ onUnmounted(() => {
 }
 
 .activation-primary-card--neutral {
-  border-color: rgba(76, 157, 228, 0.2);
+  border-color: rgba(124, 195, 240, 0.25);
   background: rgba(76, 157, 228, 0.045);
 }
 
@@ -2533,7 +2533,7 @@ onUnmounted(() => {
   display: grid;
   gap: 10px;
   padding: 12px;
-  border: 1px solid rgba(76, 157, 228, 0.16);
+  border: 1px solid rgba(124, 195, 240, 0.2);
   border-radius: 8px;
   background: rgba(76, 157, 228, 0.055);
 }
@@ -2575,11 +2575,11 @@ onUnmounted(() => {
 }
 
 .activation-quality-fill--good {
-  background: linear-gradient(90deg, #4c9de4, #22a06b);
+  background: linear-gradient(90deg, #4c9de4, #2FBF87);
 }
 
 .activation-quality-fill--warn {
-  background: linear-gradient(90deg, #db8a24, #4c9de4);
+  background: linear-gradient(90deg, #E5A046, #4c9de4);
 }
 
 .diagnostic-group-title {
@@ -2664,7 +2664,7 @@ onUnmounted(() => {
 .episode-fill {
   height: 100%;
   border-radius: inherit;
-  background: linear-gradient(90deg, #4c9de4, #22a06b);
+  background: linear-gradient(90deg, #4c9de4, #2FBF87);
 }
 
 .funnel-value {
@@ -2754,7 +2754,7 @@ onUnmounted(() => {
 .guidance-box {
   margin-top: 14px;
   padding: 18px;
-  border: 1px dashed rgba(76, 157, 228, 0.28);
+  border: 1px dashed rgba(124, 195, 240, 0.35);
   border-radius: 8px;
   color: rgba(226, 232, 240, 0.68);
   background: rgba(76, 157, 228, 0.06);
@@ -2879,7 +2879,7 @@ onUnmounted(() => {
   padding: 14px;
   border: 1px solid rgba(148, 163, 184, 0.14);
   border-radius: 8px;
-  background: rgba(255, 255, 255, 0.68);
+  background: color-mix(in srgb, var(--mc-bg-card) 82%, transparent);
 }
 
 .ad-unlock-summary-item::before {
@@ -2892,34 +2892,34 @@ onUnmounted(() => {
 
 .ad-unlock-summary-item--good {
   border-color: rgba(54, 211, 153, 0.28);
-  background: linear-gradient(180deg, rgba(54, 211, 153, 0.11), rgba(255, 255, 255, 0.68));
+  background: linear-gradient(180deg, rgba(54, 211, 153, 0.11), color-mix(in srgb, var(--mc-bg-card) 82%, transparent));
 }
 
 .ad-unlock-summary-item--good::before {
-  background: #22a06b;
+  background: #2FBF87;
 }
 
 .ad-unlock-summary-item--warn {
   border-color: rgba(240, 160, 64, 0.3);
-  background: linear-gradient(180deg, rgba(240, 160, 64, 0.11), rgba(255, 255, 255, 0.68));
+  background: linear-gradient(180deg, rgba(240, 160, 64, 0.11), color-mix(in srgb, var(--mc-bg-card) 82%, transparent));
 }
 
 .ad-unlock-summary-item--warn::before {
-  background: #db8a24;
+  background: #E5A046;
 }
 
 .ad-unlock-summary-item--bad {
   border-color: rgba(224, 87, 110, 0.3);
-  background: linear-gradient(180deg, rgba(224, 87, 110, 0.11), rgba(255, 255, 255, 0.68));
+  background: linear-gradient(180deg, rgba(224, 87, 110, 0.11), color-mix(in srgb, var(--mc-bg-card) 82%, transparent));
 }
 
 .ad-unlock-summary-item--bad::before {
-  background: #e0576e;
+  background: #F2748A;
 }
 
 .ad-unlock-summary-item--neutral {
-  border-color: rgba(76, 157, 228, 0.24);
-  background: linear-gradient(180deg, rgba(76, 157, 228, 0.1), rgba(255, 255, 255, 0.68));
+  border-color: rgba(124, 195, 240, 0.3);
+  background: linear-gradient(180deg, rgba(76, 157, 228, 0.1), color-mix(in srgb, var(--mc-bg-card) 82%, transparent));
 }
 
 .ad-unlock-summary-label {
@@ -3003,7 +3003,7 @@ onUnmounted(() => {
   padding: 12px;
   border: 1px solid rgba(148, 163, 184, 0.12);
   border-radius: 8px;
-  background: rgba(255, 255, 255, 0.62);
+  background: color-mix(in srgb, var(--mc-bg-card) 82%, transparent);
   transition:
     border-color 0.16s ease,
     background 0.16s ease,
@@ -3011,7 +3011,7 @@ onUnmounted(() => {
 }
 
 .ad-monetization-card:hover {
-  border-color: rgba(76, 157, 228, 0.3);
+  border-color: rgba(124, 195, 240, 0.38);
   background: rgba(13, 19, 31, 0.78);
   transform: translateY(-1px);
 }
@@ -3054,7 +3054,7 @@ onUnmounted(() => {
 }
 
 .ad-monetization-card--neutral {
-  border-color: rgba(76, 157, 228, 0.18);
+  border-color: rgba(124, 195, 240, 0.22);
 }
 
 .ad-unlock-behavior-strip {
@@ -3085,7 +3085,7 @@ onUnmounted(() => {
   padding: 12px;
   border: 1px solid rgba(148, 163, 184, 0.12);
   border-radius: 8px;
-  background: rgba(255, 255, 255, 0.58);
+  background: color-mix(in srgb, var(--mc-bg-card) 82%, transparent);
 }
 
 .ad-unlock-behavior-card strong {
@@ -3164,7 +3164,7 @@ onUnmounted(() => {
 .content-diagnosis-card {
   min-width: 0;
   padding: 14px;
-  border: 1px solid rgba(76, 157, 228, 0.16);
+  border: 1px solid rgba(124, 195, 240, 0.2);
   border-radius: 8px;
   background: rgba(76, 157, 228, 0.055);
 }
@@ -3328,7 +3328,7 @@ onUnmounted(() => {
 }
 
 .episode-kpi-card--active .episode-kpi-label {
-  color: rgba(22, 41, 63, 0.92);
+  color: color-mix(in srgb, var(--mc-text-primary) 96%, transparent);
 }
 
 .episode-kpi-card strong {

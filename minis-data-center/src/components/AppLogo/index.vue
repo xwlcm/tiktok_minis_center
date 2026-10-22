@@ -88,12 +88,12 @@ const showText = computed(() => !props.collapsed)
 
 .app-logo__name {
   font-weight: 700;
-  color: rgba(22, 41, 63, 0.92);
+  color: color-mix(in srgb, var(--mc-text-primary) 96%, transparent);
   letter-spacing: 0.2px;
 }
 
 .app-logo__sub {
-  color: rgba(22, 41, 63, 0.47);
+  color: color-mix(in srgb, var(--mc-text-primary) 57%, transparent);
   letter-spacing: 0.8px;
   text-transform: uppercase;
 }

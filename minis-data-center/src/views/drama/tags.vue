@@ -187,8 +187,8 @@ onMounted(loadTags)
   background: var(--mc-bg-card); border: 1px solid var(--mc-border);
   border-radius: var(--mc-radius-md); box-shadow: var(--mc-shadow-xs); overflow: clip;
 }
-.tag-name { font-size: 13px; font-weight: 600; color: rgba(22, 41, 63, 0.92); }
-.sort-weight { font-size: 13px; font-weight: 600; color: rgba(22, 41, 63, 0.81); }
-.ref-count { font-size: 13px; color: rgba(22, 41, 63, 0.68); }
+.tag-name { font-size: 13px; font-weight: 600; color: color-mix(in srgb, var(--mc-text-primary) 96%, transparent); }
+.sort-weight { font-size: 13px; font-weight: 600; color: color-mix(in srgb, var(--mc-text-primary) 96%, transparent); }
+.ref-count { font-size: 13px; color: color-mix(in srgb, var(--mc-text-primary) 83%, transparent); }
 .row-actions { display: flex; gap: 4px; }
 </style>

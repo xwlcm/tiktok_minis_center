@@ -339,10 +339,10 @@ const menuStore = useMenuStore()
 
 const ICON_POPOVER_STYLE = {
   padding: '8px',
-  background: 'rgba(255, 255, 255, 0.98)',
-  border: '1px solid rgba(31, 80, 132, 0.14)',
+  background: 'color-mix(in srgb, var(--mc-bg-card) 98%, transparent)',
+  border: '1px solid color-mix(in srgb, var(--mc-text-primary) 21%, transparent)',
   borderRadius: '12px',
-  boxShadow: '0 18px 44px rgba(23, 54, 92, 0.39)',
+  boxShadow: '0 18px 44px rgba(0, 0, 0, 0.6)',
 }
 
 const PERMISSION_LABEL: Record<string, string> = {
@@ -496,14 +496,14 @@ function submitItem() {
   font-size: 24px;
   font-weight: 800;
   letter-spacing: -0.02em;
-  color: rgba(22, 41, 63, 0.92);
+  color: color-mix(in srgb, var(--mc-text-primary) 96%, transparent);
 }
 
 .page-desc {
   margin: 8px 0 0;
   font-size: 12.5px;
   line-height: 1.7;
-  color: rgba(22, 41, 63, 0.54);
+  color: color-mix(in srgb, var(--mc-text-primary) 66%, transparent);
   max-width: 560px;
 }
 
@@ -532,14 +532,14 @@ function submitItem() {
 /* ─── 一级菜单卡 ─────────────────────────────────────────── */
 .group-card {
   border-radius: 15px;
-  border: 1px solid rgba(31, 80, 132, 0.11);
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0.72) 100%);
+  border: 1px solid color-mix(in srgb, var(--mc-text-primary) 17%, transparent);
+  background: linear-gradient(180deg, color-mix(in srgb, var(--mc-bg-card) 92%, transparent) 0%, color-mix(in srgb, var(--mc-bg-card) 92%, transparent) 100%);
   overflow: hidden;
   transition: border-color 0.18s ease, opacity 0.18s ease;
 }
 
 .group-card:hover {
-  border-color: rgba(31, 80, 132, 0.18);
+  border-color: color-mix(in srgb, var(--mc-text-primary) 27%, transparent);
 }
 
 .group-card--muted {
@@ -551,7 +551,7 @@ function submitItem() {
   align-items: center;
   gap: 9px;
   padding: 11px 13px;
-  border-bottom: 1px solid rgba(31, 80, 132, 0.09);
+  border-bottom: 1px solid color-mix(in srgb, var(--mc-text-primary) 14%, transparent);
   flex-wrap: wrap;
 }
 
@@ -561,10 +561,10 @@ function submitItem() {
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid rgba(31, 80, 132, 0.14);
+  border: 1px solid color-mix(in srgb, var(--mc-text-primary) 21%, transparent);
   border-radius: 9px;
   background: linear-gradient(145deg, rgba(76, 157, 228, 0.16) 0%, rgba(76, 157, 228, 0.12) 100%);
-  color: rgba(22, 41, 63, 0.92);
+  color: color-mix(in srgb, var(--mc-text-primary) 96%, transparent);
   font-size: 16px;
   cursor: pointer;
   transition: transform 0.18s var(--mc-ease-spring), box-shadow 0.18s ease;
@@ -578,7 +578,7 @@ function submitItem() {
 .group-icon--locked {
   cursor: default;
   background: rgba(76, 157, 228, 0.04);
-  color: rgba(22, 41, 63, 0.54);
+  color: color-mix(in srgb, var(--mc-text-primary) 66%, transparent);
 }
 .group-icon--locked:hover {
   transform: none;
@@ -592,7 +592,7 @@ function submitItem() {
   border: 1px solid transparent;
   border-radius: 7px;
   background: transparent;
-  color: rgba(22, 41, 63, 0.92);
+  color: color-mix(in srgb, var(--mc-text-primary) 96%, transparent);
   font-size: 13px;
   font-weight: 600;
   font-family: var(--mc-font-family);
@@ -600,23 +600,23 @@ function submitItem() {
   transition: border-color 0.16s ease, background 0.16s ease;
 }
 .group-name:hover {
-  border-color: rgba(31, 80, 132, 0.14);
+  border-color: color-mix(in srgb, var(--mc-text-primary) 21%, transparent);
   background: rgba(76, 157, 228, 0.04);
 }
 .group-name:focus {
-  border-color: rgba(76, 157, 228, 0.4);
+  border-color: rgba(124, 195, 240, 0.5);
   background: rgba(76, 157, 228, 0.05);
 }
 
 .group-name--readonly {
   display: inline-flex;
   align-items: center;
-  color: rgba(22, 41, 63, 0.74);
+  color: color-mix(in srgb, var(--mc-text-primary) 90%, transparent);
 }
 
 .group-count {
   font-size: 11px;
-  color: rgba(22, 41, 63, 0.32);
+  color: color-mix(in srgb, var(--mc-text-primary) 39%, transparent);
   font-family: var(--mc-font-mono);
 }
 
@@ -632,15 +632,15 @@ function submitItem() {
   font-size: 10px;
   font-weight: 600;
   line-height: 16px;
-  color: rgba(22, 41, 63, 0.57);
+  color: color-mix(in srgb, var(--mc-text-primary) 70%, transparent);
   background: rgba(76, 157, 228, 0.06);
-  border: 1px solid rgba(31, 80, 132, 0.09);
+  border: 1px solid color-mix(in srgb, var(--mc-text-primary) 14%, transparent);
   white-space: nowrap;
 }
 .badge--custom {
   color: #4c9de4;
   background: rgba(76, 157, 228, 0.1);
-  border-color: rgba(76, 157, 228, 0.22);
+  border-color: rgba(124, 195, 240, 0.28);
 }
 .badge--off {
   color: rgba(240, 160, 64, 0.85);
@@ -660,10 +660,10 @@ function submitItem() {
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid rgba(31, 80, 132, 0.11);
+  border: 1px solid color-mix(in srgb, var(--mc-text-primary) 17%, transparent);
   border-radius: 6px;
   background: transparent;
-  color: rgba(22, 41, 63, 0.46);
+  color: color-mix(in srgb, var(--mc-text-primary) 56%, transparent);
   font-size: 12px;
   cursor: pointer;
   transition: background 0.14s ease, color 0.14s ease, border-color 0.14s ease;
@@ -671,8 +671,8 @@ function submitItem() {
 }
 .mini-btn:hover:not(:disabled) {
   background: rgba(76, 157, 228, 0.07);
-  color: rgba(22, 41, 63, 0.92);
-  border-color: rgba(31, 80, 132, 0.22);
+  color: color-mix(in srgb, var(--mc-text-primary) 96%, transparent);
+  border-color: color-mix(in srgb, var(--mc-text-primary) 33%, transparent);
 }
 .mini-btn:disabled {
   opacity: 0.28;
@@ -681,7 +681,7 @@ function submitItem() {
 .mini-btn--danger:hover:not(:disabled) {
   background: rgba(224, 87, 110, 0.12);
   border-color: rgba(224, 87, 110, 0.3);
-  color: #E0576E;
+  color: #F2748A;
 }
 
   /* ─── 二级菜单行 ─────────────────────────────────────────── */
@@ -722,7 +722,7 @@ function submitItem() {
   padding: 0;
   border: none;
   background: transparent;
-  color: rgba(22, 41, 63, 0.92);
+  color: color-mix(in srgb, var(--mc-text-primary) 96%, transparent);
   font-size: 12.5px;
   font-family: var(--mc-font-family);
   text-align: left;
@@ -736,10 +736,10 @@ function submitItem() {
   width: 130px;
   height: 24px;
   padding: 0 7px;
-  border: 1px solid rgba(76, 157, 228, 0.35);
+  border: 1px solid rgba(124, 195, 240, 0.44);
   border-radius: 6px;
   background: rgba(76, 157, 228, 0.06);
-  color: rgba(22, 41, 63, 0.92);
+  color: color-mix(in srgb, var(--mc-text-primary) 96%, transparent);
   font-size: 12.5px;
   font-family: var(--mc-font-family);
   outline: none;
@@ -748,7 +748,7 @@ function submitItem() {
 .item-path {
   font-family: var(--mc-font-mono);
   font-size: 10.5px;
-  color: rgba(22, 41, 63, 0.27);
+  color: color-mix(in srgb, var(--mc-text-primary) 33%, transparent);
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -758,7 +758,7 @@ function submitItem() {
 .item-empty {
   margin: 8px 10px;
   font-size: 12px;
-  color: rgba(22, 41, 63, 0.35);
+  color: color-mix(in srgb, var(--mc-text-primary) 43%, transparent);
 }
 
 .add-item-btn {
@@ -768,17 +768,17 @@ function submitItem() {
   gap: 6px;
   margin: 6px 4px 0;
   padding: 8px;
-  border: 1px dashed rgba(31, 80, 132, 0.18);
+  border: 1px dashed color-mix(in srgb, var(--mc-text-primary) 27%, transparent);
   border-radius: 9px;
   background: transparent;
-  color: rgba(22, 41, 63, 0.46);
+  color: color-mix(in srgb, var(--mc-text-primary) 56%, transparent);
   font-size: 12px;
   font-family: var(--mc-font-family);
   cursor: pointer;
   transition: border-color 0.16s ease, color 0.16s ease, background 0.16s ease;
 }
 .add-item-btn:hover:not(:disabled) {
-  border-color: rgba(76, 157, 228, 0.35);
+  border-color: rgba(124, 195, 240, 0.44);
   background: rgba(76, 157, 228, 0.05);
   color: #4c9de4;
 }
@@ -791,7 +791,7 @@ function submitItem() {
   padding: 40px 0;
   text-align: center;
   font-size: 13px;
-  color: rgba(22, 41, 63, 0.35);
+  color: color-mix(in srgb, var(--mc-text-primary) 43%, transparent);
 }
 
 /* ─── 右侧概览 ───────────────────────────────────────────── */
@@ -806,8 +806,8 @@ function submitItem() {
 .side-card {
   padding: 14px;
   border-radius: 14px;
-  border: 1px solid rgba(31, 80, 132, 0.11);
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.62) 0%, rgba(255, 255, 255, 0.66) 100%);
+  border: 1px solid color-mix(in srgb, var(--mc-text-primary) 17%, transparent);
+  background: linear-gradient(180deg, color-mix(in srgb, var(--mc-bg-card) 82%, transparent) 0%, color-mix(in srgb, var(--mc-bg-card) 82%, transparent) 100%);
 }
 
 .side-title {
@@ -816,7 +816,7 @@ function submitItem() {
   font-weight: 700;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: rgba(22, 41, 63, 0.41);
+  color: color-mix(in srgb, var(--mc-text-primary) 50%, transparent);
 }
 
 .stat-grid {
@@ -830,12 +830,12 @@ function submitItem() {
   padding: 10px;
   border-radius: 10px;
   background: rgba(76, 157, 228, 0.04);
-  border: 1px solid rgba(31, 80, 132, 0.07);
+  border: 1px solid color-mix(in srgb, var(--mc-text-primary) 11%, transparent);
 }
 
 .stat dt {
   font-size: 11px;
-  color: rgba(22, 41, 63, 0.43);
+  color: color-mix(in srgb, var(--mc-text-primary) 52%, transparent);
   margin-bottom: 4px;
 }
 
@@ -844,7 +844,7 @@ function submitItem() {
   font-size: 20px;
   font-weight: 700;
   font-family: var(--mc-font-mono);
-  color: rgba(22, 41, 63, 0.92);
+  color: color-mix(in srgb, var(--mc-text-primary) 96%, transparent);
   line-height: 1.1;
 }
 
@@ -856,7 +856,7 @@ function submitItem() {
   gap: 7px;
   font-size: 12px;
   line-height: 1.6;
-  color: rgba(22, 41, 63, 0.54);
+  color: color-mix(in srgb, var(--mc-text-primary) 66%, transparent);
 }
 .tips li::marker {
   color: rgba(76, 157, 228, 0.5);
@@ -866,8 +866,8 @@ function submitItem() {
   font-size: 10px;
   padding: 1px 5px;
   border-radius: 4px;
-  border: 1px solid rgba(31, 80, 132, 0.18);
-  color: rgba(22, 41, 63, 0.68);
+  border: 1px solid color-mix(in srgb, var(--mc-text-primary) 27%, transparent);
+  color: color-mix(in srgb, var(--mc-text-primary) 83%, transparent);
 }
 
 .side-card--note {
@@ -878,7 +878,7 @@ function submitItem() {
   margin: 0;
   font-size: 12px;
   line-height: 1.7;
-  color: rgba(22, 41, 63, 0.46);
+  color: color-mix(in srgb, var(--mc-text-primary) 56%, transparent);
 }
 
 /* ─── 图标选择 ───────────────────────────────────────────── */
@@ -903,18 +903,18 @@ function submitItem() {
   border: 1px solid transparent;
   border-radius: 8px;
   background: transparent;
-  color: rgba(22, 41, 63, 0.57);
+  color: color-mix(in srgb, var(--mc-text-primary) 70%, transparent);
   font-size: 16px;
   cursor: pointer;
   transition: background 0.14s ease, color 0.14s ease, border-color 0.14s ease;
 }
 .icon-cell:hover {
   background: rgba(76, 157, 228, 0.08);
-  color: rgba(22, 41, 63, 0.92);
+  color: color-mix(in srgb, var(--mc-text-primary) 96%, transparent);
 }
 .icon-cell--active {
   background: rgba(76, 157, 228, 0.12);
-  border-color: rgba(76, 157, 228, 0.35);
+  border-color: rgba(124, 195, 240, 0.44);
   color: #4c9de4;
 }
 
@@ -932,7 +932,7 @@ function submitItem() {
 .form-label {
   font-size: 12px;
   font-weight: 600;
-  color: rgba(22, 41, 63, 0.68);
+  color: color-mix(in srgb, var(--mc-text-primary) 83%, transparent);
 }
 
   /* ─── 响应式 ─────────────────────────────────────────────── */
