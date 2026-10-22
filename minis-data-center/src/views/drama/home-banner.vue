@@ -12,7 +12,7 @@
     </div>
 
     <div class="preview-tip">
-      <icon-info-circle style="color: #5CBDC5; font-size: 14px; flex-shrink: 0" />
+      <icon-info-circle style="color: #4c9de4; font-size: 14px; flex-shrink: 0" />
       <span>轮播图按排序值从小到大展示，点击上移/下移可调整顺序。建议保持 6-8 张高质量短剧。</span>
     </div>
 
@@ -36,7 +36,7 @@
             style="border-radius: 6px; display: block"
           />
           <div v-else class="cover-placeholder cover-placeholder--lg">
-            <icon-video-camera style="font-size: 20px; color: rgba(255,255,255,0.2)" />
+            <icon-video-camera style="font-size: 20px; color: rgba(22, 41, 63, 0.27)" />
           </div>
         </template>
 
@@ -256,8 +256,8 @@ onMounted(loadList)
   width: 56px;
   height: 38px;
   border-radius: 4px;
-  background: rgba(255,255,255,0.04);
-  border: 1px solid rgba(255,255,255,0.08);
+  background: rgba(76, 157, 228, 0.04);
+  border: 1px solid rgba(31, 80, 132, 0.14);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -276,8 +276,8 @@ onMounted(loadList)
   width: 100%;
   min-height: 42px;
   padding: 8px 10px;
-  background: rgba(255,255,255,0.04);
-  border: 1px solid rgba(255,255,255,0.08);
+  background: rgba(76, 157, 228, 0.04);
+  border: 1px solid rgba(31, 80, 132, 0.14);
   border-radius: 8px;
 }
 .selected-drama {
@@ -285,41 +285,41 @@ onMounted(loadList)
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  color: rgba(255,255,255,0.78);
+  color: rgba(22, 41, 63, 0.92);
 }
 
 .page-header {
   display: flex; align-items: flex-start; justify-content: space-between;
   margin-bottom: 16px;
 }
-.page-title { font-size: 18px; font-weight: 700; color: rgba(255,255,255,0.92); }
-.page-subtitle { font-size: 12px; color: rgba(255,255,255,0.35); margin-top: 2px; }
+.page-title { font-size: 18px; font-weight: 700; color: rgba(22, 41, 63, 0.92); }
+.page-subtitle { font-size: 12px; color: rgba(22, 41, 63, 0.47); margin-top: 2px; }
 
 .preview-tip {
   display: flex; align-items: center; gap: 8px;
   padding: 10px 14px;
-  background: rgba(92, 189, 197,0.06);
-  border: 1px solid rgba(92, 189, 197,0.15);
+  background: rgba(76, 157, 228, 0.06);
+  border: 1px solid rgba(76, 157, 228, 0.15);
   border-radius: 8px;
   font-size: 12px;
-  color: rgba(255,255,255,0.50);
+  color: rgba(22, 41, 63, 0.68);
   margin-bottom: 16px;
 }
 
 .item-info { display: flex; flex-direction: column; gap: 3px; }
-.item-title { font-size: 13px; font-weight: 600; color: rgba(255,255,255,0.85); }
-.item-sub { font-size: 12px; color: rgba(255,255,255,0.45); }
-.item-drama-id { font-size: 11px; color: rgba(92, 189, 197,0.7); }
+.item-title { font-size: 13px; font-weight: 600; color: rgba(22, 41, 63, 0.92); }
+.item-sub { font-size: 12px; color: rgba(22, 41, 63, 0.61); }
+.item-drama-id { font-size: 11px; color: rgba(76, 157, 228, 0.7); }
 
 .sort-cell { display: flex; align-items: center; gap: 6px; }
 .sort-num {
   width: 28px; height: 28px;
   border-radius: 6px;
-  background: rgba(255,255,255,0.06);
-  border: 1px solid rgba(255,255,255,0.08);
+  background: rgba(76, 157, 228, 0.07);
+  border: 1px solid rgba(31, 80, 132, 0.14);
   display: flex; align-items: center; justify-content: center;
   font-size: 13px; font-weight: 600;
-  color: rgba(255,255,255,0.75);
+  color: rgba(22, 41, 63, 0.92);
 }
 .sort-btns { display: flex; flex-direction: column; gap: 1px; }
 

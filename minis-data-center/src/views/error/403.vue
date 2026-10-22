@@ -62,12 +62,12 @@ const roleLabel = computed(() => {
 }
 .error-glow--red {
   width: 400px; height: 400px;
-  background: rgba(224, 72, 109, 0.08);
+  background: rgba(224, 87, 110, 0.08);
   top: -80px; left: -80px;
 }
 .error-glow--cyan {
   width: 400px; height: 400px;
-  background: rgba(92, 189, 197, 0.06);
+  background: rgba(76, 157, 228, 0.06);
   bottom: -80px; right: -80px;
 }
 
@@ -86,18 +86,18 @@ const roleLabel = computed(() => {
 .error-logo :deep(.app-logo__name) {
   font-size: 18px;
   font-weight: 700;
-  color: rgba(255, 255, 255, 0.88);
+  color: rgba(22, 41, 63, 0.92);
   font-family: var(--mc-font-family);
 }
 .error-logo :deep(.app-logo__sub) {
   font-size: 11px;
-  color: rgba(255, 255, 255, 0.30);
+  color: rgba(22, 41, 63, 0.41);
 }
 
 .error-code {
   font-size: 72px;
   font-weight: 800;
-  background: linear-gradient(135deg, rgba(224, 72, 109, 0.5) 0%, rgba(92, 189, 197, 0.5) 100%);
+  background: linear-gradient(135deg, rgba(224, 87, 110, 0.5) 0%, rgba(76, 157, 228, 0.5) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;

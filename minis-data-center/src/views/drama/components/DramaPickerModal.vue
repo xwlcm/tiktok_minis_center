@@ -183,8 +183,8 @@ watch(keyword, () => {
   gap: 16px;
   padding: 10px 12px;
   margin-bottom: 12px;
-  background: rgba(255, 255, 255, 0.025);
-  border: 1px solid rgba(255, 255, 255, 0.07);
+  background: rgba(76, 157, 228, 0.04);
+  border: 1px solid rgba(31, 80, 132, 0.13);
   border-radius: 8px;
 }
 
@@ -203,17 +203,17 @@ watch(keyword, () => {
   padding: 0 9px;
   border-radius: 6px;
   color: #78d9df;
-  background: rgba(92, 189, 197, 0.12);
-  border: 1px solid rgba(92, 189, 197, 0.28);
+  background: rgba(76, 157, 228, 0.12);
+  border: 1px solid rgba(76, 157, 228, 0.28);
   font-weight: 600;
 }
 
 .summary-item {
-  color: rgba(255, 255, 255, 0.52);
+  color: rgba(22, 41, 63, 0.7);
 }
 
 .summary-item strong {
-  color: rgba(255, 255, 255, 0.84);
+  color: rgba(22, 41, 63, 0.92);
   font-weight: 700;
 }
 
@@ -223,21 +223,21 @@ watch(keyword, () => {
 
 .picker-search :deep(.arco-input-wrapper) {
   height: 36px;
-  background: rgba(12, 18, 31, 0.58);
-  border-color: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.58);
+  border-color: rgba(31, 80, 132, 0.18);
   border-radius: 8px 0 0 8px;
 }
 
 .picker-search :deep(.arco-input-wrapper:hover),
 .picker-search :deep(.arco-input-wrapper.arco-input-focus) {
-  border-color: rgba(92, 189, 197, 0.45);
+  border-color: rgba(76, 157, 228, 0.45);
 }
 
 .picker-search :deep(.arco-btn-primary) {
   width: 42px;
   height: 36px;
-  background: rgba(92, 189, 197, 0.88);
-  border-color: rgba(92, 189, 197, 0.88);
+  background: rgba(76, 157, 228, 0.88);
+  border-color: rgba(76, 157, 228, 0.88);
   box-shadow: none;
 }
 
@@ -261,8 +261,8 @@ watch(keyword, () => {
   align-items: center;
   padding: 11px 12px;
   text-align: left;
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.075);
+  background: rgba(76, 157, 228, 0.04);
+  border: 1px solid rgba(31, 80, 132, 0.14);
   border-radius: 8px;
   cursor: pointer;
   outline: none;
@@ -270,25 +270,25 @@ watch(keyword, () => {
 }
 
 .candidate-item:hover {
-  background: rgba(92, 189, 197, 0.055);
-  border-color: rgba(92, 189, 197, 0.34);
+  background: rgba(76, 157, 228, 0.055);
+  border-color: rgba(76, 157, 228, 0.34);
 }
 
 .candidate-item:focus-visible {
-  border-color: rgba(92, 189, 197, 0.72);
-  box-shadow: 0 0 0 2px rgba(92, 189, 197, 0.12);
+  border-color: rgba(76, 157, 228, 0.72);
+  box-shadow: 0 0 0 2px rgba(76, 157, 228, 0.12);
 }
 
 .candidate-item.disabled {
   cursor: not-allowed;
-  background: rgba(255, 255, 255, 0.018);
-  border-color: rgba(255, 255, 255, 0.055);
+  background: rgba(76, 157, 228, 0.04);
+  border-color: rgba(31, 80, 132, 0.1);
   opacity: 0.82;
 }
 
 .candidate-item.disabled:hover {
-  background: rgba(255, 255, 255, 0.018);
-  border-color: rgba(255, 255, 255, 0.055);
+  background: rgba(76, 157, 228, 0.04);
+  border-color: rgba(31, 80, 132, 0.1);
 }
 
 .candidate-cover {
@@ -297,15 +297,15 @@ watch(keyword, () => {
   border-radius: 6px;
   overflow: hidden;
   flex-shrink: 0;
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(31, 80, 132, 0.14);
 }
 
 .candidate-cover.placeholder {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(255, 255, 255, 0.05);
-  color: rgba(255, 255, 255, 0.22);
+  background: rgba(76, 157, 228, 0.06);
+  color: rgba(22, 41, 63, 0.3);
 }
 
 .candidate-main {
@@ -328,7 +328,7 @@ watch(keyword, () => {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  color: rgba(255, 255, 255, 0.88);
+  color: rgba(22, 41, 63, 0.92);
   font-size: 13px;
   font-weight: 650;
   line-height: 18px;
@@ -356,15 +356,15 @@ watch(keyword, () => {
 
 .status-added {
   color: #d9829a;
-  background: rgba(224, 72, 109, 0.1);
-  border: 1px solid rgba(224, 72, 109, 0.26);
+  background: rgba(76, 157, 228, 0.1);
+  border: 1px solid rgba(76, 157, 228, 0.26);
 }
 
 .candidate-meta {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
-  color: rgba(255, 255, 255, 0.42);
+  color: rgba(22, 41, 63, 0.57);
   font-size: 12px;
   line-height: 18px;
 }
@@ -381,9 +381,9 @@ watch(keyword, () => {
   align-items: center;
   padding: 0 7px;
   border-radius: 5px;
-  color: rgba(255, 255, 255, 0.62);
-  background: rgba(255, 255, 255, 0.045);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: rgba(22, 41, 63, 0.84);
+  background: rgba(76, 157, 228, 0.05);
+  border: 1px solid rgba(31, 80, 132, 0.18);
   font-size: 12px;
 }
 
@@ -394,22 +394,22 @@ watch(keyword, () => {
 
 .select-button {
   min-width: 62px;
-  border-color: rgba(92, 189, 197, 0.45);
-  color: #91e5ea;
-  background: rgba(92, 189, 197, 0.08);
+  border-color: rgba(76, 157, 228, 0.45);
+  color: #a8ccf0;
+  background: rgba(76, 157, 228, 0.08);
 }
 
 .select-button:not(.arco-btn-disabled):hover {
-  border-color: rgba(92, 189, 197, 0.78);
+  border-color: rgba(76, 157, 228, 0.78);
   color: #ffffff;
-  background: rgba(92, 189, 197, 0.22);
+  background: rgba(76, 157, 228, 0.22);
 }
 
 .candidate-item.disabled .select-button {
   min-width: 104px;
-  color: rgba(255, 255, 255, 0.36);
-  background: rgba(255, 255, 255, 0.035);
-  border-color: rgba(255, 255, 255, 0.08);
+  color: rgba(22, 41, 63, 0.49);
+  background: rgba(76, 157, 228, 0.04);
+  border-color: rgba(31, 80, 132, 0.14);
 }
 
 .empty-panel {
@@ -417,8 +417,8 @@ watch(keyword, () => {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(255, 255, 255, 0.025);
-  border: 1px dashed rgba(255, 255, 255, 0.1);
+  background: rgba(76, 157, 228, 0.04);
+  border: 1px dashed rgba(31, 80, 132, 0.18);
   border-radius: 8px;
 }
 

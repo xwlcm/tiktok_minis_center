@@ -94,18 +94,18 @@ onMounted(async () => {
 
 .detail-header { margin-bottom: 16px; }
 .back-btn {
-  color: rgba(255,255,255,0.35) !important;
+  color: rgba(22, 41, 63, 0.47) !important;
   padding: 0 !important;
   font-size: 13px !important;
 }
-.back-btn:hover { color: #5CBDC5 !important; }
+.back-btn:hover { color: #4c9de4 !important; }
 
 .profile-card {
   display: flex;
   align-items: center;
   gap: 16px;
-  background: #12151F;
-  border: 1px solid rgba(255,255,255,0.07);
+  background: #ffffff;
+  border: 1px solid rgba(31, 80, 132, 0.13);
   border-radius: 12px;
   padding: 20px 24px;
   margin-bottom: 16px;
@@ -117,19 +117,19 @@ onMounted(async () => {
   position: absolute;
   top: 0; left: 0; right: 0;
   height: 1px;
-  background: linear-gradient(90deg, #E0486D, #5CBDC5);
+  background: linear-gradient(90deg, #4c9de4, #4c9de4);
   opacity: 0.5;
 }
 .profile-avatar {
   flex-shrink: 0;
-  background: linear-gradient(135deg, #E0486D, #5CBDC5) !important;
+  background: linear-gradient(135deg, #4c9de4, #4c9de4) !important;
   font-size: 20px !important;
   font-weight: 700 !important;
 }
 .profile-name {
   font-size: 18px;
   font-weight: 700;
-  color: rgba(255,255,255,0.92);
+  color: rgba(22, 41, 63, 0.92);
   margin-bottom: 4px;
   display: flex;
   align-items: center;
@@ -137,26 +137,26 @@ onMounted(async () => {
 }
 .profile-meta {
   font-size: 12px;
-  color: rgba(255,255,255,0.35);
+  color: rgba(22, 41, 63, 0.47);
   display: flex;
   align-items: center;
   gap: 6px;
 }
-.meta-sep { color: rgba(255,255,255,0.15); }
+.meta-sep { color: rgba(22, 41, 63, 0.2); }
 
 .info-card {
-  background: #12151F;
-  border: 1px solid rgba(255,255,255,0.07);
+  background: #ffffff;
+  border: 1px solid rgba(31, 80, 132, 0.13);
   border-radius: 12px;
   padding: 20px 24px;
 }
 .info-card-header {
   font-size: 14px;
   font-weight: 600;
-  color: rgba(255,255,255,0.75);
+  color: rgba(22, 41, 63, 0.92);
   margin-bottom: 16px;
   padding-bottom: 12px;
-  border-bottom: 1px solid rgba(255,255,255,0.06);
+  border-bottom: 1px solid rgba(31, 80, 132, 0.11);
 }
 .info-grid {
   display: grid;
@@ -166,12 +166,12 @@ onMounted(async () => {
 .info-label {
   font-size: 11px;
   font-weight: 600;
-  color: rgba(255,255,255,0.35);
+  color: rgba(22, 41, 63, 0.47);
   margin-bottom: 4px;
 }
 .info-value {
   font-size: 14px;
   font-weight: 500;
-  color: rgba(255,255,255,0.85);
+  color: rgba(22, 41, 63, 0.92);
 }
 </style>

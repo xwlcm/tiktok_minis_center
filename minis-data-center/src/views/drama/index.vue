@@ -78,7 +78,7 @@
           />
           <div v-else class="cover-placeholder">
             <icon-video-camera
-              style="font-size: 18px; color: rgba(255, 255, 255, 0.2)"
+              style="font-size: 18px; color: rgba(22, 41, 63, 0.27)"
             />
           </div>
         </template>
@@ -367,8 +367,8 @@ onMounted(() => {
   width: 56px;
   height: 38px;
   border-radius: 4px;
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(76, 157, 228, 0.04);
+  border: 1px solid rgba(31, 80, 132, 0.14);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -412,7 +412,7 @@ onMounted(() => {
 .tag-filter-label {
   font-size: 12px;
   font-weight: 600;
-  color: rgba(255,255,255,0.50);
+  color: rgba(22, 41, 63, 0.68);
   white-space: nowrap;
   padding-top: 5px;
   flex-shrink: 0;
@@ -429,22 +429,22 @@ onMounted(() => {
   padding: 4px 12px;
   font-size: 12px;
   font-weight: 500;
-  color: rgba(255, 255, 255, 0.5);
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: rgba(22, 41, 63, 0.68);
+  background: rgba(76, 157, 228, 0.04);
+  border: 1px solid rgba(31, 80, 132, 0.14);
   border-radius: 6px;
   cursor: pointer;
   transition: all 0.15s;
 }
 .tag-filter-item:hover {
-  color: rgba(255, 255, 255, 0.8);
-  border-color: rgba(255, 255, 255, 0.18);
-  background: rgba(255, 255, 255, 0.06);
+  color: rgba(22, 41, 63, 0.92);
+  border-color: rgba(31, 80, 132, 0.3);
+  background: rgba(76, 157, 228, 0.07);
 }
 .tag-filter-item.active {
-  border-color: #5cbdc5;
-  color: #5cbdc5;
-  background: rgba(92, 189, 197, 0.1);
+  border-color: #4c9de4;
+  color: #4c9de4;
+  background: rgba(76, 157, 228, 0.1);
 }
 .tag-filter-dot {
   width: 6px;
@@ -488,7 +488,7 @@ onMounted(() => {
 }
 .episode-free {
   font-size: 11px;
-  color: rgba(92, 189, 197, 0.7);
+  color: rgba(76, 157, 228, 0.7);
 }
 
 .row-actions {

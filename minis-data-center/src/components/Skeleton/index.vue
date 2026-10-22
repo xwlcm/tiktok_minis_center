@@ -55,7 +55,7 @@ withDefaults(defineProps<{
 }
 
 .skeleton-rect {
-  background: rgba(255, 255, 255, 0.06);
+  background: rgba(76, 157, 228, 0.07);
   border-radius: 6px;
   position: relative;
   overflow: hidden;
@@ -68,8 +68,8 @@ withDefaults(defineProps<{
   background: linear-gradient(
     135deg,
     transparent 0%,
-    rgba(255, 255, 255, 0.04) 40%,
-    rgba(92, 189, 197, 0.03) 60%,
+    rgba(22, 41, 63, 0.06) 40%,
+    rgba(76, 157, 228, 0.03) 60%,
     transparent 100%
   );
   animation: skeleton-shimmer 1.5s infinite;
@@ -91,7 +91,7 @@ withDefaults(defineProps<{
   display: flex;
   gap: 16px;
   padding: 14px 16px;
-  background: rgba(255, 255, 255, 0.03);
+  background: rgba(76, 157, 228, 0.04);
   border-radius: 8px 8px 0 0;
   margin-bottom: 2px;
 }
@@ -100,7 +100,7 @@ withDefaults(defineProps<{
   display: flex;
   gap: 16px;
   padding: 16px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  border-bottom: 1px solid rgba(31, 80, 132, 0.07);
 }
 
 .skeleton-table-row:last-child {
@@ -108,8 +108,8 @@ withDefaults(defineProps<{
 }
 
 .skeleton-card {
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.06);
+  background: rgba(76, 157, 228, 0.04);
+  border: 1px solid rgba(31, 80, 132, 0.11);
   border-radius: 12px;
   padding: 24px;
 }
@@ -121,8 +121,8 @@ withDefaults(defineProps<{
 }
 
 .skeleton-stat-item {
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.06);
+  background: rgba(76, 157, 228, 0.04);
+  border: 1px solid rgba(31, 80, 132, 0.11);
   border-radius: 12px;
   padding: 20px;
 }

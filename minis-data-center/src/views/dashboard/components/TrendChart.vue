@@ -91,11 +91,11 @@ function renderChart() {
   const type = props.appType || 'IAA'
 
   const C = {
-    cyan:   '#5CBDC5',
-    red:    '#E0486D',
-    green:  '#36D399',
-    orange: '#F0A040',
-    purple: '#9B7EC4',
+    cyan:   '#4c9de4',
+    red:    '#4c9de4',
+    green:  '#22a06b',
+    orange: '#db8a24',
+    purple: '#7b8fe0',
   }
 
   const mkArea = (hex: string) => ({
@@ -161,19 +161,19 @@ function renderChart() {
     backgroundColor: 'transparent',
     tooltip: {
       trigger: 'axis',
-      axisPointer: { type: 'line', lineStyle: { color: 'rgba(255,255,255,0.08)', width: 1 } },
-      backgroundColor: '#1C1F2B',
-      borderColor: 'rgba(255,255,255,0.10)',
+      axisPointer: { type: 'line', lineStyle: { color: 'rgba(22, 41, 63, 0.11)', width: 1 } },
+      backgroundColor: '#ffffff',
+      borderColor: 'rgba(31, 80, 132, 0.18)',
       borderWidth: 1,
       padding: [10, 14],
-      textStyle: { color: 'rgba(255,255,255,0.85)', fontSize: 12 },
-      extraCssText: 'box-shadow: 0 8px 32px rgba(0,0,0,0.6); border-radius: 10px;',
+      textStyle: { color: 'rgba(22, 41, 63, 0.92)', fontSize: 12 },
+      extraCssText: 'box-shadow: 0 8px 32px rgba(23, 54, 92, 0.39); border-radius: 10px;',
     },
     legend: {
       data: legendData,
       bottom: 4,
       itemWidth: 16, itemHeight: 3, itemGap: 24,
-      textStyle: { color: 'rgba(255,255,255,0.40)', fontSize: 11 },
+      textStyle: { color: 'rgba(22, 41, 63, 0.54)', fontSize: 11 },
       icon: 'roundRect',
     },
     grid: { left: 52, right: hasRightAxis ? 52 : 20, top: 16, bottom: 48 },
@@ -181,25 +181,25 @@ function renderChart() {
       type: 'category',
       data: dates,
       boundaryGap: false,
-      axisLine: { lineStyle: { color: 'rgba(255,255,255,0.07)' } },
+      axisLine: { lineStyle: { color: 'rgba(22, 41, 63, 0.09)' } },
       axisTick: { show: false },
-      axisLabel: { color: 'rgba(255,255,255,0.30)', fontSize: 11, rotate: dates.length > 20 ? 30 : 0 },
+      axisLabel: { color: 'rgba(22, 41, 63, 0.41)', fontSize: 11, rotate: dates.length > 20 ? 30 : 0 },
       splitLine: { show: false },
     },
     yAxis: [
       {
         type: 'value', name: '用户', position: 'left',
-        nameTextStyle: { color: 'rgba(255,255,255,0.25)', fontSize: 10 },
+        nameTextStyle: { color: 'rgba(22, 41, 63, 0.34)', fontSize: 10 },
         axisLine: { show: false }, axisTick: { show: false },
-        axisLabel: { color: 'rgba(255,255,255,0.25)', fontSize: 10 },
-        splitLine: { lineStyle: { color: 'rgba(255,255,255,0.05)', type: 'dashed' } },
+        axisLabel: { color: 'rgba(22, 41, 63, 0.34)', fontSize: 10 },
+        splitLine: { lineStyle: { color: 'rgba(22, 41, 63, 0.07)', type: 'dashed' } },
       },
       hasRightAxis ? {
         type: 'value', name: type === 'IAA_IAP' ? '广告/收入' : (type === 'IAP' ? '收入' : '广告'),
         position: 'right',
-        nameTextStyle: { color: 'rgba(255,255,255,0.25)', fontSize: 10 },
+        nameTextStyle: { color: 'rgba(22, 41, 63, 0.34)', fontSize: 10 },
         axisLine: { show: false }, axisTick: { show: false },
-        axisLabel: { color: 'rgba(255,255,255,0.25)', fontSize: 10 },
+        axisLabel: { color: 'rgba(22, 41, 63, 0.34)', fontSize: 10 },
         splitLine: { show: false },
       } : undefined,
     ].filter(Boolean),
@@ -224,8 +224,8 @@ onUnmounted(() => {
 
 <style scoped>
 .trend-card {
-  background: #12151F;
-  border: 1px solid rgba(255,255,255,0.07);
+  background: #ffffff;
+  border: 1px solid rgba(31, 80, 132, 0.13);
   border-radius: 12px;
   overflow: hidden;
   position: relative;
@@ -235,7 +235,7 @@ onUnmounted(() => {
   position: absolute;
   top: 0; left: 0; right: 0;
   height: 1px;
-  background: linear-gradient(90deg, #E0486D, #5CBDC5);
+  background: linear-gradient(90deg, #4c9de4, #4c9de4);
   opacity: 0.6;
 }
 
@@ -244,7 +244,7 @@ onUnmounted(() => {
   align-items: center;
   justify-content: space-between;
   padding: 16px 20px;
-  border-bottom: 1px solid rgba(255,255,255,0.06);
+  border-bottom: 1px solid rgba(31, 80, 132, 0.11);
   flex-wrap: wrap;
   gap: 12px;
 }
@@ -253,11 +253,11 @@ onUnmounted(() => {
 .trend-title {
   font-size: 14px;
   font-weight: 700;
-  color: rgba(255,255,255,0.9);
+  color: rgba(22, 41, 63, 0.92);
 }
 .trend-desc {
   font-size: 11px;
-  color: rgba(255,255,255,0.5);
+  color: rgba(22, 41, 63, 0.68);
 }
 
 .trend-controls {
@@ -269,8 +269,8 @@ onUnmounted(() => {
 
 .range-tabs {
   display: flex;
-  background: rgba(255,255,255,0.04);
-  border: 1px solid rgba(255,255,255,0.07);
+  background: rgba(76, 157, 228, 0.04);
+  border: 1px solid rgba(31, 80, 132, 0.13);
   border-radius: 8px;
   padding: 3px;
   gap: 2px;
@@ -280,7 +280,7 @@ onUnmounted(() => {
   padding: 4px 12px;
   font-size: 12px;
   font-weight: 500;
-  color: rgba(255,255,255,0.35);
+  color: rgba(22, 41, 63, 0.47);
   background: transparent;
   border: none;
   border-radius: 6px;
@@ -288,10 +288,10 @@ onUnmounted(() => {
   transition: all 0.15s ease;
   white-space: nowrap;
 }
-.range-tab:hover { color: rgba(255,255,255,0.7); background: rgba(255,255,255,0.05); }
+.range-tab:hover { color: rgba(22, 41, 63, 0.92); background: rgba(22, 41, 63, 0.07); }
 .range-tab.active {
-  color: #5CBDC5;
-  background: rgba(92, 189, 197,0.12);
+  color: #4c9de4;
+  background: rgba(76, 157, 228, 0.12);
   font-weight: 600;
 }
 

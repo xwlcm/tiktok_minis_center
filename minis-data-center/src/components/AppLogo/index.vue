@@ -11,13 +11,13 @@
         <line x1="10.5" y1="15" x2="21.5" y2="15" stroke="white" stroke-width="1.4" stroke-linecap="round" opacity="0.7" />
         <defs>
           <linearGradient id="logo-fill" x1="3.34" y1="3" x2="28.66" y2="29" gradientUnits="userSpaceOnUse">
-            <stop stop-color="#E0486D" />
-            <stop offset="0.5" stop-color="#C44A7A" />
-            <stop offset="1" stop-color="#5CBDC5" />
+            <stop stop-color="#7CC3F0" />
+            <stop offset="0.5" stop-color="#4C9DE4" />
+            <stop offset="1" stop-color="#3285CE" />
           </linearGradient>
           <linearGradient id="logo-stroke" x1="5.84" y1="5.5" x2="26.16" y2="26.5" gradientUnits="userSpaceOnUse">
-            <stop stop-color="#FF6B8A" />
-            <stop offset="1" stop-color="#7DD4DB" />
+            <stop stop-color="#A8CCF0" />
+            <stop offset="1" stop-color="#FFFFFF" />
           </linearGradient>
         </defs>
       </svg>
@@ -77,7 +77,7 @@ const showText = computed(() => !props.collapsed)
   align-items: center;
   justify-content: center;
   line-height: 1;
-  filter: drop-shadow(0 2px 8px rgba(224, 72, 109, 0.25));
+  filter: drop-shadow(0 2px 8px rgba(76, 157, 228, 0.28));
 }
 
 .app-logo__text {
@@ -88,12 +88,12 @@ const showText = computed(() => !props.collapsed)
 
 .app-logo__name {
   font-weight: 700;
-  color: rgba(255, 255, 255, 0.92);
+  color: rgba(22, 41, 63, 0.92);
   letter-spacing: 0.2px;
 }
 
 .app-logo__sub {
-  color: rgba(255, 255, 255, 0.35);
+  color: rgba(22, 41, 63, 0.47);
   letter-spacing: 0.8px;
   text-transform: uppercase;
 }

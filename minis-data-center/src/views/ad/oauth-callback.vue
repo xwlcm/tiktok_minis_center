@@ -144,12 +144,12 @@ onBeforeUnmount(() => {
 }
 .oauth-glow--red {
   width: 400px; height: 400px;
-  background: rgba(224, 72, 109, 0.08);
+  background: rgba(224, 87, 110, 0.08);
   top: -80px; left: -80px;
 }
 .oauth-glow--cyan {
   width: 400px; height: 400px;
-  background: rgba(92, 189, 197, 0.06);
+  background: rgba(76, 157, 228, 0.06);
   bottom: -80px; right: -80px;
 }
 
@@ -167,19 +167,19 @@ onBeforeUnmount(() => {
 .oauth-logo :deep(.app-logo__name) {
   font-size: 18px;
   font-weight: 700;
-  color: rgba(255, 255, 255, 0.88);
+  color: rgba(22, 41, 63, 0.92);
   font-family: var(--mc-font-family);
 }
 .oauth-logo :deep(.app-logo__sub) {
   font-size: 11px;
-  color: rgba(255, 255, 255, 0.30);
+  color: rgba(22, 41, 63, 0.41);
 }
 
 .callback-content {
   padding: 40px;
 }
 .loading-text {
-  color: rgba(255, 255, 255, 0.55);
+  color: rgba(22, 41, 63, 0.74);
   font-size: 14px;
   margin-top: 16px;
   font-family: var(--mc-font-cn);

@@ -63,7 +63,7 @@
         </a-table-column>
         <a-table-column title="解锁" :width="60" align="center">
           <template #cell="{ record }">
-            <icon-check-circle v-if="record.unlockSuccess === 1" style="color: #36D399" />
+            <icon-check-circle v-if="record.unlockSuccess === 1" style="color: #22a06b" />
             <span v-else>—</span>
           </template>
         </a-table-column>
@@ -148,11 +148,11 @@ onActivated(() => loadData())
   display: flex; align-items: flex-start; justify-content: space-between;
   margin-bottom: 20px;
 }
-.page-title { font-size: 18px; font-weight: 700; color: rgba(255,255,255,0.92); }
-.page-subtitle { font-size: 12px; color: rgba(255,255,255,0.35); margin-top: 2px; }
+.page-title { font-size: 18px; font-weight: 700; color: rgba(22, 41, 63, 0.92); }
+.page-subtitle { font-size: 12px; color: rgba(22, 41, 63, 0.47); margin-top: 2px; }
 .filter-bar {
   display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px;
   align-items: center;
 }
-.text-normal { color: rgba(255,255,255,0.3); font-size: 12px; }
+.text-normal { color: rgba(22, 41, 63, 0.41); font-size: 12px; }
 </style>

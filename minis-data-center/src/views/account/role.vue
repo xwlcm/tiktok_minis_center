@@ -60,7 +60,7 @@
       >
         <template #roleName="{ record }">
           <div class="role-cell">
-            <a-avatar :size="28" class="role-avatar" :style="{ background: '#E0486D' }">
+            <a-avatar :size="28" class="role-avatar" :style="{ background: '#4c9de4' }">
               {{ record.roleName?.[0] }}
             </a-avatar>
             <div>
@@ -198,7 +198,7 @@
             <a-button size="mini" @click="handleCheckAll">全选</a-button>
             <a-button size="mini" @click="handleUncheckAll">全不选</a-button>
           </div>
-          <div style="max-height: 300px; overflow-y: auto; border: 1px solid rgba(255,255,255,0.08); border-radius: 6px; padding: 8px">
+          <div style="max-height: 300px; overflow-y: auto; border: 1px solid rgba(22, 41, 63, 0.11); border-radius: 6px; padding: 8px">
             <a-tree
               ref="menuTreeRef"
               :checked-keys="menuCheckedKeys"
@@ -217,17 +217,17 @@
 
         <!-- 步骤 3：应用权限 -->
         <div v-if="wizardStep === 3">
-          <div style="margin-bottom: 12px; color: rgba(255,255,255,0.5); font-size: 12px">
+          <div style="margin-bottom: 12px; color: rgba(22, 41, 63, 0.68); font-size: 12px">
             选择该角色可访问的应用（用户切换应用时需要角色关联）
           </div>
           <a-checkbox-group v-model="appCheckedKeys" direction="vertical">
             <a-checkbox v-for="app in allApps" :key="app.clientKey" :value="app.clientKey">
               <div style="display: flex; align-items: center; gap: 8px">
-                <a-avatar :size="24" shape="square" :style="{ background: '#5CBDC5', fontSize: '11px', fontWeight: 700 }">
+                <a-avatar :size="24" shape="square" :style="{ background: '#4c9de4', fontSize: '11px', fontWeight: 700 }">
                   {{ app.appName[0] }}
                 </a-avatar>
                 <span>{{ app.appName }}</span>
-                <span style="color: rgba(255,255,255,0.3); font-size: 11px">{{ app.clientKey }}</span>
+                <span style="color: rgba(22, 41, 63, 0.41); font-size: 11px">{{ app.clientKey }}</span>
               </div>
             </a-checkbox>
           </a-checkbox-group>
@@ -276,7 +276,7 @@
             <a-select v-model="roleForm.dataScope" :options="dataScopeOptions" />
           </a-form-item>
           <a-form-item v-if="roleForm.dataScope === '2'" field="deptIds" label="部门权限">
-            <div style="max-height: 300px; overflow-y: auto; border: 1px solid rgba(255,255,255,0.08); border-radius: 6px; padding: 8px">
+            <div style="max-height: 300px; overflow-y: auto; border: 1px solid rgba(22, 41, 63, 0.11); border-radius: 6px; padding: 8px">
               <div style="margin-bottom: 8px; display: flex; gap: 12px">
                 <a-checkbox v-model="deptCheckStrictly">父子联动</a-checkbox>
                 <a-button size="mini" @click="handleDeptCheckAll">全选</a-button>
@@ -318,7 +318,7 @@
         <a-button size="mini" @click="handleCheckAll">全选</a-button>
         <a-button size="mini" @click="handleUncheckAll">全不选</a-button>
       </div>
-      <div style="max-height: 400px; overflow-y: auto; border: 1px solid rgba(255,255,255,0.08); border-radius: 6px; padding: 8px">
+      <div style="max-height: 400px; overflow-y: auto; border: 1px solid rgba(22, 41, 63, 0.11); border-radius: 6px; padding: 8px">
         <a-tree
           ref="menuTreeRef"
           :checked-keys="menuCheckedKeys"
@@ -340,17 +340,17 @@
       @ok="handleSubmitApp"
       @cancel="appVisible = false"
     >
-      <div style="margin-bottom: 12px; color: rgba(255,255,255,0.5); font-size: 12px">
+      <div style="margin-bottom: 12px; color: rgba(22, 41, 63, 0.68); font-size: 12px">
         选择该角色可访问的应用（用户切换应用时需要角色关联）
       </div>
       <a-checkbox-group v-model="appCheckedKeys" direction="vertical">
         <a-checkbox v-for="app in allApps" :key="app.clientKey" :value="app.clientKey">
           <div style="display: flex; align-items: center; gap: 8px">
-            <a-avatar :size="24" shape="square" :style="{ background: '#5CBDC5', fontSize: '11px', fontWeight: 700 }">
+            <a-avatar :size="24" shape="square" :style="{ background: '#4c9de4', fontSize: '11px', fontWeight: 700 }">
               {{ app.appName[0] }}
             </a-avatar>
             <span>{{ app.appName }}</span>
-            <span style="color: rgba(255,255,255,0.3); font-size: 11px">{{ app.clientKey }}</span>
+            <span style="color: rgba(22, 41, 63, 0.41); font-size: 11px">{{ app.clientKey }}</span>
           </div>
         </a-checkbox>
       </a-checkbox-group>

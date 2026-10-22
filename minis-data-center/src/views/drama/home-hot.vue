@@ -12,7 +12,7 @@
     </div>
 
     <div class="preview-tip">
-      <icon-fire style="color: #E0486D; font-size: 14px; flex-shrink: 0" />
+      <icon-fire style="color: #4c9de4; font-size: 14px; flex-shrink: 0" />
       <span>热播短剧按排序值展示，启用状态关闭的短剧不会在 App 中展示。建议保持 8-12 部。</span>
     </div>
 
@@ -42,7 +42,7 @@
             style="border-radius: 5px; display: block"
           />
           <div v-else class="cover-placeholder">
-            <icon-video-camera style="font-size: 16px; color: rgba(255,255,255,0.2)" />
+            <icon-video-camera style="font-size: 16px; color: rgba(22, 41, 63, 0.27)" />
           </div>
         </template>
 
@@ -268,8 +268,8 @@ onMounted(loadList)
   width: 56px;
   height: 38px;
   border-radius: 5px;
-  background: rgba(255,255,255,0.04);
-  border: 1px solid rgba(255,255,255,0.08);
+  background: rgba(76, 157, 228, 0.04);
+  border: 1px solid rgba(31, 80, 132, 0.14);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -283,8 +283,8 @@ onMounted(loadList)
   width: 100%;
   min-height: 42px;
   padding: 8px 10px;
-  background: rgba(255,255,255,0.04);
-  border: 1px solid rgba(255,255,255,0.08);
+  background: rgba(76, 157, 228, 0.04);
+  border: 1px solid rgba(31, 80, 132, 0.14);
   border-radius: 8px;
 }
 .selected-drama {
@@ -292,15 +292,15 @@ onMounted(loadList)
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  color: rgba(255,255,255,0.78);
+  color: rgba(22, 41, 63, 0.92);
 }
 
 .page-header {
   display: flex; align-items: flex-start; justify-content: space-between;
   margin-bottom: 16px;
 }
-.page-title { font-size: 18px; font-weight: 700; color: rgba(255,255,255,0.92); }
-.page-subtitle { font-size: 12px; color: rgba(255,255,255,0.35); margin-top: 2px; }
+.page-title { font-size: 18px; font-weight: 700; color: rgba(22, 41, 63, 0.92); }
+.page-subtitle { font-size: 12px; color: rgba(22, 41, 63, 0.47); margin-top: 2px; }
 
 .preview-tip {
   display: flex; align-items: center; gap: 8px;
@@ -309,7 +309,7 @@ onMounted(loadList)
   border: 1px solid rgba(224, 68, 102,0.12);
   border-radius: 8px;
   font-size: 12px;
-  color: rgba(255,255,255,0.50);
+  color: rgba(22, 41, 63, 0.68);
   margin-bottom: 16px;
 }
 
@@ -318,22 +318,22 @@ onMounted(loadList)
   border-radius: 6px;
   display: flex; align-items: center; justify-content: center;
   font-size: 12px; font-weight: 700;
-  background: rgba(255,255,255,0.06);
-  color: rgba(255,255,255,0.40);
+  background: rgba(76, 157, 228, 0.07);
+  color: rgba(22, 41, 63, 0.54);
 }
 .rank-gold   { background: rgba(255,215,0,0.15);  color: #FFD700; }
 .rank-silver { background: rgba(192,192,192,0.15); color: #C0C0C0; }
 .rank-bronze { background: rgba(205,127,50,0.15);  color: #CD7F32; }
 
 .item-info { display: flex; flex-direction: column; gap: 4px; }
-.item-title { font-size: 13px; font-weight: 600; color: rgba(255,255,255,0.85); }
+.item-title { font-size: 13px; font-weight: 600; color: rgba(22, 41, 63, 0.92); }
 
 .sort-cell { display: flex; align-items: center; gap: 6px; }
 .sort-num {
   width: 28px; height: 28px; border-radius: 6px;
-  background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.08);
+  background: rgba(76, 157, 228, 0.07); border: 1px solid rgba(76, 157, 228, 0.09);
   display: flex; align-items: center; justify-content: center;
-  font-size: 13px; font-weight: 600; color: rgba(255,255,255,0.75);
+  font-size: 13px; font-weight: 600; color: rgba(22, 41, 63, 0.92);
 }
 .sort-btns { display: flex; flex-direction: column; gap: 1px; }
 .row-actions { display: flex; gap: 4px; }

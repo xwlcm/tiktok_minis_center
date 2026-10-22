@@ -241,13 +241,13 @@ onMounted(() => loadData())
   display: flex; align-items: flex-start; justify-content: space-between;
   margin-bottom: 20px;
 }
-.page-title { font-size: 18px; font-weight: 700; color: rgba(255,255,255,0.92); }
-.page-subtitle { font-size: 12px; color: rgba(255,255,255,0.35); margin-top: 2px; }
+.page-title { font-size: 18px; font-weight: 700; color: rgba(22, 41, 63, 0.92); }
+.page-subtitle { font-size: 12px; color: rgba(22, 41, 63, 0.47); margin-top: 2px; }
 .header-actions { display: flex; gap: 8px; }
 .config-form { max-width: 900px; }
 .weight-sum { display: flex; align-items: flex-end; padding-bottom: 24px; font-size: 13px; font-weight: 500; }
 .dim-sum { margin-top: 12px; font-size: 13px; font-weight: 500; }
-.sum-ok { color: #36D399; }
-.sum-error { color: #E0486D; }
+.sum-ok { color: #22a06b; }
+.sum-error { color: #E0576E; }
 .w-full { width: 100%; }
 </style>

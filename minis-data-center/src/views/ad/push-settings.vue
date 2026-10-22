@@ -361,7 +361,7 @@ watch(() => appStore.currentClientKey, (newVal) => {
 .form-preview {
   margin-top: 16px;
   padding: 12px 16px;
-  background: var(--mc-bg-elevated, rgba(255,255,255,0.03));
+  background: var(--mc-bg-elevated, rgba(76, 157, 228, 0.04));
   border: 1px solid var(--mc-border);
   border-radius: 8px;
 }

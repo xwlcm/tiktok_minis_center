@@ -78,7 +78,7 @@ function attachHandle(th: HTMLElement) {
   handle.appendChild(bar)
 
   function onMouseEnter() {
-    bar.style.background = 'rgba(255,255,255,0.85)'
+    bar.style.background = 'rgba(22, 41, 63, 0.92)'
   }
   function onMouseLeave() {
     bar.style.background = 'rgba(255,255,255,0)'

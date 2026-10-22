@@ -149,7 +149,7 @@
                 <div :id="'player-' + ep.vid" class="video-player-container" ></div>
               </div>
               <div v-else class="video-locked">
-                <icon-lock style="font-size: 24px; color: rgba(255,255,255,0.2)" />
+                <icon-lock style="font-size: 24px; color: rgba(22, 41, 63, 0.27)" />
                 <span>该集未上传视频</span>
               </div>
               <div class="video-meta">
@@ -194,7 +194,7 @@
               </div>
             </div>
             <div v-else class="cover-placeholder" @click="coverInput?.click()">
-              <icon-plus style="font-size: 24px; color: rgba(255,255,255,0.3)" />
+              <icon-plus style="font-size: 24px; color: rgba(22, 41, 63, 0.41)" />
               <span class="cover-placeholder-hint">点击上传封面</span>
             </div>
             <div v-if="coverUploading" class="cover-loading">
@@ -806,8 +806,8 @@ onUnmounted(() => {
 
 .info-card,
 .episodes-card {
-  background: #12151F;
-  border: 1px solid rgba(255,255,255,0.07);
+  background: #ffffff;
+  border: 1px solid rgba(31, 80, 132, 0.13);
   border-radius: 12px;
   overflow: hidden;
 }
@@ -816,9 +816,9 @@ onUnmounted(() => {
   padding: 14px 20px;
   font-size: 13px;
   font-weight: 600;
-  color: rgba(255,255,255,0.75);
-  border-bottom: 1px solid rgba(255,255,255,0.07);
-  background: rgba(255,255,255,0.02);
+  color: rgba(22, 41, 63, 0.92);
+  border-bottom: 1px solid rgba(31, 80, 132, 0.13);
+  background: rgba(76, 157, 228, 0.04);
 }
 
 .info-grid {
@@ -883,12 +883,12 @@ onUnmounted(() => {
   color: var(--mc-text-secondary);
 }
 .rule-summary strong {
-  color: #5CBDC5;
+  color: #4c9de4;
   font-weight: 600;
 }
 .rule-formula {
   font-size: 11px;
-  color: rgba(92,189,197,0.6);
+  color: rgba(76, 157, 228, 0.6);
   font-family: 'SF Mono', 'Fira Code', monospace;
   margin-top: 4px;
 }
@@ -909,21 +909,21 @@ onUnmounted(() => {
   padding: 5px 12px;
   font-size: 12px;
   font-weight: 500;
-  color: rgba(255,255,255,0.40);
-  background: rgba(255,255,255,0.04);
-  border: 1px solid rgba(255,255,255,0.08);
+  color: rgba(22, 41, 63, 0.54);
+  background: rgba(76, 157, 228, 0.04);
+  border: 1px solid rgba(31, 80, 132, 0.14);
   border-radius: 6px;
   cursor: pointer;
   transition: all 0.15s;
 }
 .episode-tab:hover {
-  border-color: rgba(92, 189, 197,0.35);
-  color: #5CBDC5;
+  border-color: rgba(76, 157, 228, 0.35);
+  color: #4c9de4;
 }
 .episode-tab.active {
-  background: #5CBDC5;
-  border-color: #5CBDC5;
-  color: #08090E;
+  background: #4c9de4;
+  border-color: #4c9de4;
+  color: #f1f6fd;
 }
 .episode-tab.free {
   border-color: rgba(54,211,153,0.3);
@@ -934,7 +934,7 @@ onUnmounted(() => {
   right: -4px;
   font-size: 9px;
   font-weight: 700;
-  background: #36D399;
+  background: #22a06b;
   color: #fff;
   width: 14px;
   height: 14px;
@@ -947,7 +947,7 @@ onUnmounted(() => {
 .player-wrap {
   border-radius: var(--mc-radius-md);
   overflow: hidden;
-  background: #08090E;
+  background: #f1f6fd;
 }
 
 .video-player {
@@ -961,7 +961,7 @@ onUnmounted(() => {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #0a0b0f;
+  background: #f1f6fd;
 }
 
 .video-player-container {
@@ -984,18 +984,18 @@ onUnmounted(() => {
   transition: background 0.2s;
 }
 .video-play-trigger:hover {
-  background: rgba(92,189,197,0.05);
+  background: rgba(76, 157, 228, 0.05);
 }
 .video-play-trigger:hover .play-icon-wrap {
   transform: scale(1.1);
-  background: rgba(92,189,197,0.3);
+  background: rgba(76, 157, 228, 0.3);
 }
 
 .play-icon-wrap {
   width: 64px;
   height: 64px;
   border-radius: 50%;
-  background: rgba(255,255,255,0.1);
+  background: rgba(76, 157, 228, 0.11);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1003,11 +1003,11 @@ onUnmounted(() => {
 }
 .play-hint {
   font-size: 13px;
-  color: rgba(255,255,255,0.5);
+  color: rgba(22, 41, 63, 0.68);
 }
 .play-vid {
   font-size: 11px;
-  color: rgba(255,255,255,0.25);
+  color: rgba(22, 41, 63, 0.34);
   font-family: 'SF Mono', 'Fira Code', monospace;
 }
 
@@ -1017,7 +1017,7 @@ onUnmounted(() => {
   justify-content: center;
   gap: 8px;
   height: 200px;
-  color: rgba(255,255,255,0.25);
+  color: rgba(22, 41, 63, 0.34);
   font-size: 14px;
 }
 
@@ -1026,9 +1026,9 @@ onUnmounted(() => {
   align-items: center;
   justify-content: space-between;
   padding: 8px 12px;
-  background: #0E1018;
+  background: #f8fbff;
   font-size: 12px;
-  color: rgba(255,255,255,0.35);
+  color: rgba(22, 41, 63, 0.47);
 }
 .meta-left {
   display: flex;
@@ -1058,16 +1058,16 @@ onUnmounted(() => {
 .cover-img { width: 100%; height: 100%; object-fit: cover; }
 .cover-actions { position: absolute; top: 4px; right: 4px; }
 .cover-placeholder {
-  width: 100%; height: 100%; border: 1px dashed rgba(255,255,255,0.15);
+  width: 100%; height: 100%; border: 1px dashed rgba(22, 41, 63, 0.2);
   border-radius: 8px; display: flex; flex-direction: column;
   align-items: center; justify-content: center; gap: 6px; cursor: pointer;
 }
-.cover-placeholder:hover { border-color: rgba(255,255,255,0.3); }
-.cover-placeholder-hint { font-size: 11px; color: rgba(255,255,255,0.3); }
+.cover-placeholder:hover { border-color: rgba(22, 41, 63, 0.41); }
+.cover-placeholder-hint { font-size: 11px; color: rgba(22, 41, 63, 0.41); }
 .cover-loading {
   position: absolute; inset: 0; background: rgba(0,0,0,0.6);
   display: flex; flex-direction: column; align-items: center;
   justify-content: center; gap: 6px; border-radius: 8px;
-  font-size: 12px; color: rgba(255,255,255,0.7);
+  font-size: 12px; color: rgba(22, 41, 63, 0.92);
 }
 </style>

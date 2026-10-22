@@ -271,9 +271,9 @@ const day0RoasCounter = useCountUp(() => overview.day0Roas ?? 0, 600, (v) => Num
 const day13RoasCounter = useCountUp(() => overview.day13Roas ?? 0, 600, (v) => Number(v).toFixed(2))
 
 const summaryCards = computed(() => [
-  { key: 'spend', label: '总消耗', display: spendCounter.formatted.value, icon: IconTrophy, accent: '#E0486D' },
-  { key: 'day0Roas', label: 'D0 ROAS', display: day0RoasCounter.formatted.value, icon: IconTrophy, accent: '#F0A040' },
-  { key: 'day13Roas', label: 'D13 ROAS', display: day13RoasCounter.formatted.value, icon: IconTrophy, accent: '#F0A040' },
+  { key: 'spend', label: '总消耗', display: spendCounter.formatted.value, icon: IconTrophy, accent: '#4c9de4' },
+  { key: 'day0Roas', label: 'D0 ROAS', display: day0RoasCounter.formatted.value, icon: IconTrophy, accent: '#db8a24' },
+  { key: 'day13Roas', label: 'D13 ROAS', display: day13RoasCounter.formatted.value, icon: IconTrophy, accent: '#db8a24' },
 ])
 
 
@@ -358,13 +358,13 @@ function renderTrendChart() {
     backgroundColor: 'transparent',
     tooltip: {
       trigger: 'axis',
-      axisPointer: { type: 'cross', crossStyle: { color: 'rgba(255,255,255,0.15)' } },
-      backgroundColor: '#1C1F2B',
-      borderColor: 'rgba(255,255,255,0.10)',
+      axisPointer: { type: 'cross', crossStyle: { color: 'rgba(22, 41, 63, 0.2)' } },
+      backgroundColor: '#ffffff',
+      borderColor: 'rgba(31, 80, 132, 0.18)',
       borderWidth: 1,
       padding: [10, 14],
-      textStyle: { color: 'rgba(255,255,255,0.85)', fontSize: 12 },
-      extraCssText: 'box-shadow: 0 8px 32px rgba(0,0,0,0.6); border-radius: 10px;',
+      textStyle: { color: 'rgba(22, 41, 63, 0.92)', fontSize: 12 },
+      extraCssText: 'box-shadow: 0 8px 32px rgba(23, 54, 92, 0.39); border-radius: 10px;',
     },
     legend: {
       data: ['消耗', 'ROAS'],
@@ -372,7 +372,7 @@ function renderTrendChart() {
       itemWidth: 16,
       itemHeight: 3,
       itemGap: 24,
-      textStyle: { color: 'rgba(255,255,255,0.40)', fontSize: 11 },
+      textStyle: { color: 'rgba(22, 41, 63, 0.54)', fontSize: 11 },
       icon: 'roundRect',
     },
     grid: { left: 56, right: 56, top: 20, bottom: 48 },
@@ -380,9 +380,9 @@ function renderTrendChart() {
       type: 'category',
       data: dates,
       boundaryGap: true,
-      axisLine: { lineStyle: { color: 'rgba(255,255,255,0.07)' } },
+      axisLine: { lineStyle: { color: 'rgba(22, 41, 63, 0.09)' } },
       axisTick: { show: false },
-      axisLabel: { color: 'rgba(255,255,255,0.30)', fontSize: 11 },
+      axisLabel: { color: 'rgba(22, 41, 63, 0.41)', fontSize: 11 },
       splitLine: { show: false },
     },
     yAxis: [
@@ -390,20 +390,20 @@ function renderTrendChart() {
         type: 'value',
         name: '消耗 ($)',
         position: 'left',
-        nameTextStyle: { color: 'rgba(255,255,255,0.25)', fontSize: 10 },
+        nameTextStyle: { color: 'rgba(22, 41, 63, 0.34)', fontSize: 10 },
         axisLine: { show: false },
         axisTick: { show: false },
-        axisLabel: { color: 'rgba(255,255,255,0.25)', fontSize: 10, formatter: '${value}' },
-        splitLine: { lineStyle: { color: 'rgba(255,255,255,0.06)', type: 'dashed' } },
+        axisLabel: { color: 'rgba(22, 41, 63, 0.34)', fontSize: 10, formatter: '${value}' },
+        splitLine: { lineStyle: { color: 'rgba(22, 41, 63, 0.08)', type: 'dashed' } },
       },
       {
         type: 'value',
         name: 'ROAS',
         position: 'right',
-        nameTextStyle: { color: 'rgba(255,255,255,0.25)', fontSize: 10 },
+        nameTextStyle: { color: 'rgba(22, 41, 63, 0.34)', fontSize: 10 },
         axisLine: { show: false },
         axisTick: { show: false },
-        axisLabel: { color: 'rgba(255,255,255,0.25)', fontSize: 10 },
+        axisLabel: { color: 'rgba(22, 41, 63, 0.34)', fontSize: 10 },
         splitLine: { show: false },
       },
     ],
@@ -414,7 +414,7 @@ function renderTrendChart() {
         yAxisIndex: 0,
         data: spends,
         barWidth: '40%',
-        itemStyle: { color: 'rgba(92,189,197,0.6)', borderRadius: [3, 3, 0, 0] },
+        itemStyle: { color: 'rgba(76, 157, 228, 0.6)', borderRadius: [3, 3, 0, 0] },
       },
       {
         name: 'ROAS',
@@ -424,15 +424,15 @@ function renderTrendChart() {
         smooth: 0.4,
         symbol: 'circle',
         symbolSize: 5,
-        lineStyle: { color: '#E0486D', width: 2 },
-        itemStyle: { color: '#E0486D' },
+        lineStyle: { color: '#4c9de4', width: 2 },
+        itemStyle: { color: '#4c9de4' },
         areaStyle: {
           color: {
             type: 'linear',
             x: 0, y: 0, x2: 0, y2: 1,
             colorStops: [
-              { offset: 0, color: 'rgba(224,72,109,0.20)' },
-              { offset: 1, color: 'rgba(224,72,109,0.00)' },
+              { offset: 0, color: 'rgba(76, 157, 228, 0.20)' },
+              { offset: 1, color: 'rgba(76, 157, 228, 0.00)' },
             ],
           },
         },
@@ -730,12 +730,12 @@ onUnmounted(() => {
 .page-title {
   font-size: 18px;
   font-weight: 700;
-  color: rgba(255, 255, 255, 0.92);
+  color: rgba(22, 41, 63, 0.92);
 }
 
 .page-subtitle {
   font-size: 12px;
-  color: rgba(255, 255, 255, 0.35);
+  color: rgba(22, 41, 63, 0.47);
   margin-top: 2px;
 }
 
@@ -747,8 +747,8 @@ onUnmounted(() => {
   flex-wrap: wrap;
   margin-bottom: 20px;
   padding: 16px 20px;
-  background: #12151F;
-  border: 1px solid rgba(255, 255, 255, 0.07);
+  background: #ffffff;
+  border: 1px solid rgba(31, 80, 132, 0.13);
   border-radius: 10px;
 }
 
@@ -840,8 +840,8 @@ onUnmounted(() => {
   align-items: center;
   gap: 14px;
   padding: 18px 20px;
-  background: #12151F;
-  border: 1px solid rgba(255, 255, 255, 0.07);
+  background: #ffffff;
+  border: 1px solid rgba(31, 80, 132, 0.13);
   border-radius: 10px;
   position: relative;
   overflow: hidden;
@@ -879,20 +879,20 @@ onUnmounted(() => {
 
 .summary-label {
   font-size: 12px;
-  color: rgba(255, 255, 255, 0.35);
+  color: rgba(22, 41, 63, 0.47);
   margin-bottom: 4px;
 }
 
 .summary-value {
   font-size: 22px;
   font-weight: 700;
-  color: rgba(255, 255, 255, 0.92);
+  color: rgba(22, 41, 63, 0.92);
   font-variant-numeric: tabular-nums;
 }
 
 .chart-section {
-  background: #12151F;
-  border: 1px solid rgba(255, 255, 255, 0.07);
+  background: #ffffff;
+  border: 1px solid rgba(31, 80, 132, 0.13);
   border-radius: 10px;
   padding: 20px;
   margin-bottom: 20px;
@@ -909,14 +909,14 @@ onUnmounted(() => {
   left: 0;
   right: 0;
   height: 1px;
-  background: linear-gradient(90deg, #E0486D, #5CBDC5);
+  background: linear-gradient(90deg, #4c9de4, #4c9de4);
   opacity: 0.5;
 }
 
 .section-title {
   font-size: 14px;
   font-weight: 600;
-  color: rgba(255, 255, 255, 0.92);
+  color: rgba(22, 41, 63, 0.92);
   margin-bottom: 16px;
 }
 
@@ -933,8 +933,8 @@ onUnmounted(() => {
 }
 
 .table-card {
-  background: #12151F;
-  border: 1px solid rgba(255, 255, 255, 0.07);
+  background: #ffffff;
+  border: 1px solid rgba(31, 80, 132, 0.13);
   border-radius: 10px;
   overflow-x: auto;
   overflow-y: hidden;
@@ -947,54 +947,54 @@ onUnmounted(() => {
 }
 
 .roas-good {
-  color: #36D399;
+  color: #22a06b;
   font-weight: 600;
 }
 
 .roas-bad {
-  color: #E0486D;
+  color: #E0576E;
   font-weight: 600;
 }
 
 :deep(.arco-table) {
   --arco-table-bg: transparent;
   --arco-table-tr-bg: transparent;
-  --arco-table-td-color: rgba(255, 255, 255, 0.60);
-  --arco-table-th-color: rgba(255, 255, 255, 0.35);
-  --arco-table-border-color: rgba(255, 255, 255, 0.06);
+  --arco-table-td-color: rgba(22, 41, 63, 0.81);
+  --arco-table-th-color: rgba(22, 41, 63, 0.47);
+  --arco-table-border-color: rgba(22, 41, 63, 0.08);
 }
 
 :deep(.arco-table-th) {
-  background: rgba(255, 255, 255, 0.03) !important;
+  background: rgba(76, 157, 228, 0.04) !important;
 }
 
 :deep(.arco-table-tr:hover .arco-table-td) {
-  background: rgba(255, 255, 255, 0.03) !important;
+  background: rgba(76, 157, 228, 0.04) !important;
 }
 
 :deep(.arco-pagination) {
-  --arco-pagination-color: rgba(255, 255, 255, 0.60);
+  --arco-pagination-color: rgba(22, 41, 63, 0.81);
 }
 
 :deep(.arco-spin-dot-item) {
-  background: #5CBDC5;
+  background: #4c9de4;
 }
 
 :deep(.arco-picker) {
-  --arco-picker-bg: #12151F;
-  --arco-picker-color: rgba(255, 255, 255, 0.92);
-  border-color: rgba(255, 255, 255, 0.12);
+  --arco-picker-bg: #ffffff;
+  --arco-picker-color: rgba(22, 41, 63, 0.92);
+  border-color: rgba(31, 80, 132, 0.22);
 }
 
 :deep(.arco-select-view-single) {
-  --arco-select-view-bg: #12151F;
-  --arco-select-view-color: rgba(255, 255, 255, 0.92);
-  border-color: rgba(255, 255, 255, 0.12);
+  --arco-select-view-bg: #ffffff;
+  --arco-select-view-color: rgba(22, 41, 63, 0.92);
+  border-color: rgba(31, 80, 132, 0.22);
 }
 
 :deep(.arco-input-wrapper) {
-  --arco-input-bg: #12151F;
-  --arco-input-color: rgba(255, 255, 255, 0.92);
-  border-color: rgba(255, 255, 255, 0.12);
+  --arco-input-bg: #ffffff;
+  --arco-input-color: rgba(22, 41, 63, 0.92);
+  border-color: rgba(31, 80, 132, 0.22);
 }
 </style>

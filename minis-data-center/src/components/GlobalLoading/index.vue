@@ -43,16 +43,16 @@ watch(() => loadingStore.progress, (val) => {
   height: 100%;
   background: linear-gradient(
     90deg,
-    #5CBDC5 0%,
-    #E0486D 50%,
-    #5CBDC5 100%
+    #4c9de4 0%,
+    #4c9de4 50%,
+    #4c9de4 100%
   );
   background-size: 200% 100%;
   animation: tiktok-shimmer 1.2s linear infinite;
   border-radius: 0 2px 2px 0;
   box-shadow:
-    0 0 8px rgba(224, 72, 109, 0.5),
-    0 0 16px rgba(92, 189, 197, 0.3);
+    0 0 8px rgba(76, 157, 228, 0.5),
+    0 0 16px rgba(76, 157, 228, 0.3);
   transition:
     width 0.1s linear,
     opacity 0.25s ease,
@@ -61,10 +61,10 @@ watch(() => loadingStore.progress, (val) => {
 }
 
 .tiktok-bar--complete {
-  background: #5CBDC5;
+  background: #4c9de4;
   box-shadow:
-    0 0 12px rgba(92, 189, 197, 0.6),
-    0 0 24px rgba(92, 189, 197, 0.3);
+    0 0 12px rgba(76, 157, 228, 0.6),
+    0 0 24px rgba(76, 157, 228, 0.3);
   animation: none;
 }
 

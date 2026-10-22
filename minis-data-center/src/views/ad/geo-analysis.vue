@@ -68,7 +68,7 @@ async function loadData() {
           tooltip: { trigger: 'axis' },
           xAxis: { type: 'category', data: top10.map((r: any) => r.countryCode) },
           yAxis: { type: 'value', name: '消耗 ($)' },
-          series: [{ name: '消耗', type: 'bar', data: top10.map((r: any) => Number(r.spend || 0).toFixed(2)), itemStyle: { color: '#5CBDC5' } }],
+          series: [{ name: '消耗', type: 'bar', data: top10.map((r: any) => Number(r.spend || 0).toFixed(2)), itemStyle: { color: '#4c9de4' } }],
         })
       })
     })

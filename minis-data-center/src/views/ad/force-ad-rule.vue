@@ -772,7 +772,7 @@ onMounted(() => {
 }
 .far-add-btn {
   border-radius: 8px;
-  background: linear-gradient(135deg, #e0486d 0%, #b8365a 100%);
+  background: linear-gradient(135deg, #4c9de4 0%, #c9465d 100%);
   border: none;
 }
 .far-add-btn:hover {
@@ -798,7 +798,7 @@ onMounted(() => {
 }
 .stat-card:hover {
   transform: translateY(-2px);
-  box-shadow: var(--mc-shadow-sm, 0 4px 12px rgba(0, 0, 0, 0.25));
+  box-shadow: var(--mc-shadow-sm, 0 4px 12px rgba(23, 54, 92, 0.163));
 }
 .stat-icon {
   display: flex;
@@ -810,8 +810,8 @@ onMounted(() => {
   font-size: 18px;
 }
 .stat-icon--total {
-  color: #5cbdc5;
-  background: rgba(92, 189, 197, 0.12);
+  color: #4c9de4;
+  background: rgba(76, 157, 228, 0.12);
 }
 .stat-icon--on {
   color: #23c343;
@@ -822,7 +822,7 @@ onMounted(() => {
   background: rgba(255, 125, 0, 0.12);
 }
 .stat-icon--app {
-  color: #9b7ec4;
+  color: #7b8fe0;
   background: rgba(155, 126, 196, 0.12);
 }
 .stat-num {
@@ -896,7 +896,7 @@ onMounted(() => {
 
 /* ── 弹窗分区卡片 ── */
 .block-card {
-  background: var(--mc-bg-page, rgba(255, 255, 255, 0.02));
+  background: var(--mc-bg-page, rgba(76, 157, 228, 0.04));
   border: 1px solid var(--mc-border);
   border-radius: var(--mc-radius-md);
   padding: 14px 16px 4px;
@@ -915,7 +915,7 @@ onMounted(() => {
   width: 22px;
   height: 22px;
   border-radius: 6px;
-  background: linear-gradient(135deg, #e0486d 0%, #b8365a 100%);
+  background: linear-gradient(135deg, #e0576e 0%, #c9465d 100%);
   color: #fff;
   font-size: 12px;
   font-weight: 700;
@@ -980,8 +980,8 @@ onMounted(() => {
   background: #86909c;
 }
 .scene-dot--cfg {
-  background: #5cbdc5;
-  box-shadow: 0 0 6px rgba(92, 189, 197, 0.5);
+  background: #4c9de4;
+  box-shadow: 0 0 6px rgba(76, 157, 228, 0.5);
 }
 
 .scene-body {
@@ -1025,7 +1025,7 @@ onMounted(() => {
   width: 20px;
   height: 20px;
   border-radius: 5px;
-  background: rgba(92, 189, 197, 0.15);
+  background: rgba(76, 157, 228, 0.15);
   color: var(--mc-primary);
   font-size: 11px;
   font-weight: 700;

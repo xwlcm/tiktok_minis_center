@@ -26,7 +26,7 @@
             style="border-radius: 4px; display: block"
           />
           <div v-else class="cover-placeholder">
-            <icon-video-camera style="font-size: 18px; color: rgba(255, 255, 255, 0.2)" />
+            <icon-video-camera style="font-size: 18px; color: rgba(22, 41, 63, 0.27)" />
           </div>
         </template>
         <template #name="{ record }">
@@ -132,8 +132,8 @@ onMounted(fetchList);
   width: 56px;
   height: 38px;
   border-radius: 4px;
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(76, 157, 228, 0.04);
+  border: 1px solid rgba(31, 80, 132, 0.14);
   display: flex;
   align-items: center;
   justify-content: center;

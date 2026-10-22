@@ -217,7 +217,7 @@ watch(() => appStore.currentClientKey, (newVal) => {
 .page-subtitle { font-size: 12px; color: var(--mc-text-tertiary); margin-top: 2px; }
 .table-card { background: var(--mc-bg-card); border: 1px solid var(--mc-border); border-radius: var(--mc-radius-md); overflow: clip; }
 .ad-name { font-size: 13px; font-weight: 600; color: var(--mc-text-primary); }
-.type-badge { font-size: 12px; font-weight: 500; color: #5CBDC5; }
+.type-badge { font-size: 12px; font-weight: 500; color: #4c9de4; }
 .ad-unit-id { font-size: 11px; color: var(--mc-text-tertiary); font-family: monospace; }
 .row-actions { display: flex; gap: 4px; }
 </style>

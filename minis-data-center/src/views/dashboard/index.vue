@@ -128,7 +128,7 @@ onUnmounted(() => {
   margin: 0;
   font-size: 22px;
   font-weight: 800;
-  color: rgba(255,255,255,0.92);
+  color: rgba(22, 41, 63, 0.92);
   letter-spacing: -0.5px;
 }
 
@@ -143,16 +143,16 @@ onUnmounted(() => {
   align-items: center;
   gap: 6px;
   padding: 4px 10px;
-  background: rgba(255,255,255,0.05);
-  border: 1px solid rgba(255,255,255,0.08);
+  background: rgba(76, 157, 228, 0.06);
+  border: 1px solid rgba(31, 80, 132, 0.14);
   border-radius: 20px;
   font-size: 12px;
-  color: rgba(255,255,255,0.5);
+  color: rgba(22, 41, 63, 0.68);
 }
 .dash-app-dot {
   width: 5px; height: 5px;
   border-radius: 50%;
-  background: #36D399;
+  background: #22a06b;
   box-shadow: 0 0 6px rgba(54, 211, 153,0.6);
 }
 
@@ -164,19 +164,19 @@ onUnmounted(() => {
   letter-spacing: 0.5px;
 }
 .dash-type-badge--iaa {
-  background: rgba(92, 189, 197, 0.12);
-  color: #5CBDC5;
-  border: 1px solid rgba(92, 189, 197, 0.25);
+  background: rgba(76, 157, 228, 0.12);
+  color: #4c9de4;
+  border: 1px solid rgba(76, 157, 228, 0.25);
 }
 .dash-type-badge--iap {
   background: rgba(240, 160, 64, 0.12);
-  color: #F0A040;
+  color: #db8a24;
   border: 1px solid rgba(240, 160, 64, 0.25);
 }
 .dash-type-badge--iaa_iap {
-  background: rgba(224, 72, 109, 0.12);
-  color: #E0486D;
-  border: 1px solid rgba(224, 72, 109, 0.25);
+  background: rgba(224, 87, 110, 0.12);
+  color: #E0576E;
+  border: 1px solid rgba(224, 87, 110, 0.25);
 }
 
 .dash-live-badge {
@@ -184,19 +184,19 @@ onUnmounted(() => {
   align-items: center;
   gap: 6px;
   padding: 5px 12px;
-  background: rgba(224, 72, 109,0.08);
-  border: 1px solid rgba(224, 72, 109,0.2);
+  background: rgba(224, 87, 110,0.08);
+  border: 1px solid rgba(224, 87, 110,0.2);
   border-radius: 20px;
   font-size: 11px;
   font-weight: 600;
-  color: #E0486D;
+  color: #E0576E;
   letter-spacing: 0.3px;
 }
 .dash-live-dot {
   width: 5px; height: 5px;
   border-radius: 50%;
-  background: #E0486D;
-  box-shadow: 0 0 6px rgba(224, 72, 109,0.8);
+  background: #4c9de4;
+  box-shadow: 0 0 6px rgba(76, 157, 228, 0.8);
   animation: pulse 1.5s ease-in-out infinite;
 }
 @keyframes pulse {
@@ -210,7 +210,7 @@ onUnmounted(() => {
   gap: 8px;
   font-size: 11px;
   font-weight: 700;
-  color: rgba(255,255,255,0.35);
+  color: rgba(22, 41, 63, 0.47);
   text-transform: uppercase;
   letter-spacing: 1px;
   margin-bottom: 12px;
@@ -219,8 +219,8 @@ onUnmounted(() => {
   display: inline-block;
   width: 3px; height: 12px;
   border-radius: 2px;
-  background: #5CBDC5;
-  box-shadow: 0 0 8px rgba(92, 189, 197,0.6);
+  background: #4c9de4;
+  box-shadow: 0 0 8px rgba(76, 157, 228, 0.6);
 }
 
 .dashboard-body {

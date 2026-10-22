@@ -36,11 +36,11 @@
             <span class="layer-desc">小程序启动 → 进入 → 到达</span>
           </template>
           <div class="metrics-grid metrics-grid-3">
-            <div class="metric-card" style="--accent: #5CBDC5">
+            <div class="metric-card" style="--accent: #4c9de4">
               <div class="metric-label">小程序启动数</div>
               <div class="metric-value">{{ launchFmt }}</div>
             </div>
-            <div class="metric-card" style="--accent: #5CBDC5">
+            <div class="metric-card" style="--accent: #4c9de4">
               <div class="metric-label">成功进入量 PV/UV</div>
               <div class="metric-value">{{ entryPvFmt }}</div>
               <div class="metric-sub">UV: {{ entryUvFmt }}</div>
@@ -52,7 +52,7 @@
                 :percent="Number(arrivalRate) || 0"
                 :show-text="false"
                 :color="arrivalRateColor"
-                track-color="rgba(255,255,255,0.06)"
+                track-color="rgba(22, 41, 63, 0.08)"
                 size="small"
                 style="margin-top: 8px"
               />
@@ -66,7 +66,7 @@
             <span class="layer-desc">新增用户 → 活跃 → 流失</span>
           </template>
           <div class="metrics-grid metrics-grid-2">
-            <div class="metric-card" style="--accent: #5CBDC5">
+            <div class="metric-card" style="--accent: #4c9de4">
               <div class="metric-label">新增用户数/UV</div>
               <div class="metric-value">{{ newUsersFmt }}</div>
             </div>
@@ -77,7 +77,7 @@
                 :percent="Number(bounceRate) || 0"
                 :show-text="false"
                 :color="bounceRateColor"
-                track-color="rgba(255,255,255,0.06)"
+                track-color="rgba(22, 41, 63, 0.08)"
                 size="small"
                 style="margin-top: 8px"
               />
@@ -91,23 +91,23 @@
             <span class="layer-desc">播放 → 观看 → 解锁</span>
           </template>
           <div class="metrics-grid metrics-grid-3">
-            <div class="metric-card" style="--accent: #5CBDC5">
+            <div class="metric-card" style="--accent: #4c9de4">
               <div class="metric-label">播放量 PV/UV</div>
               <div class="metric-value">{{ playPvFmt }}</div>
               <div class="metric-sub">UV: {{ playUvFmt }}</div>
             </div>
-            <div class="metric-card" style="--accent: #F0A040">
+            <div class="metric-card" style="--accent: #db8a24">
               <div class="metric-label">人均观看时长</div>
               <div class="metric-value">{{ formatDurationDisplay(avgWatchDuration) }}</div>
             </div>
-            <div class="metric-card" style="--accent: #9B7EC4">
+            <div class="metric-card" style="--accent: #7b8fe0">
               <div class="metric-label">卡点解锁到达率</div>
               <div class="metric-value">{{ sf(unlockGateRate) }}%</div>
               <a-progress
                 :percent="Number(unlockGateRate) || 0"
                 :show-text="false"
-                color="#9B7EC4"
-                track-color="rgba(255,255,255,0.06)"
+                color="#7b8fe0"
+                track-color="rgba(22, 41, 63, 0.08)"
                 size="small"
                 style="margin-top: 8px"
               />
@@ -125,11 +125,11 @@
             <span class="layer-desc">广告请求 → 填充 → 展现 → 收入</span>
           </template>
           <div class="metrics-grid metrics-grid-4x2">
-            <div class="metric-card" style="--accent: #5CBDC5">
+            <div class="metric-card" style="--accent: #4c9de4">
               <div class="metric-label">广告请求量</div>
               <div class="metric-value">{{ adReqFmt }}</div>
             </div>
-            <div class="metric-card" style="--accent: #5CBDC5">
+            <div class="metric-card" style="--accent: #4c9de4">
               <div class="metric-label">广告填充量</div>
               <div class="metric-value">{{ adFillFmt }}</div>
             </div>
@@ -140,32 +140,32 @@
                 :percent="Number(adFillRate) || 0"
                 :show-text="false"
                 :color="fillRateColor"
-                track-color="rgba(255,255,255,0.06)"
+                track-color="rgba(22, 41, 63, 0.08)"
                 size="small"
                 style="margin-top: 8px"
               />
             </div>
-            <div class="metric-card" style="--accent: #5CBDC5">
+            <div class="metric-card" style="--accent: #4c9de4">
               <div class="metric-label">广告展现量/完播数</div>
               <div class="metric-value">{{ adImpFmt }}</div>
               <div class="metric-sub">完播: {{ adCompFmt }}</div>
             </div>
-            <div class="metric-card" style="--accent: #36D399">
+            <div class="metric-card" style="--accent: #22a06b">
               <div class="metric-label">广告展现率</div>
               <div class="metric-value">{{ sf(adImpressionRate) }}%</div>
             </div>
-            <div class="metric-card" style="--accent: #F0A040">
+            <div class="metric-card" style="--accent: #db8a24">
               <div class="metric-label">人均广告观看次数</div>
               <div class="metric-value">{{ sf(avgAdViewsPerUser) }}</div>
               <a-tooltip content="大盘参考: 7-8次">
                 <div class="metric-ref">大盘: 7-8次</div>
               </a-tooltip>
             </div>
-            <div class="metric-card" style="--accent: #9B7EC4">
+            <div class="metric-card" style="--accent: #7b8fe0">
               <div class="metric-label">eCPM</div>
               <div class="metric-value">${{ sf(ecpm, 2) }}</div>
             </div>
-            <div class="metric-card" style="--accent: #36D399">
+            <div class="metric-card" style="--accent: #22a06b">
               <div class="metric-label">广告变现总收入</div>
               <div class="metric-value">{{ revenueFmt }}</div>
             </div>
@@ -652,13 +652,13 @@ const revenueFmt = useMetric(
 )
 
 const arrivalRateColor = computed(() =>
-  arrivalRate.value > 50 ? '#36D399' : arrivalRate.value < 30 ? '#E0486D' : '#F0A040',
+  arrivalRate.value > 50 ? '#22a06b' : arrivalRate.value < 30 ? '#4c9de4' : '#db8a24',
 )
 const bounceRateColor = computed(() =>
-  bounceRate.value > 40 ? '#E0486D' : bounceRate.value < 20 ? '#36D399' : '#F0A040',
+  bounceRate.value > 40 ? '#4c9de4' : bounceRate.value < 20 ? '#22a06b' : '#db8a24',
 )
 const fillRateColor = computed(() =>
-  adFillRate.value > 70 ? '#36D399' : adFillRate.value < 50 ? '#E0486D' : '#F0A040',
+  adFillRate.value > 70 ? '#22a06b' : adFillRate.value < 50 ? '#4c9de4' : '#db8a24',
 )
 
 function addDays(dateText: string, days: number): string {
@@ -1032,7 +1032,7 @@ function onHistoryPageSizeChange(pageSize: number) {
 }
 
 const chartTextColor = '#9CA3AF'
-const chartGridColor = 'rgba(255,255,255,0.06)'
+const chartGridColor = 'rgba(22, 41, 63, 0.08)'
 
 function renderChurnChart() {
   if (!churnChartRef.value || !churnData.value.length) return
@@ -1066,7 +1066,7 @@ function renderChurnChart() {
       label: { show: true, position: 'inside', color: '#fff', fontSize: 12 },
       itemStyle: {
         borderColor: 'transparent',
-        color: (params: any) => params.dataIndex === maxDropIdx ? '#E0486D' : '#5CBDC5',
+        color: (params: any) => params.dataIndex === maxDropIdx ? '#4c9de4' : '#4c9de4',
       },
       data: data.map((d: any) => ({
         name: `第${d.episode ?? d.episodeNumber}集`,
@@ -1110,14 +1110,14 @@ function renderFillRateChart() {
       type: 'line',
       data: values,
       smooth: true,
-      lineStyle: { color: '#5CBDC5' },
-      itemStyle: { color: '#5CBDC5' },
-      areaStyle: { color: 'rgba(92,189,197,0.1)' },
+      lineStyle: { color: '#4c9de4' },
+      itemStyle: { color: '#4c9de4' },
+      areaStyle: { color: 'rgba(76, 157, 228, 0.1)' },
       markLine: {
         silent: true,
-        lineStyle: { color: '#E0486D', type: 'dashed' },
+        lineStyle: { color: '#4c9de4', type: 'dashed' },
         data: [{ yAxis: 70 }],
-        label: { color: '#E0486D', fontSize: 10, formatter: '70%' },
+        label: { color: '#4c9de4', fontSize: 10, formatter: '70%' },
       },
     }],
   }, true)
@@ -1150,8 +1150,8 @@ function renderAvgAdViewsChart() {
       type: 'line',
       data: values,
       smooth: true,
-      lineStyle: { color: '#F0A040' },
-      itemStyle: { color: '#F0A040' },
+      lineStyle: { color: '#db8a24' },
+      itemStyle: { color: '#db8a24' },
       areaStyle: { color: 'rgba(240,160,64,0.1)' },
       markArea: {
         silent: true,
@@ -1159,7 +1159,7 @@ function renderAvgAdViewsChart() {
           {
             yAxis: 7,
             itemStyle: { color: 'rgba(240,160,64,0.08)' },
-            label: { show: true, position: 'insideTop', formatter: '大盘 7-8x', color: '#F0A040', fontSize: 10 },
+            label: { show: true, position: 'insideTop', formatter: '大盘 7-8x', color: '#db8a24', fontSize: 10 },
           },
           { yAxis: 8 },
         ]],
@@ -1195,8 +1195,8 @@ function renderEcpmChart() {
       type: 'line',
       data: values,
       smooth: true,
-      lineStyle: { color: '#9B7EC4' },
-      itemStyle: { color: '#9B7EC4' },
+      lineStyle: { color: '#7b8fe0' },
+      itemStyle: { color: '#7b8fe0' },
       areaStyle: { color: 'rgba(155,126,196,0.1)' },
     }],
   }, true)
@@ -1264,12 +1264,12 @@ onUnmounted(() => {
 .page-title {
   font-size: 18px;
   font-weight: 700;
-  color: rgba(255, 255, 255, 0.92);
+  color: rgba(22, 41, 63, 0.92);
 }
 
 .page-subtitle {
   font-size: 12px;
-  color: rgba(255, 255, 255, 0.35);
+  color: rgba(22, 41, 63, 0.47);
   margin-top: 2px;
 }
 
@@ -1281,13 +1281,13 @@ onUnmounted(() => {
 
 .history-card {
   margin-top: 16px;
-  background: #12151F;
-  border: 1px solid rgba(255, 255, 255, 0.07);
+  background: #ffffff;
+  border: 1px solid rgba(31, 80, 132, 0.13);
   border-radius: 12px;
 }
 
 .history-card :deep(.arco-card-header) {
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  border-bottom: 1px solid rgba(31, 80, 132, 0.09);
 }
 
 .history-card :deep(.arco-card-body) {
@@ -1311,12 +1311,12 @@ onUnmounted(() => {
 .section-title {
   font-size: 14px;
   font-weight: 600;
-  color: rgba(255, 255, 255, 0.92);
+  color: rgba(22, 41, 63, 0.92);
 }
 
 .section-subtitle {
   font-size: 12px;
-  color: rgba(255, 255, 255, 0.35);
+  color: rgba(22, 41, 63, 0.47);
   margin-top: 2px;
 }
 
@@ -1335,15 +1335,15 @@ onUnmounted(() => {
   flex-wrap: wrap;
   margin-bottom: 14px;
   padding: 10px 12px;
-  background: rgba(92, 189, 197, 0.08);
-  border: 1px solid rgba(92, 189, 197, 0.16);
+  background: rgba(76, 157, 228, 0.08);
+  border: 1px solid rgba(76, 157, 228, 0.16);
   border-radius: 8px;
 }
 
 .history-active-label {
   font-size: 12px;
   font-weight: 600;
-  color: rgba(255, 255, 255, 0.68);
+  color: rgba(22, 41, 63, 0.92);
   line-height: 20px;
 }
 
@@ -1355,11 +1355,11 @@ onUnmounted(() => {
 
 .filter-chip-clear {
   padding: 0 2px;
-  color: rgba(255, 255, 255, 0.52);
+  color: rgba(22, 41, 63, 0.7);
 }
 
 .filter-chip-clear:hover {
-  color: #7dd6de;
+  color: #6fb6f2;
 }
 
 .detail-drawer {
@@ -1376,15 +1376,15 @@ onUnmounted(() => {
 
 .json-panel {
   padding: 14px 16px;
-  background: #1A1E2C;
-  border: 1px solid rgba(255, 255, 255, 0.06);
+  background: #f8fbff;
+  border: 1px solid rgba(31, 80, 132, 0.11);
   border-radius: 8px;
 }
 
 .json-panel-title {
   font-size: 12px;
   font-weight: 600;
-  color: rgba(255, 255, 255, 0.70);
+  color: rgba(22, 41, 63, 0.92);
   margin-bottom: 8px;
 }
 
@@ -1395,20 +1395,20 @@ onUnmounted(() => {
   word-break: break-word;
   font-size: 12px;
   line-height: 1.6;
-  color: rgba(255, 255, 255, 0.82);
+  color: rgba(22, 41, 63, 0.92);
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', monospace;
 }
 
 .link-filter {
   padding: 0;
-  color: #5cbdc5;
+  color: #4c9de4;
   font-weight: 600;
   text-decoration: underline;
   text-underline-offset: 2px;
 }
 
 .link-filter:hover {
-  color: #7dd6de;
+  color: #6fb6f2;
 }
 
 .attribution-collapse {
@@ -1416,8 +1416,8 @@ onUnmounted(() => {
 }
 
 .attribution-collapse :deep(.arco-collapse-item) {
-  background: #12151F;
-  border: 1px solid rgba(255, 255, 255, 0.07);
+  background: #ffffff;
+  border: 1px solid rgba(31, 80, 132, 0.13);
   border-radius: 10px !important;
   margin-bottom: 12px;
   overflow: hidden;
@@ -1425,7 +1425,7 @@ onUnmounted(() => {
 
 .attribution-collapse :deep(.arco-collapse-item-header) {
   background: transparent;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  border-bottom: 1px solid rgba(31, 80, 132, 0.09);
 }
 
 .attribution-collapse :deep(.arco-collapse-item-content) {
@@ -1436,12 +1436,12 @@ onUnmounted(() => {
 .layer-name {
   font-size: 14px;
   font-weight: 600;
-  color: rgba(255, 255, 255, 0.92);
+  color: rgba(22, 41, 63, 0.92);
 }
 
 .layer-desc {
   font-size: 12px;
-  color: rgba(255, 255, 255, 0.35);
+  color: rgba(22, 41, 63, 0.47);
   margin-left: 8px;
 }
 
@@ -1464,8 +1464,8 @@ onUnmounted(() => {
 
 .metric-card {
   padding: 16px 18px;
-  background: #1A1E2C;
-  border: 1px solid rgba(255, 255, 255, 0.06);
+  background: #f8fbff;
+  border: 1px solid rgba(31, 80, 132, 0.11);
   border-radius: 8px;
   position: relative;
   overflow: hidden;
@@ -1490,26 +1490,26 @@ onUnmounted(() => {
 
 .metric-label {
   font-size: 12px;
-  color: rgba(255, 255, 255, 0.35);
+  color: rgba(22, 41, 63, 0.47);
   margin-bottom: 6px;
 }
 
 .metric-value {
   font-size: 20px;
   font-weight: 700;
-  color: rgba(255, 255, 255, 0.92);
+  color: rgba(22, 41, 63, 0.92);
   font-variant-numeric: tabular-nums;
 }
 
 .metric-sub {
   font-size: 11px;
-  color: rgba(255, 255, 255, 0.30);
+  color: rgba(22, 41, 63, 0.41);
   margin-top: 4px;
 }
 
 .metric-ref {
   font-size: 11px;
-  color: rgba(255, 255, 255, 0.25);
+  color: rgba(22, 41, 63, 0.34);
   margin-top: 4px;
   cursor: help;
   text-decoration: underline dotted;
@@ -1519,13 +1519,13 @@ onUnmounted(() => {
 .churn-section {
   margin-top: 16px;
   padding-top: 16px;
-  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  border-top: 1px solid rgba(31, 80, 132, 0.11);
 }
 
 .churn-title {
   font-size: 13px;
   font-weight: 600;
-  color: rgba(255, 255, 255, 0.70);
+  color: rgba(22, 41, 63, 0.92);
   margin-bottom: 12px;
 }
 
@@ -1540,12 +1540,12 @@ onUnmounted(() => {
   gap: 12px;
   margin-top: 16px;
   padding-top: 16px;
-  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  border-top: 1px solid rgba(31, 80, 132, 0.11);
 }
 
 .trend-chart-card {
-  background: #1A1E2C;
-  border: 1px solid rgba(255, 255, 255, 0.06);
+  background: #f8fbff;
+  border: 1px solid rgba(31, 80, 132, 0.11);
   border-radius: 8px;
 }
 
@@ -1556,7 +1556,7 @@ onUnmounted(() => {
 .trend-chart-title {
   font-size: 12px;
   font-weight: 600;
-  color: rgba(255, 255, 255, 0.55);
+  color: rgba(22, 41, 63, 0.74);
   margin-bottom: 10px;
 }
 
@@ -1566,19 +1566,19 @@ onUnmounted(() => {
 }
 
 :deep(.arco-spin-dot-item) {
-  background: #5CBDC5;
+  background: #4c9de4;
 }
 
 :deep(.arco-picker) {
-  --arco-picker-bg: #12151F;
-  --arco-picker-color: rgba(255, 255, 255, 0.92);
-  border-color: rgba(255, 255, 255, 0.12);
+  --arco-picker-bg: #ffffff;
+  --arco-picker-color: rgba(22, 41, 63, 0.92);
+  border-color: rgba(31, 80, 132, 0.22);
 }
 
 :deep(.arco-select-view-single) {
-  --arco-select-view-bg: #12151F;
-  --arco-select-view-color: rgba(255, 255, 255, 0.92);
-  border-color: rgba(255, 255, 255, 0.12);
+  --arco-select-view-bg: #ffffff;
+  --arco-select-view-color: rgba(22, 41, 63, 0.92);
+  border-color: rgba(31, 80, 132, 0.22);
 }
 
 :deep(.arco-progress-line-bar) {
@@ -1587,6 +1587,6 @@ onUnmounted(() => {
 
 :deep(.arco-progress-line-wrapper) {
   border-radius: 3px;
-  background: rgba(255, 255, 255, 0.06);
+  background: rgba(76, 157, 228, 0.07);
 }
 </style>

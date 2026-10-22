@@ -1534,7 +1534,7 @@ function renderEpisodeChart() {
     yAxisIndex: 0,
     barMaxWidth: 18,
     itemStyle: {
-      color: '#f0a040',
+      color: '#db8a24',
       borderRadius: [4, 4, 0, 0],
     },
     emphasis: { focus: 'series' },
@@ -1561,20 +1561,20 @@ function renderEpisodeChart() {
       smooth: true,
       symbol: 'triangle',
       symbolSize: 8,
-      lineStyle: { width: 2, color: '#f0a040' },
-      itemStyle: { color: '#f0a040', borderWidth: 2, borderColor: '#ffffff' },
+      lineStyle: { width: 2, color: '#db8a24' },
+      itemStyle: { color: '#db8a24', borderWidth: 2, borderColor: '#ffffff' },
       data: rows.map((row) => Number(row.adUnlockSuccessRate.toFixed(2))),
     })
   }
   episodeChart.off('datazoom', handleEpisodeDataZoom)
   episodeChart.on('datazoom', handleEpisodeDataZoom)
   episodeChart.setOption({
-    color: ['#4b83f1', '#f0a040', '#9c27b0', '#36d399'],
+    color: ['#4b83f1', '#db8a24', '#9c27b0', '#22a06b'],
     grid: { top: 54, right: 58, bottom: rows.length > 20 ? 92 : 62, left: 64 },
     tooltip: {
       trigger: 'axis',
       axisPointer: { type: 'cross', crossStyle: { color: 'rgba(226,232,240,0.45)' } },
-      backgroundColor: 'rgba(8, 12, 20, 0.96)',
+      backgroundColor: 'rgba(255, 255, 255, 0.96)',
       borderColor: 'rgba(148, 163, 184, 0.22)',
       textStyle: { color: '#f2f6ff' },
       formatter: (params: any[]) => {
@@ -1589,7 +1589,7 @@ function renderEpisodeChart() {
         lines.push(`广告曝光量：${formatNumber(row.adPlayPv)} 次`)
         if (visibleEpisodeMetrics.bounceRate) lines.push(`单集跳出率：${formatPercent(row.bounceRate)}`)
         if (visibleEpisodeMetrics.adUnlockSuccessRate) lines.push(`广告解锁成功率：${formatPercent(row.adUnlockSuccessRate)}`)
-        if (row.isPoisonPoint) lines.push(`<span style="color:#e0486d">毒点预警：跳出率超过 ${poisonThreshold}%</span>`)
+        if (row.isPoisonPoint) lines.push(`<span style="color:#4c9de4">毒点预警：跳出率超过 ${poisonThreshold}%</span>`)
         return lines.join('<br/>')
       },
     },
@@ -1624,7 +1624,7 @@ function renderEpisodeChart() {
         minSpan: 12,
         borderColor: 'rgba(148,163,184,0.18)',
         fillerColor: 'rgba(75,131,241,0.18)',
-        backgroundColor: 'rgba(15,23,42,0.62)',
+        backgroundColor: 'rgba(255, 255, 255, 0.62)',
         handleStyle: { color: '#4b83f1' },
         textStyle: { color: 'rgba(226,232,240,0.54)' },
         dataBackground: {
@@ -1643,8 +1643,8 @@ function renderEpisodeChart() {
         lineHeight: 16,
         color: (value: string) => {
           const row = rowFromAxisValue(value, rows)
-          if (row?.isPoisonPoint) return '#e0486d'
-          if (row?.isAdCheckpoint) return '#f0a040'
+          if (row?.isPoisonPoint) return '#4c9de4'
+          if (row?.isAdCheckpoint) return '#db8a24'
           return 'rgba(226,232,240,0.62)'
         },
         fontWeight: (value: string) => rowFromAxisValue(value, rows)?.isAdCheckpoint ? 700 : 400,
@@ -1843,9 +1843,9 @@ onUnmounted(() => {
   align-items: center;
   padding: 14px;
   margin-bottom: 16px;
-  border: 1px solid rgba(92, 189, 197, 0.14);
+  border: 1px solid rgba(76, 157, 228, 0.14);
   border-radius: 8px;
-  background: rgba(12, 17, 28, 0.72);
+  background: rgba(255, 255, 255, 0.72);
 }
 
 .dashboard-tabs {
@@ -1892,8 +1892,8 @@ onUnmounted(() => {
 .panel {
   border: 1px solid rgba(148, 163, 184, 0.12);
   border-radius: 8px;
-  background: linear-gradient(180deg, rgba(18, 24, 38, 0.94), rgba(11, 15, 25, 0.94));
-  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.22);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.94), rgba(255, 255, 255, 0.94));
+  box-shadow: 0 10px 28px rgba(23, 54, 92, 0.143);
 }
 
 .metric-tile {
@@ -1937,7 +1937,7 @@ onUnmounted(() => {
 }
 
 .metric-help-icon:hover {
-  color: #5cbdc5;
+  color: #4c9de4;
 }
 
 .metric-help-content {
@@ -1947,7 +1947,7 @@ onUnmounted(() => {
 
 .metric-help-formula {
   margin-top: 6px;
-  color: rgba(255, 255, 255, 0.72);
+  color: rgba(22, 41, 63, 0.92);
 }
 
 .metric-value {
@@ -1970,10 +1970,10 @@ onUnmounted(() => {
   max-width: 360px;
   overflow: hidden;
   padding: 6px 10px;
-  border: 1px solid rgba(92, 189, 197, 0.22);
+  border: 1px solid rgba(76, 157, 228, 0.22);
   border-radius: 999px;
-  color: #5cbdc5;
-  background: rgba(92, 189, 197, 0.1);
+  color: #4c9de4;
+  background: rgba(76, 157, 228, 0.1);
   font-size: 12px;
   line-height: 1;
   text-overflow: ellipsis;
@@ -1981,12 +1981,12 @@ onUnmounted(() => {
 }
 
 .source-platform {
-  color: #5cbdc5;
-  background: rgba(92, 189, 197, 0.12);
+  color: #4c9de4;
+  background: rgba(76, 157, 228, 0.12);
 }
 
 .source-tiktok {
-  color: #f0a040;
+  color: #db8a24;
   background: rgba(240, 160, 64, 0.13);
 }
 
@@ -2012,26 +2012,26 @@ onUnmounted(() => {
   height: 104px;
   border-radius: 50%;
   background:
-    radial-gradient(circle at center, rgba(18, 24, 38, 0.98) 58%, transparent 60%),
+    radial-gradient(circle at center, rgba(255, 255, 255, 0.98) 58%, transparent 60%),
     conic-gradient(#64748b 0deg, rgba(100, 116, 139, 0.2) 0deg);
 }
 
 .decision-score-ring--good {
   background:
-    radial-gradient(circle at center, rgba(18, 24, 38, 0.98) 58%, transparent 60%),
-    conic-gradient(#36d399 280deg, rgba(54, 211, 153, 0.18) 0deg);
+    radial-gradient(circle at center, rgba(255, 255, 255, 0.98) 58%, transparent 60%),
+    conic-gradient(#22a06b 280deg, rgba(54, 211, 153, 0.18) 0deg);
 }
 
 .decision-score-ring--warn {
   background:
-    radial-gradient(circle at center, rgba(18, 24, 38, 0.98) 58%, transparent 60%),
-    conic-gradient(#f0a040 230deg, rgba(240, 160, 64, 0.18) 0deg);
+    radial-gradient(circle at center, rgba(255, 255, 255, 0.98) 58%, transparent 60%),
+    conic-gradient(#db8a24 230deg, rgba(240, 160, 64, 0.18) 0deg);
 }
 
 .decision-score-ring--bad {
   background:
-    radial-gradient(circle at center, rgba(18, 24, 38, 0.98) 58%, transparent 60%),
-    conic-gradient(#e0486d 175deg, rgba(224, 72, 109, 0.18) 0deg);
+    radial-gradient(circle at center, rgba(255, 255, 255, 0.98) 58%, transparent 60%),
+    conic-gradient(#e0576e 175deg, rgba(224, 87, 110, 0.18) 0deg);
 }
 
 .decision-score-ring span {
@@ -2052,7 +2052,7 @@ onUnmounted(() => {
 }
 
 .decision-eyebrow {
-  color: rgba(92, 189, 197, 0.86);
+  color: rgba(76, 157, 228, 0.86);
   font-size: 12px;
   font-weight: 700;
 }
@@ -2082,7 +2082,7 @@ onUnmounted(() => {
   padding: 14px;
   border: 1px solid rgba(148, 163, 184, 0.12);
   border-radius: 8px;
-  background: rgba(18, 24, 38, 0.82);
+  background: rgba(255, 255, 255, 0.82);
 }
 
 .action-card--good {
@@ -2096,8 +2096,8 @@ onUnmounted(() => {
 }
 
 .action-card--bad {
-  border-color: rgba(224, 72, 109, 0.24);
-  background: rgba(224, 72, 109, 0.07);
+  border-color: rgba(224, 87, 110, 0.24);
+  background: rgba(224, 87, 110, 0.07);
 }
 
 .action-card-header,
@@ -2144,7 +2144,7 @@ onUnmounted(() => {
   min-height: 112px;
   padding: 12px;
   border-radius: 8px;
-  background: rgba(255, 255, 255, 0.035);
+  background: rgba(76, 157, 228, 0.04);
 }
 
 .signal-item-head span {
@@ -2159,19 +2159,19 @@ onUnmounted(() => {
 }
 
 .signal-status--good {
-  color: #36d399;
+  color: #22a06b;
 }
 
 .signal-status--warn {
-  color: #f0a040;
+  color: #db8a24;
 }
 
 .signal-status--bad {
-  color: #e0486d;
+  color: #e0576e;
 }
 
 .signal-status--neutral {
-  color: #5cbdc5;
+  color: #4c9de4;
 }
 
 .signal-track {
@@ -2188,19 +2188,19 @@ onUnmounted(() => {
 }
 
 .signal-fill--good {
-  background: #36d399;
+  background: #22a06b;
 }
 
 .signal-fill--warn {
-  background: #f0a040;
+  background: #db8a24;
 }
 
 .signal-fill--bad {
-  background: #e0486d;
+  background: #e0576e;
 }
 
 .signal-fill--neutral {
-  background: #5cbdc5;
+  background: #4c9de4;
 }
 
 .signal-meta span {
@@ -2256,7 +2256,7 @@ onUnmounted(() => {
   gap: 5px;
   padding: 5px 10px;
   border-radius: 999px;
-  color: #36d399;
+  color: #22a06b;
   background: rgba(54, 211, 153, 0.11);
   font-size: 12px;
 }
@@ -2272,7 +2272,7 @@ onUnmounted(() => {
   min-width: 0;
   padding: 14px;
   border-radius: 8px;
-  background: rgba(255, 255, 255, 0.035);
+  background: rgba(76, 157, 228, 0.04);
 }
 
 .acquisition-summary-grid {
@@ -2290,7 +2290,7 @@ onUnmounted(() => {
   padding: 12px;
   border: 1px solid rgba(148, 163, 184, 0.12);
   border-radius: 8px;
-  background: rgba(10, 14, 23, 0.52);
+  background: rgba(255, 255, 255, 0.52);
 }
 
 .acquisition-summary-card span,
@@ -2329,8 +2329,8 @@ onUnmounted(() => {
 .acquisition-summary-card--bad,
 .content-primary-card--bad,
 .content-flow-card--bad {
-  border-color: rgba(224, 72, 109, 0.28);
-  background: rgba(224, 72, 109, 0.06);
+  border-color: rgba(224, 87, 110, 0.28);
+  background: rgba(224, 87, 110, 0.06);
 }
 
 .acquisition-path {
@@ -2345,7 +2345,7 @@ onUnmounted(() => {
   padding: 14px;
   border: 1px solid rgba(148, 163, 184, 0.14);
   border-radius: 8px;
-  background: rgba(10, 14, 23, 0.62);
+  background: rgba(255, 255, 255, 0.62);
 }
 
 .acquisition-node-top {
@@ -2374,7 +2374,7 @@ onUnmounted(() => {
 .acquisition-connector {
   display: grid;
   place-items: center;
-  color: #f0a040;
+  color: #db8a24;
   font-size: 12px;
   text-align: center;
 }
@@ -2402,7 +2402,7 @@ onUnmounted(() => {
 .acquisition-progress-fill {
   height: 100%;
   border-radius: inherit;
-  background: linear-gradient(90deg, #5cbdc5, #36d399);
+  background: linear-gradient(90deg, #4c9de4, #22a06b);
 }
 
 .acquisition-progress-meta {
@@ -2433,23 +2433,23 @@ onUnmounted(() => {
 }
 
 .activation-health-pill--good {
-  color: #36d399;
+  color: #22a06b;
   background: rgba(54, 211, 153, 0.11);
 }
 
 .activation-health-pill--warn {
-  color: #f0a040;
+  color: #db8a24;
   background: rgba(240, 160, 64, 0.12);
 }
 
 .activation-health-pill--bad {
-  color: #e0486d;
-  background: rgba(224, 72, 109, 0.12);
+  color: #e0576e;
+  background: rgba(224, 87, 110, 0.12);
 }
 
 .activation-health-pill--neutral {
-  color: #5cbdc5;
-  background: rgba(92, 189, 197, 0.12);
+  color: #4c9de4;
+  background: rgba(76, 157, 228, 0.12);
 }
 
 .activation-layout {
@@ -2465,7 +2465,7 @@ onUnmounted(() => {
   gap: 12px;
   padding: 14px;
   border-radius: 8px;
-  background: rgba(255, 255, 255, 0.035);
+  background: rgba(76, 157, 228, 0.04);
 }
 
 .activation-primary-grid {
@@ -2482,7 +2482,7 @@ onUnmounted(() => {
   padding: 12px;
   border: 1px solid rgba(148, 163, 184, 0.12);
   border-radius: 8px;
-  background: rgba(10, 14, 23, 0.52);
+  background: rgba(255, 255, 255, 0.52);
 }
 
 .activation-metric-label {
@@ -2520,22 +2520,22 @@ onUnmounted(() => {
 }
 
 .activation-primary-card--bad {
-  border-color: rgba(224, 72, 109, 0.28);
-  background: rgba(224, 72, 109, 0.06);
+  border-color: rgba(224, 87, 110, 0.28);
+  background: rgba(224, 87, 110, 0.06);
 }
 
 .activation-primary-card--neutral {
-  border-color: rgba(92, 189, 197, 0.2);
-  background: rgba(92, 189, 197, 0.045);
+  border-color: rgba(76, 157, 228, 0.2);
+  background: rgba(76, 157, 228, 0.045);
 }
 
 .activation-quality-strip {
   display: grid;
   gap: 10px;
   padding: 12px;
-  border: 1px solid rgba(92, 189, 197, 0.16);
+  border: 1px solid rgba(76, 157, 228, 0.16);
   border-radius: 8px;
-  background: rgba(92, 189, 197, 0.055);
+  background: rgba(76, 157, 228, 0.055);
 }
 
 .activation-quality-head,
@@ -2575,11 +2575,11 @@ onUnmounted(() => {
 }
 
 .activation-quality-fill--good {
-  background: linear-gradient(90deg, #5cbdc5, #36d399);
+  background: linear-gradient(90deg, #4c9de4, #22a06b);
 }
 
 .activation-quality-fill--warn {
-  background: linear-gradient(90deg, #f0a040, #e0486d);
+  background: linear-gradient(90deg, #db8a24, #4c9de4);
 }
 
 .diagnostic-group-title {
@@ -2594,7 +2594,7 @@ onUnmounted(() => {
   padding: 12px;
   border: 1px solid rgba(148, 163, 184, 0.12);
   border-radius: 8px;
-  background: rgba(255, 255, 255, 0.035);
+  background: rgba(76, 157, 228, 0.04);
 }
 
 .diagnostic-item span,
@@ -2632,7 +2632,7 @@ onUnmounted(() => {
 
 .diagnostic-item--bad,
 .content-diagnosis-item--bad {
-  border-color: rgba(224, 72, 109, 0.26);
+  border-color: rgba(224, 87, 110, 0.26);
 }
 
 .funnel-list {
@@ -2664,7 +2664,7 @@ onUnmounted(() => {
 .episode-fill {
   height: 100%;
   border-radius: inherit;
-  background: linear-gradient(90deg, #5cbdc5, #36d399);
+  background: linear-gradient(90deg, #4c9de4, #22a06b);
 }
 
 .funnel-value {
@@ -2731,7 +2731,7 @@ onUnmounted(() => {
   min-height: 76px;
   padding: 12px;
   border-radius: 8px;
-  background: rgba(255, 255, 255, 0.035);
+  background: rgba(76, 157, 228, 0.04);
 }
 
 .compact-metric {
@@ -2754,10 +2754,10 @@ onUnmounted(() => {
 .guidance-box {
   margin-top: 14px;
   padding: 18px;
-  border: 1px dashed rgba(92, 189, 197, 0.28);
+  border: 1px dashed rgba(76, 157, 228, 0.28);
   border-radius: 8px;
   color: rgba(226, 232, 240, 0.68);
-  background: rgba(92, 189, 197, 0.06);
+  background: rgba(76, 157, 228, 0.06);
   text-align: center;
 }
 
@@ -2785,7 +2785,7 @@ onUnmounted(() => {
   min-width: 0;
   border: 1px solid rgba(148, 163, 184, 0.12);
   border-radius: 8px;
-  background: rgba(255, 255, 255, 0.035);
+  background: rgba(76, 157, 228, 0.04);
 }
 
 .content-primary-card {
@@ -2879,7 +2879,7 @@ onUnmounted(() => {
   padding: 14px;
   border: 1px solid rgba(148, 163, 184, 0.14);
   border-radius: 8px;
-  background: rgba(10, 14, 23, 0.68);
+  background: rgba(255, 255, 255, 0.68);
 }
 
 .ad-unlock-summary-item::before {
@@ -2887,39 +2887,39 @@ onUnmounted(() => {
   position: absolute;
   inset: 0 0 auto;
   height: 3px;
-  background: rgba(92, 189, 197, 0.72);
+  background: rgba(76, 157, 228, 0.72);
 }
 
 .ad-unlock-summary-item--good {
   border-color: rgba(54, 211, 153, 0.28);
-  background: linear-gradient(180deg, rgba(54, 211, 153, 0.11), rgba(10, 14, 23, 0.68));
+  background: linear-gradient(180deg, rgba(54, 211, 153, 0.11), rgba(255, 255, 255, 0.68));
 }
 
 .ad-unlock-summary-item--good::before {
-  background: #36d399;
+  background: #22a06b;
 }
 
 .ad-unlock-summary-item--warn {
   border-color: rgba(240, 160, 64, 0.3);
-  background: linear-gradient(180deg, rgba(240, 160, 64, 0.11), rgba(10, 14, 23, 0.68));
+  background: linear-gradient(180deg, rgba(240, 160, 64, 0.11), rgba(255, 255, 255, 0.68));
 }
 
 .ad-unlock-summary-item--warn::before {
-  background: #f0a040;
+  background: #db8a24;
 }
 
 .ad-unlock-summary-item--bad {
-  border-color: rgba(224, 72, 109, 0.3);
-  background: linear-gradient(180deg, rgba(224, 72, 109, 0.11), rgba(10, 14, 23, 0.68));
+  border-color: rgba(224, 87, 110, 0.3);
+  background: linear-gradient(180deg, rgba(224, 87, 110, 0.11), rgba(255, 255, 255, 0.68));
 }
 
 .ad-unlock-summary-item--bad::before {
-  background: #e0486d;
+  background: #e0576e;
 }
 
 .ad-unlock-summary-item--neutral {
-  border-color: rgba(92, 189, 197, 0.24);
-  background: linear-gradient(180deg, rgba(92, 189, 197, 0.1), rgba(10, 14, 23, 0.68));
+  border-color: rgba(76, 157, 228, 0.24);
+  background: linear-gradient(180deg, rgba(76, 157, 228, 0.1), rgba(255, 255, 255, 0.68));
 }
 
 .ad-unlock-summary-label {
@@ -2953,7 +2953,7 @@ onUnmounted(() => {
   padding: 15px;
   border: 1px solid rgba(148, 163, 184, 0.13);
   border-radius: 8px;
-  background: rgba(255, 255, 255, 0.028);
+  background: rgba(76, 157, 228, 0.04);
 }
 
 .ad-monetization-section-head {
@@ -3003,7 +3003,7 @@ onUnmounted(() => {
   padding: 12px;
   border: 1px solid rgba(148, 163, 184, 0.12);
   border-radius: 8px;
-  background: rgba(10, 14, 23, 0.62);
+  background: rgba(255, 255, 255, 0.62);
   transition:
     border-color 0.16s ease,
     background 0.16s ease,
@@ -3011,7 +3011,7 @@ onUnmounted(() => {
 }
 
 .ad-monetization-card:hover {
-  border-color: rgba(92, 189, 197, 0.3);
+  border-color: rgba(76, 157, 228, 0.3);
   background: rgba(13, 19, 31, 0.78);
   transform: translateY(-1px);
 }
@@ -3049,12 +3049,12 @@ onUnmounted(() => {
 }
 
 .ad-monetization-card--bad {
-  border-color: rgba(224, 72, 109, 0.28);
-  background: rgba(224, 72, 109, 0.055);
+  border-color: rgba(224, 87, 110, 0.28);
+  background: rgba(224, 87, 110, 0.055);
 }
 
 .ad-monetization-card--neutral {
-  border-color: rgba(92, 189, 197, 0.18);
+  border-color: rgba(76, 157, 228, 0.18);
 }
 
 .ad-unlock-behavior-strip {
@@ -3085,7 +3085,7 @@ onUnmounted(() => {
   padding: 12px;
   border: 1px solid rgba(148, 163, 184, 0.12);
   border-radius: 8px;
-  background: rgba(10, 14, 23, 0.58);
+  background: rgba(255, 255, 255, 0.58);
 }
 
 .ad-unlock-behavior-card strong {
@@ -3112,7 +3112,7 @@ onUnmounted(() => {
 }
 
 .ad-unlock-behavior-card--bad {
-  border-color: rgba(224, 72, 109, 0.28);
+  border-color: rgba(224, 87, 110, 0.28);
 }
 
 .content-metric-board {
@@ -3126,7 +3126,7 @@ onUnmounted(() => {
   padding: 12px;
   border: 1px solid rgba(148, 163, 184, 0.12);
   border-radius: 8px;
-  background: rgba(255, 255, 255, 0.035);
+  background: rgba(76, 157, 228, 0.04);
 }
 
 .content-metric-card--good {
@@ -3138,7 +3138,7 @@ onUnmounted(() => {
 }
 
 .content-metric-card--bad {
-  border-color: rgba(224, 72, 109, 0.26);
+  border-color: rgba(224, 87, 110, 0.26);
 }
 
 .content-metric-label {
@@ -3164,9 +3164,9 @@ onUnmounted(() => {
 .content-diagnosis-card {
   min-width: 0;
   padding: 14px;
-  border: 1px solid rgba(92, 189, 197, 0.16);
+  border: 1px solid rgba(76, 157, 228, 0.16);
   border-radius: 8px;
-  background: rgba(92, 189, 197, 0.055);
+  background: rgba(76, 157, 228, 0.055);
 }
 
 .content-diagnosis-title {
@@ -3230,7 +3230,7 @@ onUnmounted(() => {
   padding: 12px;
   border: 1px solid rgba(148, 163, 184, 0.12);
   border-radius: 8px;
-  background: rgba(255, 255, 255, 0.03);
+  background: rgba(76, 157, 228, 0.04);
 }
 
 .episode-chart-metric strong {
@@ -3259,7 +3259,7 @@ onUnmounted(() => {
   border: 1px solid rgba(148, 163, 184, 0.18);
   border-radius: 8px;
   overflow: hidden;
-  background: rgba(255, 255, 255, 0.025);
+  background: rgba(76, 157, 228, 0.04);
 }
 
 .episode-kpi-card {
@@ -3328,7 +3328,7 @@ onUnmounted(() => {
 }
 
 .episode-kpi-card--active .episode-kpi-label {
-  color: rgba(255, 255, 255, 0.92);
+  color: rgba(22, 41, 63, 0.92);
 }
 
 .episode-kpi-card strong {
@@ -3363,7 +3363,7 @@ onUnmounted(() => {
   height: 420px;
   margin-top: 12px;
   border-radius: 8px;
-  background: rgba(255, 255, 255, 0.035);
+  background: rgba(76, 157, 228, 0.04);
 }
 
 .empty-state {

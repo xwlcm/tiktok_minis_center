@@ -576,11 +576,11 @@ onMounted(() => {
 .page-title {
   font-size: 18px;
   font-weight: 700;
-  color: rgba(255,255,255,0.92);
+  color: rgba(22, 41, 63, 0.92);
 }
 .page-subtitle {
   font-size: 12px;
-  color: rgba(255,255,255,0.35);
+  color: rgba(22, 41, 63, 0.47);
   margin-top: 2px;
 }
 .header-actions { display: flex; gap: 8px; }
@@ -594,8 +594,8 @@ onMounted(() => {
 }
 
 .table-card {
-  background: #12151F;
-  border: 1px solid rgba(255,255,255,0.08);
+  background: #ffffff;
+  border: 1px solid rgba(31, 80, 132, 0.14);
   border-radius: 12px;
   padding: 16px;
 }
@@ -607,7 +607,7 @@ onMounted(() => {
 }
 .app-avatar {
   border-radius: 8px !important;
-  background: linear-gradient(135deg, #E0486D, #5CBDC5) !important;
+  background: linear-gradient(135deg, #4c9de4, #4c9de4) !important;
   font-size: 13px !important;
   font-weight: 700 !important;
   color: #fff !important;
@@ -616,14 +616,14 @@ onMounted(() => {
 .app-name {
   font-size: 13px;
   font-weight: 600;
-  color: rgba(255,255,255,0.85);
+  color: rgba(22, 41, 63, 0.92);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 .app-key {
   font-size: 11px;
-  color: rgba(255,255,255,0.3);
+  color: rgba(22, 41, 63, 0.41);
   font-family: monospace;
 }
 </style>

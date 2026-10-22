@@ -1246,8 +1246,8 @@ watch(
 .summary-card {
   padding: 18px 20px;
   border-radius: var(--mc-radius-md);
-  background: linear-gradient(180deg, rgba(13, 18, 31, 0.96), rgba(9, 12, 20, 0.96));
-  border: 1px solid rgba(92, 189, 197, 0.1);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(255, 255, 255, 0.96));
+  border: 1px solid rgba(76, 157, 228, 0.1);
 }
 
 .summary-label {
@@ -1270,8 +1270,8 @@ watch(
   margin: 0 0 16px;
   padding: 16px 18px;
   border-radius: 14px;
-  background: linear-gradient(180deg, rgba(14, 20, 34, 0.96), rgba(8, 11, 18, 0.98));
-  border: 1px solid rgba(92, 189, 197, 0.14);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(255, 255, 255, 0.98));
+  border: 1px solid rgba(76, 157, 228, 0.14);
 }
 
 .entity-guide-header {
@@ -1304,8 +1304,8 @@ watch(
 .entity-guide-item {
   padding: 12px 14px;
   border-radius: 12px;
-  background: rgba(255, 255, 255, 0.02);
-  border: 1px solid rgba(92, 189, 197, 0.08);
+  background: rgba(76, 157, 228, 0.04);
+  border: 1px solid rgba(76, 157, 228, 0.08);
 }
 
 .entity-guide-item strong {
@@ -1342,8 +1342,8 @@ watch(
 .support-item {
   border-radius: 12px;
   padding: 12px 14px;
-  background: rgba(255, 255, 255, 0.02);
-  border: 1px solid rgba(92, 189, 197, 0.08);
+  background: rgba(76, 157, 228, 0.04);
+  border: 1px solid rgba(76, 157, 228, 0.08);
 }
 
 .support-item strong {
@@ -1395,9 +1395,9 @@ watch(
   margin: 0;
   padding: 12px;
   border-radius: 10px;
-  background: rgba(7, 9, 15, 0.95);
+  background: rgba(255, 255, 255, 0.95);
   color: var(--mc-text-primary);
-  border: 1px solid rgba(92, 189, 197, 0.08);
+  border: 1px solid rgba(76, 157, 228, 0.08);
   overflow: auto;
   max-height: 320px;
   font-size: 12px;

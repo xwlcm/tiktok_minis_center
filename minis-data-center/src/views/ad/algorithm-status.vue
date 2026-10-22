@@ -96,19 +96,19 @@ onMounted(() => loadData())
   display: flex; align-items: flex-start; justify-content: space-between;
   margin-bottom: 20px;
 }
-.page-title { font-size: 18px; font-weight: 700; color: rgba(255,255,255,0.92); }
-.page-subtitle { font-size: 12px; color: rgba(255,255,255,0.35); margin-top: 2px; }
+.page-title { font-size: 18px; font-weight: 700; color: rgba(22, 41, 63, 0.92); }
+.page-subtitle { font-size: 12px; color: rgba(22, 41, 63, 0.47); margin-top: 2px; }
 .status-cards {
   display: flex; gap: 16px; margin-bottom: 24px;
 }
 .status-card {
   flex: 1; padding: 16px; border-radius: 8px;
-  background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
+  background: rgba(76, 157, 228, 0.04); border: 1px solid rgba(76, 157, 228, 0.09);
   display: flex; flex-direction: column; gap: 8px;
 }
-.card-label { font-size: 12px; color: rgba(255,255,255,0.45); }
-.card-value { font-size: 20px; font-weight: 600; color: rgba(255,255,255,0.9); }
+.card-label { font-size: 12px; color: rgba(22, 41, 63, 0.61); }
+.card-value { font-size: 20px; font-weight: 600; color: rgba(22, 41, 63, 0.92); }
 .section { margin-bottom: 24px; }
-.section-title { font-size: 14px; font-weight: 500; color: rgba(255,255,255,0.7); margin-bottom: 12px; }
+.section-title { font-size: 14px; font-weight: 500; color: rgba(22, 41, 63, 0.92); margin-bottom: 12px; }
 .w-full { width: 100%; }
 </style>

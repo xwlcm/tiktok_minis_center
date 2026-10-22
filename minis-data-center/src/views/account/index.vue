@@ -64,7 +64,7 @@
       >
         <template #userName="{ record }">
           <div class="user-cell">
-            <a-avatar :size="28" class="user-avatar" :style="{ background: '#5CBDC5' }">
+            <a-avatar :size="28" class="user-avatar" :style="{ background: '#4c9de4' }">
               {{ (record.nickName || record.userName)?.[0]?.toUpperCase() }}
             </a-avatar>
             <div>
@@ -291,16 +291,16 @@
       @cancel="authRoleVisible = false"
     >
       <div v-if="authRoleUser" style="margin-bottom: 12px">
-        <span style="color: rgba(255,255,255,0.5); font-size: 12px">当前角色：</span>
+        <span style="color: rgba(22, 41, 63, 0.68); font-size: 12px">当前角色：</span>
         <a-tag v-for="role in authRoleUser.roles ?? []" :key="role.roleId" color="arcoblue">{{ role.roleName }}</a-tag>
-        <span v-if="!authRoleUser.roles?.length" style="color: rgba(255,255,255,0.3); font-size: 12px">无</span>
+        <span v-if="!authRoleUser.roles?.length" style="color: rgba(22, 41, 63, 0.41); font-size: 12px">无</span>
       </div>
       <a-form :model="authRoleForm" layout="vertical">
         <a-form-item label="选择角色">
           <a-checkbox-group v-model="authRoleForm.roleIds" direction="vertical">
             <a-checkbox v-for="role in allRoles" :key="role.roleId" :value="role.roleId">
               {{ role.roleName }}
-              <span style="color: rgba(255,255,255,0.3); font-size: 11px; margin-left: 4px">{{ role.roleKey }}</span>
+              <span style="color: rgba(22, 41, 63, 0.41); font-size: 11px; margin-left: 4px">{{ role.roleKey }}</span>
             </a-checkbox>
           </a-checkbox-group>
         </a-form-item>

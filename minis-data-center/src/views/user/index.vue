@@ -294,7 +294,7 @@ onMounted(fetchList)
   font-weight: 600;
 }
 .tier-high { background: rgba(0,180,100,0.12); color: #00B464; }
-.tier-medium { background: rgba(92,189,197,0.12); color: #5CBDC5; }
-.tier-low { background: rgba(255,255,255,0.06); color: rgba(255,255,255,0.40); }
-.tier-churned { background: rgba(224,72,109,0.12); color: #E0486D; }
+.tier-medium { background: rgba(76, 157, 228, 0.12); color: #4c9de4; }
+.tier-low { background: rgba(22, 41, 63, 0.08); color: rgba(22, 41, 63, 0.54); }
+.tier-churned { background: rgba(224, 87, 110,0.12); color: #4c9de4; }
 </style>

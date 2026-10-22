@@ -67,28 +67,28 @@ function handleSelect(value: string | number | Record<string, unknown> | undefin
   border-radius: 6px;
   cursor: pointer;
   transition: all 0.15s;
-  border: 1px solid rgba(255,255,255,0.08);
-  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(31, 80, 132, 0.14);
+  background: rgba(76, 157, 228, 0.04);
 }
 .switcher-trigger:hover {
-  background: rgba(92,189,197,0.08);
-  border-color: rgba(92,189,197,0.3);
+  background: rgba(76, 157, 228, 0.08);
+  border-color: rgba(76, 157, 228, 0.3);
 }
 
 .switcher-dot {
   width: 6px; height: 6px;
   border-radius: 50%;
-  background: rgba(255,255,255,0.2);
+  background: rgba(76, 157, 228, 0.22);
   flex-shrink: 0;
 }
 .switcher-dot.active {
-  background: #36D399;
+  background: #22a06b;
   box-shadow: 0 0 6px rgba(54,211,153,0.5);
 }
 
 .switcher-name {
   font-size: 13px;
-  color: rgba(255,255,255,0.75);
+  color: rgba(22, 41, 63, 0.92);
   font-weight: 500;
   max-width: 140px;
   overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
@@ -96,7 +96,7 @@ function handleSelect(value: string | number | Record<string, unknown> | undefin
 
 .switcher-arrow {
   font-size: 11px;
-  color: rgba(255,255,255,0.25);
+  color: rgba(22, 41, 63, 0.34);
   flex-shrink: 0;
 }
 </style>
@@ -106,7 +106,7 @@ function handleSelect(value: string | number | Record<string, unknown> | undefin
   padding: 8px 12px 4px;
   font-size: 10px;
   font-weight: 600;
-  color: rgba(255,255,255,0.25) !important;
+  color: rgba(22, 41, 63, 0.34) !important;
   text-transform: uppercase;
   letter-spacing: 0.5px;
   pointer-events: none;
@@ -118,14 +118,14 @@ function handleSelect(value: string | number | Record<string, unknown> | undefin
   gap: 8px;
   width: 100%;
   min-width: 200px;
-  color: rgba(255,255,255,0.75) !important;
+  color: rgba(22, 41, 63, 0.92) !important;
   margin: 6px 0;
 }
 
 .switcher-option-check {
   width: 16px; height: 16px;
   display: flex; align-items: center; justify-content: center;
-  color: #5CBDC5 !important;
+  color: #4c9de4 !important;
   font-size: 12px;
   flex-shrink: 0;
 }
@@ -136,11 +136,11 @@ function handleSelect(value: string | number | Record<string, unknown> | undefin
   text-overflow: ellipsis;
   white-space: nowrap;
   font-size: 13px !important;
-  color: rgba(255,255,255,0.75) !important;
+  color: rgba(22, 41, 63, 0.92) !important;
 }
 
 .switcher-option--active .switcher-option-name {
-  color: #5CBDC5 !important;
+  color: #4c9de4 !important;
   font-weight: 500 !important;
 }
 
@@ -153,10 +153,10 @@ function handleSelect(value: string | number | Record<string, unknown> | undefin
 }
 .switcher-option-status--active {
   background: rgba(54,211,153,0.15) !important;
-  color: #36D399 !important;
+  color: #22a06b !important;
 }
 .switcher-option-status--inactive {
-  background: rgba(255,255,255,0.06) !important;
-  color: rgba(255,255,255,0.30) !important;
+  background: rgba(76, 157, 228, 0.07) !important;
+  color: rgba(22, 41, 63, 0.41) !important;
 }
 </style>
