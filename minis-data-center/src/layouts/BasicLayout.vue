@@ -487,9 +487,9 @@ watch(activeGroupKey, (key) => {
   inset: 0;
   pointer-events: none;
   background:
-    radial-gradient(56% 42% at 4% 0%, rgba(124, 195, 240, 0.22) 0%, transparent 64%),
-    radial-gradient(52% 46% at 98% 2%, rgba(168, 204, 240, 0.18) 0%, transparent 68%),
-    radial-gradient(64% 44% at 50% 110%, rgba(203, 225, 247, 0.40) 0%, transparent 72%);
+    radial-gradient(56% 42% at 4% 0%, rgba(124, 195, 240, 0.09) 0%, transparent 64%),
+    radial-gradient(52% 46% at 98% 2%, rgba(168, 204, 240, 0.07) 0%, transparent 68%),
+    radial-gradient(64% 44% at 50% 110%, rgba(203, 225, 247, 0.16) 0%, transparent 72%);
 }
 
 /* ─── 侧边导航 ──────────────────────────────────────────── */
