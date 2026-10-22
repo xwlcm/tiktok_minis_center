@@ -1,574 +1,250 @@
 <template>
-  <div class="layout" :class="{ 'layout--mobile': isMobile, 'layout--overlay': isMobile && !collapsed }">
-    <!-- ── 移动端遮罩 ─────────────────────────────── -->
-    <transition name="mask-fade">
-      <div v-if="isMobile && !collapsed" class="mobile-mask" @click="collapsed = true" />
-    </transition>
+  <div class="shell" :class="{ 'shell--mobile': isMobile }">
+    <div class="shell-aurora" aria-hidden="true" />
 
-    <!-- ── 侧边栏 ─────────────────────────────────── -->
+    <!-- ═══ 侧边导航：一级菜单 + 侧边栏内下拉展开 ═════════════ -->
     <aside
       class="sider"
-      :class="{ 'sider--collapsed': collapsed, 'sider--mobile': isMobile }"
-      :style="{
-        width: collapsed ? 'var(--mc-sider-collapsed-width)' : 'var(--mc-sider-width)',
-        transform: isMobile && collapsed ? 'translateX(-100%)' : 'translateX(0)',
-      }"
+      :class="{ 'sider--collapsed': sidebarCollapsed, 'sider--open': mobileNavOpen }"
     >
-      <!-- Logo -->
-      <AppLogo size="sm" :collapsed="collapsed" class="sider-logo" />
-
-      <!-- ═══ 展开态菜单（正常 inline 模式） ═══ -->
-      <nav v-if="!collapsed" class="sider-menu-wrap">
-        <a-menu
-          v-model:selected-keys="selectedKeys"
-          v-model:open-keys="openKeys"
-          class="sider-menu"
-          @menu-item-click="handleMenuClick"
-          @mouseleave="handleMenuLeave"
+      <div class="sider-brand">
+        <button type="button" class="brand-btn" title="Minis 数据中台" @click="go('/dashboard')">
+          <AppLogo size="sm" :collapsed="sidebarCollapsed" />
+        </button>
+        <button
+          type="button"
+          class="sider-collapse"
+          :title="isMobile ? '关闭菜单' : (sidebarCollapsed ? '展开侧栏' : '收起侧栏')"
+          @click="toggleNav"
         >
-          <!-- 仪表盘 -->
-          <a-menu-item v-if="perms.canViewDashboard" key="/dashboard" @mouseenter="handleMenuHover('/dashboard')">
-            <template #icon><icon-dashboard /></template>
-            仪表盘
-          </a-menu-item>
+          <IconMenuUnfold v-if="sidebarCollapsed" />
+          <IconMenuFold v-else />
+        </button>
+      </div>
 
-          <!-- 短剧管理 -->
-          <a-sub-menu v-if="perms.canManageDrama" key="drama">
-            <template #icon><icon-video-camera /></template>
-            <template #title>短剧管理</template>
-            <a-menu-item key="/drama/list" @mouseenter="handleMenuHover('/drama/list')">短剧列表</a-menu-item>
-            <a-menu-item key="/drama/tags" @mouseenter="handleMenuHover('/drama/tags')">短剧标签</a-menu-item>
-            <a-menu-item key="/drama/home-banner" @mouseenter="handleMenuHover('/drama/home-banner')">首页轮播</a-menu-item>
-            <a-menu-item key="/drama/home-hot" @mouseenter="handleMenuHover('/drama/home-hot')">热播短剧</a-menu-item>
-            <a-menu-item key="/drama/home-rank" @mouseenter="handleMenuHover('/drama/home-rank')">分类排行榜</a-menu-item>
-            <a-menu-item key="/drama/home-explore" @mouseenter="handleMenuHover('/drama/home-explore')">更多短剧</a-menu-item>
-          </a-sub-menu>
-
-          <!-- 用户列表 -->
-          <a-menu-item v-if="perms.canViewUser" key="/user/list" @mouseenter="handleMenuHover('/user/list')">
-            <template #icon><icon-user /></template>
-            用户列表
-          </a-menu-item>
-
-          <!-- 广告投放 -->
-          <a-sub-menu v-if="perms.canManageAd" key="ad-delivery">
-            <template #icon><icon-send /></template>
-            <template #title>广告投放</template>
-            <a-menu-item key="/ad/accounts" @mouseenter="handleMenuHover('/ad/accounts')">
-              广告账户
-            </a-menu-item>
-            <a-menu-item key="/ad/report" @mouseenter="handleMenuHover('/ad/report')">
-              投放报表
-            </a-menu-item>
-            <a-menu-item key="/ad/webhook-subscriptions" v-if="FEATURE_DATA_SUBSCRIPTION" @mouseenter="handleMenuHover('/ad/webhook-subscriptions')">
-              数据订阅
-            </a-menu-item>
-            <a-menu-item key="/ad/campaign-mapping" @mouseenter="handleMenuHover('/ad/campaign-mapping')">关联管理</a-menu-item>
-            <a-menu-item key="/ad/naming-template" @mouseenter="handleMenuHover('/ad/naming-template')">命名模板</a-menu-item>
-          </a-sub-menu>
-
-          <!-- 数据分析 -->
-          <a-sub-menu v-if="perms.canManageAd" key="ad-analytics">
-            <template #icon><icon-bar-chart /></template>
-            <template #title>数据分析</template>
-            <a-menu-item key="/ad/analytics-dashboard" @mouseenter="handleMenuHover('/ad/analytics-dashboard')">数据看板</a-menu-item>
-            <a-menu-item key="/ad/alerts" v-if="FEATURE_ALERT_CENTER" @mouseenter="handleMenuHover('/ad/alerts')">预警中心</a-menu-item>
-            <a-menu-item key="/ad/alert-rules" v-if="FEATURE_ALERT_RULES" @mouseenter="handleMenuHover('/ad/alert-rules')">预警规则</a-menu-item>
-          </a-sub-menu>
-
-          <!-- 广告变现 -->
-          <a-sub-menu v-if="perms.canManageAd" key="ad-monetize">
-            <template #icon><icon-thunderbolt /></template>
-            <template #title>广告变现</template>
-            <a-menu-item key="/ad/list" @mouseenter="handleMenuHover('/ad/list')">广告列表</a-menu-item>
-            <a-menu-item key="/ad/push-settings" @mouseenter="handleMenuHover('/ad/push-settings')">推送规则</a-menu-item>
-            <a-menu-item key="/ad/force-rule" @mouseenter="handleMenuHover('/ad/force-rule')">强弹规则</a-menu-item>
-            <a-menu-item key="/ad/force-whitelist" @mouseenter="handleMenuHover('/ad/force-whitelist')">强弹白名单</a-menu-item>
-            <a-menu-item key="/ad/callback-rules" v-if="FEATURE_CALLBACK_RULES" @mouseenter="handleMenuHover('/ad/callback-rules')">回传规则</a-menu-item>
-            <a-menu-item key="/ad/callback-logs" v-if="FEATURE_CALLBACK_LOGS" @mouseenter="handleMenuHover('/ad/callback-logs')">回传日志</a-menu-item>
-          </a-sub-menu>
-
-          <!-- 智能算法 -->
-          <a-sub-menu v-if="perms.canManageAd" key="ad-algorithm">
-            <template #icon><icon-robot /></template>
-            <template #title>智能算法</template>
-            <a-menu-item key="/ad/analytics" @mouseenter="handleMenuHover('/ad/analytics')">算法分析</a-menu-item>
-            <a-menu-item key="/ad/algorithm-status" @mouseenter="handleMenuHover('/ad/algorithm-status')">算法状态</a-menu-item>
-            <a-menu-item key="/ad/push-logs" @mouseenter="handleMenuHover('/ad/push-logs')">推送日志</a-menu-item>
-            <a-menu-item key="/ad/algorithm-config" @mouseenter="handleMenuHover('/ad/algorithm-config')">参数配置</a-menu-item>
-          </a-sub-menu>
-
-          <!-- 系统管理 -->
-          <a-sub-menu v-if="perms.canManageAccounts" key="system">
-            <template #icon><icon-settings /></template>
-            <template #title>系统管理</template>
-            <a-menu-item key="/system/user" @mouseenter="handleMenuHover('/system/user')">用户管理</a-menu-item>
-            <a-menu-item key="/system/role" @mouseenter="handleMenuHover('/system/role')">角色管理</a-menu-item>
-            <a-menu-item key="/system/app" @mouseenter="handleMenuHover('/system/app')">应用管理</a-menu-item>
-            <a-menu-item key="/system/data-init" @mouseenter="handleMenuHover('/system/data-init')">数据初始化</a-menu-item>
-          </a-sub-menu>
-        </a-menu>
-      </nav>
-
-      <!-- ═══ 折叠态菜单（图标 + Popover 弹出子菜单） ═══ -->
-      <nav v-else class="sider-menu-wrap sider-menu-wrap--collapsed">
-        <div class="collapsed-menu">
-          <!-- 仪表盘 -->
-          <a-tooltip v-if="perms.canViewDashboard" position="right" :mini="true" background-color="rgba(10,13,22,0.97)">
-            <div
-              class="collapsed-item"
-              :class="{ 'collapsed-item--active': selectedKeys.includes('/dashboard') }"
-              @click="handleMenuClick('/dashboard')"
-              @mouseenter="handleMenuHover('/dashboard')"
-            >
-              <icon-dashboard />
-            </div>
-            <template #content>仪表盘</template>
-          </a-tooltip>
-
-          <!-- 短剧管理 -->
-          <a-popover
-            v-if="perms.canManageDrama"
-            position="right"
-            trigger="hover"
-            :show-arrow="false"
-            :arrow-style="{ display: 'none' }"
-            :content-style="POPOVER_CONTENT_STYLE"
+      <nav class="sider-nav">
+        <div v-for="group in groups" :key="group.key" class="nav-group">
+          <button
+            type="button"
+            class="nav-parent"
+            :class="{
+              'nav-parent--active': group.key === activeGroupKey,
+              'nav-parent--open': isExpanded(group.key),
+            }"
+            :title="sidebarCollapsed && !isMobile ? group.label : undefined"
+            @click="onGroupClick(group)"
           >
-            <div
-              class="collapsed-item"
-              :class="{ 'collapsed-item--active': isGroupActive('drama') }"
-            >
-              <icon-video-camera />
-            </div>
-            <template #content>
-              <div class="popover-submenu">
-                <div class="popover-submenu-title">短剧管理</div>
-                <div
-                  v-for="item in dramaChildren"
-                  :key="item.key"
-                  class="popover-submenu-item"
-                  :class="{ 'popover-submenu-item--active': selectedKeys.includes(item.key) }"
-                  @click="handleMenuClick(item.key)"
-                  @mouseenter="handleMenuHover(item.key)"
-                >
-                  {{ item.label }}
-                </div>
-              </div>
-            </template>
-          </a-popover>
+            <component :is="resolveMenuIcon(group.icon)" class="nav-parent-icon" />
+            <span class="nav-parent-label">{{ group.label }}</span>
+            <span v-if="group.children.length > 1" class="nav-parent-count">
+              {{ group.children.length }}
+            </span>
+            <IconDown v-if="group.children.length > 1" class="nav-parent-arrow" />
+          </button>
 
-          <!-- 用户列表 -->
-          <a-tooltip v-if="perms.canViewUser" position="right" :mini="true" background-color="rgba(10,13,22,0.97)">
-            <div
-              class="collapsed-item"
-              :class="{ 'collapsed-item--active': selectedKeys.includes('/user/list') }"
-              @click="handleMenuClick('/user/list')"
-              @mouseenter="handleMenuHover('/user/list')"
+          <transition name="submenu">
+            <ul
+              v-if="group.children.length > 1 && isExpanded(group.key) && (!sidebarCollapsed || isMobile)"
+              class="nav-sub"
             >
-              <icon-user />
-            </div>
-            <template #content>用户列表</template>
-          </a-tooltip>
-
-          <!-- 广告投放 -->
-          <a-popover
-            v-if="perms.canManageAd"
-            position="right"
-            trigger="hover"
-            :show-arrow="false"
-            :arrow-style="{ display: 'none' }"
-            :content-style="POPOVER_CONTENT_STYLE"
-          >
-            <div
-              class="collapsed-item"
-              :class="{ 'collapsed-item--active': isGroupActive('ad-delivery') }"
-            >
-              <icon-send />
-            </div>
-            <template #content>
-              <div class="popover-submenu">
-                <div class="popover-submenu-title">广告投放</div>
-                <div
-                  v-for="item in adDeliveryChildren"
-                  :key="item.key"
-                  class="popover-submenu-item"
-                  :class="{ 'popover-submenu-item--active': selectedKeys.includes(item.key) }"
-                  @click="handleMenuClick(item.key)"
-                  @mouseenter="handleMenuHover(item.key)"
+              <li v-for="item in group.children" :key="item.key">
+                <button
+                  type="button"
+                  class="nav-leaf"
+                  :class="{ 'nav-leaf--active': item.key === activeMenuKey }"
+                  @click="go(item.key)"
+                  @mouseenter="prefetchOnHover(item.key)"
+                  @mouseleave="cancelHoverPrefetch"
                 >
-                  {{ item.label }}
-                </div>
-              </div>
-            </template>
-          </a-popover>
-
-          <!-- 数据分析 -->
-          <a-popover
-            v-if="perms.canManageAd"
-            position="right"
-            trigger="hover"
-            :show-arrow="false"
-            :arrow-style="{ display: 'none' }"
-            :content-style="POPOVER_CONTENT_STYLE"
-          >
-            <div
-              class="collapsed-item"
-              :class="{ 'collapsed-item--active': isGroupActive('ad-analytics') }"
-            >
-              <icon-bar-chart />
-            </div>
-            <template #content>
-              <div class="popover-submenu">
-                <div class="popover-submenu-title">数据分析</div>
-                <div
-                  v-for="item in adAnalyticsChildren"
-                  :key="item.key"
-                  class="popover-submenu-item"
-                  :class="{ 'popover-submenu-item--active': selectedKeys.includes(item.key) }"
-                  @click="handleMenuClick(item.key)"
-                  @mouseenter="handleMenuHover(item.key)"
-                >
-                  {{ item.label }}
-                </div>
-              </div>
-            </template>
-          </a-popover>
-
-          <!-- 广告变现 -->
-          <a-popover
-            v-if="perms.canManageAd"
-            position="right"
-            trigger="hover"
-            :show-arrow="false"
-            :arrow-style="{ display: 'none' }"
-            :content-style="POPOVER_CONTENT_STYLE"
-          >
-            <div
-              class="collapsed-item"
-              :class="{ 'collapsed-item--active': isGroupActive('ad-monetize') }"
-            >
-              <icon-thunderbolt />
-            </div>
-            <template #content>
-              <div class="popover-submenu">
-                <div class="popover-submenu-title">广告变现</div>
-                <div
-                  v-for="item in adMonetizeChildren"
-                  :key="item.key"
-                  class="popover-submenu-item"
-                  :class="{ 'popover-submenu-item--active': selectedKeys.includes(item.key) }"
-                  @click="handleMenuClick(item.key)"
-                  @mouseenter="handleMenuHover(item.key)"
-                >
-                  {{ item.label }}
-                </div>
-              </div>
-            </template>
-          </a-popover>
-
-          <!-- 智能算法 -->
-          <a-popover
-            v-if="perms.canManageAd"
-            position="right"
-            trigger="hover"
-            :show-arrow="false"
-            :arrow-style="{ display: 'none' }"
-            :content-style="POPOVER_CONTENT_STYLE"
-          >
-            <div
-              class="collapsed-item"
-              :class="{ 'collapsed-item--active': isGroupActive('ad-algorithm') }"
-            >
-              <icon-robot />
-            </div>
-            <template #content>
-              <div class="popover-submenu">
-                <div class="popover-submenu-title">智能算法</div>
-                <div
-                  v-for="item in adAlgorithmChildren"
-                  :key="item.key"
-                  class="popover-submenu-item"
-                  :class="{ 'popover-submenu-item--active': selectedKeys.includes(item.key) }"
-                  @click="handleMenuClick(item.key)"
-                  @mouseenter="handleMenuHover(item.key)"
-                >
-                  {{ item.label }}
-                </div>
-              </div>
-            </template>
-          </a-popover>
-
-          <!-- 系统管理 -->
-          <a-popover
-            v-if="perms.canManageAccounts"
-            position="right"
-            trigger="hover"
-            :show-arrow="false"
-            :arrow-style="{ display: 'none' }"
-            :content-style="POPOVER_CONTENT_STYLE"
-          >
-            <div
-              class="collapsed-item"
-              :class="{ 'collapsed-item--active': isGroupActive('system') }"
-            >
-              <icon-settings />
-            </div>
-            <template #content>
-              <div class="popover-submenu">
-                <div class="popover-submenu-title">系统管理</div>
-                <div
-                  v-for="item in systemChildren"
-                  :key="item.key"
-                  class="popover-submenu-item"
-                  :class="{ 'popover-submenu-item--active': selectedKeys.includes(item.key) }"
-                  @click="handleMenuClick(item.key)"
-                  @mouseenter="handleMenuHover(item.key)"
-                >
-                  {{ item.label }}
-                </div>
-              </div>
-            </template>
-          </a-popover>
+                  <span class="nav-leaf-dot" />
+                  <span class="nav-leaf-label">{{ item.label }}</span>
+                </button>
+              </li>
+            </ul>
+          </transition>
         </div>
       </nav>
 
-      <!-- 折叠按钮 -->
-      <div class="sider-footer">
-        <button class="collapse-btn" @click="toggleCollapse">
-          <icon-menu-fold v-if="!collapsed" />
-          <icon-menu-unfold v-else />
+      <div class="sider-foot">
+        <button
+          type="button"
+          class="sider-manage"
+          :title="sidebarCollapsed && !isMobile ? '模块管理' : undefined"
+          @click="go('/system/modules')"
+        >
+          <IconApps />
+          <span v-if="!sidebarCollapsed || isMobile">模块管理</span>
         </button>
       </div>
     </aside>
 
-    <!-- ── 主内容区 ────────────────────────────────── -->
-    <main
-      class="main"
-      :style="{
-        marginLeft: isMobile ? '0' : (collapsed ? 'var(--mc-sider-collapsed-width)' : 'var(--mc-sider-width)'),
-      }"
-    >
-      <!-- 顶部导航 -->
-      <header class="header">
-        <div class="header-left">
-          <!-- 移动端汉堡按钮 -->
-          <button v-if="isMobile" class="mobile-menu-btn" @click="collapsed = false">
-            <icon-menu />
+    <!-- 移动端抽屉遮罩 -->
+    <div v-if="isMobile && mobileNavOpen" class="sider-mask" @click="mobileNavOpen = false" />
+
+    <!-- ═══ 工作区 ═══════════════════════════════════════════ -->
+    <main class="workspace">
+      <header class="commandbar">
+        <button type="button" class="cmd-ghost" title="展开模块菜单" @click="toggleNav">
+          <IconMenuUnfold v-if="sidebarCollapsed || (isMobile && !mobileNavOpen)" />
+          <IconMenuFold v-else />
+        </button>
+
+        <div class="cmd-trail">
+          <span class="cmd-trail-group">{{ activeGroup?.label ?? '工作区' }}</span>
+          <IconRight class="cmd-trail-sep" />
+          <span class="cmd-trail-page">{{ currentTitle }}</span>
+        </div>
+
+        <div class="cmd-spacer" />
+
+        <button type="button" class="cmd-search" @click="openPalette">
+          <IconSearch />
+          <span class="cmd-search-text">搜索模块</span>
+          <kbd>Ctrl K</kbd>
+        </button>
+
+        <span class="cmd-divider" />
+
+        <AppSwitcher v-if="perms.canSwitchApp" />
+        <div v-else class="cmd-app">
+          <span class="cmd-app-dot" />
+          <span class="cmd-app-name">{{ appStore.currentApp?.appName ?? '—' }}</span>
+        </div>
+
+        <a-dropdown trigger="click" position="br">
+          <button type="button" class="cmd-user">
+            <span class="cmd-avatar" :style="{ background: roleColor }">{{ userInitial }}</span>
+            <span class="cmd-user-meta">
+              <span class="cmd-user-name">{{ userName }}</span>
+              <span class="cmd-user-role">{{ roleLabel }}</span>
+            </span>
+            <IconDown class="cmd-user-caret" />
           </button>
-          <div class="breadcrumb">
-            <span class="breadcrumb-home">首页</span>
-            <span class="breadcrumb-sep">/</span>
-            <span class="breadcrumb-current">{{ currentTitle }}</span>
-          </div>
-        </div>
-
-        <div class="header-right">
-          <!-- 应用切换（仅 admin） -->
-          <AppSwitcher v-if="perms.canSwitchApp" />
-          <!-- 非 admin 显示当前应用名（只读） -->
-          <div v-else class="app-readonly">
-            <div class="app-readonly-dot" ></div>
-            <span class="app-readonly-name">{{ appStore.currentApp?.appName ?? '—' }}</span>
-          </div>
-
-          <div class="header-divider" ></div>
-
-          <!-- 用户信息 + 角色 -->
-          <a-dropdown>
-            <div class="user-btn">
-              <a-avatar :size="28" class="user-avatar" :style="{ background: roleColor }">
-                {{ accountStore.current?.nickName?.[0]?.toUpperCase() ?? accountStore.current?.userName?.[0]?.toUpperCase() ?? 'A' }}
-              </a-avatar>
-              <div class="user-info">
-                <span class="user-name">{{ accountStore.current?.nickName ?? accountStore.current?.userName ?? 'Admin' }}</span>
-                <span class="user-role-tag text-center" :class="`user-role-tag--${accountStore.role}`">
-                  {{ roleLabel }}
-                </span>
-              </div>
-              <icon-down class="user-arrow" />
-            </div>
-            <template #content>
-              <a-doption @click="handleLogout">
-                <template #icon><icon-export /></template>退出登录
-              </a-doption>
-            </template>
-          </a-dropdown>
-        </div>
+          <template #content>
+            <a-doption @click="go('/system/modules')">
+              <template #icon><IconApps /></template>
+              模块管理
+            </a-doption>
+            <a-doption @click="handleLogout">
+              <template #icon><IconExport /></template>
+              退出登录
+            </a-doption>
+          </template>
+        </a-dropdown>
       </header>
 
-      <!-- 页面内容 -->
-      <div class="content">
-        <router-view v-slot="{ Component, route }">
-          <keep-alive v-if="Component && !route.meta.refreshOnMenuSwitch" :include="/./">
-            <component
-              :is="Component"
-              :key="route.path"
-            />
+      <div class="canvas">
+        <router-view v-slot="{ Component, route: current }">
+          <keep-alive v-if="Component && !current.meta.refreshOnMenuSwitch" :include="/./">
+            <component :is="Component" :key="current.path" />
           </keep-alive>
           <component
-            v-else-if="Component && route.meta.refreshOnMenuSwitch"
+            v-else-if="Component && current.meta.refreshOnMenuSwitch"
             :is="Component"
-            :key="route.fullPath"
+            :key="current.fullPath"
           />
         </router-view>
       </div>
     </main>
+
+    <!-- ═══ 命令面板 ═════════════════════════════════════════ -->
+    <div v-if="paletteOpen" class="palette-mask" @click.self="closePalette">
+      <div class="palette">
+        <div class="palette-input-row">
+          <IconSearch class="palette-search-icon" />
+          <input
+            ref="paletteInputRef"
+            v-model="paletteQuery"
+            class="palette-input"
+            placeholder="搜索模块、页面或路径…"
+            @keydown.down.prevent="movePaletteCursor(1)"
+            @keydown.up.prevent="movePaletteCursor(-1)"
+            @keydown.enter.prevent="runPaletteCursor"
+            @keydown.esc.prevent="closePalette"
+          />
+          <kbd class="palette-esc">Esc</kbd>
+        </div>
+
+        <div class="palette-results">
+          <button
+            v-for="(entry, index) in paletteResults"
+            :key="entry.key"
+            type="button"
+            class="palette-item"
+            :class="{ 'palette-item--active': index === paletteCursor }"
+            @mouseenter="paletteCursor = index"
+            @click="runPalette(entry.key)"
+          >
+            <span class="palette-item-main">
+              <component :is="resolveMenuIcon(entry.icon)" class="palette-item-icon" />
+              <span class="palette-item-label">{{ entry.label }}</span>
+            </span>
+            <span class="palette-item-group">{{ entry.groupLabel }}</span>
+          </button>
+
+          <p v-if="!paletteResults.length" class="palette-empty">没有匹配的模块</p>
+        </div>
+
+        <footer class="palette-foot">
+          <span><kbd>↑</kbd><kbd>↓</kbd> 选择</span>
+          <span><kbd>Enter</kbd> 打开</span>
+          <span class="palette-foot-tip">布局可在「模块管理」中调整</span>
+        </footer>
+      </div>
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, computed, watch, onMounted, onUnmounted, onErrorCaptured } from 'vue'
-import { useRouter, useRoute } from 'vue-router'
+import { computed, nextTick, onMounted, onUnmounted, ref, watch } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
 import { Message } from '@arco-design/web-vue'
-import AppSwitcher from '@/components/AppSwitcher/index.vue'
+import {
+  IconApps,
+  IconDown,
+  IconExport,
+  IconMenuFold,
+  IconMenuUnfold,
+  IconRight,
+  IconSearch,
+} from '@arco-design/web-vue/es/icon'
+
 import AppLogo from '@/components/AppLogo/index.vue'
+import AppSwitcher from '@/components/AppSwitcher/index.vue'
 import { useAccountStore } from '@/stores/account.ts'
 import { useAppStore } from '@/stores/app.ts'
+import { useMenuStore } from '@/stores/menu.ts'
+import { resolveMenuIcon, type MenuGroupDef } from '@/config/menu.ts'
 import { logout } from '@/api/auth.ts'
-import { prefetchOnHover, cancelHoverPrefetch } from '@/utils/route-prefetch.ts'
+import { cancelHoverPrefetch, prefetchOnHover } from '@/utils/route-prefetch.ts'
 
-const router = useRouter()
 const route = useRoute()
+const router = useRouter()
 
-// ── 功能开关：暂未完善的模块默认隐藏，设为 true 即可开启 ──
-const FEATURE_DATA_SUBSCRIPTION = false   // 数据订阅
-const FEATURE_ALERT_CENTER = false        // 预警中心
-const FEATURE_ALERT_RULES = false         // 预警规则
-const FEATURE_CALLBACK_RULES = false      // 回传规则
-const FEATURE_CALLBACK_LOGS = false       // 回传日志
-
-// ── 错误边界：捕获 Arco Design <a-sub-menu> 在 keep-alive 路由切换时的内部 slot 错误 ──
-// 注意：只对已知的 Arco Menu 内部错误返回 false（阻止传播），
-// 其他错误正常抛出，避免页面静默失败没有任何提示。
-onErrorCaptured((err, _instance, info) => {
-  const msg = err?.message ?? ''
-  if (
-    msg.includes('parentNode') ||
-    msg.includes('__vnode') ||
-    msg.includes('expand-icon') ||
-    (msg.includes('slot') && msg.includes('invoked outside'))
-  ) {
-    console.warn('[BasicLayout] Arco Menu slot error suppressed:', msg)
-    return false
-  }
-  // 非 Arco 内部错误：打印日志并继续传播，让全局错误处理能感知
-  console.error('[BasicLayout] Unhandled error:', err, 'info:', info)
-})
 const accountStore = useAccountStore()
 const appStore = useAppStore()
+const menuStore = useMenuStore()
 
-// ── 响应式断点 ──
+/* ── 布局状态 ─────────────────────────────────────────── */
+
 const MOBILE_BREAKPOINT = 768
+const SIDEBAR_KEY = 'mc.sidebar.collapsed.v1'
+
 const isMobile = ref(window.innerWidth < MOBILE_BREAKPOINT)
+const sidebarCollapsed = ref(localStorage.getItem(SIDEBAR_KEY) === '1')
+const mobileNavOpen = ref(false)
+const expandedGroupKeys = ref<string[]>([])
+const paletteOpen = ref(false)
+const paletteQuery = ref('')
+const paletteCursor = ref(0)
+const paletteInputRef = ref<HTMLInputElement | null>(null)
 
-// 侧边栏折叠状态持久化到 localStorage，避免组件重新创建时重置
-const SIDER_COLLAPSED_KEY = 'sider_collapsed'
-const savedCollapsed = localStorage.getItem(SIDER_COLLAPSED_KEY)
-const collapsed = ref(savedCollapsed !== null ? savedCollapsed === 'true' : window.innerWidth < 1024)
+const perms = computed(() => accountStore.menuPerms)
+const groups = computed<MenuGroupDef[]>(() => menuStore.visibleGroups(perms.value))
 
-// 侧边栏当前宽度（用于主内容区 width 计算）
-const siderWidth = computed(() => {
-  if (isMobile.value) return '0px'
-  return collapsed.value ? '56px' : '220px'
-})
+/* ── 路由 → 菜单归属 ──────────────────────────────────── */
 
-// 菜单展开状态持久化到 localStorage
-const SIDER_OPEN_KEYS_KEY = 'sider_open_keys'
-const savedOpenKeys = localStorage.getItem(SIDER_OPEN_KEYS_KEY)
-
-function parseSavedOpenKeys(value: string | null, fallback: string[]): string[] {
-  if (!value) return fallback
-  try {
-    const parsed = JSON.parse(value)
-    return Array.isArray(parsed) && parsed.every(item => typeof item === 'string') ? parsed : fallback
-  } catch {
-    return fallback
-  }
-}
-
-// ── 子菜单数据（折叠态 Popover 用） ──
-const dramaChildren = [
-  { key: '/drama/list', label: '短剧列表' },
-  { key: '/drama/tags', label: '短剧标签' },
-  { key: '/drama/home-banner', label: '首页轮播' },
-  { key: '/drama/home-hot', label: '热播短剧' },
-  { key: '/drama/home-rank', label: '分类排行榜' },
-  { key: '/drama/home-explore', label: '更多短剧' },
-]
-
-const adDeliveryChildren = [
-  { key: '/ad/accounts', label: '广告账户' },
-  { key: '/ad/report', label: '投放报表' },
-  ...(FEATURE_DATA_SUBSCRIPTION ? [{ key: '/ad/webhook-subscriptions', label: '数据订阅' }] : []),
-  { key: '/ad/campaign-mapping', label: '关联管理' },
-  { key: '/ad/naming-template', label: '命名模板' },
-]
-
-const adAnalyticsChildren = [
-  { key: '/ad/analytics-dashboard', label: '数据看板' },
-  ...(FEATURE_ALERT_CENTER ? [{ key: '/ad/alerts', label: '预警中心' }] : []),
-  ...(FEATURE_ALERT_RULES ? [{ key: '/ad/alert-rules', label: '预警规则' }] : []),
-]
-
-const adMonetizeChildren = [
-  { key: '/ad/list', label: '广告列表' },
-  { key: '/ad/push-settings', label: '推送规则' },
-  { key: '/ad/force-rule', label: '强弹规则' },
-  { key: '/ad/force-whitelist', label: '强弹白名单' },
-  ...(FEATURE_CALLBACK_RULES ? [{ key: '/ad/callback-rules', label: '回传规则' }] : []),
-  ...(FEATURE_CALLBACK_LOGS ? [{ key: '/ad/callback-logs', label: '回传日志' }] : []),
-]
-
-const adAlgorithmChildren = [
-  { key: '/ad/analytics', label: '算法分析' },
-  { key: '/ad/algorithm-status', label: '算法状态' },
-  { key: '/ad/push-logs', label: '推送日志' },
-  { key: '/ad/algorithm-config', label: '参数配置' },
-]
-
-const systemChildren = [
-  { key: '/system/user', label: '用户管理' },
-  { key: '/system/role', label: '角色管理' },
-  { key: '/system/app', label: '应用管理' },
-  { key: '/system/data-init', label: '数据初始化' },
-]
-
-// ── Popover 公共样式常量 ──
-const POPOVER_CONTENT_STYLE = {
-  padding: '4px',
-  background: 'rgba(10, 13, 22, 0.97)',
-  border: '1px solid rgba(92, 189, 197, 0.10)',
-  borderRadius: '10px',
-  boxShadow: '0 8px 32px rgba(0,0,0,0.6), 0 0 40px rgba(92,189,197,0.04)',
-  backdropFilter: 'blur(24px)',
-  minWidth: '160px',
-}
-
-// ── 分组 → 子路径映射（从 menu children 数据派生，避免硬编码重复） ──
-const groupPathMap: Record<string, string[]> = {
-  drama: dramaChildren.map(c => c.key),
-  'ad-delivery': adDeliveryChildren.map(c => c.key),
-  'ad-analytics': adAnalyticsChildren.map(c => c.key),
-  'ad-monetize': adMonetizeChildren.map(c => c.key),
-  'ad-algorithm': adAlgorithmChildren.map(c => c.key),
-  system: systemChildren.map(c => c.key),
-}
-
-// 路径 → 分组反向索引 (O(1) 查找)
-const pathGroupIndex: Record<string, string> = {}
-for (const [group, paths] of Object.entries(groupPathMap)) {
-  for (const p of paths) {
-    pathGroupIndex[p] = group
-  }
-}
-
-function getOpenKeys(path: string): string[] {
-  return pathGroupIndex[path] ? [pathGroupIndex[path]] : []
-}
-
-// ── 非菜单路由 → 父级菜单 key 映射 ──
-// 当用户导航到详情页等非菜单路由时，将菜单选中态映射到其父级菜单项
+// 详情页、上传页等非菜单路由，回指到对应的列表菜单项
 const routeAliasMap: Array<{ pattern: RegExp; menuKey: string }> = [
   { pattern: /^\/user\/.+$/, menuKey: '/user/list' },
   { pattern: /^\/drama\/\d+$/, menuKey: '/drama/list' },
@@ -583,68 +259,165 @@ function resolveMenuKey(path: string): string {
   return path
 }
 
-const selectedKeys = ref<string[]>([resolveMenuKey(route.path)])
-const openKeys = ref<string[]>(parseSavedOpenKeys(savedOpenKeys, getOpenKeys(resolveMenuKey(route.path))))
+const activeMenuKey = computed(() => resolveMenuKey(route.path))
 
-// 折叠态下判断当前路由是否属于某个分组（用于父级图标高亮）
-function isGroupActive(group: string): boolean {
-  const paths = groupPathMap[group]
-  if (!paths) return false
-  return paths.includes(resolveMenuKey(route.path))
-}
+const activeGroup = computed<MenuGroupDef | null>(() => {
+  const current = activeMenuKey.value
+  return groups.value.find(group => group.children.some(item => item.key === current)) ?? null
+})
+
+const activeGroupKey = computed(() => activeGroup.value?.key ?? '')
 
 const currentTitle = computed(() => (route.meta?.title as string) ?? '')
-const perms = computed(() => accountStore.menuPerms)
 
-const roleLabel = computed(() => {
-  return { admin: '管理员', operator: '运营', viewer: '观察者' }[accountStore.role] ?? accountStore.role
-})
-const roleColor = computed(() => {
-  return { admin: '#E0486D', operator: '#5CBDC5', viewer: '#9B7EC4' }[accountStore.role] ?? '#86909c'
-})
+/* ── 交互 ─────────────────────────────────────────────── */
 
-watch(() => route.path, (path) => {
-  const menuKey = resolveMenuKey(path)
-  selectedKeys.value = [menuKey]
-})
+function isExpanded(key: string) {
+  return expandedGroupKeys.value.includes(key)
+}
 
-// 持久化折叠状态
-watch(collapsed, (val) => {
-  localStorage.setItem(SIDER_COLLAPSED_KEY, String(val))
-})
+/** 手风琴：同时只展开一个一级菜单 */
+function expandGroup(key: string) {
+  expandedGroupKeys.value = [key]
+}
 
-// 持久化展开状态
-watch(openKeys, (val) => {
-  localStorage.setItem(SIDER_OPEN_KEYS_KEY, JSON.stringify(val))
-}, { deep: true })
+function onGroupClick(group: MenuGroupDef) {
+  const items = group.children
+  if (!items.length) return
 
-function handleMenuClick(key: string) {
-  if (!key.startsWith('/')) return
-  if (route.path === key) return
-  router.push(key)
-  // 移动端点击后自动收起侧边栏
+  // 折叠态下先展开侧栏，否则下拉内容无处展示
+  if (sidebarCollapsed.value && !isMobile.value) {
+    sidebarCollapsed.value = false
+    localStorage.setItem(SIDEBAR_KEY, '0')
+  }
+
+  // 单页面模块没有二级菜单，直接进入
+  if (items.length === 1) {
+    go(items[0].key)
+    return
+  }
+
+  if (isExpanded(group.key)) {
+    expandedGroupKeys.value = expandedGroupKeys.value.filter(key => key !== group.key)
+    return
+  }
+  expandGroup(group.key)
+}
+
+/** 桌面端：收起/展开侧边栏；移动端：开合描屉 */
+function toggleNav() {
   if (isMobile.value) {
-    collapsed.value = true
+    mobileNavOpen.value = !mobileNavOpen.value
+    return
+  }
+  sidebarCollapsed.value = !sidebarCollapsed.value
+  localStorage.setItem(SIDEBAR_KEY, sidebarCollapsed.value ? '1' : '0')
+  if (sidebarCollapsed.value) {
+    expandedGroupKeys.value = []
+  } else if (activeGroupKey.value) {
+    // 重新展开时恢复当前路由所属分组
+    expandGroup(activeGroupKey.value)
   }
 }
 
-function handleMenuHover(key: string) {
-  prefetchOnHover(key)
+function go(key: string) {
+  if (!key.startsWith('/')) return
+  mobileNavOpen.value = false
+  if (route.path === key) return
+  router.push(key)
 }
 
-function handleMenuLeave() {
-  cancelHoverPrefetch()
+/* ── 命令面板 ─────────────────────────────────────────── */
+
+interface PaletteEntry {
+  key: string
+  label: string
+  groupLabel: string
+  icon: string
 }
 
-function toggleCollapse() {
-  collapsed.value = !collapsed.value
+const paletteSource = computed<PaletteEntry[]>(() => {
+  const seen = new Set<string>()
+  const entries: PaletteEntry[] = []
+  for (const group of groups.value) {
+    for (const item of group.children) {
+      if (seen.has(item.key)) continue
+      seen.add(item.key)
+      entries.push({
+        key: item.key,
+        label: item.label,
+        groupLabel: group.label,
+        icon: group.icon,
+      })
+    }
+  }
+  return entries
+})
+
+const paletteResults = computed<PaletteEntry[]>(() => {
+  const keyword = paletteQuery.value.trim().toLowerCase()
+  const source = paletteSource.value
+  if (!keyword) return source.slice(0, 30)
+  return source
+    .filter(entry =>
+      entry.label.toLowerCase().includes(keyword)
+      || entry.groupLabel.toLowerCase().includes(keyword)
+      || entry.key.toLowerCase().includes(keyword),
+    )
+    .slice(0, 30)
+})
+
+function openPalette() {
+  paletteOpen.value = true
+  paletteQuery.value = ''
+  paletteCursor.value = 0
+  nextTick(() => paletteInputRef.value?.focus())
 }
+
+function closePalette() {
+  paletteOpen.value = false
+}
+
+function movePaletteCursor(delta: number) {
+  const total = paletteResults.value.length
+  if (!total) return
+  paletteCursor.value = (paletteCursor.value + delta + total) % total
+}
+
+function runPaletteCursor() {
+  const entry = paletteResults.value[paletteCursor.value]
+  if (entry) runPalette(entry.key)
+}
+
+function runPalette(key: string) {
+  closePalette()
+  go(key)
+}
+
+watch(paletteQuery, () => {
+  paletteCursor.value = 0
+})
+
+/* ── 账号信息 ─────────────────────────────────────────── */
+
+const userName = computed(
+  () => accountStore.current?.nickName ?? accountStore.current?.userName ?? 'Admin',
+)
+const userInitial = computed(() => (userName.value[0] ?? 'A').toUpperCase())
+const roleLabel = computed(
+  () => ({ admin: '管理员', operator: '运营', viewer: '观察者' } as Record<string, string>)[accountStore.role]
+    ?? accountStore.role,
+)
+const roleColor = computed(
+  () => ({ admin: '#E0576E', operator: '#4C9DE4', viewer: '#7B8FE0' } as Record<string, string>)[accountStore.role]
+    ?? '#86909c',
+)
 
 async function handleLogout() {
   try {
     await logout()
   } catch {
-    // 即使 API 调用失败也继续清理本地状态
+    // 接口失败也继续清理本地状态，避免卡在登录态
   }
   localStorage.removeItem('token')
   localStorage.removeItem('client_id')
@@ -654,434 +427,827 @@ async function handleLogout() {
   router.push('/login')
 }
 
-// ─── 响应式处理 ─────────────────────────────────────
-let lastWidth = window.innerWidth
+/* ── 响应式 ───────────────────────────────────────────── */
+
 function handleResize() {
-  const w = window.innerWidth
-  const wasMobile = isMobile.value
-  isMobile.value = w < MOBILE_BREAKPOINT
+  isMobile.value = window.innerWidth < MOBILE_BREAKPOINT
+  // 回到桌面尺寸时关闭移动端抽屉
+  if (!isMobile.value) mobileNavOpen.value = false
+}
 
-  // 只在跨越断点时自动调整折叠状态，避免每次 resize 都强制重置
-  const crossedMobile = wasMobile !== isMobile.value
-  const crossedTablet = (lastWidth < 1024) !== (w < 1024)
-
-  if (crossedMobile || crossedTablet) {
-    if (w < MOBILE_BREAKPOINT) {
-      collapsed.value = true
-    } else if (w < 1024) {
-      collapsed.value = true
-    } else {
-      // 桌面端（>1024px）自动展开侧边栏
-      collapsed.value = false
-    }
+function handleKeydown(event: KeyboardEvent) {
+  const isPaletteHotkey = (event.ctrlKey || event.metaKey) && event.key.toLowerCase() === 'k'
+  if (isPaletteHotkey) {
+    event.preventDefault()
+    if (paletteOpen.value) closePalette()
+    else openPalette()
+    return
   }
-  lastWidth = w
+  if (event.key !== 'Escape') return
+  if (paletteOpen.value) {
+    closePalette()
+    return
+  }
+  if (mobileNavOpen.value) mobileNavOpen.value = false
 }
 
 onMounted(() => {
   window.addEventListener('resize', handleResize)
+  window.addEventListener('keydown', handleKeydown)
 })
 
 onUnmounted(() => {
   window.removeEventListener('resize', handleResize)
+  window.removeEventListener('keydown', handleKeydown)
+  cancelHoverPrefetch()
 })
+
+// 路由变化：自动展开所属分组，并收起移动端描屉
+watch(activeGroupKey, (key) => {
+  if (key) expandGroup(key)
+  mobileNavOpen.value = false
+}, { immediate: true })
 </script>
 
 <style scoped>
 /* ═══════════════════════════════════════════════════════════
-   整体布局
+   外壳：侧边导航 + 悬浮工作区
    ═══════════════════════════════════════════════════════════ */
-.layout {
-  height: 100%;
-  width: 100%;
-  min-height: 100vh;
-  background: var(--mc-bg-page);
+.shell {
+  position: relative;
   display: flex;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+  background: var(--mc-bg-page);
 }
 
-/* ═══════════════════════════════════════════════════════════
-   移动端遮罩
-   ═══════════════════════════════════════════════════════════ */
-.mobile-mask {
+.shell-aurora {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(56% 42% at 4% 0%, rgba(124, 195, 240, 0.22) 0%, transparent 64%),
+    radial-gradient(52% 46% at 98% 2%, rgba(168, 204, 240, 0.18) 0%, transparent 68%),
+    radial-gradient(64% 44% at 50% 110%, rgba(203, 225, 247, 0.40) 0%, transparent 72%);
+}
+
+/* ─── 侧边导航 ──────────────────────────────────────────── */
+.sider {
+  position: relative;
+  z-index: 3;
+  width: 232px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  padding: 14px 10px 12px;
+  background: rgba(255, 255, 255, 0.86);
+  border-right: 1px solid rgba(31, 80, 132, 0.08);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  transition: width 0.22s var(--mc-ease-out), padding 0.22s ease;
+}
+
+.sider--collapsed {
+  width: 72px;
+  padding-left: 8px;
+  padding-right: 8px;
+}
+
+/* 品牌区 */
+.sider-brand {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 2px 14px;
+  flex-shrink: 0;
+}
+
+.brand-btn {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  padding: 2px;
+  border: none;
+  border-radius: 10px;
+  background: transparent;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.sider-collapse {
+  width: 26px;
+  height: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 8px;
+  background: transparent;
+  color: rgba(22, 41, 63, 0.38);
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 0.16s ease, color 0.16s ease;
+  flex-shrink: 0;
+}
+.sider-collapse:hover {
+  background: rgba(76, 157, 228, 0.10);
+  color: #2269AE;
+}
+
+/* 一级菜单 */
+.sider-nav {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(31, 80, 132, 0.16) transparent;
+}
+.sider-nav::-webkit-scrollbar { width: 4px; }
+.sider-nav::-webkit-scrollbar-thumb {
+  background: rgba(31, 80, 132, 0.16);
+  border-radius: 4px;
+}
+
+.nav-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.nav-parent {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  height: 38px;
+  padding: 0 10px;
+  border: none;
+  border-radius: 10px;
+  background: transparent;
+  color: rgba(22, 41, 63, 0.66);
+  font-size: 13px;
+  font-weight: 500;
+  font-family: var(--mc-font-family);
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.16s ease, color 0.16s ease;
+}
+.nav-parent:hover {
+  background: rgba(76, 157, 228, 0.08);
+  color: #2269AE;
+}
+
+.nav-parent--active {
+  color: #1F63A6;
+  background: linear-gradient(150deg, rgba(111, 182, 242, 0.20) 0%, rgba(76, 157, 228, 0.12) 100%);
+  box-shadow: inset 0 0 0 1px rgba(76, 157, 228, 0.16);
+}
+
+.nav-parent-icon {
+  font-size: 16px;
+  flex-shrink: 0;
+  transition: transform 0.2s var(--mc-ease-spring);
+}
+.nav-parent--active .nav-parent-icon {
+  filter: drop-shadow(0 2px 6px rgba(76, 157, 228, 0.28));
+}
+
+.nav-parent-label {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.nav-parent-count {
+  min-width: 16px;
+  height: 16px;
+  padding: 0 4px;
+  border-radius: 8px;
+  background: rgba(76, 157, 228, 0.12);
+  color: #3285CE;
+  font-size: 9px;
+  font-weight: 700;
+  line-height: 16px;
+  text-align: center;
+  font-family: var(--mc-font-mono);
+  flex-shrink: 0;
+}
+
+.nav-parent-arrow {
+  font-size: 11px;
+  color: rgba(22, 41, 63, 0.30);
+  flex-shrink: 0;
+  transition: transform 0.22s var(--mc-ease-out);
+}
+.nav-parent--open .nav-parent-arrow {
+  transform: rotate(180deg);
+}
+
+/* 二级菜单：侧栏内下拉展开 */
+.nav-sub {
+  list-style: none;
+  margin: 2px 0 6px 18px;
+  padding: 2px 0 2px 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  border-left: 1px solid rgba(31, 80, 132, 0.10);
+}
+
+.nav-leaf {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  height: 33px;
+  padding: 0 10px;
+  border: none;
+  border-radius: 8px;
+  background: transparent;
+  color: rgba(22, 41, 63, 0.62);
+  font-size: 12.5px;
+  font-family: var(--mc-font-family);
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+.nav-leaf:hover {
+  background: rgba(76, 157, 228, 0.08);
+  color: #2269AE;
+}
+
+.nav-leaf--active {
+  background: rgba(76, 157, 228, 0.14);
+  color: #1F63A6;
+  font-weight: 600;
+  box-shadow: inset 0 0 0 1px rgba(76, 157, 228, 0.14);
+}
+
+.nav-leaf-dot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: rgba(22, 41, 63, 0.22);
+  flex-shrink: 0;
+  transition: background 0.16s ease, transform 0.18s var(--mc-ease-spring);
+}
+.nav-leaf--active .nav-leaf-dot {
+  background: #4C9DE4;
+  transform: scale(1.4);
+}
+
+.nav-leaf-label {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* 展开 / 收起过渡 */
+.submenu-enter-active,
+.submenu-leave-active {
+  transition: opacity 0.18s ease, transform 0.18s ease;
+}
+.submenu-enter-from,
+.submenu-leave-to {
+  opacity: 0;
+  transform: translateY(-4px);
+}
+
+/* 底部：模块管理 */
+.sider-foot {
+  flex-shrink: 0;
+  padding-top: 10px;
+  margin-top: 6px;
+  border-top: 1px solid rgba(31, 80, 132, 0.08);
+}
+
+.sider-manage {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  width: 100%;
+  height: 36px;
+  padding: 0 10px;
+  border: 1px dashed rgba(31, 80, 132, 0.16);
+  border-radius: 10px;
+  background: transparent;
+  color: rgba(22, 41, 63, 0.5);
+  font-size: 12px;
+  font-family: var(--mc-font-family);
+  cursor: pointer;
+  transition: border-color 0.18s ease, color 0.18s ease, background 0.18s ease;
+}
+.sider-manage:hover {
+  border-color: rgba(76, 157, 228, 0.4);
+  background: rgba(76, 157, 228, 0.07);
+  color: #2269AE;
+}
+
+/* 折叠态：仅保留图标 */
+.sider--collapsed .sider-brand {
+  flex-direction: column;
+  gap: 4px;
+  padding-bottom: 12px;
+}
+.sider--collapsed .brand-btn {
+  justify-content: center;
+}
+.sider--collapsed .nav-parent {
+  justify-content: center;
+  gap: 0;
+  padding: 0;
+}
+.sider--collapsed .nav-parent-label,
+.sider--collapsed .nav-parent-count,
+.sider--collapsed .nav-parent-arrow {
+  display: none;
+}
+.sider--collapsed .sider-manage {
+  justify-content: center;
+  padding: 0;
+}
+
+/* ─── 移动端抽屉遮罩 ──────────────────────────────────── */
+.sider-mask {
   position: fixed;
   inset: 0;
-  z-index: 199;
-  background: rgba(0, 0, 0, 0.6);
+  z-index: 320;
+  background: rgba(19, 41, 66, 0.24);
   backdrop-filter: blur(2px);
   -webkit-backdrop-filter: blur(2px);
 }
 
-.mask-fade-enter-active { transition: opacity 0.25s ease; }
-.mask-fade-leave-active { transition: opacity 0.2s ease; }
-.mask-fade-enter-from,
-.mask-fade-leave-to { opacity: 0; }
-
-/* ═══════════════════════════════════════════════════════════
-   侧边栏 — 深空玻璃风格
-   ═══════════════════════════════════════════════════════════ */
-.sider {
-  position: fixed;
-  left: 0; top: 0; bottom: 0;
-  z-index: 200;
-  background: linear-gradient(
-    180deg,
-    rgba(10, 13, 22, 0.97) 0%,
-    rgba(8, 10, 18, 0.95) 50%,
-    rgba(10, 13, 22, 0.97) 100%
-  );
-  backdrop-filter: blur(24px) saturate(1.1);
-  -webkit-backdrop-filter: blur(24px) saturate(1.1);
-  border-right: 1px solid rgba(92, 189, 197, 0.06);
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-  transition: width 0.28s cubic-bezier(0.4, 0, 0.2, 1),
-              transform 0.28s cubic-bezier(0.4, 0, 0.2, 1);
-  flex-shrink: 0;
-}
-
-.sider::after {
-  content: '';
-  position: absolute;
-  top: 0; right: 0; bottom: 0;
-  width: 1px;
-  background: linear-gradient(
-    180deg,
-    transparent 0%,
-    rgba(92, 189, 197, 0.12) 30%,
-    rgba(92, 189, 197, 0.08) 70%,
-    transparent 100%
-  );
-  pointer-events: none;
-}
-
-/* 移动端侧边栏浮层 */
-.sider--mobile {
-  box-shadow: 4px 0 32px rgba(0, 0, 0, 0.6), 0 0 60px rgba(92, 189, 197, 0.04);
-}
-
-/* ═══════════════════════════════════════════════════════════
-   Logo（侧边栏）
-   ═══════════════════════════════════════════════════════════ */
-.sider-logo {
-  height: var(--mc-header-height);
-  display: flex;
-  align-items: center;
-  padding: 0 16px;
-  border-bottom: 1px solid rgba(92, 189, 197, 0.06);
-  flex-shrink: 0;
-  overflow: hidden;
-  background: rgba(92, 189, 197, 0.02);
-  transition: padding 0.28s cubic-bezier(0.4, 0, 0.2, 1);
-}
-.sider-logo:deep(.app-logo--collapsed) {
-  padding: 0;
-}
-.sider-logo:deep(.app-logo__icon) {
-  filter: drop-shadow(0 1px 6px rgba(92, 189, 197, 0.3));
-}
-
-/* ═══════════════════════════════════════════════════════════
-   菜单容器
-   ═══════════════════════════════════════════════════════════ */
-.sider-menu-wrap {
+/* ─── 工作区 ─────────────────────────────────────────────── */
+.workspace {
+  position: relative;
+  z-index: 1;
   flex: 1;
-  overflow-y: auto;
-  overflow-x: hidden;
-}
-
-/* ── 展开态 Arco 菜单样式 ── */
-.sider-menu-wrap:not(.sider-menu-wrap--collapsed) :deep(.arco-menu) {
-  background: transparent !important;
-  border-right: none !important;
-}
-.sider-menu-wrap:not(.sider-menu-wrap--collapsed) :deep(.arco-menu-light) {
-  background: transparent !important;
-}
-.sider-menu-wrap:not(.sider-menu-wrap--collapsed) :deep(.arco-menu-inner) {
-  background: transparent !important;
-  padding: 10px 0 !important;
-}
-
-.sider-menu-wrap:not(.sider-menu-wrap--collapsed) :deep(.arco-menu-item) {
-  background-color: transparent !important;
-  border-radius: 8px !important;
-  margin: 2px 10px !important;
-  font-size: 13px !important;
-  font-family: var(--mc-font-family) !important;
-  letter-spacing: 0.01em !important;
-  position: relative !important;
-}
-
-.sider-menu-wrap:not(.sider-menu-wrap--collapsed) :deep(.arco-menu-inline-header) {
-  background-color: transparent !important;
-  border-radius: 8px !important;
-  margin: 2px 10px !important;
-  font-size: 13px !important;
-  font-family: var(--mc-font-family) !important;
-  letter-spacing: 0.01em !important;
-  position: relative !important;
-}
-
-.sider-menu-wrap:not(.sider-menu-wrap--collapsed) :deep(.arco-menu-icon) {
-  color: inherit !important;
-  font-size: 16px !important;
-}
-.sider-menu-wrap:not(.sider-menu-wrap--collapsed) :deep(.arco-menu-icon-suffix) {
-  color: rgba(92, 189, 197, 0.25) !important;
-}
-
-.sider-menu-wrap:not(.sider-menu-wrap--collapsed) :deep(.arco-menu-inline-content) {
-  background: transparent !important;
-}
-
-.sider-menu-wrap:not(.sider-menu-wrap--collapsed) :deep(.arco-menu-item.arco-menu-selected) {
-  background: rgba(92, 189, 197, 0.08) !important;
-  box-shadow: inset 3px 0 0 #5CBDC5 !important;
-}
-.sider-menu-wrap:not(.sider-menu-wrap--collapsed) :deep(.arco-menu-item.arco-menu-selected)::after {
-  content: '';
-  position: absolute;
-  left: 2px; top: 4px; bottom: 4px;
-  width: 2px;
-  background: #5CBDC5;
-  border-radius: 0 2px 2px 0;
-  box-shadow: 0 0 10px rgba(92,189,197,0.5), 0 0 20px rgba(92,189,197,0.25);
-  opacity: 0.6;
-  pointer-events: none;
-}
-
-/* ═══════════════════════════════════════════════════════════
-   折叠态菜单
-   ═══════════════════════════════════════════════════════════ */
-.collapsed-menu {
+  min-width: 0;
   display: flex;
   flex-direction: column;
+  padding: 12px 14px 0;
+  gap: 12px;
+}
+
+.commandbar {
+  height: 54px;
+  flex-shrink: 0;
+  display: flex;
   align-items: center;
-  padding: 10px 0;
-  gap: 6px;
+  gap: 10px;
+  padding: 0 12px;
+  border-radius: 15px;
+  background: rgba(255, 255, 255, 0.82);
+  border: 1px solid rgba(31, 80, 132, 0.08);
+  backdrop-filter: blur(20px) saturate(1.1);
+  -webkit-backdrop-filter: blur(20px) saturate(1.1);
+  box-shadow: 0 8px 24px rgba(23, 54, 92, 0.07);
 }
 
-.collapsed-item {
-  width: 38px; height: 38px;
-  display: flex; align-items: center; justify-content: center;
-  border-radius: 10px;
-  color: rgba(255, 255, 255, 0.40);
-  font-size: 18px;
-  cursor: pointer;
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-  flex-shrink: 0;
-  position: relative;
-}
-.collapsed-item:hover {
-  background: rgba(92, 189, 197, 0.06);
-  color: rgba(255, 255, 255, 0.85);
-  transform: scale(1.05);
-}
-.collapsed-item--active {
-  background: rgba(92, 189, 197, 0.10);
-  color: #5CBDC5;
-  box-shadow: 0 0 12px rgba(92, 189, 197, 0.35);
-}
-.collapsed-item--active::before {
-  content: '';
-  position: absolute;
-  left: -9px; top: 50%; transform: translateY(-50%);
-  width: 3px; height: 20px;
-  background: linear-gradient(180deg, #5CBDC5, rgba(92, 189, 197, 0.4));
-  border-radius: 0 3px 3px 0;
-  box-shadow: 0 0 10px rgba(92, 189, 197, 0.4);
-}
-
-/* ═══════════════════════════════════════════════════════════
-   Popover 子菜单（折叠态弹出）
-   ═══════════════════════════════════════════════════════════ */
-.popover-submenu {
-  padding: 4px 0;
-}
-.popover-submenu-title {
-  padding: 6px 12px 4px;
-  font-size: 10px;
-  font-weight: 600;
-  color: rgba(92, 189, 197, 0.50);
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-.popover-submenu-item {
-  padding: 7px 12px;
-  font-size: 13px;
-  color: rgba(255, 255, 255, 0.55);
-  border-radius: 6px;
-  cursor: pointer;
-  transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
-  margin: 1px 4px;
-  position: relative;
-}
-.popover-submenu-item:hover {
-  background: rgba(92, 189, 197, 0.06);
-  color: rgba(255, 255, 255, 0.90);
-}
-.popover-submenu-item--active {
-  color: #5CBDC5;
-  font-weight: 500;
-  background: rgba(92, 189, 197, 0.08);
-  box-shadow: inset 2px 0 0 #5CBDC5;
-}
-
-/* ═══════════════════════════════════════════════════════════
-   折叠按钮
-   ═══════════════════════════════════════════════════════════ */
-.sider-footer {
-  height: 48px;
-  display: flex; align-items: center; justify-content: center;
-  border-top: 1px solid rgba(92, 189, 197, 0.06);
-  background: rgba(92, 189, 197, 0.02);
-  flex-shrink: 0;
-}
-.collapse-btn {
-  width: 32px; height: 32px;
-  display: flex; align-items: center; justify-content: center;
-  color: rgba(92, 189, 197, 0.30);
-  border-radius: 8px;
-  background: transparent;
+.cmd-ghost {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   border: none;
+  border-radius: 9px;
+  background: rgba(76, 157, 228, 0.07);
+  color: rgba(22, 41, 63, 0.55);
+  font-size: 15px;
   cursor: pointer;
-  font-size: 16px;
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: background 0.16s ease, color 0.16s ease;
+  flex-shrink: 0;
 }
-.collapse-btn:hover {
-  background: rgba(92, 189, 197, 0.08);
-  color: rgba(92, 189, 197, 0.70);
+.cmd-ghost:hover {
+  background: rgba(76, 157, 228, 0.14);
+  color: #1F63A6;
 }
 
-/* ═══════════════════════════════════════════════════════════
-   主内容区
-   ═══════════════════════════════════════════════════════════ */
-.main {
+.cmd-trail {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  min-width: 0;
+}
+
+.cmd-trail-group {
+  font-size: 12px;
+  color: rgba(22, 41, 63, 0.42);
+  white-space: nowrap;
+}
+
+.cmd-trail-sep {
+  font-size: 10px;
+  color: rgba(22, 41, 63, 0.2);
+  flex-shrink: 0;
+}
+
+.cmd-trail-page {
+  font-size: 14px;
+  font-weight: 600;
+  color: #16293F;
+  letter-spacing: 0.005em;
+  max-width: 260px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.cmd-spacer {
   flex: 1;
-  height: 100%;
-  min-height: 100vh;
-  background: var(--mc-bg-page);
-  transition: margin-left 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+  min-width: 8px;
+}
+
+.cmd-search {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  height: 32px;
+  padding: 0 9px 0 11px;
+  border: 1px solid rgba(31, 80, 132, 0.10);
+  border-radius: 9px;
+  background: rgba(255, 255, 255, 0.7);
+  color: rgba(22, 41, 63, 0.45);
+  font-size: 12px;
+  font-family: var(--mc-font-family);
+  cursor: pointer;
+  transition: border-color 0.18s ease, color 0.18s ease, background 0.18s ease;
+  flex-shrink: 0;
+}
+.cmd-search:hover {
+  border-color: rgba(76, 157, 228, 0.4);
+  background: rgba(76, 157, 228, 0.07);
+  color: #2269AE;
+}
+
+.cmd-search kbd {
+  font-family: var(--mc-font-mono);
+  font-size: 9px;
+  padding: 2px 5px;
+  border-radius: 4px;
+  border: 1px solid rgba(31, 80, 132, 0.12);
+  background: rgba(76, 157, 228, 0.06);
+  color: rgba(22, 41, 63, 0.42);
+  letter-spacing: 0.04em;
+}
+
+.cmd-divider {
+  width: 1px;
+  height: 20px;
+  background: rgba(31, 80, 132, 0.10);
+  flex-shrink: 0;
+}
+
+.cmd-app {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 10px;
+  border: 1px solid rgba(31, 80, 132, 0.09);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.7);
+  flex-shrink: 0;
+}
+.cmd-app-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #22A06B;
+  box-shadow: 0 0 0 3px rgba(34, 160, 107, 0.14);
+}
+.cmd-app-name {
+  font-size: 12px;
+  color: rgba(22, 41, 63, 0.62);
+  max-width: 132px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.cmd-user {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 8px 4px 4px;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  background: transparent;
+  cursor: pointer;
+  transition: background 0.16s ease, border-color 0.16s ease;
+  flex-shrink: 0;
+}
+.cmd-user:hover {
+  background: rgba(76, 157, 228, 0.08);
+  border-color: rgba(31, 80, 132, 0.10);
+}
+
+.cmd-avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 9px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: 0;
+  flex-shrink: 0;
+}
+
+.cmd-user-meta {
   display: flex;
   flex-direction: column;
-  min-width: 0;
-  width: auto;
-  max-width: calc(100% - v-bind(siderWidth));
+  gap: 1px;
+  line-height: 1.15;
+  text-align: left;
+}
+.cmd-user-name {
+  font-size: 12px;
+  font-weight: 600;
+  color: #16293F;
+  max-width: 120px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.cmd-user-role {
+  font-size: 10px;
+  color: rgba(22, 41, 63, 0.42);
+}
+.cmd-user-caret {
+  font-size: 10px;
+  color: rgba(22, 41, 63, 0.3);
 }
 
-/* ── 顶部导航 ── */
-.header {
-  height: var(--mc-header-height);
-  background: rgba(10, 13, 22, 0.88);
-  backdrop-filter: blur(20px) saturate(1.2);
-  -webkit-backdrop-filter: blur(20px) saturate(1.2);
-  border-bottom: 1px solid rgba(92, 189, 197, 0.06);
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 0 24px;
-  position: sticky; top: 0; z-index: 100;
-  flex-shrink: 0;
-}
-
-.header-left { display: flex; align-items: center; gap: 10px; }
-
-/* 移动端汉堡按钮 */
-.mobile-menu-btn {
-  width: 36px; height: 36px;
-  display: flex; align-items: center; justify-content: center;
-  color: rgba(255, 255, 255, 0.65);
-  background: transparent;
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 18px;
-  transition: background 0.18s, color 0.18s;
-  flex-shrink: 0;
-}
-.mobile-menu-btn:hover {
-  background: rgba(255, 255, 255, 0.06);
-  color: rgba(255, 255, 255, 0.90);
-}
-
-.breadcrumb { display: flex; align-items: center; gap: 8px; font-size: 13px; font-family: var(--mc-font-family); }
-.breadcrumb-home { color: rgba(255, 255, 255, 0.30); font-weight: 500; }
-.breadcrumb-sep  { color: rgba(255, 255, 255, 0.12); font-size: 11px; }
-.breadcrumb-current { color: rgba(255, 255, 255, 0.85); font-weight: 600; letter-spacing: 0.01em; }
-
-.header-right { display: flex; align-items: center; gap: 8px; }
-.header-divider { width: 1px; height: 18px; background: rgba(255, 255, 255, 0.08); margin: 0 4px; flex-shrink: 0; }
-
-/* 只读应用名 */
-.app-readonly {
-  display: flex; align-items: center; gap: 6px;
-  padding: 5px 10px;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 6px;
-  background: rgba(255, 255, 255, 0.04);
-}
-.app-readonly-dot {
-  width: 6px; height: 6px; border-radius: 50%;
-  background: #36D399;
-  box-shadow: 0 0 6px rgba(54, 211, 153, 0.5);
-}
-.app-readonly-name {
-  font-size: 13px; font-weight: 500;
-  color: rgba(255, 255, 255, 0.7);
-  max-width: 140px;
-  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
-}
-
-/* 用户按钮 */
-.user-btn {
-  display: flex; align-items: center; gap: 8px;
-  padding: 4px 10px;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background 0.18s;
-}
-.user-btn:hover { background: rgba(255, 255, 255, 0.06); }
-.user-info { display: flex; flex-direction: column; gap: 1px; }
-.user-name { font-size: 13px; color: rgba(255, 255, 255, 0.88); font-weight: 600; line-height: 1.2; font-family: var(--mc-font-family); }
-.user-role-tag {
-  font-size: 10px; font-weight: 600;
-  padding: 0 6px; border-radius: 4px; line-height: 16px;
-  letter-spacing: 0.02em;
-}
-.user-role-tag--admin    { background: rgba(224, 72, 109, 0.18);  color: #E0486D; }
-.user-role-tag--operator { background: rgba(92, 189, 197, 0.18); color: #5CBDC5; }
-.user-role-tag--viewer   { background: rgba(155, 126, 196, 0.18);  color: #9B7EC4; }
-.user-arrow { font-size: 11px; color: rgba(255, 255, 255, 0.25); }
-
-/* ── 内容区 ── */
-.content {
+.canvas {
   flex: 1;
-  padding: var(--mc-content-padding);
-  background: var(--mc-bg-page);
-  min-width: 0;
-  width: 100%;
-  max-width: 100vw;
+  min-height: 0;
   overflow-y: auto;
   overflow-x: hidden;
+  padding: 4px var(--mc-content-padding) var(--mc-content-padding);
+  scrollbar-width: thin;
+  scrollbar-color: rgba(31, 80, 132, 0.16) transparent;
+}
+.canvas::-webkit-scrollbar { width: 6px; }
+.canvas::-webkit-scrollbar-thumb {
+  background: rgba(31, 80, 132, 0.16);
+  border-radius: 6px;
 }
 
-/* ── 页面切换过渡 ── */
+/* ─── 命令面板 ───────────────────────────────────────────── */
+.palette-mask {
+  position: fixed;
+  inset: 0;
+  z-index: 400;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 12vh;
+  background: rgba(19, 41, 66, 0.28);
+  backdrop-filter: blur(6px);
+}
 
+.palette {
+  width: min(620px, calc(100vw - 32px));
+  max-height: 66vh;
+  display: flex;
+  flex-direction: column;
+  border-radius: 18px;
+  border: 1px solid rgba(31, 80, 132, 0.10);
+  background: rgba(255, 255, 255, 0.99);
+  box-shadow: 0 30px 80px rgba(23, 54, 92, 0.22), 0 2px 10px rgba(23, 54, 92, 0.06);
+  overflow: hidden;
+  animation: palette-in 0.16s var(--mc-ease-out);
+}
+
+@keyframes palette-in {
+  from { opacity: 0; transform: translateY(-8px) scale(0.99); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.palette-input-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 16px;
+  border-bottom: 1px solid rgba(31, 80, 132, 0.08);
+}
+
+.palette-search-icon {
+  font-size: 16px;
+  color: rgba(22, 41, 63, 0.36);
+  flex-shrink: 0;
+}
+
+.palette-input {
+  flex: 1;
+  min-width: 0;
+  border: none;
+  background: transparent;
+  outline: none;
+  color: #16293F;
+  font-size: 15px;
+  font-family: var(--mc-font-family);
+  letter-spacing: 0.005em;
+}
+.palette-input::placeholder {
+  color: rgba(22, 41, 63, 0.32);
+}
+
+.palette-esc {
+  font-family: var(--mc-font-mono);
+  font-size: 9px;
+  padding: 2px 6px;
+  border-radius: 4px;
+  border: 1px solid rgba(31, 80, 132, 0.12);
+  background: rgba(76, 157, 228, 0.06);
+  color: rgba(22, 41, 63, 0.36);
+  flex-shrink: 0;
+}
+
+.palette-results {
+  flex: 1;
+  overflow-y: auto;
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(31, 80, 132, 0.16) transparent;
+}
+
+.palette-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 12px;
+  border: none;
+  border-radius: 10px;
+  background: transparent;
+  color: rgba(22, 41, 63, 0.7);
+  font-size: 13px;
+  font-family: var(--mc-font-family);
+  cursor: pointer;
+  text-align: left;
+  transition: background 0.14s ease, color 0.14s ease;
+}
+
+.palette-item--active {
+  background: linear-gradient(90deg, rgba(76, 157, 228, 0.16) 0%, rgba(76, 157, 228, 0.06) 100%);
+  color: #1F63A6;
+}
+
+.palette-item-main {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.palette-item-icon {
+  font-size: 15px;
+  color: #3285CE;
+  flex-shrink: 0;
+}
+
+.palette-item-label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.palette-item-group {
+  font-size: 11px;
+  color: rgba(22, 41, 63, 0.36);
+  flex-shrink: 0;
+}
+
+.palette-empty {
+  padding: 28px 12px;
+  text-align: center;
+  font-size: 13px;
+  color: rgba(22, 41, 63, 0.36);
+}
+
+.palette-foot {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 10px 16px;
+  border-top: 1px solid rgba(31, 80, 132, 0.08);
+  font-size: 10px;
+  color: rgba(22, 41, 63, 0.36);
+}
+
+.palette-foot kbd {
+  font-family: var(--mc-font-mono);
+  font-size: 9px;
+  padding: 1px 5px;
+  margin-right: 3px;
+  border-radius: 3px;
+  border: 1px solid rgba(31, 80, 132, 0.12);
+  background: rgba(76, 157, 228, 0.06);
+  color: rgba(22, 41, 63, 0.44);
+}
+
+.palette-foot-tip {
+  margin-left: auto;
+  color: rgba(22, 41, 63, 0.3);
+}
 
 /* ═══════════════════════════════════════════════════════════
    响应式
    ═══════════════════════════════════════════════════════════ */
-@media (max-width: 768px) {
-  .header {
-    padding: 0 16px;
-  }
-  .content {
-    padding: 12px;
-  }
-  .user-info {
+@media (max-width: 1024px) {
+  .cmd-search-text {
     display: none;
   }
-  .app-readonly-name {
-    max-width: 80px;
+  .cmd-user-meta {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  /* 移动端：侧栏改为抽屉，展开时从左侧滑入 */
+  .sider,
+  .sider--collapsed {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 252px;
+    padding: 12px 10px;
+    transform: translateX(-100%);
+    transition: transform 0.24s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 330;
+    box-shadow: 0 18px 44px rgba(23, 54, 92, 0.18);
+  }
+  .sider--open,
+  .sider--collapsed.sider--open {
+    transform: translateX(0);
+  }
+
+  /* 抽屉内始终展示完整菜单，不受折叠态影响 */
+  .sider--collapsed .sider-brand {
+    flex-direction: row;
+    padding-bottom: 12px;
+  }
+  .sider--collapsed .brand-btn {
+    justify-content: flex-start;
+  }
+  .sider--collapsed .nav-parent {
+    justify-content: flex-start;
+    gap: 10px;
+    padding: 0 10px;
+  }
+  .sider--collapsed .nav-parent-label {
+    display: block;
+  }
+  .sider--collapsed .nav-parent-count {
+    display: inline-block;
+  }
+  .sider--collapsed .nav-parent-arrow {
+    display: block;
+  }
+  .sider--collapsed .sider-manage {
+    justify-content: flex-start;
+    padding: 0 10px;
+  }
+
+  .workspace {
+    padding: 8px 8px 0;
+    gap: 8px;
+  }
+  .commandbar {
+    height: 48px;
+    padding: 0 8px;
+    border-radius: 13px;
+  }
+  .canvas {
+    padding: 2px 10px 14px;
+  }
+  .cmd-trail-group,
+  .cmd-trail-sep {
+    display: none;
+  }
+  .cmd-trail-page {
+    max-width: 140px;
+    font-size: 13px;
+  }
+  .cmd-app-name {
+    max-width: 70px;
   }
 }
 </style>
