@@ -1,11 +1,12 @@
 /**
  * 工作区菜单模型
  *
- * 一级菜单（group）= 左侧图标轨道
- * 二级菜单（item） = 上下文面板中的页面入口
+ * 一级菜单（group）= 左侧面板中的分组
+ * 二级菜单（item） = 分组内的页面入口
+ * 顶部菜单（topItem）= 横向展示在命令栏下方的页面入口
  *
  * 这份配置是菜单的唯一数据源：布局渲染与「模块管理」页面共用同一份结构，
- * 用户对显示/隐藏/顺序/增删的调整由 stores/menu.ts 持久化到浏览器。
+ * 用户对显示/隐藏/顺序/层级/位置的调整由 stores/menu.ts 持久化到浏览器。
  */
 import type { Component } from 'vue'
 import {
@@ -45,9 +46,13 @@ export interface MenuItemDef {
   /** 路由路径，同时作为唯一标识 */
   key: string
   label: string
+  /** 二级菜单自己的图标，缺省时跟随所属分组 */
+  icon?: string
   permission?: keyof MenuPermissions
   feature?: FeatureKey
   hidden?: boolean
+  /** 停用：保留配置但不参与渲染 */
+  disabled?: boolean
   custom?: boolean
 }
 
@@ -57,10 +62,27 @@ export interface MenuGroupDef {
   icon: string
   permission?: keyof MenuPermissions
   hidden?: boolean
+  /** 停用：保留配置但不参与渲染 */
+  disabled?: boolean
   custom?: boolean
   /** 固定模块：不允许隐藏或删除，避免把自己关在门外 */
   locked?: boolean
   children: MenuItemDef[]
+}
+
+/** 顶部菜单项：由某个二级菜单提升而来，可随时还原回原分组 */
+export interface TopMenuItem {
+  /** 路由路径，唯一标识 */
+  key: string
+  label: string
+  icon: string
+  permission?: keyof MenuPermissions
+  feature?: FeatureKey
+  /** 停用：保留配置但不参与渲染 */
+  disabled?: boolean
+  /** 来源一级菜单，还原时回到这里 */
+  fromGroupKey?: string
+  custom?: boolean
 }
 
 /* ── 图标注册表 ─────────────────────────────────────────── */
@@ -270,11 +292,11 @@ export function buildVisibleMenu(
       result.push({ ...group, children: group.children.map(item => ({ ...item })) })
       continue
     }
-    if (group.hidden) continue
+    if (group.hidden || group.disabled) continue
     if (group.permission && !perms[group.permission]) continue
 
     const children = group.children.filter((item) => {
-      if (item.hidden) return false
+      if (item.hidden || item.disabled) return false
       if (item.permission && !perms[item.permission]) return false
       if (item.feature && !FEATURES[item.feature]) return false
       return true
@@ -285,4 +307,17 @@ export function buildVisibleMenu(
   }
 
   return result
+}
+
+/** 顶部菜单同样按权限、功能开关过滤 */
+export function buildVisibleTopItems(
+  items: TopMenuItem[],
+  perms: MenuPermissions,
+): TopMenuItem[] {
+  return items.filter((item) => {
+    if (item.disabled) return false
+    if (item.permission && !perms[item.permission]) return false
+    if (item.feature && !FEATURES[item.feature]) return false
+    return true
+  })
 }

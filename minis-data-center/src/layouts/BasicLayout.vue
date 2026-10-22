@@ -90,7 +90,7 @@
         </button>
 
         <div class="cmd-trail">
-          <span class="cmd-trail-group">{{ activeGroup?.label ?? '工作区' }}</span>
+          <span class="cmd-trail-group">{{ activeGroup?.label ?? (isTopActive ? '顶部菜单' : '工作区') }}</span>
           <IconRight class="cmd-trail-sep" />
           <span class="cmd-trail-page">{{ currentTitle }}</span>
         </div>
@@ -134,6 +134,21 @@
           </template>
         </a-dropdown>
       </header>
+
+      <!-- 顶部菜单：从二级菜单提升而来，横向直达 -->
+      <nav v-if="topItems.length" class="topbar" aria-label="顶部菜单">
+        <button
+          v-for="item in topItems"
+          :key="item.key"
+          type="button"
+          class="topbar-item"
+          :class="{ 'topbar-item--active': item.key === activeMenuKey }"
+          @click="go(item.key)"
+        >
+          <component :is="resolveMenuIcon(item.icon)" class="topbar-item-icon" />
+          <span class="topbar-item-label">{{ item.label }}</span>
+        </button>
+      </nav>
 
       <div class="canvas">
         <router-view v-slot="{ Component, route: current }">
@@ -217,7 +232,7 @@ import ThemeStudio from '@/components/ThemeStudio/index.vue'
 import { useAccountStore } from '@/stores/account.ts'
 import { useAppStore } from '@/stores/app.ts'
 import { useMenuStore } from '@/stores/menu.ts'
-import { resolveMenuIcon, type MenuGroupDef } from '@/config/menu.ts'
+import { resolveMenuIcon, type MenuGroupDef, type TopMenuItem } from '@/config/menu.ts'
 import { logout } from '@/api/auth.ts'
 import { cancelHoverPrefetch, prefetchOnHover } from '@/utils/route-prefetch.ts'
 
@@ -244,6 +259,7 @@ const paletteInputRef = ref<HTMLInputElement | null>(null)
 
 const perms = computed(() => accountStore.menuPerms)
 const groups = computed<MenuGroupDef[]>(() => menuStore.visibleGroups(perms.value))
+const topItems = computed<TopMenuItem[]>(() => menuStore.visibleTopItems(perms.value))
 
 /* ── 路由 → 菜单归属 ──────────────────────────────────── */
 
@@ -270,6 +286,8 @@ const activeGroup = computed<MenuGroupDef | null>(() => {
 })
 
 const activeGroupKey = computed(() => activeGroup.value?.key ?? '')
+
+const isTopActive = computed(() => topItems.value.some(item => item.key === activeMenuKey.value))
 
 const currentTitle = computed(() => (route.meta?.title as string) ?? '')
 
@@ -991,6 +1009,56 @@ watch(activeGroupKey, (key) => {
 .cmd-user-caret {
   font-size: 10px;
   color: color-mix(in srgb, var(--mc-text-primary) 37%, transparent);
+}
+
+/* ─── 顶部菜单 ───────────────────────────────────────────── */
+.topbar {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 6px 9px;
+  border-radius: 13px;
+  background: color-mix(in srgb, var(--mc-bg-card) 86%, transparent);
+  border: 1px solid color-mix(in srgb, var(--mc-text-primary) 10%, transparent);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.14);
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.topbar::-webkit-scrollbar { display: none; }
+
+.topbar-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 30px;
+  padding: 0 11px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  background: transparent;
+  color: color-mix(in srgb, var(--mc-text-primary) 60%, transparent);
+  font-size: 12.5px;
+  font-family: var(--mc-font-family);
+  cursor: pointer;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: background 0.16s ease, color 0.16s ease, border-color 0.16s ease;
+}
+.topbar-item:hover {
+  background: rgba(76, 157, 228, 0.09);
+  color: var(--mc-text-primary);
+}
+.topbar-item--active {
+  background: rgba(76, 157, 228, 0.16);
+  border-color: rgba(124, 195, 240, 0.36);
+  color: var(--mc-text-primary);
+  font-weight: 600;
+}
+.topbar-item-icon {
+  font-size: 14px;
+  color: #7CC3F0;
 }
 
 .canvas {

@@ -6,7 +6,7 @@
         <p class="page-eyebrow">WORKSPACE</p>
         <h1 class="page-title">模块管理</h1>
         <p class="page-desc">
-          调整左侧侧边栏的显示与顺序，自定义一级、二级菜单。配置保存在当前浏览器。
+          调整侧边栏与顶部菜单的显示与顺序。点「编辑」可在「上级菜单」里把任意菜单切到一级、二级或顶部。
         </p>
       </div>
       <div class="page-head-actions">
@@ -28,9 +28,47 @@
     <div class="modules-body">
       <!-- ── 菜单配置列表 ─────────────────────────────── -->
       <section class="group-stack">
+        <!-- ── 顶部菜单 ─────────────────────────────── -->
+        <article v-if="menuStore.topItems.length" class="top-card" data-group-key="__top">
+          <header class="top-card-head">
+            <span class="top-card-icon"><IconToTop /></span>
+            <div class="top-card-meta">
+              <p class="top-card-title">顶部菜单</p>
+              <p class="top-card-desc">横向展示在命令栏下方，任何页面都能一键直达</p>
+            </div>
+            <span class="group-spacer" />
+            <span class="group-count">{{ menuStore.topItems.length }} 个</span>
+          </header>
+          <div class="top-list">
+            <div v-for="(item, index) in menuStore.topItems" :key="item.key" class="top-chip">
+              <component :is="resolveMenuIcon(item.icon)" class="top-chip-icon" />
+              <span class="top-chip-label">{{ item.label }}</span>
+              <code class="top-chip-path">{{ item.key }}</code>
+              <span class="group-spacer" />
+              <button
+                type="button"
+                class="mini-btn mini-btn--layer"
+                title="编辑菜单"
+                @click="openEditTop(item, index)"
+              >
+                <IconEdit />
+              </button>
+              <button
+                type="button"
+                class="mini-btn"
+                title="还原为侧边栏二级菜单"
+                @click="restoreToSidebar(item)"
+              >
+                <IconUndo />
+              </button>
+            </div>
+          </div>
+        </article>
+
         <article
           v-for="(group, groupIndex) in menuStore.groups"
           :key="group.key"
+          :data-group-key="group.key"
           class="group-card"
           :class="{ 'group-card--muted': group.hidden && !group.locked }"
         >
@@ -78,6 +116,7 @@
             <span v-else-if="group.custom" class="badge badge--custom">自定义</span>
             <span v-if="group.permission" class="badge">{{ PERMISSION_LABEL[group.permission] }}</span>
             <span v-if="group.hidden && !group.locked" class="badge badge--off">已隐藏</span>
+            <span v-if="group.disabled" class="badge badge--off">已停用</span>
 
             <span class="group-count">{{ group.children.length }} 个</span>
             <span class="group-spacer" />
@@ -90,21 +129,12 @@
             />
             <button
               type="button"
-              class="mini-btn"
-              title="上移"
-              :disabled="groupIndex === 0"
-              @click="menuStore.moveGroup(group.key, -1)"
+              class="mini-btn mini-btn--layer"
+              title="编辑菜单"
+              :disabled="group.locked"
+              @click="openEditGroup(group, groupIndex)"
             >
-              <IconUp />
-            </button>
-            <button
-              type="button"
-              class="mini-btn"
-              title="下移"
-              :disabled="groupIndex === menuStore.groups.length - 1"
-              @click="menuStore.moveGroup(group.key, 1)"
-            >
-              <IconDown />
+              <IconEdit />
             </button>
             <button
               type="button"
@@ -153,6 +183,7 @@
               </span>
               <span v-if="item.custom" class="badge badge--custom">自定义</span>
               <span v-if="item.hidden" class="badge badge--off">已隐藏</span>
+              <span v-if="item.disabled" class="badge badge--off">已停用</span>
 
               <span class="group-spacer" />
 
@@ -164,21 +195,12 @@
               />
               <button
                 type="button"
-                class="mini-btn"
-                title="上移"
-                :disabled="itemIndex === 0"
-                @click="menuStore.moveItem(group.key, item.key, -1)"
+                class="mini-btn mini-btn--layer"
+                title="编辑菜单"
+                :disabled="group.locked"
+                @click="openEditItem(group, item, itemIndex)"
               >
-                <IconUp />
-              </button>
-              <button
-                type="button"
-                class="mini-btn"
-                title="下移"
-                :disabled="itemIndex === group.children.length - 1"
-                @click="menuStore.moveItem(group.key, item.key, 1)"
-              >
-                <IconDown />
+                <IconEdit />
               </button>
               <button
                 type="button"
@@ -230,6 +252,14 @@
               <dd>{{ menuStore.hiddenCount }}</dd>
             </div>
             <div class="stat">
+              <dt>顶部菜单</dt>
+              <dd>{{ menuStore.totalTop }}</dd>
+            </div>
+            <div class="stat">
+              <dt>停用</dt>
+              <dd>{{ menuStore.disabledCount }}</dd>
+            </div>
+            <div class="stat">
                 <dt>自定义</dt>
               <dd>{{ menuStore.customCount }}</dd>
             </div>
@@ -239,9 +269,11 @@
         <div class="side-card">
           <p class="side-title">操作提示</p>
           <ul class="tips">
-              <li>双击二级菜单名称可直接重命名。</li>
-              <li>点击一级菜单左侧图标可更换图标。</li>
-              <li>关闭开关即从左侧侧边栏隐藏，不会删除配置。</li>
+              <li>点「编辑」打开菜单配置，改「上级菜单」即可切换层级。</li>
+              <li>上级菜单选「一级菜单」= 侧边栏一级，选「顶部菜单」= 顶部栏。</li>
+              <li>菜单类型「目录」用于一级分组，「菜单」用于页面入口。</li>
+              <li>显示排序控制同级顺序；隐藏/停用都不会删除配置。</li>
+              <li>双击二级菜单名称可快速重命名。</li>
               <li>「模块管理」为固定模块，避免把自己关在门外。</li>
               <li>按 <kbd>Ctrl</kbd> + <kbd>K</kbd> 可在任意页面搜索模块。</li>
           </ul>
@@ -307,19 +339,102 @@
           <a-input v-model="itemForm.label" placeholder="默认为页面标题" maxlength="16" />
       </div>
     </a-modal>
+
+    <!-- ── 编辑菜单 ──────────────────────────────────── -->
+    <a-modal
+      v-model:visible="editVisible"
+      title="编辑菜单"
+      :mask-closable="false"
+      :width="560"
+      @before-ok="submitEdit"
+    >
+      <div class="form-row">
+        <label class="form-label form-label--required">上级菜单</label>
+        <a-select
+          v-model="editForm.parent"
+          :options="parentOptions"
+          :disabled="editTarget?.kind === 'group' || editForm.type === 'dir'"
+          placeholder="选择上级菜单"
+        />
+      </div>
+
+      <div v-if="editTarget?.kind !== 'group'" class="form-row">
+        <label class="form-label form-label--required">菜单类型</label>
+        <a-radio-group v-model="editForm.type" type="button" size="small" @change="handleTypeChange">
+          <a-radio value="dir">目录</a-radio>
+          <a-radio value="menu">菜单</a-radio>
+        </a-radio-group>
+        <span class="form-hint">目录作为一级分组；菜单可放在一级、二级或顶部。</span>
+      </div>
+
+      <div class="form-row">
+        <label class="form-label form-label--required">菜单名称</label>
+        <a-input v-model="editForm.label" placeholder="例如：短剧列表" maxlength="16" show-word-limit />
+      </div>
+
+      <div class="form-row">
+        <label class="form-label">菜单图标</label>
+        <div class="icon-grid icon-grid--form">
+          <button
+            v-for="icon in ICON_OPTIONS"
+            :key="icon"
+            type="button"
+            class="icon-cell"
+            :class="{ 'icon-cell--active': icon === editForm.icon }"
+            :title="icon"
+            @click="editForm.icon = icon"
+          >
+            <component :is="resolveMenuIcon(icon)" />
+          </button>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <label class="form-label">权限标识</label>
+        <a-input :model-value="editPermission" disabled placeholder="无需权限" />
+      </div>
+
+      <div class="form-row">
+        <label class="form-label">路由地址</label>
+        <a-input :model-value="editForm.path" disabled placeholder="目录无需路由" />
+      </div>
+
+      <div class="form-row">
+        <label class="form-label">显示排序</label>
+        <a-input-number v-model="editForm.order" :min="1" :max="orderMax" :step="1" style="width: 140px" />
+        <span class="form-hint">同级菜单内排序，数字越小越靠前。</span>
+      </div>
+
+      <div class="form-row">
+        <label class="form-label">是否显示</label>
+        <a-radio-group v-model="editForm.visible">
+          <a-radio :value="true">显示</a-radio>
+          <a-radio :value="false">隐藏</a-radio>
+        </a-radio-group>
+      </div>
+
+      <div class="form-row">
+        <label class="form-label">状态</label>
+        <a-radio-group v-model="editForm.enabled">
+          <a-radio :value="true">正常</a-radio>
+          <a-radio :value="false">停用</a-radio>
+        </a-radio-group>
+      </div>
+    </a-modal>
   </div>
 </template>
 
 <script setup lang="ts">
-import { computed, reactive, ref } from 'vue'
+import { computed, nextTick, reactive, ref } from 'vue'
 import { Message, Modal } from '@arco-design/web-vue'
 import {
   IconDelete,
-  IconDown,
+  IconEdit,
   IconEye,
   IconPlus,
   IconRefresh,
-  IconUp,
+  IconToTop,
+  IconUndo,
 } from '@arco-design/web-vue/es/icon'
 import {
   FEATURES,
@@ -328,6 +443,8 @@ import {
   PAGE_CATALOG,
   resolveMenuIcon,
   type MenuGroupDef,
+  type MenuItemDef,
+  type TopMenuItem,
 } from '@/config/menu.ts'
 import { useMenuStore } from '@/stores/menu.ts'
 
@@ -403,6 +520,201 @@ function handleShowAll() {
     }
   }
     Message.success('已显示全部菜单')
+}
+
+/* ── 编辑菜单：上级菜单 / 类型 / 排序 / 显示 / 状态 ───── */
+
+type EditTarget =
+  | { kind: 'group'; groupKey: string }
+  | { kind: 'item'; groupKey: string; itemKey: string }
+  | { kind: 'top'; itemKey: string }
+
+const editVisible = ref(false)
+const editTarget = ref<EditTarget | null>(null)
+const editForm = reactive({
+  parent: '0',
+  type: 'menu' as 'dir' | 'menu',
+  label: '',
+  icon: 'apps',
+  path: '',
+  order: 1,
+  visible: true,
+  enabled: true,
+})
+
+const parentOptions = computed(() => {
+  const options = [
+    { label: '一级菜单（侧边栏）', value: '0' },
+    { label: '顶部菜单', value: 'top' },
+  ]
+  for (const group of menuStore.groups) {
+    if (editTarget.value?.kind === 'group' && group.key === editTarget.value.groupKey) continue
+    options.push({ label: `挂到：${group.label}`, value: group.key })
+  }
+  return options
+})
+
+const orderMax = computed(() => {
+  const target = editTarget.value
+  if (!target) return 1
+  if (target.kind === 'group') return Math.max(menuStore.groups.length, 1)
+  if (target.kind === 'top') return Math.max(menuStore.topItems.length, 1)
+  const group = menuStore.groups.find(item => item.key === target.groupKey)
+  return Math.max(group?.children.length ?? 1, 1)
+})
+
+const editPermission = computed(() => {
+  const target = editTarget.value
+  if (!target) return ''
+  if (target.kind === 'group') {
+    const group = menuStore.groups.find(item => item.key === target.groupKey)
+    return group?.permission ? PERMISSION_LABEL[group.permission] : ''
+  }
+  if (target.kind === 'top') {
+    const item = menuStore.topItems.find(entry => entry.key === target.itemKey)
+    return item?.permission ? PERMISSION_LABEL[item.permission] : ''
+  }
+  const group = menuStore.groups.find(item => item.key === target.groupKey)
+  const item = group?.children.find(entry => entry.key === target.itemKey)
+  const permission = item?.permission ?? group?.permission
+  return permission ? PERMISSION_LABEL[permission] : ''
+})
+
+function openEditGroup(group: MenuGroupDef, index: number) {
+  editTarget.value = { kind: 'group', groupKey: group.key }
+  editForm.parent = '0'
+  editForm.type = 'dir'
+  editForm.label = group.label
+  editForm.icon = group.icon
+  editForm.path = ''
+  editForm.order = index + 1
+  editForm.visible = !group.hidden
+  editForm.enabled = !group.disabled
+  editVisible.value = true
+}
+
+function openEditItem(group: MenuGroupDef, item: MenuItemDef, index: number) {
+  editTarget.value = { kind: 'item', groupKey: group.key, itemKey: item.key }
+  editForm.parent = group.key
+  editForm.type = 'menu'
+  editForm.label = item.label
+  editForm.icon = item.icon ?? group.icon
+  editForm.path = item.key
+  editForm.order = index + 1
+  editForm.visible = !item.hidden
+  editForm.enabled = !item.disabled
+  editVisible.value = true
+}
+
+function openEditTop(item: TopMenuItem, index: number) {
+  editTarget.value = { kind: 'top', itemKey: item.key }
+  editForm.parent = 'top'
+  editForm.type = 'menu'
+  editForm.label = item.label
+  editForm.icon = item.icon
+  editForm.path = item.key
+  editForm.order = index + 1
+  editForm.visible = true
+  editForm.enabled = !item.disabled
+  editVisible.value = true
+}
+
+function handleTypeChange(value: unknown) {
+  if (value === 'dir') {
+    editForm.parent = '0'
+    editForm.path = ''
+  }
+}
+
+/** 保存后滚动到目标分组，避免用户以为“没反应” */
+function scrollToGroup(key: string) {
+  nextTick(() => {
+    const el = document.querySelector(`[data-group-key="${key}"]`)
+    el?.scrollIntoView({ behavior: 'smooth', block: 'center' })
+  })
+}
+
+function submitEdit() {
+  const target = editTarget.value
+  if (!target) return false
+  const label = editForm.label.trim()
+  if (!label) {
+    Message.warning('请填写菜单名称')
+    return false
+  }
+
+  if (target.kind === 'group') {
+    menuStore.updateGroup(target.groupKey, {
+      label,
+      icon: editForm.icon,
+      hidden: !editForm.visible,
+      disabled: !editForm.enabled,
+    })
+    menuStore.setGroupOrder(target.groupKey, editForm.order)
+    Message.success('已保存')
+    return true
+  }
+
+  if (target.kind === 'top') {
+    menuStore.updateTopItem(target.itemKey, {
+      label,
+      icon: editForm.icon,
+      disabled: !editForm.enabled,
+    })
+    if (editForm.parent !== 'top') {
+      menuStore.restoreTopItem(target.itemKey, editForm.parent)
+      Message.success(editForm.parent === '0' ? '已移到一级菜单' : '已还原到侧边栏')
+      const moved = menuStore.groups.find(group =>
+        group.children.some(child => child.key === target.itemKey),
+      )
+      if (moved) scrollToGroup(moved.key)
+    } else {
+      menuStore.setTopOrder(target.itemKey, editForm.order)
+      Message.success('已保存')
+      scrollToGroup('__top')
+    }
+    return true
+  }
+
+  const { groupKey, itemKey } = target
+  menuStore.updateItem(groupKey, itemKey, {
+    label,
+    icon: editForm.icon,
+    hidden: !editForm.visible,
+    disabled: !editForm.enabled,
+  })
+
+  const parent = editForm.type === 'dir' ? '0' : editForm.parent
+  if (parent === groupKey) {
+    menuStore.setItemOrder(groupKey, itemKey, editForm.order)
+    Message.success('已保存')
+    scrollToGroup(groupKey)
+  } else {
+    menuStore.relocateItem(groupKey, itemKey, parent)
+    if (parent === 'top') {
+      menuStore.setTopOrder(itemKey, editForm.order)
+      Message.success('已移到顶部菜单')
+      scrollToGroup('__top')
+    } else if (parent === '0') {
+      const created = menuStore.groups.find(group => group.children.some(child => child.key === itemKey))
+      if (created) {
+        menuStore.setGroupOrder(created.key, editForm.order)
+        scrollToGroup(created.key)
+      }
+      Message.success('已移到一级菜单')
+    } else {
+      menuStore.setItemOrder(parent, itemKey, editForm.order)
+      Message.success('已移到目标分组')
+      scrollToGroup(parent)
+    }
+  }
+
+  return true
+}
+
+function restoreToSidebar(item: TopMenuItem) {
+  menuStore.restoreTopItem(item.key)
+  Message.success(`「${item.label}」已还原到侧边栏`)
 }
 
   /* ── 新增一级菜单 ─────────────────────────────────────── */
@@ -527,6 +839,94 @@ function submitItem() {
   flex-direction: column;
   gap: 12px;
   min-width: 0;
+}
+
+/* ─── 顶部菜单卡 ─────────────────────────────────────────── */
+.top-card {
+  border-radius: 15px;
+  border: 1px dashed color-mix(in srgb, var(--mc-primary) 46%, transparent);
+  background:
+    linear-gradient(180deg, rgba(76, 157, 228, 0.09) 0%, rgba(76, 157, 228, 0.03) 100%);
+  overflow: hidden;
+}
+
+.top-card-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 13px;
+  border-bottom: 1px solid color-mix(in srgb, var(--mc-text-primary) 12%, transparent);
+}
+
+.top-card-icon {
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9px;
+  background: rgba(76, 157, 228, 0.14);
+  color: var(--mc-text-primary);
+  font-size: 15px;
+  flex-shrink: 0;
+}
+
+.top-card-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.top-card-title {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 700;
+  color: color-mix(in srgb, var(--mc-text-primary) 96%, transparent);
+}
+
+.top-card-desc {
+  margin: 0;
+  font-size: 11px;
+  color: color-mix(in srgb, var(--mc-text-primary) 48%, transparent);
+}
+
+.top-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 11px 13px;
+}
+
+.top-chip {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 5px 7px 5px 10px;
+  border-radius: 10px;
+  border: 1px solid color-mix(in srgb, var(--mc-text-primary) 15%, transparent);
+  background: color-mix(in srgb, var(--mc-bg-card) 92%, transparent);
+  min-width: 0;
+}
+
+.top-chip-icon {
+  font-size: 13px;
+  color: rgba(124, 195, 240, 0.9);
+}
+
+.top-chip-label {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: color-mix(in srgb, var(--mc-text-primary) 94%, transparent);
+}
+
+.top-chip-path {
+  font-size: 10.5px;
+  font-family: var(--mc-font-mono);
+  color: color-mix(in srgb, var(--mc-text-primary) 42%, transparent);
+}
+
+@media (max-width: 960px) {
+  .top-chip-path { display: none; }
 }
 
 /* ─── 一级菜单卡 ─────────────────────────────────────────── */
@@ -682,6 +1082,11 @@ function submitItem() {
   background: rgba(224, 87, 110, 0.12);
   border-color: rgba(224, 87, 110, 0.3);
   color: #F2748A;
+}
+.mini-btn--layer:hover:not(:disabled) {
+  background: rgba(76, 157, 228, 0.14);
+  border-color: rgba(124, 195, 240, 0.42);
+  color: #7CC3F0;
 }
 
   /* ─── 二级菜单行 ─────────────────────────────────────────── */
@@ -920,10 +1325,11 @@ function submitItem() {
 
 /* ─── 表单 ───────────────────────────────────────────────── */
 .form-row {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  margin-bottom: 16px;
+  display: grid;
+  grid-template-columns: 90px minmax(0, 1fr);
+  align-items: center;
+  gap: 6px 12px;
+  margin-bottom: 14px;
 }
 .form-row:last-child {
   margin-bottom: 0;
@@ -933,6 +1339,19 @@ function submitItem() {
   font-size: 12px;
   font-weight: 600;
   color: color-mix(in srgb, var(--mc-text-primary) 83%, transparent);
+}
+
+.form-label--required::before {
+  content: '*';
+  margin-right: 4px;
+  color: #F2748A;
+}
+
+.form-hint {
+  grid-column: 2;
+  font-size: 11px;
+  line-height: 1.5;
+  color: color-mix(in srgb, var(--mc-text-primary) 42%, transparent);
 }
 
   /* ─── 响应式 ─────────────────────────────────────────────── */
